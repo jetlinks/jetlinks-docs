@@ -132,8 +132,26 @@ JSON 格式
     "result": {
       "pageIndex": 0,
       "pageSize": 25,
-      "total": 0,
-      "data": []  
+      "total": 1,
+      "data": [
+        {
+                        "devid": "fa3j10",
+                        "b_name": "C2 栋",
+                        "productId": "smoke001",
+                        "pname": "TBS-110",
+                        "event_count": 141,
+                        "l_name": "4-5-201",
+                        "alarm_describe": "低电压报警",
+                        "deviceId": "fa3j10",
+                        "event_id": 135,
+                        "alarm_type": 2,
+                        "createTime": 1579168655955,
+                        "id": "BD3JrW8BLYpYPWFSdkYD",
+                        "aid": 136,
+                        "a_name": "未来科技城",
+                        "timestamp": "2018-01-04T08:28:50.000Z"
+                    }
+      ]  
     },
     "status": 200,
     "code": "success"
