@@ -162,6 +162,9 @@ JSON 格式
 
 ### 错误码
 
+## 菜单增删改查
+待完成..
+
 ## 获取菜单列表
 调用MenuController的getUserMenuAsTree方法获取用户自己的菜单列表。
 
