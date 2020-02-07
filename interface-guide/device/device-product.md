@@ -95,7 +95,7 @@ JSON 格式
 -------------- | ------------- | ------------- | ------------- | ------------- 
 productId | String | 是 | smoke001 | 设备型号id。
 eventId | String | 是 | fault_alarm | 事件id。
-queryParam | QueryParam | 否 |  | 公共查询参数，如deviceId:firedevice。
+queryParam | QueryParam | 否 |  | 公共查询参数，如deviceId:firedevice。具体请参考[QueryParam](../query-param.md)。
 
 ### 返回数据
 名称       | 类型 | 示例值 | 描述
