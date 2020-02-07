@@ -14,31 +14,31 @@ targetType | String | 是 | org,role | 设置目标类型(维度)标识，长度
 targetId | String | 是 | 1215543237527171072 | 设置目标,长度32。
 merge | boolean | 否 | true,false | 冲突时是否合并 
 priority | int | 否 | 10 | 冲突时优先级
-permissionList | List<PermissionInfo> | 否 | | 权限列表，权限信息下面表格单独说明。
+permissionList | List&#60;PermissionInfo&#62; | 否 | | 权限列表，权限信息下面表格单独说明。
 
 权限信息（PermissionInfo）参数说明： 
 
 名称       | 类型 | 是否必选 | 示例值 | 描述
 -------------- | ------------- | ------------- | ------------- | ------------- 
 id | String | 是 | device-product | 权限id，长度32。
-actions | Set<String> | 否 | save,query,delete | 授权操作
-fieldAccess | List<FieldAccess> | 否 |  | 字段权限 
-dataAccess | List<DataAccess> | 否 |  | 数据权限
+actions | Set&#60;String&#62; | 否 | save,query,delete | 授权操作
+fieldAccess | List&#60;FieldAccess&#62; | 否 |  | 字段权限 
+dataAccess | List&#60;DataAccess&#62; | 否 |  | 数据权限
 
 字段权限信息（FieldAccess）参数说明：
 
 名称       | 类型 | 是否必选 | 示例值 | 描述
 -------------- | ------------- | ------------- | ------------- | ------------- 
 name | String | 否 | id，state | 字段名称
-action | Set<String> | 否 | save,query,delete | 操作
+action | Set&#60;String&#62; | 否 | save,query,delete | 操作
 
 数据权限信息（DataAccess）参数说明：
 
 名称       | 类型 | 是否必选 | 示例值 | 描述
 -------------- | ------------- | ------------- | ------------- | ------------- 
 type | String | 否 | org | 维度类型
-action | Set<String> | 否 | save,query,delete | 操作
-config | Map<String, Object> | 否 |  | 其他配置
+action | Set&#60;String&#62; | 否 | save,query,delete | 操作
+config | Map&#60;String, Object&#62; | 否 |  | 其他配置
 
 ### 返回数据
 名称       | 类型 | 示例值 | 描述
@@ -116,7 +116,7 @@ targetType | String | org,role | 设置目标类型(维度)标识，长度32。
 targetId | String  | 1215543237527171072 | 设置目标,长度32。
 merge | boolean | true,false | 冲突时是否合并 
 priority | int | 10 | 冲突时优先级
-permissionList | List<PermissionInfo> | | 权限信息集合。
+permissionList | List&#60;PermissionInfo&#62; | | 权限信息集合。
 
 ### 示例
 
@@ -188,7 +188,7 @@ permissionExpression | String | resource:user | 权限表达式，用于权限�
 url | String | admin/user/list.html | 菜单对应页面的地址。
 icon | String | fa fa-user | 菜单图标。
 status | Byte | 1 | 状态
-children | List<MenuEntity> | | 子菜单集合。
+children | List&#60;MenuEntity&#62; | | 子菜单集合。
 parentId | String | e9dc96d6b677cbae865670e6813f5e8b | 父级菜单id。
 path | String | sOrB-Dz7b | 树结构编码,用于快速查找, 每一层由4位字符组成,用-分割。
 sortIndex | Long | 105 | 排序序号。
