@@ -8,7 +8,7 @@
 - 您必须拥有autz-setting权限。
 
 ### 请求参数
-名称       | 类型 | 是否必选 | 示例值 | 描述
+名称       | 类型 | 是否必选 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- | ------------- 
 targetType | String | 是 | org,role | 设置目标类型(维度)标识，长度32。
 targetId | String | 是 | 1215543237527171072 | 设置目标,长度32。
@@ -18,7 +18,7 @@ permissionList | List&#60;PermissionInfo&#62; | 否 | | 权限列表，权限信
 
 权限信息（PermissionInfo）参数说明： 
 
-名称       | 类型 | 是否必选 | 示例值 | 描述
+名称       | 类型 | 是否必选 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- | ------------- 
 id | String | 是 | device-product | 权限id，长度32。
 actions | Set&#60;String&#62; | 否 | save,query,delete | 授权操作
@@ -27,21 +27,21 @@ dataAccess | List&#60;DataAccess&#62; | 否 |  | 数据权限
 
 字段权限信息（FieldAccess）参数说明：
 
-名称       | 类型 | 是否必选 | 示例值 | 描述
+名称       | 类型 | 是否必选 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- | ------------- 
 name | String | 否 | id，state | 字段名称
 action | Set&#60;String&#62; | 否 | save,query,delete | 操作
 
 数据权限信息（DataAccess）参数说明：
 
-名称       | 类型 | 是否必选 | 示例值 | 描述
+名称       | 类型 | 是否必选 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- | ------------- 
 type | String | 否 | org | 维度类型
 action | Set&#60;String&#62; | 否 | save,query,delete | 操作
 config | Map&#60;String, Object&#62; | 否 |  | 其他配置
 
 ### 返回数据
-名称       | 类型 | 示例值 | 描述
+名称       | 类型 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- 
 result | boolean | true | 保存是否成功
 status | int | 200 | 状态码
@@ -81,11 +81,13 @@ RequestBody:
 
 JSON 格式
 
+```json
 {
     "result": true,
     "status": 200,
     "code": "success"
 }
+```
 
 ### 错误码
 
@@ -96,13 +98,13 @@ JSON 格式
 - 您必须拥有autz-setting权限。
 
 ### 请求参数
-名称       | 类型 | 是否必选 | 示例值 | 描述
+名称       | 类型 | 是否必选 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- | ------------- 
 targetType | String | 是 | org,role | 设置目标类型(维度)标识，长度32。
 targetId | String | 是 | 1215543237527171072 | 设置目标,长度32。
 
 ### 返回数据
-名称       | 类型 | 示例值 | 描述
+名称       | 类型 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- 
 result | AuthorizationSettingDetail | true | 返回值，下表单独说明
 status | int | 200 | 状态码
@@ -110,7 +112,7 @@ code | String  | success | 业务编码
 
 result属性如下： 
  
-名称       | 类型 | 示例值 | 描述
+名称       | 类型 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- 
 targetType | String | org,role | 设置目标类型(维度)标识，长度32。
 targetId | String  | 1215543237527171072 | 设置目标,长度32。
@@ -131,6 +133,7 @@ RequestMethod: GET
 
 #### 正常返回示例
 JSON 格式  
+```json
 {
     "result": {
         "targetType": "user",
@@ -160,6 +163,7 @@ JSON 格式
     "code": "success"
 }
 
+```
 ### 错误码
 
 ## 菜单增删改查
@@ -172,7 +176,7 @@ JSON 格式
 无。
 
 ### 返回数据
-名称       | 类型 | 示例值 | 描述
+名称       | 类型 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- 
 result | MenuEntity集合 | true | 返回值，下表单独说明
 status | int | 200 | 状态码
@@ -180,7 +184,7 @@ code | String  | success | 业务编码
 
 result列表中MenuEntity属性如下： 
  
-名称       | 类型 | 示例值 | 描述
+名称       | 类型 | 示例值 | 描述  
 -------------- | ------------- | ------------- | ------------- 
 name | String | 用户管理 | 菜单名称。
 describe | String  | 用户管理、用户权限分配 | 菜单描述。
@@ -189,7 +193,7 @@ url | String | admin/user/list.html | 菜单对应页面的地址。
 icon | String | fa fa-user | 菜单图标。
 status | Byte | 1 | 状态
 children | List&#60;MenuEntity&#62; | | 子菜单集合。
-parentId | String | e9dc96d6b677cbae865670e6813f5e8b | 父级菜单id。
+parentId | String | e9dc96d***5e8b | 父级菜单id。
 path | String | sOrB-Dz7b | 树结构编码,用于快速查找, 每一层由4位字符组成,用-分割。
 sortIndex | Long | 105 | 排序序号。
 level | Integer | 2 | 树层级。
@@ -205,6 +209,7 @@ RequestHeader:
 RequestMethod: GET  
 
 #### 正常返回示例
+```json
 {
     "result": [
         {
@@ -574,5 +579,5 @@ RequestMethod: GET
     "status": 200,
     "code": "success"
 }
-
+```
 ### 错误码

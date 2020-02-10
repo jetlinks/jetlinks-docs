@@ -36,11 +36,13 @@ RequestMethod: POST
 
 JSON 格式
 
+```json
 {
     "result": 1,
     "status": 200,
     "code": "success"
 }
+```
 
 ### 错误码
 
@@ -76,11 +78,13 @@ RequestMethod: POST
 
 JSON 格式
 
+```json
 {
     "result": 1,
     "status": 200,
     "code": "success"
 }
+```
 
 ### 错误码
 
@@ -128,6 +132,7 @@ RequestMethod: GET
 
 JSON 格式
 
+```json
 {
     "result": {
       "pageIndex": 0,
@@ -156,5 +161,6 @@ JSON 格式
     "status": 200,
     "code": "success"
 }
+```
 
 ### 错误码
