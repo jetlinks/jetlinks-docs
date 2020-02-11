@@ -12,4 +12,17 @@ JetLinks 是一个物联网基础平台,用于快速建立物联网相关业务�
 
 - 灵活的多维度权限控制,可支持`列`,`行`级别数据权限控制.
 
+官方QQ群: `2021514`
+
+# 技术栈
+
+1. [Spring Boot 2.2.x](https://spring.io/projects/spring-boot)
+2. [Spring WebFlux](https://spring.io/) 响应式Web支持
+3. [R2DBC](https://r2dbc.io/) 响应式关系型数据库驱动
+4. [Project Reactor](https://projectreactor.io/) 响应式编程框架
+4. [Netty](https://netty.io/),[Vert.x](https://vertx.io/) 高性能网络编程框架
+5. [ElasticSearch](https://www.elastic.co/cn/products/enterprise-search) 全文检索，日志，时序数据存储
+6. [PostgreSQL](https://www.postgresql.org) 业务功能数据管理
+7. [hsweb framework 4](https://github.com/hs-web) 业务功能基础框架
+
 
