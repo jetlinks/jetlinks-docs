@@ -2,7 +2,7 @@
 权限分配以及菜单加载。
 
 ## 权限分配
-调用AuthorizationSettingDetailController的saveSettings方法保存分配的权限设置。
+调用`/autz-setting/detail/_save`接口保存分配的权限设置。
 
 **调用该接口前，请您注意：**
 - 您必须拥有autz-setting权限。
@@ -50,7 +50,7 @@ code | String  | success | 业务编码
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/autz-setting/detail/_save  
+RequestUrl: `http(s)://localhost:8844/autz-setting/detail/_save`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
@@ -92,7 +92,7 @@ JSON 格式
 ### 错误码
 
 ## 获取权限设置
-调用AuthorizationSettingDetailController的getSettings方法根据`设置目标类型标识`和`设置目标`获取权限设置。
+调用`/autz-setting/detail/{targetType}/{target}`接口，根据`设置目标类型标识`和`设置目标`获取权限设置。
 
 **调用该接口前，请您注意：**
 - 您必须拥有autz-setting权限。
@@ -123,8 +123,7 @@ permissionList | List&#60;PermissionInfo&#62; | | 权限信息集合。
 ### 示例
 
 #### 请求示例
-http(s)://localhost:8844/autz-setting/detail/{targetType}/{target}  
-RequestUrl:http(s)://localhost:8844/autz-setting/detail/user/1207872923872436224  
+RequestUrl:`http(s)://localhost:8844/autz-setting/detail/user/1207872923872436224`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
@@ -170,7 +169,7 @@ JSON 格式
 待完成..
 
 ## 获取菜单列表
-调用MenuController的getUserMenuAsTree方法获取用户自己的菜单列表。
+调用`/menu/user-own/tree`接口获取用户自己的菜单列表。
 
 ### 请求参数
 无。
@@ -201,7 +200,7 @@ level | Integer | 2 | 树层级。
 ### 示例
 
 #### 请求示例
-RequestUrl:http(s)://localhost:8844/menu/user-own/tree  
+RequestUrl:`http(s)://localhost:8844/menu/user-own/tree`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  

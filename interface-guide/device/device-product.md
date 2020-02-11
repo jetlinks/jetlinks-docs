@@ -25,7 +25,7 @@ code | String  | success | 业务编码
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/device-product/deploy/1202041662094827520  
+RequestUrl: `http(s)://localhost:8844/device-product/deploy/1202041662094827520`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
@@ -67,7 +67,7 @@ code | String  | success | 业务编码
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/device-product/cancelDeploy/1202041662094827520  
+RequestUrl: `http(s)://localhost:8844/device-product/cancelDeploy/1202041662094827520`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
@@ -121,7 +121,7 @@ data | Map  |  | 根据不同的Event返回不同的数据，此处以烟感器�
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/device-product/smoke001/event/fault_alarm?terms%5B0%5D.column=deviceId&terms%5B0%5D.value=firedevice  
+RequestUrl: `http(s)://localhost:8844/device-product/smoke001/event/fault_alarm?terms%5B0%5D.column=deviceId&terms%5B0%5D.value=firedevice`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  

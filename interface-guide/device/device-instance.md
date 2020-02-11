@@ -33,7 +33,7 @@ message | String  | success | 业务编码
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/device-instance/deploy/1202041662094827520  
+RequestUrl: `http(s)://localhost:8844/device-instance/deploy/1202041662094827520`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
@@ -75,7 +75,7 @@ code | String  | success | 业务编码
 ### 示例
 
 #### 请求示例
-RequestUrl: http(s)://localhost:8844/device-instance/cancelDeploy/1202041662094827520  
+RequestUrl: `http(s)://localhost:8844/device-instance/cancelDeploy/1202041662094827520`  
 
 RequestHeader:  
     X-Access-Token:1198ab9ddf6b4ba191d3285debc9dd2d  
