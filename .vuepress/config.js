@@ -1,0 +1,129 @@
+module.exports = {
+    title: 'jetlinks系统文档',
+    descirption: '测试文档',
+    //basic: './dist',
+	port: 9999,
+    themeConfig: {
+        nav: [
+            { text: '关于', link: 'http://jetlinks.cn/' },
+            { text: 'GitHub', link: 'https://github.com/jetlinks' }
+        ],
+        sidebar: [
+            {
+                title: '基础',   // 必要的
+                //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 2,    // 可选的, 默认值是 1
+                children: [
+                    ['/basics-guide/course/introduction.md', '介绍'],
+                    ['/basics-guide/quick-start.md', '快速开始'],
+                    ['/basics-guide/course/system-layout','系统配置'],
+                    ['/basics-guide/device-manager.md','设备管理'],
+                    ['/basics-guide/course/network.md','网络组件'],
+                    ['/basics-guide/course/notification.md','通知管理'],
+                    ['/basics-guide/course/rule-engine.md','规则引擎'],
+                    ['/basics-guide/course/logger.md','日志管理'],
+                    ['/basics-guide/course/data-visualization.md','数据可视化(Pro)']
+                ]
+            },
+            {
+                title: '进阶',   // 必要的
+                //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 1,    // 可选的, 默认值是 1
+                children: [
+                    ['/advancement-guide/mqtt-connection.md', '使用MQTT服务网关接入设备'],
+                    ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
+                    ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
+                    ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
+                    ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)']
+                ]
+            },
+            {
+                title: '开发',
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 1,    // 可选的, 默认值是 1
+                children: [
+                    ['/dev-guide/start.md', '介绍'],
+                    ['/dev-guide/specification', '规范'],
+                    ['/dev-guide/reactor.md', '响应式'],
+                    ['/dev-guide/crud.md', '增删改查'],
+                    ['/dev-guide/event-driver.md', '事件驱动之消息网关'],
+                    ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
+                    ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
+                    ['/dev-guide/subscribe-messages.md', '在程序中订阅设备消息'],
+                    ['/dev-guide/send-message.md', '向设备发送消息'],
+                    ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
+                    // ['/dev-guide/device-operation.md', '设备操作'],
+                    // ['/dev-guide/message-gateway.md', '消息网关'],
+                    // ['/dev-guide/device-gateway.md', '设备网关'],
+                    // ['/dev-guide/jetlinks-protocol', '协议开发'],
+                    // ['/dev-guide/rule-engine', '规则引擎']
+                ]
+            },
+            {
+                title: '常见问题',   // 必要的
+                //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 1,    // 可选的, 默认值是 1
+                children: [
+                    //['', '介绍'],
+                    //['', '快速开始'],
+                    ['/common-problems/network-components.md','网络组件常见问题'],
+                    ['/common-problems/mqtt-connection.md','使用MQTT接入时的常见错误'],
+                    ['/common-problems/tcp-network-components.md','TCP网络组件常见问题']
+                ]
+            },
+    //         {
+    //             title: '教程',   // 必要的
+	// //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+    //             collapsable: false, // 可选的, 默认值是 true,
+    //             sidebarDepth: 1,    // 可选的, 默认值是 1
+    //             children: [
+	// 	    ['/basics-guide/course/introduction.md', '介绍'],
+    //                 ['/basics-guide/quick-start.md', '快速开始'],
+	// 		['/basics-guide/course/user-permisson','权限'],
+	// 		['/basics-guide/device-manager.md','设备管理'],
+	// 		['/basics-guide/course/network.md','网络组件'],
+	// 		['/basics-guide/course/device-connection.md','设备接入'],
+	// 		['/basics-guide/course/message.md','消息通知']
+    //             ]
+    //         },
+	    {
+                title: 'HTTP接口文档',   // 必要的
+        //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 1,    // 可选的, 默认值是 1
+                children: [
+                    //['', '介绍'],
+                    //['', '快速开始'],
+                        ['/interface-guide/authentication','权限设置'],
+                        ['/interface-guide/device/device-product','设备型号'],
+			['/interface-guide/device/device-instance','设备实例'],
+                        ['','网络组件'],
+                        ['','设备接入'],
+                        ['','消息通知'],
+                        ['','openApi']
+                ]
+            }
+           //  ,
+           //  {
+           //      title: '开发手册',
+           //      collapsable: false, // 可选的, 默认值是 true,
+           //      sidebarDepth: 1,    // 可选的, 默认值是 1
+           //      children: [
+           //          ['/dev-guide/start.md', '简介'],
+			// ['/dev-guide/specification', '命名'],
+		   //  ['/dev-guide/crud.md', '增删改查'],
+			// ['/dev-guide/device-operation.md', '设备操作'],
+			// ['/dev-guide/event-driver.md', '事件驱动'],
+			// ['/dev-guide/message-gateway.md', '消息网关'],
+			// ['/dev-guide/device-gateway.md', '设备网关'],
+           //          ['/dev-guide/jetlinks-protocol', '协议开发'],
+           //          ['/dev-guide/rule-engine', '规则引擎']
+           //      ]
+           // }
+        ]
+    }
+}
+
