@@ -6,7 +6,9 @@ module.exports = {
     themeConfig: {
         nav: [
             { text: '关于', link: 'http://jetlinks.cn/' },
-            { text: 'GitHub', link: 'https://github.com/jetlinks' }
+            { text: 'GitHub', link: 'https://github.com/jetlinks' },
+            { text: 'gitee', link: 'https://gitee.com/jetlinks' },
+            { text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues' }
         ],
         sidebar: [
             {
@@ -32,8 +34,11 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 1,    // 可选的, 默认值是 1
                 children: [
+                    ['/advancement-guide/jetlinks-protocol.md', 'JetLinks官方协议说明'],
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT服务网关接入设备'],
+                    ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
+                    ['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
                     ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
                     ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)']
@@ -69,8 +74,9 @@ module.exports = {
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
+                    ['/common-problems/install.md','安装,启动常见问题'],
                     ['/common-problems/network-components.md','网络组件常见问题'],
-                    ['/common-problems/mqtt-connection.md','使用MQTT接入时的常见错误'],
+                    ['/common-problems/mqtt-connection.md','使用MQTT接入时的常见问题'],
                     ['/common-problems/tcp-network-components.md','TCP网络组件常见问题']
                 ]
             },
