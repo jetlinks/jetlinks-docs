@@ -8,7 +8,8 @@ module.exports = {
             { text: '关于', link: 'http://jetlinks.cn/' },
             { text: 'GitHub', link: 'https://github.com/jetlinks' },
             { text: 'gitee', link: 'https://gitee.com/jetlinks' },
-            { text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues' }
+            { text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues' },
+            { text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues' }
         ],
         sidebar: [
             {
@@ -35,7 +36,7 @@ module.exports = {
                 sidebarDepth: 1,    // 可选的, 默认值是 1
                 children: [
                     ['/advancement-guide/jetlinks-protocol.md', 'JetLinks官方协议说明'],
-                    ['/advancement-guide/protocol-support.md', '平台统一消息说明'],
+                    ['/basics-guid/protocol-support.md', '平台统一消息说明'],
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT服务网关接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
@@ -57,7 +58,6 @@ module.exports = {
                     ['/dev-guide/event-driver.md', '事件驱动之消息网关'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                     ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
-                    ['/dev-guide/subscribe-messages.md', '在程序中订阅设备消息'],
                     ['/dev-guide/send-message.md', '向设备发送消息'],
                     ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],
