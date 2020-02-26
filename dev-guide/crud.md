@@ -103,16 +103,16 @@ hsweb提供来一套统一的权限控制API,方便进行细粒度的权限控�
 
 常用注解:
 
-1. `Resource`: 用于定义资源,通常注解在类上.
-2. `ResourceAction`: 定义对资源对操作,通常注解在方法上.
-3. `QueryAction`: 继承自`@ResourceAction(id = "query", name = "查询")`
-4. `SaveAction`: 继承自`@ResourceAction(id = "save", name = "保存")`
-5. `DeleteAction`: 继承自`@ResourceAction(id = "delete", name = "删除")`
-6. `Authorze`: 声明权限控制,注解在类或者方法上,可通过注解属性配置控制权限方式.
-7. `EnableAopAuthorize`: 注解在启动类上,开启权限控制.
+1. `@Resource`: 用于定义资源,通常注解在类上.
+2. `@ResourceAction`: 定义对资源对操作,通常注解在方法上.
+3. `@QueryAction`: 继承自`@ResourceAction(id = "query", name = "查询")`
+4. `@SaveAction`: 继承自`@ResourceAction(id = "save", name = "保存")`
+5. `@DeleteAction`: 继承自`@ResourceAction(id = "delete", name = "删除")`
+6. `@Authorze`: 声明权限控制,注解在类或者方法上,可通过注解属性配置控制权限方式.
+7. `@EnableAopAuthorize`: 注解在启动类上,开启权限控制.
 
 ::: tip
-`ResourceAction`通常使用注解继承的方式来使用,可以更好的管理操作定义.详细使用方法可参照:`QueryAction`
+`@ResourceAction`通常使用注解继承的方式来使用,可以更好的管理操作定义.详细使用方法可参照:`@QueryAction`
 :::
 
 

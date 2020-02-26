@@ -16,11 +16,12 @@ public interface Authenticator {
 }
 ```
 
-参数`AuthenticationRequest`为认证请求参数,不同的网络类型请求类型也不同,请根据实际情况转换为对应的类型.
+参数`AuthenticationRequest`为认证请求参数,不同的网络类型请求类型也不同,请根据实际情况转换为对应的类型,例如:
+`MqttAuthenticationRequest mqttRequest = (MqttAuthenticationRequest)request;`
 
-参数`DeviceOperator`为对应的设备操作接口,可通过此接口获取设备的配置(device.getConfig("mqttUsername")).
+参数`DeviceOperator`为对应的设备操作接口,可通过此接口获取设备的配置,例如:`device.getConfig("mqttUsername")`.
 
-返回值`Mono<AuthenticationResponse>`,认证结果.
+返回值`Mono<AuthenticationResponse>`为认证结果.
 
 例:
 
@@ -57,7 +58,7 @@ public interface Authenticator {
 
 编码: 可以从上下文`MessageEncodeContext`中获取当前设备操作接口`DeviceOperator`以及平台统一的设备消息`Message`.根据设备侧定义的协议转换为对应的`EncodedMessage`.
 
-::: tip
+::: tip 注意
 不同的网络协议需要转换为不同的`EncodedMessage`类型.比如,MQTT需要转换为`MqttMessage`.
 
 大部分情况下:`MessageDecodeContext`可转为`FromDeviceMessageContext`,可获取到当前设备的连接会话`DeviceSession`,通过会话可以直接发送消息到设备.
@@ -76,7 +77,7 @@ public interface Authenticator {
 2. `修改设备属性(WritePropertyMessage)`对应设备回复的消息`WritePropertyMessageReply`.
 3. `设备上报属性(ReportPropertyMessage)` 由设备上报.
 
-::: tip
+::: tip 注意
 设备回复的消息是通过messageId进行绑定,messageId应该注意要全局唯一,如果设备无法做到,可以在编解码时通过添加前缀等方式实现.
 :::
 
