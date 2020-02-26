@@ -36,7 +36,7 @@ module.exports = {
                 sidebarDepth: 1,    // 可选的, 默认值是 1
                 children: [
                     ['/advancement-guide/jetlinks-protocol.md', 'JetLinks官方协议说明'],
-                    ['/basics-guid/protocol-support.md', '平台统一消息说明'],
+                    ['/basics-guide/protocol-support.md', '平台统一消息说明'],
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT服务网关接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],

@@ -114,9 +114,7 @@
 
 进入系统: `通知管理`-`通知模板` 点击左侧菜单中的`邮件` 添加一个邮件通知模板.
 
-![add notify template](../images/notify/save-mail-notify-template1.png)
-
-![add notify template](../images/notify/save-mail-notify-template2.png)
+![add notify template](../images/notify/save-mail-notify-template.png)  
 
 属性说明:
 

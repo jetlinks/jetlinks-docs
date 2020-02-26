@@ -46,13 +46,13 @@ iii. 设备日志
 
 ![add rule dingding](../images/rule/rule-dingding-notice-dingding.png)
 
-> 说明：上图第2步连线代表规则引擎节点指向下一个规则节点。参考文档[规则引擎-连线](../rule-engine.md#连线)
+> 说明：上图第2步连线代表规则引擎节点指向下一个规则节点。参考文档[规则引擎-连线](rule-engine.md#连线)
 
   i. `通知类型`:选择`钉钉`。
   
   ii. `通知器`:选择`钉钉`。
   
-  > `通知器`详情如下图，自定义`通知器`请参考文档[钉钉通知配置](notify-manager.md#配置信息如下-3)
+  > `通知器`详情如下图，自定义`通知器`请参考文档[钉钉通知配置](notification.md#钉钉通知)
     
   ![add rule dingding](../images/rule/dingding-config-info.png)
   
@@ -62,9 +62,9 @@ iii. 设备日志
 > 
 >通知模板内容中，表达式：`${#data["message"]["data"]}` 会被规则引擎内置变量替换为消息网关所收到的设备上报事件数据。
 >
->自定义`通知模板`请参考文档：[钉钉通知模板](notify-manager.md#模板信息如下-3)
+>自定义`通知模板`请参考文档：[钉钉通知模板](notification.md#钉钉通知)
 >
->规则引擎内置变量说明：[规则引擎-内置变量](../rule-engine.md#内置变量)
+>规则引擎内置变量说明：[规则引擎-内置变量](rule-engine.md#内置节点)
   
 ![add rule dingding](../images/rule/dingding-template-info.png)
 
