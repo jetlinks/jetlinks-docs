@@ -42,8 +42,9 @@ module.exports = {
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
                     ['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
-                    ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
-                    ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)']
+                    ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息']
+                   // ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)'],
+                    ['/advancement-guide/benchmark.md', '压力测试'],
                 ]
             },
             {
