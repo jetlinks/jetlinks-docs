@@ -166,7 +166,7 @@
       
         {
            "type":"string",
-           "expands":{"maxLen","255"}
+           "expands":{"maxLen":"255"}
         }
         
 7. enum   枚举类型
