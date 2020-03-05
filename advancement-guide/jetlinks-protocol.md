@@ -269,7 +269,24 @@
                }
             ]
         }
- 
+ 13. geoPoint Geo地理位置类型
+
+      支持以逗号分割当经纬度字符串以及map类型.
+
+      属性:
+        - latProperty 经度属性 （当上报的数据为map时根据此属性名转换，如:{"lat":145.1214,"lon":126.123 }）
+        - lonProperty 维度属性
+
+      例:
+
+        {
+          "type":"geoPoint",
+          "latProperty":"lat", 选填
+          "lonProperty":"lon"  选填
+        }
+
+    
+
 ## MQTT(S)接入
 目前支持MQTT3.1.1和3.1版本协议.
 
