@@ -16,9 +16,9 @@ ii. 输入型号名称
 
 iii. 选择型号类型为 `jar`
 
-iv. 输入类名`org.jetlinks.thidparty.fh3j.Fh3jProtocolSupportProvider`
+iv. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
 
-v. 上传jar包  [fh3j-v2](../basics-guide/files/device-connection/fh3j-protocol-2.0.jar)
+v. 上传jar包  [fh3j-v2](../basics-guide/files/device-connection/demo-protocol-1.0.jar)
 
 vi. 点击保存，完成协议新增。
 
@@ -38,7 +38,7 @@ ii. 选择 `设备管理`-->`设备型号`--> 点击`导入配置`按钮
 
 ![导入型号导航](../basics-guide/files/device-connection/import-product.png)
 
-iii. 选择[配置JSON](../basics-guide/files/device-connection/device-product-smokeSensation001.json)文件
+iii. 选择[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)文件
 
 iv.型号导入完成效果如下图
 
@@ -56,7 +56,9 @@ ii. 点击弹出框中`设备定义`板块查看型号设备定义
 
 iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详细的型号信息
 
-![型号信息](../basics-guide/files/device-connection/device-product-info.gif)
+![型号信息1](../basics-guide/files/device-connection/device-product-info1.png)  
+![型号信息2](../basics-guide/files/device-connection/device-product-info2.png)  
+![型号信息3](../basics-guide/files/device-connection/device-product-info3.png)
 
 ## 创建设备实例
 
@@ -70,13 +72,13 @@ ii. 选择 `设备管理`-->`设备实例`--> 点击`导入实例`按钮
 
 ![导入设备导航](../basics-guide/files/device-connection/import-device.png)
 
-iii. 选择[设备实例Excel](../basics-guide/files/device-connection/device-instance.xlsx)文件
+iii. 选择[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
 
 iv. 设备实例导入完成效果如下图
 
 ![未激活的设备](../basics-guide/files/device-connection/device-instance-not-active.png)
 
-v. 点击上图中`激活`链接完成设备实例激活，导航栏中发布状态变为`离线`代表设备激活成功。
+v. 点击上图中`激活`链接完成设备实例激活，状态栏中发布状态变为`离线`代表设备激活成功。
 
 ![已激活的设备](../basics-guide/files/device-connection/device-instance-offline.png)
 
@@ -100,7 +102,7 @@ iii. 设备日志
 
 ### 例
 
-mqtt服务设备网关配
+mqtt服务设备网关配置
 
 ![网关配置](../basics-guide/files/device-connection/mqtt-config.png)
 
