@@ -242,11 +242,11 @@ ii.  输入一个回复平台属性值消息Topic和要发送的消息内容，�
 {
     "messageId":"第一步订阅平台topic“/read-property”所收到的messageId值",
     "deviceId":"test001",
-    "timestamp":"1577710986304",
+    "timestamp":"1583809148000",
     "success":true,
     "properties":{
-        "threshold":"50"
-    }
+      "temperature":"50"
+     }
 }
 ```
 
@@ -260,8 +260,8 @@ iv. 读取设备属性回复的日志
 
 #### 获取设备属性值完整演示
 
-> 注意：在下图中，从在界面上刷新属性开始直到动图结束的所有操作，需要在十秒钟内完成。否则平台会视为该次操作超时，导致读取属性值失败。
-
+::: warning 注意：在下图中，从在界面上刷新属性开始直到动图结束的所有操作，需要在十秒钟内完成。否则平台会视为该次操作超时，导致读取属性值失败。
+:::
 ![获取设备属性值](../basics-guide/files/device-connection/read-device-property.gif)
 
 ### 设备事件上报
@@ -276,14 +276,14 @@ MQTT.fx 推送设备事件消息到平台
 
 ![设备事件上报](../basics-guide/files/device-connection/mqttfx-device-event-report.png)
 
-该文档使用的topic: `/chiefdata/push/fire_alarm/department/1/area/1/dev/test001`
+该文档使用的topic: `/fire_alarm`
 
 该文档所使用的回复内容
 
 ```json
 {
-   "devid":"test001",
-    "pname":"烟感001",
+   "deviceId":"test001",
+    "pname":"智能温控",
     "aid":105,
     "a_name":"未来科技城",
     "b_name":"C2 栋",
@@ -298,7 +298,7 @@ MQTT.fx 推送设备事件消息到平台
 
 | 参数         | 说明    |
 | :-----   | :-----  |
-| devid       | 设备Id   |
+| deviceId       | 设备Id   |
 | pname        |   设备型号名称   |
 | aid        |   区域Id   |
 | a_name        |   区域名称   |
