@@ -6,7 +6,7 @@
 
 > 自定义消息协议创建，请参考[消息协议定义](../basics-guide/protocol-support.md)。
 
-### 例
+**例**
 
 i. 选择 `设备管理`-->`协议管理`--> 点击`新建协议`按钮
 
@@ -30,7 +30,7 @@ vi. 点击保存，完成协议新增。
 
 > 自定义创建设备型号，请参考[添加设备型号](../basics-guide/device-manager.md/#添加设备型号)
 
-### 例
+**例**
 
 i.下载型号文件[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)
 
@@ -64,7 +64,7 @@ iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详
 
 > 自定义创建设备实例，请参考[添加设备实例](../basics-guide/device-manager.md/#添加设备实例)
 
-### 例
+**例**
 
 i. 下载设备实例Excel文件[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)
 
@@ -100,7 +100,7 @@ iii. 设备日志
 
 参照[启动设备网关服务](../basics-guide/course/device-gateway.md)
 
-### 例
+**例**
 
 mqtt服务组件配置
 

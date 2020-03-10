@@ -1,4 +1,4 @@
-# 规则引擎
+# 规则引擎使用
 
 提供可视化,流程化的数据(逻辑)处理工具.
 
@@ -12,7 +12,7 @@
 - 在弹出设计器中，拖拽节点和连线生成相应规则，填写模型id和名称点击`保存`。
 - 规则模型提供配置的导出、导入（支持批量导入）、复制功能
 
-![新建规则模型](images/rule-engine/new-rule-model.gif)
+![新建规则模型](../basics-guide/images/rule-engine/new-rule-model.gif)
 
 ### 规则节点
 
@@ -83,12 +83,12 @@
 
 选择规则引擎 > 规则实例。选择[规则实例](#规则实例)发布生成的规则实例，单击操作列中启动操作
 用以启动该规则。  
-![规则引擎启动](images/rule-engine/rule-engine-start.png)
+![规则引擎启动](../basics-guide/../basics-guide/images/rule-engine/rule-engine-start.png)
 ### 停止
 
 选择规则引擎 > 规则实例。选择已启动的规则实例，单击操作列中停止操作
 用以停止该规则。  
-![规则引擎停止](images/rule-engine/rule-engine-stop.png)
+![规则引擎停止](../basics-guide/images/rule-engine/rule-engine-stop.png)
 ### 执行
 
 + 点击规则实例列表操作列中的查看详情操作

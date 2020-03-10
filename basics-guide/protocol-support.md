@@ -1,4 +1,4 @@
-# 平台消息协议定义
+# 设备消息协议解析SDK
 
 平台封装了网络通信,但是具体的数据由消息协议进行解析.`协议(ProtocolSupport)`主要由`认证器(Authenticator)`,
 `消息编解码器(DeviceMessageCodec)`,`消息发送拦截器(DeviceMessageSenderInterceptor)`以及`配置元数据(ConfigMetadata)`组成.
