@@ -32,7 +32,7 @@ vi. 点击保存，完成协议新增。
 
 ### 例
 
-i.下载型号文件[配置JSON](../basics-guide/files/device-connection/device-product-smokeSensation001.json)
+i.下载型号文件[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)
 
 ii. 选择 `设备管理`-->`设备型号`--> 点击`导入配置`按钮
 
@@ -66,7 +66,7 @@ iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详
 
 ### 例
 
-i. 下载设备实例Excel文件[设备实例Excel](../basics-guide/files/device-connection/device-instance.xlsx)
+i. 下载设备实例Excel文件[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)
 
 ii. 选择 `设备管理`-->`设备实例`--> 点击`导入实例`按钮
 
@@ -102,7 +102,7 @@ iii. 设备日志
 
 ### 例
 
-mqtt服务设备网关配置
+mqtt服务组件配置
 
 ![网关配置](../basics-guide/files/device-connection/mqtt-config.png)
 
