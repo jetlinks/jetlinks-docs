@@ -56,7 +56,6 @@ module.exports = {
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个下挂设备'],
-                    //['/best-practices/rule-engine','规则引擎使用'],
                     ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
                     ['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
