@@ -10,5 +10,5 @@
 
 ::: tip 注意
 和MQTT服务设备网关不同的是,客户端必须指定消息协议,因为无法通过消息识别出对应的设备标识.
-在消息解码时也无法通过上下文(`MessageDecodeContext`)获取去到设备操作接口(`DeviceOperator`).
+在消息解码时也无法通过上下文(`MessageDecodeContext`)获取到设备操作接口(`DeviceOperator`).
 :::

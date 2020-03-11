@@ -18,7 +18,7 @@ iii. 选择型号类型为 `jar`
 
 iv. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
 
-v. 上传jar包  [fh3j-v2](../basics-guide/files/device-connection/demo-protocol-1.0.jar)
+v. 上传jar包  [demo-protocol-1.0.jar](../basics-guide/files/device-connection/demo-protocol-1.0.jar)
 
 vi. 点击保存，完成协议新增。
 
@@ -316,4 +316,5 @@ MQTT.fx 推送设备事件消息到平台
 
 4.事件上报内容
 
-![事件上报内容](../basics-guide/files/device-connection/device-event-info.gif)
+![事件上报内容](../basics-guide/files/device-connection/device-event-info.png)
+![事件上报内容1](../basics-guide/files/device-connection/device-event-info1.png)
