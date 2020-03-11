@@ -3,6 +3,11 @@ module.exports = {
     descirption: '测试文档',
     //basic: './dist',
 	port: 9999,
+    // configureWebpack : {
+    //     output: {
+    //         publicPath: "/"
+    //     }
+    // },
     themeConfig: {
         nav: [
             { text: '关于', link: 'http://jetlinks.cn/' },
