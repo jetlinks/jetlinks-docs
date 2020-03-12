@@ -12,7 +12,7 @@
 
 点击新建按钮:
 
-[![新建客户端](images/create-openapi.png)](images/create-openapi.png)
+![新建客户端](images/create-openapi.png)
 
 填写对应的内容保存.
 
@@ -32,7 +32,7 @@
 
 ## 验证流程
 
-[![流程](images/OpenApi认证流程.png)](images/OpenApi认证流程.png)
+![流程](images/OpenApi认证流程.png)
 
 ::: tip 说明
 

@@ -28,7 +28,7 @@ vi. 点击保存，完成协议新增。
 
 ## 创建设备型号
 
-> 自定义创建设备型号，请参考[添加设备型号](../basics-guide/device-manager.md/#添加设备型号)
+> 自定义创建设备型号，请参考[添加设备型号](../basics-guide/device-manager.md#添加设备型号)
 
 **例**
 
