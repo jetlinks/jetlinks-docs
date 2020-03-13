@@ -9,7 +9,14 @@ $ docker-compose up
 
 - 步骤2: 启动JetLinks服务
 
-项目导入IDE后执行`jetlinks-standalone`模块下的`org.jetlinks.community.standalone.JetLinksApplication`
+项目导入IDE后执行`jetlinks-standalone`模块下的`org.jetlinks.community.standalone.JetLinksApplication`.
+或者使用命令行运行:
+
+```java
+
+$  ./mvnw clean package -DskipTests && java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar
+
+```
 
 ::: tip 注意
 项目需要使用最新的java8(小版本号大于200),如`1.8.0_232`
