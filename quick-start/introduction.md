@@ -26,13 +26,3 @@ JetLinks 是一个物联网基础平台,用于快速建立物联网相关业务�
 5. [ElasticSearch](https://www.elastic.co/cn/products/enterprise-search) 全文检索，日志，时序数据存储
 6. [PostgreSQL](https://www.postgresql.org) 业务功能数据管理
 7. [hsweb framework 4](https://github.com/hs-web) 业务功能基础框架
-
-## 获取源代码
-jetlinks源代码托管在[GitHub](https://github.com/jetlinks/jetlinks-community)和[gitee](https://gitee.com/jetlinks/jetlinks-community)，可直接前往克隆或者下载。  
-
-建议使用git clone。  
-```bash
-
-$ git clone https://github.com/jetlinks/jetlinks-community.git && cd jetlinks-community
-
-```

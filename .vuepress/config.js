@@ -62,7 +62,7 @@ module.exports = {
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个下挂设备'],
                     ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
-                    ['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
+                    //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
                     ['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],

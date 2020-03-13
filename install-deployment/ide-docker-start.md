@@ -1,13 +1,14 @@
-# 使用docker启动开发环境,使用IDE中启动JetLinks服务
+# 使用docker启动开发环境,使用IDE启动JetLinks服务
 
-- 步骤1: 启动环境
+在[获取源代码](docker-start.md#获取源代码)、[安装docker](docker-start.md#安装docker)基础上，使用docker+源代码启动环境。  
+## 启动环境
 
 ```bash
 $ cd docker/dev-env
 $ docker-compose up
 ```
 
-- 步骤2: 启动JetLinks服务
+## 启动JetLinks服务
 
 项目导入IDE后执行`jetlinks-standalone`模块下的`org.jetlinks.community.standalone.JetLinksApplication`
 
@@ -15,7 +16,7 @@ $ docker-compose up
 项目需要使用最新的java8(小版本号大于200),如`1.8.0_232`
 :::
 
-- 步骤3: 启动UI
+## 启动UI
 
 可以通过[UI源码](https://github.com/jetlinks/jetlinks-ui-antd)自行构建.
 

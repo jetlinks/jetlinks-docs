@@ -2,9 +2,9 @@
 
 创建MQTT服务设备网关,用于直连设备、处理设备消息。
 
-## 一. 启动MQTT服务
+## 创建MQTT服务网络组件
 
-进入系统: `网络组件`-`组件管理` 点击左侧菜单中的`MQTT服务` 添加一个MQTT服务.
+进入系统: `网络组件`-`组件管理` 点击左侧菜单中的`MQTT服务` 添加一个MQTT服务网络组件.
 
 ![add mqtt server](../images/network/save-mqtt-server.png)
 
