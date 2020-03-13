@@ -28,7 +28,7 @@ vi. 点击保存，完成协议新增。
 
 ## 创建设备型号
 
-> 自定义创建设备型号，请参考[添加设备型号](../basics-guide/device-manager.md#添加设备型号)
+> 完整的设备型号创建，请参考[添加设备型号](../basics-guide/device-manager.md#添加设备型号)。
 
 **例**
 
@@ -62,7 +62,7 @@ iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详
 
 ## 创建设备实例
 
-> 自定义创建设备实例，请参考[添加设备实例](../basics-guide/device-manager.md/#添加设备实例)
+> 自定义创建设备实例，请参考[添加设备实例](../basics-guide/device-manager.md#添加设备实例)。
 
 **例**
 
@@ -101,10 +101,14 @@ iii. 设备日志
 参照[启动设备网关服务](../basics-guide/course/device-gateway.md)
 
 **例**
+- 创建MQTT服务网络组件
+- 创建MQTT服务设备网关
 
-mqtt服务组件配置
+MQTT服务组件配置  
+![MQTT服务组件配置](../basics-guide/files/device-connection/mqtt-config.png)
 
-![网关配置](../basics-guide/files/device-connection/mqtt-config.png)
+MQTT服务设备网关  
+![MQTT服务设备网关](../basics-guide/files/device-connection/mqtt-gateway-info.png)
 
 ## 使用MQTT.fx接入
 
