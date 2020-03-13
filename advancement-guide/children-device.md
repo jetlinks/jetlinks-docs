@@ -14,7 +14,6 @@
 5. 通过API直接向子设备发送消息.平台将自动根据设备关联信息转换对应的消息.
 6. 消息协议将收到`ChildDeviceMessage`,根据消息类型转换为对应对设备消息.
 
-
 ::: tip 注意
 在[jetlinks-community](https://github.com/jetlinks/jetlinks-community)
 中的模拟器内置了子设备模拟.启动模拟器时指定脚本`demo-children-device.js`即可.
