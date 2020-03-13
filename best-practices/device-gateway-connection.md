@@ -8,6 +8,13 @@
 中使用的[demo协议包](https://github.com/jetlinks/demo-protocol)
 以及[模拟器脚本](https://github.com/jetlinks/jetlinks-community/tree/master/simulator).
 
+流程:
+
+1. 父设备通过MQTT等方式接入平台,子设备自动上线.
+2. 平台下发子设备消息.网关使用协议的编解码器会收到`ChildrenDeviceMessage`,将其编码为网关设备能识别的消息即可.
+3. 父设备上报子设备数据,解码器将收到的设备报文解码为`ChildDeviceMessage`或者`ChildDeviceMessageReply`. 注意:`ChildDeviceMessage.deviceId`为
+   父设备ID,`ChildDeviceMessage.message.deviceId`为子设备ID.
+
 ::: tip
 可根据[设备消息协议解析SDK](../basics-guide/protocol-support.md).修改协议解析方式.
 子设备消息请重点关注: `ChildDeviceMessage`以及`ChildDeviceMessageReply`
@@ -15,11 +22,8 @@
 
 ## 创建网关设备
 
-**操作步骤**
 1. 进入系统: `设备管理`-`设备实例`-`新建`。  
-
 2. 输入设备信息。  
-
 3. 点击`确定`进行保存。  
 ![设备新增](images/insert-device.png)
 
@@ -28,6 +32,13 @@
 TODO
 
 ## 关联网关设备和子设备
+
+### 自动关联
+
+在某些场景下,子设备是动态和网关绑定的,此时,需要在自定义协议作用解析消息为`ChildDeviceMessage<DeviceRegsiterMessage>`即可.
+如果是自动关联的,设备状态也将更新为和网关设备状态一致.
+
+### 手动关联
 
 TODO
 
