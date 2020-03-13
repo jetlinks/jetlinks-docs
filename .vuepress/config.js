@@ -100,7 +100,9 @@ module.exports = {
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                     ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                     ['/dev-guide/send-message.md', '向设备发送消息'],
-                    ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
+                    ['/dev-guide/subscribe-device-message', '从消息网关中订阅设备消息'],
+
+                   // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],
                     // ['/dev-guide/message-gateway.md', '消息网关'],
                     // ['/dev-guide/device-gateway.md', '设备网关'],
