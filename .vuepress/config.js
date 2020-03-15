@@ -60,7 +60,9 @@ module.exports = {
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT直接接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
-                    ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个下挂设备'],
+                    ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
+                    ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
+                    ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
@@ -98,7 +100,9 @@ module.exports = {
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                     ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                     ['/dev-guide/send-message.md', '向设备发送消息'],
-                    ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
+                    ['/dev-guide/subscribe-device-message', '从消息网关中订阅设备消息'],
+
+                   // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],
                     // ['/dev-guide/message-gateway.md', '消息网关'],
                     // ['/dev-guide/device-gateway.md', '设备网关'],

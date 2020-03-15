@@ -117,7 +117,7 @@ WritePropertyMessageReply{
 
 ```java
 ReportPropertyMessage{
-    String deviceId; 
+    String deviceId;
     String messageId;
     long timestamp;
     Map<String,Object> properties;
@@ -171,6 +171,7 @@ EventMessage{
 1. `DeviceOnlineMessage` 设备上线消息,通常用于网关代理的子设备的上线操作.
 2. `DeviceOfflineMessage` 设备上线消息,通常用于网关代理的子设备的下线操作.
 3. `ChildrenDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
+4. `ChildrenDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
 
 消息定义:
 
@@ -195,7 +196,7 @@ ChildDeviceMessage{
 }
 ```
 
-父子设备消息处理[请看这里](../advancement-guide/children-device.md)
+父子设备消息处理[请看这里](../best-practices/device-gateway-connection.md)
 
 ## 消息发送拦截器
 
@@ -217,7 +218,8 @@ DeviceMessageSenderInterceptor{
 
 ## 配置元数据
 
-配置元数据用于告诉平台,在使用此协议等时候,需要添加一些自定义配置到设备(`DeviceOperator.setConfig`)中.
+配置元数据用于告诉平台,在使用此协议的时候,需要添加一些自定义配置到设备配置(`DeviceOperator.setConfig`)中.
+在其他地方可以通过`DeviceOperator.getConfig`获取这些配置.
 
 例如:
 
@@ -241,4 +243,3 @@ DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
 ## 完整例子
 
 [演示协议](https://github.com/jetlinks/demo-protocol)
-

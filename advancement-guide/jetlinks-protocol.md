@@ -3,6 +3,7 @@
 设备模型分为: 属性(properties),功能(function),事件(event).
 
 设备模型使用场景:
+
 1. 前端通过模型定义动态展示设备运行状态或者设备操作界面
 2. 服务端可通过统一的API获取设备模型并进行相关操作,如: 在发送设备消息时进行参数校验,
 在收到设备消息进行类型转换处理.
@@ -18,10 +19,11 @@
     }
 
 ## 属性
+
 用于定义设备属性,运行状态等如: 设备SN,当前CPU使用率等.
 平台可主动下发消息获取设备属性,设备也通过事件上报属性.
 
-数据结构: 
+数据结构:
 
     {
        "id": "cpu_usage", //属性标识
@@ -37,6 +39,7 @@
      }
 
 ## 功能
+
 用于定义设备功能,平台可主动调用,例如: 播放语音,开关操作等.
 
 数据结构:
@@ -61,6 +64,7 @@
      }
 
 ## 事件
+
 用于定义设备事件, 如: 定时上报设备属性, 设备报警等.
 
 数据结构:
@@ -102,12 +106,13 @@
 ## 数据类型
 
 所有类型共有属性:
+
 - id 唯一标识
 - name 名称
 - description 描述
 - expands 自定义配置
 
-类型定义
+### 数字类型
 
 1. int 整型
 2. long 长整型
@@ -118,9 +123,9 @@
     - max 最大值
     - min 最小值
     - unit 单位
-     
+
      例:
-     
+
         {
         "type":"double",
         "max":100,
@@ -128,17 +133,17 @@
         "unit":"percent",
         "expands":{"readonly":true}
         }
-    
-5. boolean 布尔类型
-    
+
+### boolean 布尔类型
+
      属性
       - trueText 为true时的文本,默认为`是`
       - falseText 为false时的文本,默认为`否`
       - trueValue  为true时的值,默认为`true`
       - falseValue 为false时的值,默认为`false`
-      
+
       例:
-      
+
         {
             "type":"boolean",
             "trueText":"开启",
@@ -146,28 +151,28 @@
             "trueValue":"1",
             "falseValue":"0"
         }
-      
-6. string 字符类型
+
+### string 字符类型
 
       例:
-      
+
         {
            "type":"string",
            "expands":{"maxLen":"255"}
         }
-        
-7. enum   枚举类型
+
+### enum 枚举类型
 
     属性:
      - elements (Element)枚举中的元素
-        
+
     Element:
      - value 枚举值
      - text 枚举文本
      - description 说明
-         
+
     例:
-    
+
         {
             "type":"enum",
             "elements":[
@@ -176,9 +181,9 @@
                 {"value":"0","text":"未知"}
             ]
         }
-        
-8. date   时间类型
-    
+
+### date 时间类型
+
     属性:
       - format 格式,如: yyyy-MM-dd
       - tz 时区,如: Asia/Shanghai
@@ -191,12 +196,12 @@
             "tz": "Asia/Shanghai"
         }
 
-9. password 密码类型
-    
+### password 密码类型
+
     与string类型相同
-    
-10. file  文件类型
-    
+
+### file 文件类型
+
     属性:
       - bodyType 类型: url,base64,binary
       
@@ -206,8 +211,8 @@
            "type":"file",
            "bodyType":"url"
         }
-      
-11. array 数组(集合)类型
+
+### array 数组(集合)类型
 
     属性:
       - elementType 元素类型
@@ -220,8 +225,8 @@
                 "type":"string"
             }
         }
-        
-12. object  对象(结构体)类型
+
+### object 对象(结构体)类型
 
      属性:
         - properties 属性列表
@@ -256,18 +261,14 @@
                }
             ]
         }
- 13. geoPoint Geo地理位置类型
 
-      支持以逗号分割当经纬度字符串以及map类型.
+### geoPoint Geo地理位置类型
 
-      属性:
-        - latProperty 经度属性 （当上报的数据为map时根据此属性名转换，如:{"lat":145.1214,"lon":126.123 }）
-        - lonProperty 维度属性
+支持以逗号分割当经纬度字符串以及map类型.
+默认支持3种格式转换: 逗号分割字符:`145.1214,126.123` ,json格式:`{"lat":145.1214,"lon":126.123}`.
 
       例:
 
         {
-          "type":"geoPoint",
-          "latProperty":"lat", 选填
-          "lonProperty":"lon"  选填
+          "type":"geoPoint"
         }
