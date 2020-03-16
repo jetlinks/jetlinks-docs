@@ -71,6 +71,25 @@ public interface Authenticator {
 平台将设备抽象为由`属性(property)`,`功能(function)`,`事件(event)`组成.
 平台接入设备之前,应该先将设备的`属性``功能``事件`设计好.
 
+### 消息组成
+
+消息主要由`deviceId`,`messageId`,`headers`组成.
+
+`deviceId`为设备的唯一标识,`messageId`为消息的唯一标识,`headers`为消息头,通常用于对自定义消息处理的行为,如是否异步消息,
+是否分片消息等.
+
+常用的(Headers)[https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java]:
+
+1. aysnc 是否异步,boolean类型.
+2. timeout 指定超时时间.
+3. frag_msg_id 分片主消息ID
+4. frag_num 分片总数
+5. frag_part 当前分片索引
+
+::: tip
+messageId通常由平台自动生成,如果设备不支持消息id,可在自定义协议中通过Map的方式来做映射,将设备返回的消息与平台的messageId进行绑定.
+:::
+
 ### 属性相关消息
 
 1. `获取设备属性(ReadPropertyMessage)`对应设备回复的消息`ReadPropertyMessageReply`.
