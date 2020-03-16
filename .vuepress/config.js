@@ -48,7 +48,8 @@ module.exports = {
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
-                    ['/basics-guide/protocol-support.md', '设备消息协议解析SDK']
+                    ['/basics-guide/protocol-support.md', '设备消息协议解析SDK'],
+                    ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议']
                 ]
             },
             {
