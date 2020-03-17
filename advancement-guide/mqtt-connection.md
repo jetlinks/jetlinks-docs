@@ -120,7 +120,9 @@ MQTT服务设备网关
 
 3.设置连接参数。
 
-  **说明** 设置参数时，请确保参数值中或参数值的前后均没有空格。
+::: tip 注意
+设置参数时，请确保参数值中或参数值的前后均没有空格。
+:::
 
 i. 设置基本信息
 
@@ -189,8 +191,9 @@ iii. (可选）TLS连接。需要选择SSL/TLS，勾选Enable SSL/TLS，设置Pr
 ![设备离线日志](../basics-guide/files/device-connection/device-offline-log.png)
 
 ### 读取设备属性
-
-> 注意：第2步中回复平台属性值需要在第1步平台发送订阅以后的十秒钟内完成，否则平台会视为该次操作超时，导致读取属性值失败。
+::: tip 注意：
+第2步中回复平台属性值需要在第1步平台发送订阅以后的十秒钟内完成，否则平台会视为该次操作超时，导致读取属性值失败。
+:::
 
 1.平台告知设备（MQTT.fx）需要设备返回设备属性
 
@@ -218,9 +221,9 @@ v. 订阅topic: `/read-property`对应的消息
 
 ![订阅topic](../basics-guide/files/device-connection/mqttfx-sub-read-property.png)
 
-> 注意:
-> 复制好订阅该topic收到的消息中的messageId。此messageId将作为回复与平台设备属性的凭据之一
-> 复制好
+::: tip 注意:
+ 复制好订阅该topic收到的消息中的messageId。此messageId将作为回复与平台设备属性的凭据之一
+:::
 
 2.设备（MQTT.fx）回复平台设备属性值
 
@@ -274,7 +277,7 @@ MQTT.fx 推送设备事件消息到平台
 
 以火灾报警事件为例。
 
-1.在MQTT.fx上，单击 `Publish`。
+1.在MQTT.fx上，单击 `Publish`。  
 
 2.输入事件上报Topic和要发送的事件内容，单击Publish按钮，向平台推送该事件消息。
 
