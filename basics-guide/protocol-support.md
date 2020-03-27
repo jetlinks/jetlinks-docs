@@ -81,10 +81,12 @@ public interface Authenticator {
 常用的(Headers)[https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java]:
 
 1. aysnc 是否异步,boolean类型.
-2. timeout 指定超时时间.
-3. frag_msg_id 分片主消息ID
+2. timeout 指定超时时间. 毫秒.
+3. frag_msg_id 分片主消息ID,为下发消息的`messageId`
 4. frag_num 分片总数
 5. frag_part 当前分片索引
+6. frag_last 是否为最后一个分片,当无法确定分片数量的时候,可以将分片设置到足够大,最后一个分片设置:`frag_last=true`来完成返回.
+7. keepOnline 与`DeviceOnlineMessage`配合使用,在TCP短链接,保持设备一直在线状态,连接断开不会设置设备离线.
 
 ::: tip
 messageId通常由平台自动生成,如果设备不支持消息id,可在自定义协议中通过Map的方式来做映射,将设备返回的消息与平台的messageId进行绑定.
