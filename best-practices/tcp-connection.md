@@ -146,7 +146,9 @@ AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为设备�
     ![模式选择](images/sender-type.png)  
     
     **分别保存上线参数以及事件上报参数。**  
+    设备上线：  
     ![参数1](images/config-online.png)  
+    事件上报：  
     ![参数2](images/config-event.png)  
 4. 模拟设备上下线
 
@@ -161,7 +163,7 @@ AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为设备�
 
 ![设备上线日志](images/device-online-log.png)  
 
-勾选`Persistent TCP`packetsender上请求成功后会大开一个新的已连接页面。 
+勾选`Persistent TCP`packetsender上请求成功后会打开一个新的已连接页面。 
  
 ![persistent-tcp](images/device-online-persistent-tcp.png)  
 
@@ -177,6 +179,20 @@ AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为设备�
 
 ![设备离线日志](images/device-offline-log.png)  
  
+5. 模拟设备上报事件
 
-
-
+    i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。  
+    
+    ![事件上报请求](images/event-report-send.png)  
+    
+    ii. 上报成功后，在页面可以查看到。  
+    
+    ![事件上报内容](images/device-event-info.png)  
+    
+    ![事件上报内容1](images/device-event-info1.png)  
+    
+    iii. 事件上报设备日志  
+    
+    ![事件上报设备日志](images/device-event-report-log.png)  
+    
+    ![事件上报设备日志1](images/device-event-report-log1.png)
