@@ -37,8 +37,9 @@ module.exports = {
                 children: [
                     ['/install-deployment/docker-start.md', '使用docker快速启动'],
                     ['/install-deployment/ide-docker-start.md', '使用docker+源代码启动开发环境'],
-                    ['/install-deployment/not-dokcer-start.md','非docker环境启动'],
-                    ['/quick-start/demo.md','快速体验设备接入']
+                    ['/install-deployment/not-docker-start.md','非docker环境启动'],
+                    ['/quick-start/demo.md','快速体验设备接入'],
+                    ['/install-deployment/deployment.md', '部署']
                 ]
             },
             {
@@ -66,7 +67,6 @@ module.exports = {
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
-                    ['/advancement-guide/tcp-connection.md', '使用TCP服务网关接入设备'],
                     ['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
                     ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
