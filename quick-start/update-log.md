@@ -7,8 +7,8 @@
 
 更新时间: 2020-04-01
 
-[后端代码](https://github.com/jetlinks/jetlinks-community/tree/1.0-RELEASE)
-[前端代码](https://github.com/jetlinks/jetlinks-ui-antd/tree/1.0-RELEASE)
+[后端代码](https://github.com/jetlinks/jetlinks-community/tree/1.0)
+[前端代码](https://github.com/jetlinks/jetlinks-ui-antd/tree/1.0)
 
 主要优化:
 
@@ -19,7 +19,7 @@
 5. 增加属性变更`Dashboard`接口,可同时订阅一个设备对所有属性变更事件.
 6. 优化设备协议,增加调试功能. 增加脚本支持(PRO).
 7. 增加设备功能调用,可在界面发起功能调用指令.
-8. 增加设备标签功能,可自定义设备标签,可通过标签查询设备: where("id$dev-tag$location","重庆市"); //查询标签key为location,value为重庆市的设备.
+8. 增加设备标签功能,可自定义设备标签,可通过标签查询设备: where("id$dev-tag","location:重庆市"); //查询标签key为location,value为重庆市的设备.
 9. 优化消息网关中的设备消息topic,详见:[从消息网关中订阅设备消息](/dev-guide/subscribe-device-message.md)
 10. `DeviceMessage`增加头:`Headers.keepOnline`,用于在TCP短连接的场景保持设备一直在线,仅通过keepalive超时判断离线.
 11. 消息网关增加集群支持,在任意一个服务节点都可订阅设备消息.(PRO)
