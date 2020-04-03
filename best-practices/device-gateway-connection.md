@@ -26,7 +26,7 @@
 3. 点击`确定`进行保存。  
 ![设备型号新增](images/insert-product.png)
 
-**导入设备型号:**[设备型号-智能温控.json](files/设备型号-智能温控.json)
+**导入设备型号:**[设备型号-演示型号.json](files/设备型号-演示型号.json)
 
 ## 创建网关设备
 
@@ -67,9 +67,82 @@
 网关与平台建立连接时,会自动修改所有子设备的状态.
 如果要单独更新子设备上下线状态.请根据协议解析为`DeviceOnlineMessage`或者`DeviceOfflineMessage`.
 
-### 模拟网关设备上线，子设备上线
+### 模拟网关设备上线（下线），子设备上线（下线）
 
+使用[模拟器](https://github.com/jetlinks/device-simulator)模拟网关设备。  
 
+1. 进入项目目录:`simulator`([获取源代码](../install-deployment/docker-start.md#获取源代码))。  
+
+2. 运行device-simulator.jar。  
+
+```shell script
+java -jar -Dfile.encoding=UTF-8 device-simulator.jar \
+  mqtt.limit=1 \
+  mqtt.start=0 \
+  mqtt.enableEvent=true \
+  mqtt.eventLimit=1 \
+  mqtt.eventRate=1000 \
+  mqtt.scriptFile=./scripts/demo-children-device.js \
+  mqtt.address=127.0.0.1 \
+  mqtt.port=1889
+```
+![运行模拟器](images/start-simulator.png)
+
+3.运行成功后可在平台看到网关以及子设备都已上线。
+
+![device-online1](images/device-online1.png)  
+
+![device-online2](images/device-online2.png)  
+
+4.断开连接网关下线，子设备下线。  
+
+![device-offline1](images/device-offline1.png)  
+
+![device-offline2](images/device-offline2.png)  
+
+### 模拟事件上报
+
+在项目目录：`simulator/scripts`中的demo-children-device.js文件中模拟了子设备事件上报。  
+
+```js
+var events = {
+    reportProperty: function (index, session) {
+        var deviceId = "child-device-1";//子设备id
+        var topic = "/children/report-property";//属性上报topic
+        var json = JSON.stringify({
+            "deviceId": deviceId,
+            "success": true,
+            "timestamp": new Date().getTime(),
+            properties: {"temperature": java.util.concurrent.ThreadLocalRandom.current().nextDouble(20, 40)},
+        });
+        session.sendMessage(topic, json)
+    },
+    fireAlarm: function (index, session) {
+        var deviceId = "child-device-1";
+        var topic = "/children/fire_alarm";//事件上报topic
+        var json = JSON.stringify({
+            "deviceId": deviceId, // 设备编号 "pid": "TBS-110", // 设备编号
+            "a_name": "商务大厦", // 区域名称 "bid": 2, // 建筑 ID
+            "b_name": "C2 栋", // 建筑名称
+            "l_name": "12-05-201", // 位置名称
+            "timestamp": new Date().getTime() // 消息时间
+        });
+
+        session.sendMessage(topic, json)
+    }
+};
+```
+运行[模拟器](https://github.com/jetlinks/device-simulator)后会定时上报。  
+
+![report1](images/report1.png)  
+
+属性上报日志：  
+
+![log1](images/log1.png)  
+
+时间上报日志：  
+
+![log2](images/log2.png)  
 
 ## 消息下行
 
