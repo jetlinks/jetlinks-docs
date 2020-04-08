@@ -6,7 +6,7 @@
 ```java
 
 //订阅所有设备上线消息
-@Subscribe("/device/*/online")
+@Subscribe("/device/*/*/online")
 public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
     //处理消息
 }
@@ -15,9 +15,9 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 
 ## Topics
 
-所有设备消息的`topic`的前缀均为: `/device/{deviceId}`.
-如:设备`device-1`上线消息: `/device/device-1/online`.
-可通过通配符订阅所有设备的指定消息,如:`/device/*/online`,
+所有设备消息的`topic`的前缀均为: `/device/{productId}/{deviceId}`.
+如:设备`device-1`上线消息: `/device/product-1/device-1/online`.
+可通过通配符订阅所有设备的指定消息,如:`/device/*/*/online`,
 或者订阅所有消息:`/device/**`.
 
 ::: tip
@@ -27,7 +27,7 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 ## Topic列表
 
 ::: warning
-列表中的topic已省略前缀`/device/{deviceId}`,使用时请加上.
+列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
 :::
 
 |  topic   | 类型  | 说明 |
