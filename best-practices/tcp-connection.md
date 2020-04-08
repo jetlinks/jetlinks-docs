@@ -16,8 +16,14 @@
     ![属性定义](images/device-product-info1.png)  
     ii. 事件定义  
     ![事件定义](images/device-product-info2.png)  
+    
+    json对象-经度：  
     ![事件定义](images/device-product-info2-1.png)  
+    
+    json对象-维度：      
     ![事件定义](images/device-product-info2-2.png)  
+    
+    json对象-点位：  
     ![事件定义](images/device-product-info2-3.png)  
 3. 在操作列点击`发布`按钮，发布新增的型号。  
 
