@@ -54,10 +54,15 @@ i. 点击导航栏中`编辑`链接查看型号基本信息
 
 ii. 点击弹出框中`设备定义`板块查看型号设备定义
 
-iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详细的型号信息
+iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详细的型号信息  
 
+属性定义参数：  
 ![型号信息1](../basics-guide/files/device-connection/device-product-info1.png)  
+
+功能定义参数：  
 ![型号信息2](../basics-guide/files/device-connection/device-product-info2.png)  
+
+事件定义参数：  
 ![型号信息3](../basics-guide/files/device-connection/device-product-info3.png)
 
 ## 创建设备实例

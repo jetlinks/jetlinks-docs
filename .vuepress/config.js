@@ -67,7 +67,7 @@ module.exports = {
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
-                    ['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
+                    //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
                     ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
                     // ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)'],
@@ -109,6 +109,17 @@ module.exports = {
                     // ['/dev-guide/device-gateway.md', '设备网关'],
                     // ['/dev-guide/jetlinks-protocol', '协议开发'],
                     // ['/dev-guide/rule-engine', '规则引擎']
+                ]
+            },
+            {
+                title: 'openApi接口文档',   // 必要的
+                //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 1,    // 可选的, 默认值是 1
+                children: [
+                    //['', '介绍'],
+                    //['', '快速开始'],
+                    ['/interface-guide/open-api','openApi']
                 ]
             },
             {
