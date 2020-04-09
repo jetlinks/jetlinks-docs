@@ -3,6 +3,30 @@
 最新代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
 [gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支.
 
+## 1.1-RELEASE
+
+更新时间: 2020-05-01
+
+[后端代码](https://github.com/jetlinks/jetlinks-community/tree/1.1)
+[前端代码](https://github.com/jetlinks/jetlinks-ui-antd/tree/1.1)
+
+主要优化:
+
+- [x] 优化设备消息topic: `/device/{deviceId}` 修改为: `/device/{productId}/{deviceId}`.
+- [x] 增加设备告警功能.可通过订阅消息网关`/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`来处理预警消息.
+- [ ] 增加HTTP方式接入,设备或者第三方平台可通过HTTP推送设备数据. (PRO)
+- [ ] 在协议包编码时可直接回复设备消息,场景: 编码消息消息时直接调用第三方平台接口获取设备数据.
+- [ ] 功能重命名: `设备型号`改为`产品`,`设备实例`改为`设备`.
+- [ ] 增加设备分类,在配置产品时,可以选择分类.配置物模型时,可以从分类中选择模版.
+- [ ] 增加数据转发功能,可通过SQL的方式来处理实时数据并转发数据. 查看文档 (Pro)
+- [ ] 增加设备接入引导界面.
+- [ ] 增加可视化图表配置.
+
+主要BUG修复:
+
+- [x] 修复动态查询条件无法使用where作为参数的问题
+
+
 ## 1.0-RELEASE
 
 更新时间: 2020-04-01
