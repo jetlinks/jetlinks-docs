@@ -30,5 +30,3 @@ ii. 字段权限配置完成后点击需`保存`按钮完成编辑。
 ![保存字段权限配置](images/system/save-field-access.png)  
 7. 点击赋权页下方`保存`按钮完成用户赋权操作。  
 ![用户赋权保存](images/system/permission-setting-save.png)  
-字段赋权演示  
-![用户字段赋权演示](images/system/field-access-play.gif) 
