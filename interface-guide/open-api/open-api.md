@@ -53,13 +53,20 @@ description | String | 描述
 
 请求示例：
 
-GET `http(s)://localhost:8844/api/v1/device/1236859833832701952/_detail`  
+RequestUrl: `http(s)://localhost:8844/api/v1/device/1236859833832701952/_detail`  
 
-X-Sign: `f4823a*********e76eb1d`//`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: GET
 
-返回示例：  
+RequestHeader:
+    X-Sign: `f4823a*********e76eb1d`  
+    X-Timestamp: `1586511766004`  
+    X-Client-Id: `kF**********HRZ`    
+::: tip 说明：
+X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -151,16 +158,22 @@ registerTime | long | 注册时间
 createTime | long | 创建时间
 parentId | String | 父级设备ID
 
-请求示例  
-POST http://localhost:8844/api/v1/device/_query  
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/_query   
 
-X-Sign: `f4823a*********e76eb1d`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
-
-http请求参数示例：  
+RequestHeader:  
+    X-Sign: `f4823a*********e76eb1d`  
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
 ```json
 {
 	"pageSize": 25,
@@ -172,7 +185,7 @@ http请求参数示例：
 }
 ```
 
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -270,15 +283,21 @@ createTime | long | 创建时间
 parentId | String | 父级设备ID
 
 请求示例  
-POST http://localhost:8844/api/v1/device/test001/log/_query  
+RequestUrl: http://localhost:8844/api/v1/device/test001/log/_query  
 
-X-Sign: `f4823a*********e76eb1d`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
-
-http请求参数示例：  
+RequestHeader:  
+    X-Sign: `f4823a*********e76eb1d`    
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
 ```json
 {
 	"pageSize": 25,
@@ -289,7 +308,7 @@ http请求参数示例：
 	}]
 }
 ```
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -414,15 +433,22 @@ timeValue | Date | 时间值
 orgId | String| 机构ID
 
 请求示例  
-POST http://localhost:8844/api/v1/device/test001/properties/_query  
+RequestUrl:  http://localhost:8844/api/v1/device/test001/properties/_query  
 
-X-Sign: `f4823a*********e76eb1d`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
+RequestHeader: 
+    X-Sign: `f4823a*********e76eb1d`    
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
 
-http请求参数示例：  
+RequestBody：  
 ```json
 {
 	"pageSize": 25,
@@ -434,7 +460,7 @@ http请求参数示例：
 }
 ```
 
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -492,13 +518,21 @@ orgId | String | 否 |  | 机构ID
 
 请求示例：
 
-GET `http(s)://localhost:8844/api/v1/device/test001/properties/_latest`  
+RequestUrl: http(s)://localhost:8844/api/v1/device/test001/properties/_latest  
 
-X-Sign: `f4823a*********e76eb1d`//`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: GET  
 
-返回示例：  
+RequestHeader:    
+    X-Sign: `f4823a*********e76eb1d`    
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+::: tip 说明：
+X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+
+HttpResponse：  
 ```json
 {
 	"result": [{
@@ -548,16 +582,23 @@ pageSize | int | 每页数量
 total | int  |  返回数据总数 
 data | List&#60;Map&#60;String,Object&#62;&#62;  |  返回数据集合 
 
-请求示例  
-POST http://localhost:8844/api/v1/device/test001/event/fire_alarm/_query  
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/test001/event/fire_alarm/_query  
 
-X-Sign: `fd9cf3f*************48f373d`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586702227360`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
+RequestHeader:  
+    X-Sign: `fd9cf3f*************48f373d`    
+    X-Timestamp: `1586702227360`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
 
-http请求参数示例：  
+RequestBody：  
 ```json
 {
 	"pageSize": 25,
@@ -568,7 +609,7 @@ http请求参数示例：
 	}]
 }
 ```
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -616,13 +657,21 @@ code | String  |  业务编码
 
 请求示例：
 
-GET `http(s)://localhost:8844/api/v1/device/test001/property/1236859833832701952/temperature`  
+RequestUrl: http://localhost:8844/api/v1/device/test001/property/temperature  
 
-X-Sign: `f4823a*********e76eb1d`//`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586511766004`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: GET  
 
-返回示例：  
+RequestHeader:  
+X-Sign: `f4823a*********e76eb1d`    
+X-Timestamp: `1586511766004`    
+X-Client-Id: `kF**********HRZ`    
+::: tip 说明：
+X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -654,20 +703,27 @@ result | Map&#60;String, Object&#62; | 返回数据
 status | int | 状态码
 code | String  |  业务编码 
 
-请求示例  
-POST http://localhost:8844/api/v1/device/test001/log/_query  
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/test001/properties    
 
-X-Sign: `7e5f****************087bc5`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586694341284`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
+RequestHeader:  
+    X-Sign: `7e5f****************087bc5`  
+    X-Timestamp: `1586694341284`  
+    X-Client-Id: `kF**********HRZ`  
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
 
-http请求参数示例：  
+RequestBody：  
 ```json
 {"temperature": 50.0}
 ```
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": {
@@ -700,21 +756,29 @@ status | int | 状态码
 code | String  |  业务编码 
 
 请求示例  
-POST http://localhost:8844/api/v1/device/test001/function/get-log  
+RequestUrl: http://localhost:8844/api/v1/device/test001/function/get-log  
 
-X-Sign: `8c5107***************eda4d`//`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp: `1586704534250`  //时间戳  
-X-Client-Id: `kF**********HRZ`  //平台openApi客户端id  
+RequestMethod: POST  
 
-Content-Type: application/json  
+RequestHeader:  
+    X-Sign: `8c5107***************eda4d`  
+    X-Timestamp: `1586704534250`  
+    X-Client-Id: `kF**********HRZ`  
+    Content-Type: application/json  
 
-http请求参数示例：  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+
+RequestBody：  
 ```json
 {
   "start_date": "2020-04-12"
 }
 ```
-返回示例：  
+HttpResponse：  
 ```json
 {
 	"result": [{

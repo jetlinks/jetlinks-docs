@@ -50,8 +50,7 @@ module.exports = {
                 children: [
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
                     ['/basics-guide/protocol-support.md', '设备消息协议解析SDK'],
-                    ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议'],
-                    ['/advancement-guide/custom-protocol.md', '自定义协议开发']
+                    ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议']
                 ]
             },
             {
@@ -66,7 +65,6 @@ module.exports = {
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
-                    ['/best-practices/open-api.md', '使用openApi提供服务接口(Pro)'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
