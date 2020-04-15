@@ -37,6 +37,7 @@ module.exports = {
                 children: [
                     ['/install-deployment/docker-start.md', '使用docker快速启动'],
                     ['/install-deployment/ide-docker-start.md', '使用docker+源代码启动开发环境'],
+                    ['/install-deployment/ui-start.md', 'UI启动'],
                     ['/install-deployment/not-docker-start.md', '非docker环境启动'],
                     ['/quick-start/demo.md', '快速体验设备接入'],
                     ['/install-deployment/deployment.md', '部署']
