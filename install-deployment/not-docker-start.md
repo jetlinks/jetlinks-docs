@@ -31,8 +31,10 @@ hsweb:
       static-location: http://127.0.0.1:8848/upload # 上传的文件访问根地址
 ```
 
-- 步骤2: 从[使用docker启动开发环境,使用IDE中启动JetLinks服务](ide-docker-start.md)-`步骤2`开始.
+- 步骤2: [启动JetLinks服务](ide-docker-start.md#启动JetLinks服务).
 
-**启动成功后访问系统**
+- 步骤3: [启动UI](ui-start.md)  
+
+**启动成功后访问系统**  
 
 地址: `http://localhost:9000`, 用户名:`admin`,密码:`admin`.

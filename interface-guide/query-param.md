@@ -1,5 +1,5 @@
 # 公共查询参数
-QueryParam查询参数对象在各查询接口中频繁使用，本文将对此对象进行说明。
+查询参数对象在各查询接口中频繁使用，本文将对此对象进行说明。
 
 各属性如下表所示：
 
@@ -39,21 +39,21 @@ terms | List&#60;Term&#62; |  | 嵌套的条件
 ### TermType
 TermType各条件如下所示：
 
-条件       | 类型值 
+类型值       |  条件
 -------------- | ------------- 
-== | eq 
-!= | not 
+eq |  ==
+not |  !=
 like | like 
-not like | nlike 
-&#62; | gt 
-&#60; | lt 
-&#62;= | gte 
-&#60;= | lte 
+nlike |  not like
+gt | &#62; 
+lt |  &#60;
+gte |  &#62;=
+lte |  &#60;=
 in | in 
-not in | nin 
-='' | empty 
-!='' | nempty 
-is null | isnull 
-not null | notnull 
-between | btw
-not between | nbtw
+nin |  not in
+empty |  =''
+nempty |  !=''
+isnull |  is null
+notnull |  not null
+btw | between
+nbtw | not between

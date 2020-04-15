@@ -2,7 +2,7 @@ module.exports = {
     title: 'jetlinks系统文档',
     descirption: '测试文档',
     //basic: './dist',
-	port: 9999,
+    port: 9999,
     // configureWebpack : {
     //     output: {
     //         publicPath: "/"
@@ -10,11 +10,11 @@ module.exports = {
     // },
     themeConfig: {
         nav: [
-            { text: '关于', link: 'http://jetlinks.cn/' },
-            { text: 'GitHub', link: 'https://github.com/jetlinks' },
-            { text: 'gitee', link: 'https://gitee.com/jetlinks' },
-            { text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues' },
-            { text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues' }
+            {text: '关于', link: 'http://jetlinks.cn/'},
+            {text: 'GitHub', link: 'https://github.com/jetlinks'},
+            {text: 'gitee', link: 'https://gitee.com/jetlinks'},
+            {text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues'},
+            {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'}
         ],
         sidebar: [
             {
@@ -37,8 +37,9 @@ module.exports = {
                 children: [
                     ['/install-deployment/docker-start.md', '使用docker快速启动'],
                     ['/install-deployment/ide-docker-start.md', '使用docker+源代码启动开发环境'],
-                    ['/install-deployment/not-docker-start.md','非docker环境启动'],
-                    ['/quick-start/demo.md','快速体验设备接入'],
+                    ['/install-deployment/ui-start.md', 'UI启动'],
+                    ['/install-deployment/not-docker-start.md', '非docker环境启动'],
+                    ['/quick-start/demo.md', '快速体验设备接入'],
                     ['/install-deployment/deployment.md', '部署']
                 ]
             },
@@ -65,11 +66,10 @@ module.exports = {
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
-                    ['/best-practices/open-api.md','使用openApi提供服务接口(Pro)'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
-                    ['/advancement-guide/rule-engine-subscription.md','通过规则引擎订阅设备消息,处理后发送邮件通知'],
-                    ['/advancement-guide/rule-engine-send.md','通过规则引擎向其他设备发送消息'],
+                    ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
+                    ['/advancement-guide/rule-engine-send.md', '通过规则引擎向其他设备发送消息'],
                     // ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)'],
                     ['/advancement-guide/benchmark.md', '压力测试']
                 ]
@@ -80,12 +80,12 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/basics-guide/course/system-layout','系统配置'],
-                    ['/basics-guide/device-manager.md','设备管理'],
-                    ['/basics-guide/course/network.md','网络组件'],
-                    ['/basics-guide/course/notification.md','通知管理'],
-                    ['/basics-guide/rule-engine.md','规则引擎'],
-                    ['/basics-guide/course/logger.md','日志管理']
+                    ['/basics-guide/course/system-layout', '系统配置'],
+                    ['/basics-guide/device-manager.md', '设备管理'],
+                    ['/basics-guide/course/network.md', '网络组件'],
+                    ['/basics-guide/course/notification.md', '通知管理'],
+                    ['/basics-guide/rule-engine.md', '规则引擎'],
+                    ['/basics-guide/course/logger.md', '日志管理']
                 ]
             },
             {
@@ -103,7 +103,7 @@ module.exports = {
                     ['/dev-guide/send-message.md', '向设备发送消息'],
                     ['/dev-guide/subscribe-device-message', '从消息网关中订阅设备消息'],
 
-                   // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
+                    // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],
                     // ['/dev-guide/message-gateway.md', '消息网关'],
                     // ['/dev-guide/device-gateway.md', '设备网关'],
@@ -115,11 +115,12 @@ module.exports = {
                 title: 'openApi接口文档',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
-                sidebarDepth: 1,    // 可选的, 默认值是 1
+                sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
-                    ['/interface-guide/open-api','openApi']
+                    ['/interface-guide/open-api/access', '接入'],
+                    ['/interface-guide/open-api/open-api', 'API列表'],
                 ]
             },
             {
@@ -130,46 +131,46 @@ module.exports = {
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
-                    ['/common-problems/install.md','安装,启动常见问题'],
-                    ['/common-problems/network-components.md','网络组件常见问题'],
-                    ['/common-problems/mqtt-connection.md','使用MQTT接入时的常见问题'],
-                    ['/common-problems/tcp-network-components.md','TCP网络组件常见问题']
+                    ['/common-problems/install.md', '安装,启动常见问题'],
+                    ['/common-problems/network-components.md', '网络组件常见问题'],
+                    ['/common-problems/mqtt-connection.md', '使用MQTT接入时的常见问题'],
+                    ['/common-problems/tcp-network-components.md', 'TCP网络组件常见问题']
                 ]
             },
-	    // {
-        //         title: 'HTTP接口文档',   // 必要的
-        // //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
-        //         collapsable: false, // 可选的, 默认值是 true,
-        //         sidebarDepth: 1,    // 可选的, 默认值是 1
-        //         children: [
-        //             //['', '介绍'],
-        //             //['', '快速开始'],
-        //                 ['/interface-guide/authentication','权限设置'],
-        //                 ['/interface-guide/device/device-product','设备型号'],
-		// 	['/interface-guide/device/device-instance','设备实例'],
-        //                 ['','网络组件'],
-        //                 ['','设备接入'],
-        //                 ['','消息通知'],
-        //                 ['','openApi']
-        //         ]
-        //     }
-           //  ,
-           //  {
-           //      title: '开发手册',
-           //      collapsable: false, // 可选的, 默认值是 true,
-           //      sidebarDepth: 1,    // 可选的, 默认值是 1
-           //      children: [
-           //          ['/dev-guide/start.md', '简介'],
-			// ['/dev-guide/specification', '命名'],
-		   //  ['/dev-guide/crud.md', '增删改查'],
-			// ['/dev-guide/device-operation.md', '设备操作'],
-			// ['/dev-guide/event-driver.md', '事件驱动'],
-			// ['/dev-guide/message-gateway.md', '消息网关'],
-			// ['/dev-guide/device-gateway.md', '设备网关'],
-           //          ['/dev-guide/jetlinks-protocol', '协议开发'],
-           //          ['/dev-guide/rule-engine', '规则引擎']
-           //      ]
-           // }
+            // {
+            //         title: 'HTTP接口文档',   // 必要的
+            // //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+            //         collapsable: false, // 可选的, 默认值是 true,
+            //         sidebarDepth: 1,    // 可选的, 默认值是 1
+            //         children: [
+            //             //['', '介绍'],
+            //             //['', '快速开始'],
+            //                 ['/interface-guide/authentication','权限设置'],
+            //                 ['/interface-guide/device/device-product','设备型号'],
+            // 	['/interface-guide/device/device-instance','设备实例'],
+            //                 ['','网络组件'],
+            //                 ['','设备接入'],
+            //                 ['','消息通知'],
+            //                 ['','openApi']
+            //         ]
+            //     }
+            //  ,
+            //  {
+            //      title: '开发手册',
+            //      collapsable: false, // 可选的, 默认值是 true,
+            //      sidebarDepth: 1,    // 可选的, 默认值是 1
+            //      children: [
+            //          ['/dev-guide/start.md', '简介'],
+            // ['/dev-guide/specification', '命名'],
+            //  ['/dev-guide/crud.md', '增删改查'],
+            // ['/dev-guide/device-operation.md', '设备操作'],
+            // ['/dev-guide/event-driver.md', '事件驱动'],
+            // ['/dev-guide/message-gateway.md', '消息网关'],
+            // ['/dev-guide/device-gateway.md', '设备网关'],
+            //          ['/dev-guide/jetlinks-protocol', '协议开发'],
+            //          ['/dev-guide/rule-engine', '规则引擎']
+            //      ]
+            // }
         ]
     }
 }
