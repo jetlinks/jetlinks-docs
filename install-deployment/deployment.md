@@ -1,12 +1,5 @@
 # 快速部署
 
-## 平台所需环境
-
-请先安装以下服务: postgresql 11,redis 5.x,elasticsearch 6.7.2.  
-::: tip 注意
-本文档中以上服务在docker方式部署时使用docker-compose启动，可不再安装。
-:::
-
 在[获取源代码](docker-start.md#获取源代码)后可通过以下两种方式部署程序。  
 ## docker方式
 

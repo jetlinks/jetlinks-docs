@@ -35,6 +35,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
+                    ['/install-deployment/required-environment.md', '平台所需环境'],
                     ['/install-deployment/docker-start.md', '使用docker快速启动'],
                     ['/install-deployment/ide-docker-start.md', '使用docker+源代码启动开发环境'],
                     ['/install-deployment/ui-start.md', 'UI启动'],
