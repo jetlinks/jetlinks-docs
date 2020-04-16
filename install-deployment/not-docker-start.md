@@ -1,11 +1,5 @@
 # 非docker环境启动
 
-请先安装以下服务: `postgresql 11`,`redis 5.x`,`elasticsearch 6.7.2`.
-
-::: tip 提示
- `postgresql`可更换为`mysql 5.7+`或者`sqlserver`,只需要修改配置中的`spring.r2dbc`和`easyorm`相关配置项即可.
-:::
-
 - 步骤1: 根据情况修改`jetlinks-standalone`模块下的配置文件:`application.yml`中相关配置.
 
 ```yaml
