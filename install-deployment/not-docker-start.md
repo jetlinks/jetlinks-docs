@@ -1,5 +1,7 @@
 # 非docker环境启动
 
+**注意：[启动所需环境](required-environment.md)**
+
 - 步骤1: 根据情况修改`jetlinks-standalone`模块下的配置文件:`application.yml`中相关配置.
 
 ```yaml
