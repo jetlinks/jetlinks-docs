@@ -19,9 +19,9 @@
 [x] 在协议包编码时可直接回复设备消息,场景: 编码消息消息时直接调用第三方平台接口获取设备数据.  
 [ ] 功能重命名: `设备型号`改为`产品`,`设备实例`改为`设备`.  
 [ ] 增加设备分类,在配置产品时,可以选择分类.配置物模型时,可以从分类中选择模版.   
-[ ] 增加`websocket`订阅消息:`/messaging/{token}`,可通过websocket订阅实时数据. 使用手册.  
-[ ] OpenAPI增加token方式,申请token后,通过token发起API请求,不用再签名.  
-[ ] 增加Geo支持,可通过`GeoObjectManager`统一管理Geo信息并进行搜索(支持矩形,圆形,多边形区域搜索). (Pro)  
+[x] 增加`websocket`订阅消息:`/messaging/{token}`,可通过websocket订阅实时数据. 使用手册.  
+[x] OpenAPI增加token方式,申请token后,通过token发起API请求,不用再签名.  
+[x] 增加Geo支持,可通过`GeoObjectManager`统一管理Geo信息并进行搜索(支持矩形,圆形,多边形区域搜索). (Pro)  
 [ ] 增加数据转发功能,可通过SQL的方式来处理实时数据并转发数据. 查看文档 (Pro)  
 [ ] 增加设备接入的引导界面.  
 [ ] 增加可视化图表配置.  
