@@ -26,3 +26,6 @@ easyorm:
 r2dbc:
   url: r2dbc:mysql://localhost:3306/jetlinks
 ```
+
+## maven依赖问题
+大部分是因为配置了全局私服，在setting.xml文件中取消即可。  
