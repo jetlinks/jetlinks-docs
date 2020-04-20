@@ -240,7 +240,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
               byte[] payload = ByteBufUtil.getBytes(byteBuf, 0, byteBuf.readableBytes(), false);
               // 把字节流转换为字符串，根据不同设备不同协议进行解析，
               String text=new String(payload);
-              ReportPropertyMessage message.setProperties(properties); = new ReportPropertyMessage();
+              ReportPropertyMessage message = new ReportPropertyMessage();
               // 设置消息ID为我们获得的消息内容
               message.setDeviceId(text);
               // 以当前时间戳为消息时间
