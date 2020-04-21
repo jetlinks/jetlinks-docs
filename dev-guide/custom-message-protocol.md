@@ -220,54 +220,51 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
   ## 第四步  设备上报消息解码 
 
-  本部分代码全部写在DemoDeviceMessageCodec.decode方法中
-
   ~~~java
 @AllArgsConstructor
   @Slf4j
   public class DemoTcpMessageCodec implements DeviceMessageCodec {
-      
-     ....
-      
-      // 把tcp消息解码为平台消息，多用于设备上报消息到平台
-      @Override
-      public Mono<? extends Message> decode(MessageDecodeContext context) {
-          return Mono.defer(() -> {
-              // 消息上下文
-              FromDeviceMessageContext ctx = ((FromDeviceMessageContext) context);
-              // 从上下文中获取消息字节数组
-              ByteBuf byteBuf = context.getMessage().getPayload();
-              byte[] payload = ByteBufUtil.getBytes(byteBuf, 0, byteBuf.readableBytes(), false);
-              // 把字节流转换为字符串，根据不同设备不同协议进行解析，
-              String text=new String(payload);
-              ReportPropertyMessage message = new ReportPropertyMessage();
-              // 设置消息ID为我们获得的消息内容
-              message.setDeviceId(text);
-              // 以当前时间戳为消息时间
-              long time=LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
-              message.setTimestamp(time);
-              // 构造上报属性
-              Map<String, Object> properties = new HashMap<>();
-              properties.put("text",text);
-              // 设置上报属性
-              message.setProperties(properties);
-              
-              // 获取设备会话信息
-              DeviceSession session = ((FromDeviceMessageContext) context).getSession();
-              // 如果session中没有设备信息，则为设备首次上线
-              if (session.getOperator() == null) {
-                   DeviceOnlineMessage onlineMessage = new DeviceOnlineMessage();
-                   onlineMessage.setDeviceId(text);
-                   onlineMessage.setTimestamp(System.currentTimeMillis());
-                  // 返回到平台上线消息
-                   return Flux.just(message,onlineMessage);
-              }
-              // 返回到平台属性上报消息
-              return Mono.just(message);
-          });
-      }
-      
-  .....
+        
+       ....
+        
+        // 把tcp消息解码为平台消息，多用于设备上报消息到平台
+        @Override
+        public Mono<? extends Message> decode(MessageDecodeContext context) {
+    		return Flux.defer(() -> {
+                // 消息上下文
+                FromDeviceMessageContext ctx = ((FromDeviceMessageContext) context);
+                // 从上下文中获取消息字节数组
+                ByteBuf byteBuf = context.getMessage().getPayload();
+                byte[] payload = ByteBufUtil.getBytes(byteBuf, 0, byteBuf.readableBytes(), false);
+                // 把字节流转换为字符串，根据不同设备不同协议进行解析，
+                String text=new String(payload);
+                ReportPropertyMessage message = new ReportPropertyMessage();
+                // 设置消息ID为我们获得的消息内容
+                message.setDeviceId(text);
+                // 以当前时间戳为消息时间
+                long time= LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli();
+                message.setTimestamp(time);
+                // 构造上报属性
+                Map<String, Object> properties = new HashMap<>();
+                properties.put("text",text);
+                // 设置上报属性
+                message.setProperties(properties);
+    
+                // 获取设备会话信息
+                DeviceSession session = ctx.getSession();
+                // 如果session中没有设备信息，则为设备首次上线
+                if (session.getOperator() == null) {
+                    DeviceOnlineMessage onlineMessage = new DeviceOnlineMessage();
+                    onlineMessage.setDeviceId(text);
+                    onlineMessage.setTimestamp(System.currentTimeMillis());
+                    // 返回到平台上线消息
+                    return Flux.just(message,onlineMessage);
+                }
+                // 返回到平台属性上报消息
+                return Mono.just(message);
+            });
+        }
+.....
       
   }
   ~~~
@@ -276,29 +273,26 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
   ## 第五步 平台发送消息到设备（消息编码）
 
-  本部分代码全部写在DemoDeviceMessageCodec.encode方法中
-
 ~~~java
 @AllArgsConstructor
 @Slf4j
-public class DemoDeviceMessageCodec implements DeviceMessageCodec {
+public class DemoTcpMessageCodec implements DeviceMessageCodec {
     ..........
     // 把平台消息编码为协议传输消息，多用于平台命令下发到设备
     @Override
     public Publisher<? extends EncodedMessage> encode(MessageEncodeContext context) {
-        // 从平台消息上下文中获取消息内容
-        Message message = context.getMessage();
-        EncodedMessage encodedMessage=EncodedMessage.simple(Unpooled.wrappedBuffer(toBytes());) = null;
+         // 从平台消息上下文中获取消息内容
+        CommonDeviceMessage message = (CommonDeviceMessage) context.getMessage();
+        EncodedMessage encodedMessage = EncodedMessage.simple(Unpooled.wrappedBuffer(message.toString().getBytes()));
         // 根据消息类型的不同，构造不同的消息
         if (message instanceof ReadPropertyMessage) {
             ReadPropertyMessage readPropertyMessage = (ReadPropertyMessage) message;
             // 获取需要传输的字节
-            byte[] bytes=readPropertyMessage.toString().getBytes();
+            byte[] bytes = readPropertyMessage.toString().getBytes();
             // 构造为平台传输到设备的消息体
-            encodedMessage=EncodedMessage.simple(Unpooled.wrappedBuffer(bytes));
+            encodedMessage = EncodedMessage.simple(Unpooled.wrappedBuffer(bytes));
         }
-        ...
-        retrun encodedMessage != null ? Mono.just(encodedMessage) : Mono.empty();
+        return Mono.just(encodedMessage);
     }
 }
 ~~~
