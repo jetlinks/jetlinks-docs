@@ -32,6 +32,9 @@
 
 ### 文档更新记录
 
+### 2020/4/22
+- openApi增加查询geo对象并转为geoJson
+- openApi增加设备批量保存
 ### 2020/4/21
 openApi增加Geo对象管理接口
 
