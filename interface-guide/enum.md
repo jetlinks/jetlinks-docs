@@ -37,3 +37,14 @@ unregister|设备注销
 offline|离线
 online|上线
 other|其它
+
+## Type
+value      |   描述
+--------------- | ----------------
+Point | 点
+MultiPoint | 多个点
+LineString | 线
+MultiLineString | 多条线
+Polygon | 多边形
+MultiPolygon | 多个多边形
+GeometryCollection | 数据集合,包含点线

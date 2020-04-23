@@ -101,6 +101,97 @@ HttpResponse：
 }
 ```
 
+### 批量保存设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device`
+
+http body 请求参数为DeviceSaveDetail集合：    
+
+DeviceSaveDetail 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+id | String | 是 | test002 | 设备实例ID
+name | String | 是 | 温控设备002 | 设备实例名称
+productId | String | 是 | 1236859833832701952 | 型号ID
+productName | String | 是 | 智能温控 | 型号名称
+configuration | Map&#60;String,Object&#62; | 否 |  | 设备配置信息，根据不同的协议配置不同,如果MQTT用户名密码等
+creatorId | String | 否 | 1199596756811550720 | 创建人ID
+creatorName | String | 否 | 管理员 | 创建人名称
+tags | List&#60;DeviceTagEntity&#62; | 否 |  | 标签
+
+标签（DeviceTagEntity）参数说明：  
+名称       | 类型  | 描述  
+-------------- | -------------  | ------------- 
+deviceId | String | 设备ID                              
+key | String | 键
+name | String | 标签名 
+value | String | 值
+type | String | 标签类型
+createTime | Date | 创建时间
+description | String | 描述 
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int | 保存数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/_query   
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `f4823a*********e76eb1d`  
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+[{
+		"id": "test002",
+		"name": "设备002",
+		"productId": "1236859833832701952",
+		"configuration": {
+			"username": "test002",
+			"password": "test002"
+		},
+		"tags": [{
+			"deviceId": "test002",
+			"key": "area",
+			"name": "地区",
+			"value": "chongqing"
+		}]
+
+	},
+	{
+		"id": "test003",
+		"name": "设备名称",
+		"productId": "1236859833832701952",
+		"configuration": {}
+	},
+	{
+		"id": "test004",
+		"name": "设备名称",
+		"productId": "1236859833832701952",
+		"configuration": {}
+	}
+]
+```
+
+HttpResponse：  
+```json
+{"result":3,"status":200,"code":"success"}
+```
+
 ### 查询设备列表
 
 请求方式： POST  
@@ -789,3 +880,282 @@ HttpResponse：
 }
 ```
 
+## 地理信息管理
+
+### 根据geo json保存数据
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/geo/object/geo.json`
+
+http body 请求参数：
+
+GeoJson（参考[GeoJSON](https://geojson.org/)） 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+type | String | 是 | FeatureCollection | 类型，固定为FeatureCollection
+features | List&#60;GeoJsonFeature&#62; | 否 |  | geo集合
+
+GeoJsonFeature 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+type | String | 是 | Feature | 类型，固定为Feature
+properties | Map&#60;String,Object&#62; | 否 |  | 拓展属性
+geometry | GeoShape | 否 |  | 图形
+
+properties 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+objectId | String | 是 | chongqing | 
+id | String | 是 | chongqing | 
+objectType | String | 是 | city | 
+
+GeoShape 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+type | [Type](../enum.md#Type) | 是 | Polygon | 类型
+coordinates | List&#60;Object&#62; | 是 |  | 坐标集合
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/geo/object/geo.json   
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `7d825f4************5724949`  
+    X-Timestamp: `1587460645733`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+{
+	"type": "FeatureCollection",
+	"features": [{
+		"type": "Feature",
+		"properties": {//拓展属性
+            //必须的配置
+			"id": "500242",
+			"objectId": "youyang",
+			"objectType": "city",
+            
+            //其他配置,将设置到 GeoObject.tags中,在查询时可通过filter进行搜索
+			"name": "酉阳土家族苗族自治县",
+			"cp": [108.8196, 28.8666],
+			"childNum": 1
+		},
+		"geometry": {
+			"type": "Polygon",
+			"coordinates": [//坐标列表
+				[
+					[108.3142, 28.9984],
+					[108.3252, 29.0039],
+					[108.3252, 28.96],
+					[108.3142, 28.9984]
+				]
+			]
+		}
+	}]
+}
+```
+::: tip 注意：
+可使用 [http://geojson.io/#map=4/32.18/105.38](http://geojson.io/#map=4/32.18/105.38) 生成json
+:::
+
+HttpResponse：  
+```json
+{"status":200,"code":"success"}
+```
+
+### 查询geo对象
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/geo/object/_search`
+
+http body 请求参数：
+  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+shape | Object | 否 |  | 图形，如重庆市行政区域边界(扩展属性objectId为该边界的标识)
+filter | QueryParamEntity | 否 |  | 可根据GeoObject.tags中的属性进行查询
+
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | GeoObject | 返回数据
+status | int | 状态码
+code | String  |  业务编码 
+
+GeoObject 参数如下：
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+id | String | 唯一标识
+objectType | String | 类型
+shapeType | String  |  图形类型
+objectId | String  |  图形唯一标识
+property | String | 属性标识
+point | GeoPoint  |  坐标
+shape | GeoShape  |  图形
+tags | String | 拓展信息
+timestamp | long  |  时间戳: 数据更新的时间
+
+GeoPoint 参数如下：  
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+lon | double | 经度
+lat | double | 纬度
+
+GeoShape 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+type | [Type](../enum.md#Type) | 是 | Polygon | 类型
+coordinates | List&#60;Object&#62; | 是 |  | 坐标集合度
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/geo/object/_search   
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `7d825f4************5724949`  
+    X-Timestamp: `1587460645733`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+{
+              "shape":{
+                  "objectId":"youyang" //查询objectId为youyang geo对象内的所有geo信息
+              },
+              "filter":{
+     
+              }
+          }
+```
+
+HttpResponse：  
+```json
+{
+	"result": [{
+		"id": "youyang",
+		"objectType": "city",
+		"shapeType": "Polygon",
+		"objectId": "youyang",
+		"shape": {
+			"type": "Polygon",
+			"coordinates": [
+				[
+					[108.3142, 28.9984],
+					[108.3252, 29.0039],
+					[108.3252, 28.96],
+					[108.3142, 28.9984]
+				]
+			]
+		},
+		"tags": {
+			"name": "酉阳土家族苗族自治县",
+			"group": "china"
+		},
+		"timestamp": 0
+	}],
+	"status": 200,
+	"code": "success"
+}
+```
+
+### 查询geo对象并转为geoJson
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/geo/object/_search/geo.json`
+
+http body 请求参数：
+  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+shape | Object | 否 |  | 图形，如重庆市行政区域边界(扩展属性objectId为该边界的标识)
+filter | QueryParamEntity | 否 |  | 可根据GeoObject.tags中的属性进行查询
+
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | GeoJson | 返回数据,请参考GeoJson标准
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/geo/object/_search   
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `f9f297a****************acf288a`  
+    X-Timestamp: `1587542185752`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+{
+              "shape":{
+                  "objectId":"youyang" //查询objectId为youyang geo对象内的所有geo信息
+              },
+              "filter":{
+     
+              }
+          }
+```
+
+HttpResponse：  
+```json
+{
+	"result": {
+		"type": "FeatureCollection",
+		"features": [{
+			"type": "Feature",
+			"properties": {
+				"name": "酉阳土家族苗族自治县",
+				"id": "youyang",
+				"objectId": "youyang",
+				"group": "china",
+				"objectType": "city"
+			},
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[108.3142, 28.9984],
+						[108.3252, 29.0039],
+						[108.3252, 28.96],
+						[108.3142, 28.9984]
+					]
+				]
+			}
+		}]
+	},
+	"status": 200,
+	"code": "success"
+}
+```
