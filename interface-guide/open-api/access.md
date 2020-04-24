@@ -30,7 +30,8 @@
 此赋权操作实际上是对`OpenAPI客户端`对应对`用户主体`进行赋权.
 :::
 
-## 验证流程
+## 使用签名的方式
+### 验证流程
 
 ![流程](../../best-practices/images/OpenApiAuthenticationProcess.png)
 
@@ -43,7 +44,7 @@
 
 :::
 
-## 签名
+### 签名
 
 平台使用签名来校验客户端请求的完整性以及合法性.
 
@@ -77,7 +78,7 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 
 ```
 
-## 验签
+### 验签
 
 使用和签名相同的算法(不需要对响应结果排序):
 
@@ -96,9 +97,76 @@ if(sign.equalsIgnoreCase(signHeader)){
 
 ```
 
+## 使用token的方式
+通过请求接口`/api/v1/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
+### 申请token
+1. 客户端请求接口`/api/v1/token`  
+    请求方式： POST  
+
+    URL： `http(s)://localhost:8844/api/v1/device/_delete`  
+
+    http body 请求参数  
+    {  
+        "expires": 7200 // 过期时间,单位秒. -1为不过期.  
+    }  
+    
+    请求头：  
+        X-Sign: `932bbe8a39ae03f568f73a507d87afac`  
+        X-Timestamp: `1587719082698`    
+        X-Client-Id: `kF**********HRZ`    
+        Content-Type: application/json 
+::: tip 说明：
+X-Sign为`body`+`X-Timestamp`+`SecuryeKey`拼接后MD5加密生成    
+:::
+    
+  请求成功后将返回token：`3bcddb719b01da679b88d07acde2516`。  
+  
+2. 使用token发起请求 
+此处以获取设备test001详情为例。  
+```text
+GET /api/v1/device/test001/_detail  
+X-Access-Token: 3bcddb719b01da679b88d07acde2516  
+```
+响应结果：
+```json
+{
+    "result": {
+        "id": "test001",
+        "name": "温控设备0309",
+        "protocol": "demo-v1",
+        "transport": "MQTT",
+        "orgId": "test",
+        "productId": "1236859833832701952",
+        "productName": "智能温控",
+        "deviceType": {
+            "text": "网关设备",
+            "value": "gateway"
+        },
+        "state": {
+            "text": "离线",
+            "value": "offline"
+        },
+        "address": "/127.0.0.1:36982",
+        "onlineTime": 1586705515429,
+        "offlineTime": 1586705507734,
+        "createTime": 1585809343175,
+        "registerTime": 1583805253659,
+        "metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",
+        "configuration": {
+            "username": "test",
+            "password": "test"
+        },
+        "tags": []
+    },
+    "status": 200,
+    "code": "success"
+}
+```
+    
 ## Demo 
 
-Demo中org.jetlinks.demo.openapi.RequestTest测试类已测试通过平台已有的openApi接口。
+Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。  
+Demo中使用签名的方式接入。  
 
 **[前往下载Demo](https://github.com/jetlinks/jetlinks-openapi-demo)**。
 
