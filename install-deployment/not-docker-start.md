@@ -38,7 +38,7 @@ hsweb:
   file:
     upload:
       static-file-path: ./static/upload   # 上传的文件存储路径
-      static-location: http://127.0.0.1:8848/upload # 上传的文件访问根地址
+      static-location: http://127.0.0.1:${server.port}/upload # 上传的文件访问根地址
 ```
 
 - 步骤2: [启动JetLinks服务](ide-docker-start.md#启动JetLinks服务)。  
