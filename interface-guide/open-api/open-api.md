@@ -140,7 +140,7 @@ status | int | 状态码
 code | String  |  业务编码 
 
 请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/_query   
+RequestUrl: http://localhost:8844/api/v1/device     
 
 RequestMethod: POST  
 
@@ -185,6 +185,126 @@ RequestBody：
 		"configuration": {}
 	}
 ]
+```
+
+HttpResponse：  
+```json
+{"result":3,"status":200,"code":"success"}
+```
+
+### 批量激活设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_deploy`
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |激活数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/_deploy     
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `f4823a*********e76eb1d`  
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+["test002","test003", "test004"]
+```
+
+HttpResponse：  
+```json
+{"result":3,"status":200,"code":"success"}
+```
+
+### 批量注销设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_unDeploy`  
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |注销成功数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/_unDeploy     
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `f4823a*********e76eb1d`  
+    X-Timestamp: `1586511766004`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+["test002","test003", "test004"]
+```
+
+HttpResponse：  
+```json
+{"result":3,"status":200,"code":"success"}
+```
+
+### 批量删除设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_delete`  
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |注销成功数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+RequestUrl: http://localhost:8844/api/v1/device/_delete     
+
+RequestMethod: POST  
+
+RequestHeader:  
+    X-Sign: `67ed4ec***********c6edabad75`  
+    X-Timestamp: `1587609804558`    
+    X-Client-Id: `kF**********HRZ`    
+    Content-Type: application/json  
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
+RequestBody：  
+```json
+["test002","test003", "test004"]
 ```
 
 HttpResponse：  
