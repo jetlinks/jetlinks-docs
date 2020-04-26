@@ -100,7 +100,7 @@ if(sign.equalsIgnoreCase(signHeader)){
 ## 使用token的方式
 通过请求接口`/api/v1/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
 ### 申请token
-1. 客户端请求接口`/api/v1/token`  
+客户端请求接口`/api/v1/token`  
     请求方式： POST  
 
     URL： `http(s)://localhost:8844/api/v1/device/_delete`  
@@ -121,7 +121,7 @@ X-Sign为`body`+`X-Timestamp`+`SecuryeKey`拼接后MD5加密生成
     
   请求成功后将返回token：`3bcddb719b01da679b88d07acde2516`。  
   
-2. 使用token发起请求 
+### 使用token发起请求 
 此处以获取设备test001详情为例。  
 ```text
 GET /api/v1/device/test001/_detail  
