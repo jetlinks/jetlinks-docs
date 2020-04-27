@@ -5,7 +5,20 @@
 
 ## 创建规则
 
-TODO
+**操作步骤**
+1. 进入系统: `规则引擎`-`数据转发`-`新建`。  
+  
+![规则新增](images/insert-rule-engine-sql.png)  
+2. 编辑数据转发信息。 
+
+  i. 在`SQL`中填写需执行的SQL语句（请参考[SQL例子](#SQL例子)）；  
+    
+  ii.  选择执行动作；  
+    
+  iii. 选择失败执行动作。  
+  
+![规则编辑](images/insert-rule-engine-sql.png)  
+3. 点击`确定`进行保存。  
 
 ## SQL例子
 

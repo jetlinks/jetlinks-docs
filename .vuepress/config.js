@@ -69,8 +69,9 @@ module.exports = {
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
-                    ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
-                    ['/advancement-guide/rule-engine-send.md', '通过规则引擎向其他设备发送消息'],
+                    // ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
+                    // ['/advancement-guide/rule-engine-send.md', '通过规则引擎向其他设备发送消息'],
+                    ['/best-practices/rule-engine-sql.md', '规则引擎-数据转发'],
                     // ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)'],
                     ['/advancement-guide/benchmark.md', '压力测试']
                 ]
