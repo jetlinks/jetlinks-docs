@@ -16,7 +16,7 @@ postgresql 11,redis 5.x,elasticsearch 6.8.x.
 :::
 
 ::: tip 提示
- `pwsostgresql`可更换为`mysql 5.7+`或者`sqlserver`,只需要修改配置中的`spring.r2dbc`和`easyorm`相关配置项即可.
+ `postgresql`可更换为`mysql 5.7+`或者`sqlserver`,只需要修改配置中的`spring.r2dbc`和`easyorm`相关配置项即可.
 :::
 ## 启动环境
 进入项目docker目录，执行docker-compose命令。  
