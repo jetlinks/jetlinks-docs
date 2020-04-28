@@ -1002,7 +1002,7 @@ HttpResponse：
 
 ## 地理信息管理
 
-### 根据geo json保存数据
+### 根据geojson保存数据
 
 请求方式： POST  
 
@@ -1170,8 +1170,8 @@ RequestBody：
           }
     ```
    ::: tip 注意：
-   objectId为平台对geojson进行拓展的属性，用来标识地理位置标的物，如：设备id，区域id等。  
-   当objectId为test001的设备位置发生变化后会产生新的地理位置，objectId仍为test001，通过此id查询将返回新旧两个地理位置。
+   objectId为平台对geojson进行拓展的属性，为geo对象的唯一标识，如：设备id，区域id等。  
+   当物模型里面配置了`地理位置`，objectId则为该设备id，可通过objectId查询该设备的地理位置信息。
    :::
 2. 使用shape的多边形的坐标集进行查询   
    ```json
@@ -1203,14 +1203,13 @@ RequestBody：
     		"objectId": "youyang"
     	},
     	"filter": {
-    		"name": "酉阳土家族苗族自治县",
-    		"group": "china"
+    		"where": "tags.name=酉阳土家族苗族自治县 and tags.group=china"
     	}
     
     }
     ```
    ::: tip 注意：
-   filter中的属性来自于[根据geo json保存数据](#根据geo json保存数据)接口提交的数据中的properties；
+   filter查询的条件来自于[根据geojson保存数据](#根据geojson保存数据)接口提交的数据中properties中设置到GeoObject.tags的属性，如：name、group;  
    filter可以单独进行查询，不需要传入`shape`。
    :::
 HttpResponse：  
