@@ -1071,8 +1071,7 @@ RequestBody：
             
             //其他配置,将设置到 GeoObject.tags中,在查询时可通过filter进行搜索
 			"name": "酉阳土家族苗族自治县",
-			"cp": [108.8196, 28.8666],
-			"childNum": 1
+			"group": "china"
 		},
 		"geometry": {
 			"type": "Polygon",
@@ -1158,18 +1157,62 @@ X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密
 X-Timestamp为时间戳  
 X-Client-Id为平台openApi客户端id  
 :::
-RequestBody：  
-```json
-{
+RequestBody：
+1. 使用shape中的objectId查询：    
+    ```json
+    {
               "shape":{
-                  "objectId":"youyang" //查询objectId为youyang geo对象内的所有geo信息
+                  "objectId":"youyang" //查询objectId为youyang的所有geo信息
               },
               "filter":{
      
               }
           }
-```
-
+    ```
+   ::: tip 注意：
+   objectId为平台对geojson进行拓展的属性，用来标识地理位置标的物，如：设备id，区域id等。  
+   当objectId为test001的设备位置发生变化后会产生新的地理位置，objectId仍为test001，通过此id查询将返回新旧两个地理位置。
+   :::
+2. 使用shape的多边形的坐标集进行查询   
+   ```json
+   {
+   	"shape": {
+   			"type": "Polygon",//请参考Type
+   			"coordinates": [
+   				[
+   					[108.3142, 28.9984],
+   					[108.3252, 29.0039],
+   					[108.3252, 28.96],
+   					[108.3142, 28.9984]
+   				]
+   			]
+   		},
+   	"filter": {
+   
+   	}
+   }
+   ```
+    ::: tip 注意：
+    shape中的type请参考[Type](../enum.md#Type)。
+    :::
+    
+3. filter的使用  
+    ```json
+    {
+    	"shape": {
+    		"objectId": "youyang"
+    	},
+    	"filter": {
+    		"name": "酉阳土家族苗族自治县",
+    		"group": "china"
+    	}
+    
+    }
+    ```
+   ::: tip 注意：
+   filter中的属性来自于[根据geo json保存数据](#根据geo json保存数据)接口提交的数据中的properties；
+   filter可以单独进行查询，不需要传入`shape`。
+   :::
 HttpResponse：  
 ```json
 {
@@ -1237,6 +1280,7 @@ X-Timestamp为时间戳
 X-Client-Id为平台openApi客户端id  
 :::
 RequestBody：  
+**查询参数请参考[查询geo对象接口](#查询geo对象)。**  
 ```json
 {
               "shape":{
