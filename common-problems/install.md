@@ -34,3 +34,27 @@ easyorm:
 
 ## maven依赖问题
 大部分是因为配置了全局私服，在setting.xml文件中取消即可。  
+
+## 协议发布失败或出现不支持的协议：xxx
+
+大部分原因是后台配置的文件上传路径错误。
+修改配置/jetlinks-standalone/src/main/resources/application.yml：  
+```yaml
+  file:
+    upload:
+      static-file-path: ./static/upload
+      static-location: http://localhost:${server.port}/upload
+```
+::: tip 注意:
+localhost应为部署平台服务的ip地址
+::: 
+若为docker启动的平台，则修改/docker/run-all/docker-compose.yml文件下的环境变量：  
+```yaml
+jetlinks:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:1.0-SNAPSHOT
+    volumes:
+      - "jetlinks-volume:/static/upload"  # 持久化上传的文件
+    environment:
+     # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
+      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
+```
