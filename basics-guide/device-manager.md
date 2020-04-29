@@ -1,25 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-- [设备管理](#%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86)
-  - [协议管理](#%E5%8D%8F%E8%AE%AE%E7%AE%A1%E7%90%86)
-      - [什么是协议](#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE)
-      - [添加协议](#%E6%B7%BB%E5%8A%A0%E5%8D%8F%E8%AE%AE)
-      - [后续操作步骤](#%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4)
-  - [设备型号](#%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7)
-      - [什么是设备型号](#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7)
-      - [设备型号数据格式](#%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F)
-      - [添加设备型号](#%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%87%E5%9E%8B%E5%8F%B7)
-      - [后续操作步骤](#%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1)
-  - [设备实例](#%E8%AE%BE%E5%A4%87%E5%AE%9E%E4%BE%8B)
-      - [添加设备实例](#%E6%B7%BB%E5%8A%A0%E8%AE%BE%E5%A4%87%E5%AE%9E%E4%BE%8B)
-      - [设备管理](#%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86-1)
-      - [设备信息](#%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF)
-      - [运行状态](#%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81)
-      - [设备日志](#%E8%AE%BE%E5%A4%87%E6%97%A5%E5%BF%97)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # 设备管理
 用于统一管理设备,设备建模,安全配置等操作
 
