@@ -101,7 +101,7 @@ from
 
 ```
 
-::: warn
+::: warning 注意
 SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必须指定`this`或者以表别名开头. 
 如: `this.properties.temperature` ,写成: `properties.temperature`是无法获取到值到.
 :::

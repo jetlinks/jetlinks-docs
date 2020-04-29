@@ -1,0 +1,486 @@
+<svg id="SvgjsSvg1266" width="792" height="653.5" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
+	<defs id="SvgjsDefs1267">
+		<marker id="SvgjsMarker1276" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1277" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1284" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1285" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1292" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1293" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1300" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1301" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1310" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1311" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1320" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1321" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1328" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1329" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1342" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1343" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1350" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1351" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1380" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1381" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1388" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1389" d="M0,2 L14,6 L0,11 L0,2" fill="#000000" stroke="#000000" stroke-width="1">
+			</path>
+		</marker>
+		<marker id="SvgjsMarker1474" markerWidth="16" markerHeight="12" refX="16" refY="6" viewBox="0 0 16 12" orient="auto" markerUnits="userSpaceOnUse">
+			<path id="SvgjsPath1475" d="M0,2 L14,6 L0,11 L0,2" fill="#323232" stroke="#323232" stroke-width="1">
+			</path>
+		</marker>
+	</defs>
+	<g id="SvgjsG1268" transform="translate(240,33.75)">
+		<path id="SvgjsPath1269" d="M 15 0L 148 0C 168 0 168 45 148 45L 15 45C -5 45 -5 0 15 0Z" stroke="#335f94" stroke-width="3" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1270">
+			<text id="SvgjsText1271" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="103" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="12.55" transform="rotate(0)">
+				<tspan id="SvgjsTspan1272" dy="16" x="81.5">
+					<tspan id="SvgjsTspan1273" style="text-decoration:;">
+						设备是否有IP能力
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1274">
+		<path id="SvgjsPath1275" d="M240 56.25L160 56.25L160 106.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1276)">
+		</path>
+		<rect id="SvgjsRect1278" width="13" height="16" x="168.5" y="48.25" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1279" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="46.3" transform="rotate(0)">
+			<tspan id="SvgjsTspan1280" dy="16" x="175">
+				<tspan id="SvgjsTspan1281" style="text-decoration:;">
+					是
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1282">
+		<path id="SvgjsPath1283" d="M403 56.25L457.875 56.25L457.875 56.25L512.75 56.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1284)">
+		</path>
+		<rect id="SvgjsRect1286" width="13" height="16" x="451.375" y="48.25" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1287" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="46.3" transform="rotate(0)">
+			<tspan id="SvgjsTspan1288" dy="16" x="457.875">
+				<tspan id="SvgjsTspan1289" style="text-decoration:;">
+					否
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1290">
+		<path id="SvgjsPath1291" d="M148 306.25L209 306.25L209 306.25L270 306.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1292)">
+		</path>
+		<rect id="SvgjsRect1294" width="13" height="16" x="202.5" y="298.25" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1295" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="296.3" transform="rotate(0)">
+			<tspan id="SvgjsTspan1296" dy="16" x="209">
+				<tspan id="SvgjsTspan1297" style="text-decoration:;">
+					否
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1298">
+		<path id="SvgjsPath1299" d="M331 321.25L331 343L331 343L331 364.75" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1300)">
+		</path>
+	</g>
+	<g id="SvgjsG1302" transform="translate(270,364.75)">
+		<path id="SvgjsPath1303" d="M 0 4Q 0 0 4 0L 118 0Q 122 0 122 4L 122 26Q 122 30 118 30L 4 30Q 0 30 0 26Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1304">
+			<text id="SvgjsText1305" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="65" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="5.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1306" dy="16" x="61">
+					<tspan id="SvgjsTspan1307" style="text-decoration:;">
+						上传到平台
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1308">
+		<path id="SvgjsPath1309" d="M331 394.75L331 418L331 418L331 441.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1310)">
+		</path>
+	</g>
+	<g id="SvgjsG1312" transform="translate(533,285.75)">
+		<path id="SvgjsPath1313" d="M 0 20.5L 54.5 0L 109 20.5L 54.5 41Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1314">
+			<text id="SvgjsText1315" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="52" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="10.755" transform="rotate(0)">
+				<tspan id="SvgjsTspan1316" dy="16" x="54.5">
+					<tspan id="SvgjsTspan1317" style="text-decoration:;">
+						接入方式
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1318">
+		<path id="SvgjsPath1319" d="M533 306.25L462.5 306.25L462.5 306.25L392 306.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1320)">
+		</path>
+		<rect id="SvgjsRect1322" width="91" height="16" x="417" y="298.25" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1323" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="91" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="296.3" transform="rotate(0)">
+			<tspan id="SvgjsTspan1324" dy="16" x="462.5">
+				<tspan id="SvgjsTspan1325" style="text-decoration:;">
+					第三方应用推送
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1326">
+		<path id="SvgjsPath1327" d="M587.5 326.75L587.5 384.125L587.5 384.125L587.5 441.5" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1328)">
+		</path>
+		<rect id="SvgjsRect1330" width="104" height="16" x="535.5" y="376.125" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1331" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="104" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="374.175" transform="rotate(0)">
+			<tspan id="SvgjsTspan1332" dy="16" x="587.5">
+				<tspan id="SvgjsTspan1333" style="text-decoration:;">
+					第三方云平台接入
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1334" transform="translate(512.75,25)">
+		<path id="SvgjsPath1335" d="M 0 31.25L 70.5 0L 141 31.25L 70.5 62.5Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1336">
+			<text id="SvgjsText1337" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="91" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="21.6125" transform="rotate(0)">
+				<tspan id="SvgjsTspan1338" dy="16" x="70.5">
+					<tspan id="SvgjsTspan1339" style="text-decoration:;">
+						是否已接入网关
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1340">
+		<path id="SvgjsPath1341" d="M583.25 87.5L583.25 146.25L220 146.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1342)">
+		</path>
+		<rect id="SvgjsRect1344" width="13" height="16" x="424.5" y="138.25" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1345" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="136.3" transform="rotate(0)">
+			<tspan id="SvgjsTspan1346" dy="16" x="431">
+				<tspan id="SvgjsTspan1347" style="text-decoration:;">
+					是
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1348">
+		<path id="SvgjsPath1349" d="M653.75 56.25L708 56.25L708 148.75" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1350)">
+		</path>
+		<rect id="SvgjsRect1352" width="13" height="16" x="701.5" y="67.375" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1353" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="65.425" transform="rotate(0)">
+			<tspan id="SvgjsTspan1354" dy="16" x="708">
+				<tspan id="SvgjsTspan1355" style="text-decoration:;">
+					否
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1356" transform="translate(649,148.75)">
+		<path id="SvgjsPath1357" d="M 0 4Q 0 0 4 0L 114 0Q 118 0 118 4L 118 39Q 118 43 114 43L 4 43Q 0 43 0 39Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1358">
+			<text id="SvgjsText1359" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="52" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="11.55" transform="rotate(0)">
+				<tspan id="SvgjsTspan1360" dy="16" x="59">
+					<tspan id="SvgjsTspan1361" style="text-decoration:;">
+						联系我们
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1362" transform="translate(25,266.25)">
+		<path id="SvgjsPath1363" d="M 0 40L 61.5 0L 123 40L 61.5 80Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1364">
+			<text id="SvgjsText1365" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="91" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="14.45" transform="rotate(0)">
+				<tspan id="SvgjsTspan1366" dy="16" x="61.5">
+					<tspan id="SvgjsTspan1367" style="text-decoration:;">
+						是否使用
+					</tspan>
+				</tspan>
+				<tspan id="SvgjsTspan1368" dy="16" x="61.5">
+					<tspan id="SvgjsTspan1369" style="text-decoration:;">
+						JetLinks官方协
+					</tspan>
+				</tspan>
+				<tspan id="SvgjsTspan1370" dy="16" x="61.5">
+					<tspan id="SvgjsTspan1371" style="text-decoration:;">
+						议
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1372" transform="translate(100,106.25)">
+		<path id="SvgjsPath1373" d="M 0 40L 60 0L 120 40L 60 80Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1374">
+			<text id="SvgjsText1375" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="78" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="30.45" transform="rotate(0)">
+				<tspan id="SvgjsTspan1376" dy="16" x="60">
+					<tspan id="SvgjsTspan1377" style="text-decoration:;">
+						是否直连平台
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1378">
+		<path id="SvgjsPath1379" d="M100 146.25L86.5 146.25L86.5 266.25" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1380)">
+		</path>
+		<rect id="SvgjsRect1382" width="13" height="16" x="80" y="191.5" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1383" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="189.55" transform="rotate(0)">
+			<tspan id="SvgjsTspan1384" dy="16" x="86.5">
+				<tspan id="SvgjsTspan1385" style="text-decoration:;">
+					是
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1386">
+		<path id="SvgjsPath1387" d="M160 186.25L160 236L587.5 236L587.5 285.75" stroke="#000000" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1388)">
+		</path>
+		<rect id="SvgjsRect1390" width="13" height="16" x="367.25" y="228" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1391" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="226.05" transform="rotate(0)">
+			<tspan id="SvgjsTspan1392" dy="16" x="373.75">
+				<tspan id="SvgjsTspan1393" style="text-decoration:;">
+					否
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1394" transform="translate(489,441.5)">
+		<path id="SvgjsPath1395" d="M 0 0L 197 0L 197 187L 0 187Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1396">
+			<text id="SvgjsText1397" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="0" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="83.55" transform="rotate(0)">
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1398" transform="translate(512.75,449.875)">
+		<path id="SvgjsPath1399" d="M 0 4Q 0 0 4 0L 149 0Q 153 0 153 4L 153 20.25Q 153 24.25 149 24.25L 4 24.25Q 0 24.25 0 20.25Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1400">
+			<text id="SvgjsText1401" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="46" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="2.175" transform="rotate(0)">
+				<tspan id="SvgjsTspan1402" dy="16" x="76.5">
+					<tspan id="SvgjsTspan1403" style="text-decoration:;">
+						NB-IoT
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1404" transform="translate(509.25,519.875)">
+		<path id="SvgjsPath1405" d="M 0 4Q 0 0 4 0L 152.5 0Q 156.5 0 156.5 4L 156.5 22.25Q 156.5 26.25 152.5 26.25L 4 26.25Q 0 26.25 0 22.25Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1406">
+			<text id="SvgjsText1407" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="65" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="3.175" transform="rotate(0)">
+				<tspan id="SvgjsTspan1408" dy="16" x="78.5">
+					<tspan id="SvgjsTspan1409" style="text-decoration:;">
+						阿里云平台
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1410" transform="translate(512.75,556.125)">
+		<path id="SvgjsPath1411" d="M 0 4Q 0 0 4 0L 149 0Q 153 0 153 4L 153 24Q 153 28 149 28L 4 28Q 0 28 0 24Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1412">
+			<text id="SvgjsText1413" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="78" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="4.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1414" dy="16" x="76.5">
+					<tspan id="SvgjsTspan1415" style="text-decoration:;">
+						海康视频平台
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1416" transform="translate(512.75,592.5)">
+		<path id="SvgjsPath1417" d="M 0 4Q 0 0 4 0L 149 0Q 153 0 153 4L 153 20.25Q 153 24.25 149 24.25L 4 24.25Q 0 24.25 0 20.25Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1418">
+			<text id="SvgjsText1419" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="39" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="2.175" transform="rotate(0)">
+				<tspan id="SvgjsTspan1420" dy="16" x="76.5">
+					<tspan id="SvgjsTspan1421" style="text-decoration:;">
+						自定义
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1422" transform="translate(235,441.25)">
+		<path id="SvgjsPath1423" d="M 0 0L 192 0L 192 187.5L 0 187.5Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1424">
+			<text id="SvgjsText1425" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="0" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="83.8" transform="rotate(0)">
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1426" transform="translate(250.5,470.75)">
+		<path id="SvgjsPath1427" d="M 0 4Q 0 0 4 0L 148.5 0Q 152.5 0 152.5 4L 152.5 24Q 152.5 28 148.5 28L 4 28Q 0 28 0 24Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1428">
+			<text id="SvgjsText1429" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="121" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="4.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1430" dy="16" x="76.5">
+					<tspan id="SvgjsTspan1431" style="text-decoration:;">
+						MQTT Server,Client
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1432" transform="translate(254.25,434.75)">
+		<path id="SvgjsPath1433" d="M 0 0L 160 0L 160 40L 0 40Z" stroke="none" fill="none">
+		</path>
+		<g id="SvgjsG1434">
+			<text id="SvgjsText1435" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="52" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="10.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1436" dy="16" x="80">
+					<tspan id="SvgjsTspan1437" style="text-decoration:;">
+						接入平台
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1438" transform="translate(250.5,507)">
+		<path id="SvgjsPath1439" d="M 0 4Q 0 0 4 0L 148.5 0Q 152.5 0 152.5 4L 152.5 28.75Q 152.5 32.75 148.5 32.75L 4 32.75Q 0 32.75 0 28.75Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1440">
+			<text id="SvgjsText1441" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="109" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="6.425" transform="rotate(0)">
+				<tspan id="SvgjsTspan1442" dy="16" x="76.5">
+					<tspan id="SvgjsTspan1443" style="text-decoration:;">
+						TCP Server,Client
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1444" transform="translate(254.25,546.75)">
+		<path id="SvgjsPath1445" d="M 0 4Q 0 0 4 0L 63.5 0Q 67.5 0 67.5 4L 67.5 34Q 67.5 38 63.5 38L 4 38Q 0 38 0 34Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1446">
+			<text id="SvgjsText1447" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="40" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="1.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1448" dy="16" x="34">
+					<tspan id="SvgjsTspan1449" style="text-decoration:;">
+						HTTP
+					</tspan>
+				</tspan>
+				<tspan id="SvgjsTspan1450" dy="16" x="34">
+					<tspan id="SvgjsTspan1451" style="text-decoration:;">
+						Server
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1452" transform="translate(338.5,546.75)">
+		<path id="SvgjsPath1453" d="M 0 4Q 0 0 4 0L 63.5 0Q 67.5 0 67.5 4L 67.5 34Q 67.5 38 63.5 38L 4 38Q 0 38 0 34Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1454">
+			<text id="SvgjsText1455" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="40" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="1.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1456" dy="16" x="34">
+					<tspan id="SvgjsTspan1457" style="text-decoration:;">
+						CoAP
+					</tspan>
+				</tspan>
+				<tspan id="SvgjsTspan1458" dy="16" x="34">
+					<tspan id="SvgjsTspan1459" style="text-decoration:;">
+						Server
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1460" transform="translate(250.5,593.75)">
+		<path id="SvgjsPath1461" d="M 0 4Q 0 0 4 0L 151.5 0Q 155.5 0 155.5 4L 155.5 19Q 155.5 23 151.5 23L 4 23Q 0 23 0 19Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1462">
+			<text id="SvgjsText1463" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="27" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="1.55" transform="rotate(0)">
+				<tspan id="SvgjsTspan1464" dy="16" x="78">
+					<tspan id="SvgjsTspan1465" style="text-decoration:;">
+						UDP
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1466" transform="translate(270,291.25)">
+		<path id="SvgjsPath1467" d="M 0 4Q 0 0 4 0L 118 0Q 122 0 122 4L 122 26Q 122 30 118 30L 4 30Q 0 30 0 26Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#ffffff">
+		</path>
+		<g id="SvgjsG1468">
+			<text id="SvgjsText1469" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="91" fill="#323232" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="5.05" transform="rotate(0)">
+				<tspan id="SvgjsTspan1470" dy="16" x="61">
+					<tspan id="SvgjsTspan1471" style="text-decoration:;">
+						开发报文解析包
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1472">
+		<path id="SvgjsPath1473" d="M86.5 346.25L86.5 535L235 535" stroke="#323232" stroke-width="1" fill="none" marker-end="url(#SvgjsMarker1474)">
+		</path>
+		<rect id="SvgjsRect1476" width="13" height="16" x="80" y="506.875" fill="#ffffff">
+		</rect>
+		<text id="SvgjsText1477" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="13" fill="#323232" font-weight="700" align="top" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="504.925" transform="rotate(0)">
+			<tspan id="SvgjsTspan1478" dy="16" x="86.5">
+				<tspan id="SvgjsTspan1479" style="text-decoration:;">
+					是
+				</tspan>
+			</tspan>
+		</text>
+	</g>
+	<g id="SvgjsG1480" transform="translate(512.75,482.875)">
+		<path id="SvgjsPath1481" d="M 0 4Q 0 0 4 0L 70 0Q 74 0 74 4L 74 22.5Q 74 26.5 70 26.5L 4 26.5Q 0 26.5 0 22.5Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1482">
+			<text id="SvgjsText1483" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="26" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="3.3" transform="rotate(0)">
+				<tspan id="SvgjsTspan1484" dy="16" x="37">
+					<tspan id="SvgjsTspan1485" style="text-decoration:;">
+						移动
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+	<g id="SvgjsG1486" transform="translate(591.75,482.875)">
+		<path id="SvgjsPath1487" d="M 0 4Q 0 0 4 0L 70 0Q 74 0 74 4L 74 22.5Q 74 26.5 70 26.5L 4 26.5Q 0 26.5 0 22.5Z" stroke="#335f94" stroke-width="2" fill-opacity="1" fill="#3581bb">
+		</path>
+		<g id="SvgjsG1488">
+			<text id="SvgjsText1489" font-family="微软雅黑" text-anchor="middle" font-size="13px" width="26" fill="#ffffff" font-weight="700" align="middle" anchor="middle" family="微软雅黑" size="13px" weight="700" font-style="" y="3.3" transform="rotate(0)">
+				<tspan id="SvgjsTspan1490" dy="16" x="37">
+					<tspan id="SvgjsTspan1491" style="text-decoration:;">
+						电信
+					</tspan>
+				</tspan>
+			</text>
+		</g>
+	</g>
+</svg>
