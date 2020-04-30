@@ -1,22 +1,24 @@
-# 介绍
+# JetLinks 开源物联网平台
 
-## 项目简介
-JetLinks 是一个物联网基础平台,用于快速建立物联网相关业务系统.
+JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发, 
+是一个开箱即用,可二次开发的企业级物联网基础平台。平台实现了物联网相关的众多基础功能,
+能帮助你快速建立物联网相关业务系统。
 
-- 集成了各种常见的网络协议(HTTP,TCP,UDP,CoAP)等,并对其进行封装,
-实现统一管理,监控,在线调试,在线启动,停止,更新等功能.大大降低网络编程的复杂度.
+## 核心特性
 
-- 多消息协议支持,可在线配置消息解析规则,将自定义的消息解析为平台统一的消息格式.
+支持统一物模型管理,多种设备,多种厂家,统一管理。
 
-- 统一的设备操作API,屏蔽各个厂家`不同协议`不同设备的差异,支持`跨服务`,同步(RRpc),异步的设备消息收发.
+统一设备连接管理,多协议适配(TCP,MQTT,UDP,CoAP,HTTP等),屏蔽网络编程复杂性,灵活接入不同厂家不同协议的设备。
 
-- 可视化拖拽规则引擎设计器,灵活可拓展的多种规则节点支持,可通过规则引擎在线动态配置数据,业务处理逻辑.
+灵活的规则引擎,设备告警,消息通知,数据转发.可基于SQL进行复杂的数据处理逻辑.
 
-- 灵活的多维度权限控制,可支持`列`,`行`级别数据权限控制.
+地理位置:统一管理地理位置信息,支持区域搜索. 
+
+数据可视化: 实现拖拽配置数据图表,设备组态等.
 
 官方QQ群: `2021514`
 
-## 技术选型
+## 技术栈
 
 1. [Spring Boot 2.2.x](https://spring.io/projects/spring-boot)
 2. [Spring WebFlux](https://spring.io/) 响应式Web支持
@@ -26,3 +28,12 @@ JetLinks 是一个物联网基础平台,用于快速建立物联网相关业务�
 5. [ElasticSearch](https://www.elastic.co/cn/products/enterprise-search) 全文检索，日志，时序数据存储
 6. [PostgreSQL](https://www.postgresql.org) 业务功能数据管理
 7. [hsweb framework 4](https://github.com/hs-web) 业务功能基础框架
+
+## 架构
+
+![platform](./platform.svg)
+
+## 设备接入流程
+
+![flow](./flow.svg)
+

@@ -12,26 +12,26 @@
 
 主要优化:
 
-[x] 优化设备消息topic: `/device/{deviceId}` 修改为: `/device/{productId}/{deviceId}`.  
-[x] 增加设备告警功能.可通过订阅消息网关`/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`来处理预警消息.  
-[x] 增加设备告警界面,支持对设备型号统一配置告警规则以及对单个设备配置告警规则,目前支持动作: 消息通知.  
-[x] 增加HTTP方式接入,设备或者第三方平台可通过HTTP推送设备数据. (Pro)  
-[x] 在协议包编码时可直接回复设备消息,场景: 编码消息消息时直接调用第三方平台接口获取设备数据.  
-[x] 增加`websocket`订阅消息:`/messaging/{token}`,可通过websocket订阅实时数据. 
-[x] OpenAPI增加token方式,申请token后,通过token发起API请求,不用再签名.(Pro)  
-[x] 增加Geo支持,可通过`GeoObjectManager`统一管理Geo信息并进行搜索(支持矩形,圆形,多边形区域搜索). (Pro)  
-[x] 增加数据转发功能,可通过SQL的方式来处理实时数据并转发数据. [查看文档](../best-practices/rule-engine-sql.md)
-[x] 增加可视化图表配置.
+1. 优化设备消息topic: `/device/{deviceId}` 修改为: `/device/{productId}/{deviceId}`.  
+2. 增加设备告警功能.可通过订阅消息网关`/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`来处理预警消息.  
+3. 增加设备告警界面,支持对设备型号统一配置告警规则以及对单个设备配置告警规则,目前支持动作: 消息通知.  
+4. 增加HTTP方式接入,设备或者第三方平台可通过HTTP推送设备数据. (Pro)  
+5. 在协议包编码时可直接回复设备消息,场景: 编码消息消息时直接调用第三方平台接口获取设备数据.  
+6. 增加`websocket`订阅消息:`/messaging/{token}`,可通过websocket订阅实时数据. 
+7. OpenAPI增加token方式,申请token后,通过token发起API请求,不用再签名.(Pro)  
+8. 增加Geo支持,可通过`GeoObjectManager`统一管理Geo信息并进行搜索(支持矩形,圆形,多边形区域搜索). (Pro)  
+9. 增加数据转发功能,可通过SQL的方式来处理实时数据并转发数据. [查看文档](../best-practices/rule-engine-sql.md)
+10. 增加可视化图表配置.
 
 主要BUG修复:
 
-[x] 修复动态查询条件无法使用where作为参数的问题.
-[x] 修复物模型中时间类型自定义格式不生效问题.
-[x] 修复发布协议可能导致系统阻塞无法访问的问题.
-[x] 修复MQTT客户端 clientId无效
-[x] 修复当设备在注册中心失效时(redis数据丢失),同步设备状态无法更新为未激活.
-[x] 修复发送消息到网关下子设备的消息时,异步消息不生效的问题.
-[x] 修复物模型有日期类型时,可能无法查询到数据.
+1. 修复动态查询条件无法使用where作为参数的问题.
+2. 修复物模型中时间类型自定义格式不生效问题.
+3. 修复发布协议可能导致系统阻塞无法访问的问题.
+4. 修复MQTT客户端 clientId无效
+5. 修复当设备在注册中心失效时(redis数据丢失),同步设备状态无法更新为未激活.
+6. 修复发送消息到网关下子设备的消息时,异步消息不生效的问题.
+7. 修复物模型有日期类型时,可能无法查询到数据.
 
 ### 文档更新记录
 
