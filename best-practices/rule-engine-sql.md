@@ -17,7 +17,7 @@
     
   iii. 选择失败执行动作。  
   
-![规则编辑](images/insert-rule-engine-sql.png)  
+![规则编辑](images/update-rule-engine-sql.png)  
 3. 点击`确定`进行保存。  
 
 ## SQL例子
