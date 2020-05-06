@@ -42,3 +42,6 @@ $ cd docker/run-all
 $ docker-compose up
 
 ```
+::: tip 注意：
+docker-compose中的jetlinks镜像持续更新中，启动docker之前请及时下载更新。
+:::

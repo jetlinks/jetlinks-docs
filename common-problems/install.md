@@ -8,7 +8,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 ```
 需要将`API_BASE_PATH`修改为后台服务ip地址+端口。    
 
-修改`API_BASE_PATH`后仍未解决问题则可能是由于服务未正确启动,需要根据日志检查,查看日志: `docker-compose logs jetlinks`。  
+修改`API_BASE_PATH`后仍未解决问题则可能是因为服务未正确启动,需要根据日志检查,查看日志: `docker-compose logs jetlinks`。  
 
 ## 通过UI源码自行构建启动后无法访问系统或账号密码错误 
 
