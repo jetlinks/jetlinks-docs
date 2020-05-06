@@ -32,7 +32,7 @@ ws.onmessage=function(e){console.log(e.data)}
 }
 ```
 
-::: waring 注意
+::: warning 注意
 在取消订阅之前,多次传入相同的id是无效的,不会重复订阅.
 :::
 
