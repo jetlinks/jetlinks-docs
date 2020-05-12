@@ -3,9 +3,27 @@
 最新代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
 [gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支.
 
+## 1.2-RELEASE
+
+计划更新时间: 2020-06-01
+
+主要优化
+
+1. 实时数据接口从SSE替换为Websocket.
+2. 设备数据可视化增加实时数据.
+3. 优化Geo地理位置信息,设备信息实时更新.(Pro)
+4. 增加固件管理,可对设备固件进行管理,升级等操作.[查看文档](../dev-guide/device-firmware.md) (Pro)
+
+主要BUG修复
+
+1. 修复物模型中,枚举类型可能无效.
+2. 修复消息拦截器失效问题.
+3. 修复脚本定义协议相关BUG.
+4. 修复删除设备信息时地理位置信息不会被删除问题.
+
 ## 1.1-RELEASE
 
-计划更新时间: 2020-05-01
+更新时间: 2020-05-01
 
 [后端代码](https://github.com/jetlinks/jetlinks-community/tree/1.1)
 [前端代码](https://github.com/jetlinks/jetlinks-ui-antd/tree/1.1)
