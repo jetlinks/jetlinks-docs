@@ -51,7 +51,7 @@ hsweb:
 ```yaml
 spring:
   profiles:
-    active: embedded
+    active: dev,embedded
 ```
 
 - 步骤2： 根据情况修改`jetlinks-standalone`模块下的配置文件:`application-embedded.yml`中相关配置。

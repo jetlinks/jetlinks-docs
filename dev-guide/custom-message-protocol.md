@@ -229,7 +229,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
         
         // 把tcp消息解码为平台消息，多用于设备上报消息到平台
         @Override
-        public Mono<? extends Message> decode(MessageDecodeContext context) {
+        public Publisher<? extends Message> decode(MessageDecodeContext context) {
     		return Flux.defer(() -> {
                 // 消息上下文
                 FromDeviceMessageContext ctx = ((FromDeviceMessageContext) context);
