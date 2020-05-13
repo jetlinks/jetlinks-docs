@@ -66,7 +66,7 @@ docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8
 EMQ将消息转发到平台。  
 
 ![mqttfx-device-online](images/third-mqtt/mqttfx-device-online.png)  
-此处使用的topic: `/device-online-status`
+此处使用的topic: `/device_online_status`
 
 此处使用的事件内容：  
 
