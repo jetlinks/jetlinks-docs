@@ -103,7 +103,7 @@ if(sign.equalsIgnoreCase(signHeader)){
 客户端请求接口`/api/v1/token`  
     请求方式： POST  
 
-    URL： `http(s)://localhost:8844/api/v1/device/_delete`  
+    URL： `http(s)://localhost:8844/api/v1/token`  
 
     http body 请求参数  
     {  

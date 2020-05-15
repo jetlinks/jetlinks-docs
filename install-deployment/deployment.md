@@ -54,8 +54,8 @@ services:
       bootstrap.memory_lock: "true"
       discovery.zen.minimum_master_nodes: 1
       discovery.zen.ping.unicast.hosts: elasticsearch
-#    volumes:
-#      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    volumes:
+      - elasticsearch-volume:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -92,22 +92,49 @@ services:
       - "15672:15672"
       - "5672:5672"
   jetlinks:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone
-    container_name: jetlinks-pro
-    environment:
-      - server.port=8848 #端口可自行配置
-      - spring.redis.host=redis
-      - spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks
-      - management.metrics.export.elastic.host=http://elasticsearch:9200
-      - elasticsearch.client.host=elasticsearch
-    links:
-      - redis
-      - postgres
-      - elasticsearch
-      - rabbitmq
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:1.2-SNAPSHOT #版本号同源代码pom.xml中的版本号同步
+    container_name: jetlinks-ce
     ports:
-      - "8848:8848"
+      - 8848:8848 # API端口
+      - 1883:1883 # MQTT端口
+      - 8000:8000 # 预留
+      - 8001:8001 # 预留
+      - 8002:8002 # 预留
+    volumes:
+      - "jetlinks-volume:/static/upload"  # 持久化上传的文件
+    environment:
+     # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
+      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
+      - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "elasticsearch.client.host=elasticsearch"
+      - "elasticsearch.client.post=9200"
+      - "spring.redis.host=redis"
+      - "spring.redis.port=6379"
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=warn"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+    links:
+      - redis:redis
+      - postgres:postgres
+      - elasticsearch:elasticsearch
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+volumes:
+  postgres-volume:
+  redis-volume:
+  elasticsearch-volume:
+  jetlinks-volume:
 ```
+::: tip 注意：
+jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步
+:::
 
 6.运行docker-compose文件
 
@@ -145,7 +172,7 @@ npm run-script build
 ```
 3.构建docker镜像  
 ```shell script
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT .
 ```
 4.运行docker镜像  
 ```shell script
