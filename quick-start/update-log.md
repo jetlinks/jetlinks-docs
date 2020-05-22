@@ -14,7 +14,8 @@
 3. 优化Geo地理位置信息,设备信息实时更新.(Pro)
 4. 增加固件管理,可对设备固件进行管理,升级等操作.[查看文档](../dev-guide/device-firmware.md) (Pro)
 5. 优化网络组件相关调试功能.
-
+6. 优化启动速度
+7. 增加多租户功能 [查看文档](../dev-guide/multi-tenant.md) (Pro)
 
 主要BUG修复
 

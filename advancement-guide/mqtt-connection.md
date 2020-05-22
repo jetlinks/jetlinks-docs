@@ -159,10 +159,6 @@ ii. 单击User Credentials，设置User Name和Password。
 | User Name       | 由[消息协议定义](../basics-guide/protocol-support.md)中决定User Name值（消息协议未定义时可填写任意值）   |
 | Password         |   由[消息协议定义](../basics-guide/protocol-support.md)中决定Password值  （消息协议未定义时可填写任意值） |
 
-iii. (可选）TLS连接。需要选择SSL/TLS，勾选Enable SSL/TLS，设置Protocol。建议Protocol选择为TLSv1.2。
-
-![mqtt TSL设置](../basics-guide/files/device-connection/mqtt-connection-tsl.png)
-
 4.设置完成后，单击右下角的**OK**。
 
 ## 设备操作
@@ -196,7 +192,7 @@ iii. (可选）TLS连接。需要选择SSL/TLS，勾选Enable SSL/TLS，设置Pr
 ![设备离线日志](../basics-guide/files/device-connection/device-offline-log.png)
 
 ### 读取设备属性
-::: tip 注意：
+::: tip 注意
 第2步中回复平台属性值需要在第1步平台发送订阅以后的十秒钟内完成，否则平台会视为该次操作超时，导致读取属性值失败。
 :::
 
@@ -254,10 +250,10 @@ ii.  输入一个回复平台属性值消息Topic和要发送的消息内容，�
 {
     "messageId":"第一步订阅平台topic“/read-property”所收到的messageId值",
     "deviceId":"test001",
-    "timestamp":"1583809148000",
+    "timestamp":1583809148000,
     "success":true,
     "properties":{
-      "temperature":"50"
+      "temperature":36.5
      }
 }
 ```
