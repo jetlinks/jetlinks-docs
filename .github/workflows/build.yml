@@ -15,7 +15,7 @@ jobs:
             key: jetlinks-docs-repository
         - name: Install 🔧
           run: |
-            npm install -g vuepress
+            npm install vuepress
             vuepress build .
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
         
