@@ -15,8 +15,8 @@ jobs:
             key: jetlinks-docs-repository
         - name: Install 🔧
           run: |
-            sudo npm install -g vuepress
-            vuepress build .
+            yarn install
+            yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
         
         - name: Login Docker Repo
