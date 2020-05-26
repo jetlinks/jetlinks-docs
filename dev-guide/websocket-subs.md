@@ -111,13 +111,44 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 }
 ```
 
-::: TIP 提示
+::: tip 提示
 
 `deviceId`支持`*`和逗号`,`分割,批量发送消息到设备.如: `/device-message-sender/{productId}/{deviceId}`.
 如果要终止发送,直接取消订阅即可.
 
 :::
 
+## 批量同步设备状态
+
+发送消息到websocket
+
+```js
+{
+    "type": "sub", //固定为sub
+    "topic": "/device-batch/state-sync",
+    "parameter": {
+        "query":{where:"productId is test-device"}//查询条件为动态查询条件
+    },
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+平台推送:
+
+```js
+{
+	"payload": {   //请求消息类型不同,结果不同
+		"deviceId": "test0",
+        "state": {
+            "value":"offline",
+            "text":"离线"
+        }
+	},
+	"requestId": "request-id", //订阅请求的ID
+	"topic": "/device-batch/state-sync",
+	"type": "result" //为comlete是则表示同步完成.
+}
+```
 
 
 ## dashboard

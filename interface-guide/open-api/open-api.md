@@ -2,316 +2,6 @@
 
 ## 设备数据API
 
-### 获取设备详情
-
-请求方式： GET  
-
-URL： `http(s)://localhost:8844/api/v1/device/{deviceId}/_detail`
-
-说明：{deviceId}需要替换为设备实例的id。
-
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | DeviceDetail | 返回值
-status | int | 状态码
-code | String  |  业务编码 
-
-DeviceDetail参数如下：    
-名称       | 类型  | 描述  
--------------- | -------------  | ------------- 
-id | String | 设备ID                              
-name | String | 设备名称
-protocol | String | 消息协议标识 
-transport | String | 通信协议
-orgId | String | 所属机构ID
-orgName | String | 所属机构名称
-productId | String | 型号ID 
-productName | String | 型号名称
-deviceType | [DeviceType](../enum.md#DeviceType) | 设备类型
-state | [DeviceState](../enum.md#DeviceState) | 设备状态
-address | String | 客户端地址 
-onlineTime | long | 上线时间
-offlineTime | long | 离线时间 
-registerTime | long | 注册时间
-createTime | long | 创建时间
-metadata | String | 设备元数据（在设备型号功能定义中定义）
-configuration | Map&#60;String,Object&#62; | 设备配置信息 
-tags | List&#60;DeviceTagEntity&#62; | 标签
-
-
-标签（DeviceTagEntity）参数说明：  
-名称       | 类型  | 描述  
--------------- | -------------  | ------------- 
-deviceId | String | 设备ID                              
-key | String | 键
-name | String | 标签名 
-value | String | 值
-type | String | 标签类型
-createTime | Date | 创建时间
-description | String | 描述 
-
-请求示例：
-
-RequestUrl: `http(s)://localhost:8844/api/v1/device/1236859833832701952/_detail`  
-
-RequestMethod: GET
-
-RequestHeader:
-    X-Sign: `f4823a*********e76eb1d`  
-    X-Timestamp: `1586511766004`  
-    X-Client-Id: `kF**********HRZ`    
-::: tip 说明：
-X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-HttpResponse：  
-```json
-{
-	"result": {
-		"id": "test001",
-		"name": "温控设备0309",
-		"protocol": "demo-v1",
-		"transport": "MQTT",
-		"productId": "1236859833832701952",
-		"productName": "智能温控",
-		"deviceType": {
-			"text": "网关设备",
-			"value": "gateway"
-		},
-		"state": {
-			"text": "离线",
-			"value": "offline"
-		},
-		"address": "/127.0.0.1:46360",
-		"onlineTime": 1586422112901,
-		"offlineTime": 1586424932209,
-		"createTime": 1585809343175,
-		"registerTime": 1583805253659,
-		"metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",//在设备型号功能定义中定义
-		"configuration": {
-			"username": "test",
-			"password": "test"
-		},
-		"tags": []
-	},
-	"status": 200,
-	"code": "success"
-}
-```
-
-### 批量保存设备
-
-请求方式： POST  
-
-URL： `http(s)://localhost:8844/api/v1/device`
-
-http body 请求参数为DeviceSaveDetail集合：    
-
-DeviceSaveDetail 参数如下：  
-名称       | 类型 | 是否必选 | 示例值 | 描述  
--------------- | ------------- | ------------- | ------------- | ------------- 
-id | String | 是 | test002 | 设备实例ID
-name | String | 是 | 温控设备002 | 设备实例名称
-productId | String | 是 | 1236859833832701952 | 型号ID
-productName | String | 是 | 智能温控 | 型号名称
-configuration | Map&#60;String,Object&#62; | 否 |  | 设备配置信息，根据不同的协议配置不同,如果MQTT用户名密码等
-creatorId | String | 否 | 1199596756811550720 | 创建人ID
-creatorName | String | 否 | 管理员 | 创建人名称
-tags | List&#60;DeviceTagEntity&#62; | 否 |  | 标签
-
-标签（DeviceTagEntity）参数说明：  
-名称       | 类型  | 描述  
--------------- | -------------  | ------------- 
-deviceId | String | 设备ID                              
-key | String | 键
-name | String | 标签名 
-value | String | 值
-type | String | 标签类型
-createTime | Date | 创建时间
-description | String | 描述 
-
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | int | 保存数量
-status | int | 状态码
-code | String  |  业务编码 
-
-请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device     
-
-RequestMethod: POST  
-
-RequestHeader:  
-    X-Sign: `f4823a*********e76eb1d`  
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
-[{
-		"id": "test002",
-		"name": "设备002",
-		"productId": "1236859833832701952",
-		"configuration": {
-			"username": "test002",
-			"password": "test002"
-		},
-		"tags": [{
-			"deviceId": "test002",
-			"key": "area",
-			"name": "地区",
-			"value": "chongqing"
-		}]
-
-	},
-	{
-		"id": "test003",
-		"name": "设备名称",
-		"productId": "1236859833832701952",
-		"configuration": {}
-	},
-	{
-		"id": "test004",
-		"name": "设备名称",
-		"productId": "1236859833832701952",
-		"configuration": {}
-	}
-]
-```
-
-HttpResponse：  
-```json
-{"result":3,"status":200,"code":"success"}
-```
-
-### 批量激活设备
-
-请求方式： POST  
-
-URL： `http(s)://localhost:8844/api/v1/device/_deploy`
-
-http body 请求参数为设备id集合，List&#60;String&#62;。    
-
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | int |激活数量
-status | int | 状态码
-code | String  |  业务编码 
-
-请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/_deploy     
-
-RequestMethod: POST  
-
-RequestHeader:  
-    X-Sign: `f4823a*********e76eb1d`  
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
-["test002","test003", "test004"]
-```
-
-HttpResponse：  
-```json
-{"result":3,"status":200,"code":"success"}
-```
-
-### 批量注销设备
-
-请求方式： POST  
-
-URL： `http(s)://localhost:8844/api/v1/device/_unDeploy`  
-
-http body 请求参数为设备id集合，List&#60;String&#62;。    
-
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | int |注销成功数量
-status | int | 状态码
-code | String  |  业务编码 
-
-请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/_unDeploy     
-
-RequestMethod: POST  
-
-RequestHeader:  
-    X-Sign: `f4823a*********e76eb1d`  
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
-["test002","test003", "test004"]
-```
-
-HttpResponse：  
-```json
-{"result":3,"status":200,"code":"success"}
-```
-
-### 批量删除设备
-
-请求方式： POST  
-
-URL： `http(s)://localhost:8844/api/v1/device/_delete`  
-
-http body 请求参数为设备id集合，List&#60;String&#62;。    
-
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | int |注销成功数量
-status | int | 状态码
-code | String  |  业务编码 
-
-请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/_delete     
-
-RequestMethod: POST  
-
-RequestHeader:  
-    X-Sign: `67ed4ec***********c6edabad75`  
-    X-Timestamp: `1587609804558`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
-["test002","test003", "test004"]
-```
-
-HttpResponse：  
-```json
-{"result":3,"status":200,"code":"success"}
-```
-
 ### 查询设备列表
 
 请求方式： POST  
@@ -370,22 +60,15 @@ createTime | long | 创建时间
 parentId | String | 父级设备ID
 
 请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/_query   
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/device/_query
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader:  
-    X-Sign: `f4823a*********e76eb1d`  
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
 {
 	"pageSize": 25,
 	"pageIndex": 0,
@@ -394,10 +77,12 @@ RequestBody：
 		"value": "1236859833832701952"
 	}]
 }
-```
 
-HttpResponse：  
-```json
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
 	"result": {
 		"pageIndex": 0,
@@ -443,7 +128,405 @@ HttpResponse：
 }
 ```
 
-### 根据设备ID类型和动态查询参数查询设备相关数据
+### 获取设备详情
+
+请求方式： GET  
+
+URL： `http(s)://localhost:8844/api/v1/device/{deviceId}/_detail`
+
+说明：{deviceId}需要替换为设备实例的id。
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | DeviceDetail | 返回值
+status | int | 状态码
+code | String  |  业务编码 
+
+DeviceDetail参数如下：    
+名称       | 类型  | 描述  
+-------------- | -------------  | ------------- 
+id | String | 设备ID                              
+name | String | 设备名称
+protocol | String | 消息协议标识 
+transport | String | 通信协议
+orgId | String | 所属机构ID
+orgName | String | 所属机构名称
+productId | String | 型号ID 
+productName | String | 型号名称
+deviceType | [DeviceType](../enum.md#DeviceType) | 设备类型
+state | [DeviceState](../enum.md#DeviceState) | 设备状态
+address | String | 客户端地址 
+onlineTime | long | 上线时间
+offlineTime | long | 离线时间 
+registerTime | long | 注册时间
+createTime | long | 创建时间
+metadata | String | 设备元数据（在设备型号功能定义中定义）
+configuration | Map&#60;String,Object&#62; | 设备配置信息 
+tags | List&#60;DeviceTagEntity&#62; | 标签
+
+
+标签（DeviceTagEntity）参数说明：  
+名称       | 类型  | 描述  
+-------------- | -------------  | ------------- 
+deviceId | String | 设备ID                              
+key | String | 键
+name | String | 标签名 
+value | String | 值
+type | String | 标签类型
+createTime | Date | 创建时间
+description | String | 描述 
+
+请求示例：
+```js
+//请求
+GET /api/v1/device/1236859833832701952/_detail
+X-Sign: f4823a*********e76eb1d 
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{
+	"result": {
+		"id": "test001",
+		"name": "温控设备0309",
+		"protocol": "demo-v1",
+		"transport": "MQTT",
+		"productId": "1236859833832701952",
+		"productName": "智能温控",
+		"deviceType": {
+			"text": "网关设备",
+			"value": "gateway"
+		},
+		"state": {
+			"text": "离线",
+			"value": "offline"
+		},
+		"address": "/127.0.0.1:46360",
+		"onlineTime": 1586422112901,
+		"offlineTime": 1586424932209,
+		"createTime": 1585809343175,
+		"registerTime": 1583805253659,
+		"metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",//在设备型号功能定义中定义
+		"configuration": {
+			"username": "test",
+			"password": "test"
+		},
+		"tags": []
+	},
+	"status": 200,
+	"code": "success"
+}
+```
+
+ 
+### 查询设备详情列表
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_detail/_query`
+
+http body 请求参数：
+
+公共查询参数:请参考[公共查询参数](../query-param.md)
+
+请求示例:  
+
+```js
+//请求
+POST /api/v1/device/_detail/_query
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+{
+	"pageSize": 25,
+	"pageIndex": 0,
+	"terms": [{
+		"column": "productId",
+		"value": "1236859833832701952"
+	}]
+}
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{
+	"result": {
+		"pageIndex": 0,
+		"pageSize": 1000,
+		"total": 3,
+		"data": [
+			{
+				"id": "test001",
+				"name": "温控设备0309",
+				"protocol": "demo-v1",
+				"transport": "MQTT",
+				"productId": "1236859833832701952",
+				"productName": "智能温控",
+				"deviceType": {
+					"text": "网关设备",
+					"value": "gateway"
+				},
+				"state": {
+					"text": "离线",
+					"value": "offline"
+				},
+				"address": "/127.0.0.1:46360",
+				"onlineTime": 1586422112901,
+				"offlineTime": 1586424932209,
+				"createTime": 1585809343175,
+				"registerTime": 1583805253659,
+				"metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",//在设备型号功能定义中定义
+				"configuration": {
+					"username": "test",
+					"password": "test"
+				},
+				"tags": []
+			}
+	]
+	},
+	"status": 200,
+	"code": "success"
+}
+```
+
+### 批量保存设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device`
+
+http body 请求参数为DeviceSaveDetail集合：    
+
+DeviceSaveDetail 参数如下：  
+名称       | 类型 | 是否必选 | 示例值 | 描述  
+-------------- | ------------- | ------------- | ------------- | ------------- 
+id | String | 是 | test002 | 设备实例ID
+name | String | 是 | 温控设备002 | 设备实例名称
+productId | String | 是 | 1236859833832701952 | 型号ID
+productName | String | 是 | 智能温控 | 型号名称
+configuration | Map&#60;String,Object&#62; | 否 |  | 设备配置信息，根据不同的协议配置不同,如果MQTT用户名密码等
+creatorId | String | 否 | 1199596756811550720 | 创建人ID
+creatorName | String | 否 | 管理员 | 创建人名称
+tags | List&#60;DeviceTagEntity&#62; | 否 |  | 标签
+
+标签（DeviceTagEntity）参数说明：  
+名称       | 类型  | 描述  
+-------------- | -------------  | ------------- 
+deviceId | String | 设备ID                              
+key | String | 键
+name | String | 标签名 
+value | String | 值
+type | String | 标签类型
+createTime | Date | 创建时间
+description | String | 描述 
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int | 保存数量
+status | int | 状态码
+code | String  |  业务编码 
+
+示例: 
+
+```js
+// 请求
+POST /api/v1/device
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+Content-Type: application/json
+
+[
+	{
+		"id": "test002",
+		"name": "设备002",
+		"productId": "1236859833832701952",
+		"configuration": {
+			"username": "test002",
+			"password": "test002"
+		},
+		"tags": [{
+			"deviceId": "test002",
+			"key": "area",
+			"name": "地区",
+			"value": "chongqing"
+		}]
+	},
+	{
+		"id": "test003",
+		"name": "设备名称",
+		"productId": "1236859833832701952",
+		"configuration": {}
+	}
+]
+
+// 响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{"result":3,"status":200,"code":"success"}
+
+```
+ 
+### 批量同步设备状态
+
+请求方式： POST  
+
+URL： `http://localhost:8844/api/v1/device/state/_sync`
+
+请求参数格式为[动态查询参数](../query-param.md)
+
+::: tip 提示
+此操作将同步设备真实状态,如果一次同步数量较大,推荐使用[websocket方式同步](../../dev-guide/websocket-subs.md#批量同步设备状态),可实时获取同步结果.
+::: 
+
+请求示例:
+
+```js
+//请求
+POST /api/v1/device/state/_sync
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+{
+  "pageSize":10
+}
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{
+	"status":200,
+	"result":[
+		{
+			"deviceId":"设备ID",
+		    "state":{"value":"offline","text":"离线"}
+		}
+	]
+}
+```
+
+### 批量激活设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_deploy`
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |激活数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+
+```js
+//请求
+POST /api/v1/device/_deploy
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+["test002","test003", "test004"]
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{"result":3,"status":200,"code":"success"}
+```
+
+### 批量注销设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_unDeploy`  
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |注销成功数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:
+
+```js
+//请求
+POST /api/v1/device/_unDeploy
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+["test002","test003", "test004"]
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{"result":3,"status":200,"code":"success"}
+```
+
+### 批量删除设备
+
+请求方式： POST  
+
+URL： `http(s)://localhost:8844/api/v1/device/_delete`  
+
+http body 请求参数为设备id集合，List&#60;String&#62;。    
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | int |注销成功数量
+status | int | 状态码
+code | String  |  业务编码 
+
+请求示例:  
+
+```js
+//请求
+POST /api/v1/device/_delete
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
+
+["test002","test003", "test004"]
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{"result":3,"status":200,"code":"success"}
+```
+
+### 根据设备ID查询设备日志
 
 请求方式： POST  
 
@@ -493,34 +576,30 @@ registerTime | long | 注册时间
 createTime | long | 创建时间
 parentId | String | 父级设备ID
 
-请求示例  
-RequestUrl: http://localhost:8844/api/v1/device/test001/log/_query  
+请求示例:
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/device/test001/log/_query
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader:  
-    X-Sign: `f4823a*********e76eb1d`    
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
 {
 	"pageSize": 25,
 	"pageIndex": 0,
 	"terms": [{
-		"column": "productId",
-		"value": "1236859833832701952"
+		"column": "createTime$btw", 
+		"value": "2020-01-01,2020-06-01"
 	}]
 }
-```
-HttpResponse：  
-```json
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
 	"result": {
 		"pageIndex": 0,
@@ -574,7 +653,7 @@ HttpResponse：
 }
 ```
 
-### 分页查询设备属性
+### 查询设备属性
 
 请求方式： POST  
 
@@ -643,24 +722,16 @@ value | String | 值
 timeValue | Date | 时间值
 orgId | String| 机构ID
 
-请求示例  
-RequestUrl:  http://localhost:8844/api/v1/device/test001/properties/_query  
+请求示例:  
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/device/test001/properties/_query  
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader: 
-    X-Sign: `f4823a*********e76eb1d`    
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-
-RequestBody：  
-```json
 {
 	"pageSize": 25,
 	"pageIndex": 0,
@@ -669,10 +740,12 @@ RequestBody：
 		"value": "temperature"
 	}]
 }
-```
 
-HttpResponse：  
-```json
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
 	"result": {
 		"pageIndex": 0,
@@ -727,24 +800,23 @@ value | String | 否 |  | 值
 timeValue | Date | 否 |  | 时间值
 orgId | String | 否 |  | 机构ID
 
-请求示例：
+请求示例:  
 
-RequestUrl: http(s)://localhost:8844/api/v1/device/test001/properties/_latest  
+```js
+//请求
+POST /api/v1/device/test001/properties/_latest
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestMethod: GET  
+["test002","test003", "test004"]
 
-RequestHeader:    
-    X-Sign: `f4823a*********e76eb1d`    
-    X-Timestamp: `1586511766004`    
-    X-Client-Id: `kF**********HRZ`    
-::: tip 说明：
-X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
 
-HttpResponse：  
-```json
 {
 	"result": [{
 		"id": "amugXXEBQZKUd4flBbDN",
@@ -794,34 +866,29 @@ total | int  |  返回数据总数
 data | List&#60;Map&#60;String,Object&#62;&#62;  |  返回数据集合 
 
 请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/test001/event/fire_alarm/_query  
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/device/test001/event/fire_alarm/_query
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader:  
-    X-Sign: `fd9cf3f*************48f373d`    
-    X-Timestamp: `1586702227360`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-
-RequestBody：  
-```json
 {
 	"pageSize": 25,
 	"pageIndex": 0,
 	"terms": [{
-		"column": "a_name",//型号事件定义中的结构体值属性
-		"value": "未来科技城"
+		"column": "a_name",//型号事件定义中的结构体的属性
+		"value": "南岸区"
 	}]
 }
-```
-HttpResponse：  
-```json
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
 	"result": {
 		"pageIndex": 0,
@@ -840,7 +907,7 @@ HttpResponse：
 			"createTime": 1586701932647,
 			"id": "Pn_ObnEBbNs2V4rRJb4F",
 			"aid": 105,
-			"a_name": "未来科技城",
+			"a_name": "南岸区",
 			"timestamp": 1586701932647
 		}]
 	},
@@ -852,6 +919,8 @@ HttpResponse：
 ##  设备操作API
 
 ### 获取设备属性
+
+此操作将发送指令`ReadPropertyMessage`到设备.并获取设备返回数据`ReadPropertyMessageReply`.
 
 请求方式： GET  
 
@@ -866,24 +935,21 @@ result | Map&#60;String, Object&#62; | 返回值
 status | int | 状态码
 code | String  |  业务编码
 
-请求示例：
+请求示例:  
 
-RequestUrl: http://localhost:8844/api/v1/device/test001/property/temperature  
+```js
+//请求
+GET /api/v1/device/test001/property/temperature
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestMethod: GET  
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
 
-RequestHeader:  
-X-Sign: `f4823a*********e76eb1d`    
-X-Timestamp: `1586511766004`    
-X-Client-Id: `kF**********HRZ`    
-::: tip 说明：
-X-Sign为签名，`param`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-
-HttpResponse：  
-```json
 {
 	"result": {
 		"temperature": "50"
@@ -894,6 +960,8 @@ HttpResponse：
 ```
 
 ### 设置设备属性
+
+此操作将发送指令`WritePropertyMessage`到设备.并获取设备返回数据`WritePropertyMessageReply`.
 
 请求方式： POST  
 
@@ -914,28 +982,23 @@ result | Map&#60;String, Object&#62; | 返回数据
 status | int | 状态码
 code | String  |  业务编码 
 
-请求示例:  
-RequestUrl: http://localhost:8844/api/v1/device/test001/properties    
+请求示例: 
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/device/test001/property/temperature
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader:  
-    X-Sign: `7e5f****************087bc5`  
-    X-Timestamp: `1586694341284`  
-    X-Client-Id: `kF**********HRZ`  
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-
-RequestBody：  
-```json
 {"temperature": 50.0}
-```
-HttpResponse：  
-```json
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
 	"result": {
 		"temperature": "50"
@@ -947,67 +1010,39 @@ HttpResponse：
 
 ### 设备功能调用
 
+此操作将发送指令`FunctionInvokeMessage`到设备,并等待返回`FunctionInvokeMessageReply`.
+
 请求方式： POST  
 
 URL： `http(s)://localhost:8844/api/v1/device/{deviceId}/function/{functionId}`  
 
 **说明：{deviceId}需要替换为设备实例的id，{functionId}需要替换为设备型号中功能定义的功能标识。**  
 
-http body 请求参数：
-此处的参数为设备型号功能定义中的功能定义内容，如：
-```json
-{"start_date": "2020-04-12"}
-``` 
+请求示例: 
 
-返回参数:
-名称       | 类型 | 描述  
--------------- | ------------- | ------------- 
-result | Map&#60;String, Object&#62; | 返回数据
-status | int | 状态码
-code | String  |  业务编码 
+```js
+//请求
+POST /api/v1/device/test001/function/play_voice
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-请求示例  
-RequestUrl: http://localhost:8844/api/v1/device/test001/function/get-log  
-
-RequestMethod: POST  
-
-RequestHeader:  
-    X-Sign: `8c5107***************eda4d`  
-    X-Timestamp: `1586704534250`  
-    X-Client-Id: `kF**********HRZ`  
-    Content-Type: application/json  
-
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-
-RequestBody：  
-```json
 {
-  "start_date": "2020-04-12"
+  "text": "你好" //与物模型中定义到参数一致
 }
-```
-HttpResponse：  
-```json
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {
-	"result": [{
-		"start_date": "2020-04-12"
-	}],
+	"result": ['ok'], //注意是集合.因为可能返回多条结果
 	"status": 200,
 	"code": "success"
 }
 ```
-## 根据设备型号获取数据
-
-### 根据产品ID和动态查询参数查询设备相关数据
-
-### 分页查询设备属性
-
-### 查询设备事件
-
-### 查询设备事件并返回格式化的数据
 
 
 ## 地理信息管理
@@ -1053,22 +1088,15 @@ status | int | 状态码
 code | String  |  业务编码 
 
 请求示例:  
-RequestUrl: http://localhost:8844/api/v1/geo/object/geo.json   
 
-RequestMethod: POST  
+```js
+//请求
+POST /api/v1/geo/object/geo.json
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1586511766004
+X-Client-Id: kF**********HRZ
 
-RequestHeader:  
-    X-Sign: `7d825f4************5724949`  
-    X-Timestamp: `1587460645733`    
-    X-Client-Id: `kF**********HRZ`    
-    Content-Type: application/json  
-::: tip 说明：
-X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
-X-Timestamp为时间戳  
-X-Client-Id为平台openApi客户端id  
-:::
-RequestBody：  
-```json
 {
 	"type": "FeatureCollection",
 	"features": [{
@@ -1096,15 +1124,19 @@ RequestBody：
 		}
 	}]
 }
-```
-::: tip 注意：
-可使用 [http://geojson.io/#map=4/32.18/105.38](http://geojson.io/#map=4/32.18/105.38) 生成json
-:::
 
-HttpResponse：  
-```json
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
 {"status":200,"code":"success"}
 ```
+
+::: tip 注意：
+可使用 [http://geojson.io/#map=4/32.18/105.38](http://geojson.io/#map=4/32.18/105.38) 生成json.
+或者[获取行政区划geojson](http://datav.aliyun.com/tools/atlas)/
+:::
 
 ### 查询geo对象
 
