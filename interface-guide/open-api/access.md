@@ -58,7 +58,7 @@ SecureKey为:`testSecure`.
 2. 使用拼接时间戳以及密钥得到: pageIndex=0&pageSize=201574993804802testSecure
 3. 使用`md5("pageIndex=0&pageSize=201574993804802testSecure")`得到`837fe7fa29e7a5e4852d447578269523`
 
-最终发起http请求为:
+示例:
 
 ```text
 GET /api/device?pageIndex=0&pageSize=20
@@ -98,29 +98,34 @@ if(sign.equalsIgnoreCase(signHeader)){
 ```
 
 ## 使用token的方式
+
 通过请求接口`/api/v1/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
+
 ### 申请token
 客户端请求接口`/api/v1/token`  
     请求方式： POST  
 
-    URL： `http(s)://localhost:8844/api/v1/token`  
+```text
 
-    http body 请求参数  
-    {  
-        "expires": 7200 // 过期时间,单位秒. -1为不过期.  
-    }  
-    
-    请求头：  
-        X-Sign: `932bbe8a39ae03f568f73a507d87afac`  
-        X-Timestamp: `1587719082698`    
-        X-Client-Id: `kF**********HRZ`    
-        Content-Type: application/json 
-::: tip 说明：
-X-Sign为`body`+`X-Timestamp`+`SecuryeKey`拼接后MD5加密生成    
-:::
-    
-  请求成功后将返回token：`3bcddb719b01da679b88d07acde2516`。  
-  
+POST /api/v1/device/_delete
+X-Sign: 932bbe8a39ae03f568f73a507d87afac
+X-Timestamp: 1587719082698 
+X-Client-Id: kF**********HRZ  
+Content-Type: application/json 
+
+{  
+    "expires": 7200 // 过期时间,单位秒.
+}
+
+//返回
+
+{
+    "status":200,
+    "result":"3bcddb719b01da679b88d07acde2516" //token信息
+}
+
+```
+
 ### 使用token发起请求 
 此处以获取设备test001详情为例。  
 ```text

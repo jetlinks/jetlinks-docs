@@ -7,9 +7,10 @@
 
 - 协议名称: `演示协议`.
 - 类型: `jar`.
-- 类名: `org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
-- 上传jar包: 选择项目内文件: `simulator/demo-protocol-1.0.jar`
-
+- 类名: `org.jetlinks.demo.protocol.DemoProtocolSupportProvider`.
+- 上传jar包: 选择项目内文件: `simulator/demo-protocol-1.0.jar`.
+- 回到列表页点击操作列中的`发布`按钮发布协议.(修改后也需要重新发布)
+  
 ![添加协议](../basics-guide/quick-start-images/create-protocol.png)
 
 ## 添加设备型号

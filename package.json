@@ -1,0 +1,13 @@
+{
+  "name": "jetlinks-docs",
+  "license": "apache 2.0",
+  "scripts": {
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
+  },
+  "dependencies": {
+    "vuepress": "^1.5.0",
+    "markdown-it-checkbox": "1.1.0",
+    "underscore": "1.10.2"
+  }
+}
