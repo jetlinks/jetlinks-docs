@@ -107,7 +107,7 @@ if(sign.equalsIgnoreCase(signHeader)){
 
 ```text
 
-POST /api/v1/device/_delete
+POST /api/v1/token
 X-Sign: 932bbe8a39ae03f568f73a507d87afac
 X-Timestamp: 1587719082698 
 X-Client-Id: kF**********HRZ  
