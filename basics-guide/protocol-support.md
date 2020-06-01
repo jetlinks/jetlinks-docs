@@ -80,7 +80,7 @@ public interface Authenticator {
 
 常用的(Headers)[https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java]:
 
-1. aysnc 是否异步,boolean类型.
+1. async 是否异步,boolean类型.
 2. timeout 指定超时时间. 毫秒.
 3. frag_msg_id 分片主消息ID,为下发消息的`messageId`
 4. frag_num 分片总数

@@ -1,7 +1,11 @@
 # 更新记录
 
-最新代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
+最新社区版代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
 [gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支.
+
+专业版代码托管在[github](https://github.com/jetlinks/jetlinks-pro)上,购买专业版后可获取专业版代码以及后续更新。
+
+前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
 ## 1.2-RELEASE
 
@@ -12,10 +16,17 @@
 1. 实时数据接口从SSE替换为Websocket.
 2. 设备数据可视化增加实时数据.
 3. 优化Geo地理位置信息,设备信息实时更新.(Pro)
-4. 增加固件管理,可对设备固件进行管理,升级等操作.[查看文档](../dev-guide/device-firmware.md) (Pro)
+4. 增加固件管理,可对设备固件进行管理,升级等操作. (Pro)
 5. 优化网络组件相关调试功能.
-6. 优化启动速度
-7. 增加试验性多租户功能 [查看文档](../dev-guide/multi-tenant.md) (Pro)
+6. 优化自动DDL,优化启动速度.
+7. 增加系统配置功能,可在线配置系统logo,标题等.
+8. 增加WebSocket设备接入网关.[#53](https://github.com/jetlinks/jetlinks-ui-antd/issues/53)
+9. HTTP,WebSocket设备接入网关支持路由,不同url使用不同协议包解析.
+10. 设备告警,数据转发中动作增加设备输出,可以在触发规则时,发送指令给其他设备.
+11. 消息通知中增加网络组件,支持HTTP和MQTT通知，可实现推送消息给第三方.[#34](https://github.com/jetlinks/jetlinks-ui-antd/issues/34)
+12. 消息通知增加通知记录. 
+13. 设备实例中配置信息支持恢复默认. [#28](https://github.com/jetlinks/jetlinks-ui-antd/issues/28)
+14. 优化协议调试,支持语法高亮. [#33](https://github.com/jetlinks/jetlinks-ui-antd/issues/33)
 
 主要BUG修复
 
@@ -23,6 +34,13 @@
 2. 修复消息拦截器失效问题.
 3. 修复脚本定义协议相关BUG.
 4. 修复删除设备信息时地理位置信息不会被删除问题.
+
+升级说明
+
+1. docker镜像版本号更换为`1.2.0`。
+2. 本地构建请使用`1.2`分支。
+3. 如果是自己配置的nginx，请检查websocket配置是否正确，可以参考[前端配置](https://github.com/jetlinks/jetlinks-ui-antd/blob/master/docker/nginx.conf).
+4. 更新后新功能菜单不会直接展示，重新给用户赋权后即可。
 
 ## 1.1-RELEASE
 
