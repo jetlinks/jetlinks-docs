@@ -11,5 +11,6 @@ ADD .vuepress/dist/quick-start /usr/share/nginx/html/quick-start
 ADD .vuepress/dist/404.html /usr/share/nginx/html/
 ADD .vuepress/dist/index.html /usr/share/nginx/html/
 ADD docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
-CMD ["sh","docker-entrypoint.sh"]
+ENTRYPOINT ["sh","docker-entrypoint.sh"]
