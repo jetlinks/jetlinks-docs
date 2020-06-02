@@ -127,7 +127,7 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
     "type": "sub", //固定为sub
     "topic": "/device-batch/state-sync",
     "parameter": {
-        "query":{where:"productId is test-device"}//查询条件为动态查询条件
+        "query":{"where":"productId is test-device"}//查询条件为动态查询条件
     },
     "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
 }
