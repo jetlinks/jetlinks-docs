@@ -33,7 +33,7 @@ select
 this.properties.temperature temperature,
 this.deviceId deviceId
 from
-"/device/*/*/property/**" -- 订阅所有设备的所有属性消息
+"/device/*/*/message/property/**" -- 订阅所有设备的所有属性消息
 where this.properties.temperature > 40
 ```
 
@@ -44,14 +44,14 @@ select
 this.properties.temperature temperature,
 this.deviceId deviceId
 from
-"/device/T0001/*/property/**" -- 订阅T0001型号下的所有设备消息
+"/device/T0001/*/message/property/**" -- 订阅T0001型号下的所有设备消息
 where this.properties.temperature > 40
 union all   -- 实时数据只能使用 union all
 select 
 this.properties.temperature temperature,
 this.deviceId deviceId
 from
-"/device/T0002/*/property/**" -- 订阅T0002型号下的所有设备消息
+"/device/T0002/*/message/property/**" -- 订阅T0002型号下的所有设备消息
 where this.properties.temperature > 42
 
 ```
@@ -62,7 +62,7 @@ where this.properties.temperature > 42
 select
 avg(this.properties.temperature) temperature
 from
-"/device/*/*/property/**" -- 订阅所有设备的所有属性消息
+"/device/*/*/message/property/**" -- 订阅所有设备的所有属性消息
 group by interval('5m')
 having temperature > 40 --having 必须使用别名.
 ```
@@ -79,7 +79,7 @@ having temperature > 40 --having 必须使用别名.
 select 
 avg(this.properties.temperature) temperature
 from
-"/device/*/*/property/**" -- 订阅所有设备的所有属性消息
+"/device/*/*/message/property/**" -- 订阅所有设备的所有属性消息
 group by _window(10,2)
 having temperature > 40 --having 必须使用别名.
 ```
