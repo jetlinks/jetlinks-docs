@@ -1,15 +1,39 @@
 # 更新记录
 
 最新社区版代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
-[gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支.
+[gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支。
 
 专业版代码托管在[github](https://github.com/jetlinks/jetlinks-pro)上,购买专业版后可获取专业版代码以及后续更新。
 
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
+## 1.3-RELEASE
+
+状态: 开发中,计划更新时间: 2020-07-01
+
+代码分支: `master`
+
+主要优化 
+
+1. 协议优化，使用数据库保存的协议ID作为协议的ID，此项优化将影响生产功能。(Pro)
+2. 增加多租户功能。(Pro)
+3. 增加设备分组。(Pro)
+
+主要BUG修复
+
+::: warning 升级说明
+专业版升级到此版本后,请执行以下操作:
+1. 重新发布协议
+2. 重新编辑设备型号-选择协议-应用配置
+:::
+
+
+
 ## 1.2-RELEASE
 
-计划更新时间: 2020-06-01
+更新时间: 2020-06-01
+
+代码分支: `1.2`
 
 主要优化
 
@@ -35,12 +59,12 @@
 3. 修复脚本定义协议相关BUG.
 4. 修复删除设备信息时地理位置信息不会被删除问题.
 
-升级说明
-
+::: tip 升级说明
 1. docker镜像版本号更换为`1.2.0`。
 2. 本地构建请使用`1.2`分支。
 3. 如果是自己配置的nginx，请检查websocket配置是否正确，可以参考[前端配置](https://github.com/jetlinks/jetlinks-ui-antd/blob/master/docker/nginx.conf).
 4. 更新后新功能菜单不会直接展示，重新给用户赋权后即可。
+:::
 
 ## 1.1-RELEASE
 
