@@ -165,14 +165,15 @@ java -jar jetlinks-standalone.jar
 git clone https://github.com/jetlinks/jetlinks-ui-antd.git
 ```
 
-2.使用npm打包  
+2.使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
 ```shell script
 npm install
-npm run-script build        
+npm run-script build   
+cp -r dist docker/       
 ```
 3.构建docker镜像  
 ```shell script
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT .
+docker build -t docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT ./docker
 ```
 4.运行docker镜像  
 ```shell script

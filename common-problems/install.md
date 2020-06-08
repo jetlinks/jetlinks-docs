@@ -1,6 +1,6 @@
 # 安装,启动常见问题
 
-## 使用docker启动后无法访问系统或者提示服务器内部错误
+## 使用docker启动UI后无法访问系统或者提示服务器内部错误
 
 可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。  
 ```shell script
@@ -18,7 +18,23 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 
 **修改上图中target为后台服务ip+端口即可**。  
 
-### 错误日志: elasticsearch: Name or Service not know
+## 使用docker启动所有环境后无法访问系统或者提示服务器内部错误
+可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。
+```yaml
+  ui:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.1.1-RELEASE
+    container_name: jetlinks-ce-ui
+    ports:
+      - 9000:80
+    environment:
+      - "API_BASE_PATH=http://jetlinks:8848/" #API根路径
+    volumes:
+      - "jetlinks-volume:/usr/share/nginx/html/upload"
+    links:
+      - jetlinks:jetlinks
+```
+修改项目目录docker/run-all下docker-compose.yml文件中ui的环境变量，将`API_BASE_PATH`修改为后台服务ip地址+端口。  
+## 错误日志: elasticsearch: Name or Service not know
 
 `elasticsearch`未正确启动,使用命令`docker-compose logs elasticsearch`查看日志,根据日志提示解决.
 
