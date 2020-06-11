@@ -40,6 +40,10 @@ ii. 选择 `设备管理`-->`设备型号`--> 点击`导入配置`按钮
 
 iii. 选择[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)文件
 
+::: tip 注意：
+上传文件需要将standalone/src/main/resources/application.yml中的static-location修改为http://后台服务ip:8848/upload，参考[协议上传问题](../common-problems/install.md#协议发布失败或出现不支持的协议：xxx)
+:::
+
 iv.型号导入完成效果如下图
 
 ![未发布型号](../basics-guide/files/device-connection/device-product-unpublished.png)  
@@ -77,13 +81,17 @@ ii. 选择 `设备管理`-->`设备实例`--> 点击`导入实例`按钮
 
 ![导入设备导航](../basics-guide/files/device-connection/import-device.png)
 
-iii. 选择[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
+iii. 选择需要导入的设备型号,点击文件上传  
 
-iv. 设备实例导入完成效果如下图
+![选择型号](../basics-guide/files/device-connection/choose-device-product.png)  
+
+iv. 选择[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
+
+v. 设备实例导入完成效果如下图
 
 ![未激活的设备](../basics-guide/files/device-connection/device-instance-not-active.png)
 
-v. 点击上图中`激活`链接完成设备实例激活，状态栏中发布状态变为`离线`代表设备激活成功。
+vi. 点击上图中`激活`链接完成设备实例激活，状态栏中发布状态变为`离线`代表设备激活成功。
 
 ![已激活的设备](../basics-guide/files/device-connection/device-instance-offline.png)
 
