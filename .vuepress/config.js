@@ -67,6 +67,7 @@ module.exports = {
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
+                    ['/best-practices/poll-device-data.md', '从第三方或者设备主动拉取数据'],
                     //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
                     //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
                     // ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
