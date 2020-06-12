@@ -18,6 +18,8 @@
 1. 协议优化，使用数据库保存的协议ID作为协议的ID，此项优化将影响生产功能。(Pro)
 2. 增加多租户功能。(Pro)
 3. 增加设备分组。(Pro)
+4. 设备告警增加防抖设置。[#8](https://github.com/jetlinks/jetlinks-community/issues/8)
+
 
 主要BUG修复
 
