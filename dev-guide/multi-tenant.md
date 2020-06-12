@@ -53,7 +53,7 @@ public Flux<MyData> getTenantData(){
 
 ### 声明式控制
 
-在`Controler`上添加注解`@TenantAssets(type="资产类型ID")` (推荐使用`注解继承`的方式,参照:`@DeviceAsset`).
+在`Controller`上添加注解`@TenantAssets(type="资产类型ID")` (推荐使用`注解继承`的方式,参照:`@DeviceAsset`).
 如果之前使用了通用增删改查(`ReactiveServiceCrudController`).则需要重新实现接口:`TenantAccessCrudController`.
 
 如果类上和方法上都有注解,会合并注解. 如果想要关闭控制,注解:`@TenantAssets(ignore=true)`即可
