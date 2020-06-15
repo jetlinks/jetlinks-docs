@@ -112,6 +112,7 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
                                		reply1.setDeviceId(message.getDeviceId());
                                		reply1.setMessageId(message.getMessageId());
                                		reply1.setTimestamp(System.currentTimeMillis());
+                               		reply1.setOutput(s);
                                		reply1.setFunctionId(((FunctionInvokeMessage) message).getFunctionId());
                                return Mono.just(reply1)
                                        .map(deviceMessage->(R)deviceMessage);
