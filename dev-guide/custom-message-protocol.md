@@ -15,39 +15,39 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
 ```xml
     <dependencies>
-    // jetlinks 核心依赖
+    <!-->jetlinks 核心依赖<-->
         <dependency>
             <groupId>org.jetlinks</groupId>
             <artifactId>jetlinks-core</artifactId>
             <version>1.0.2-BUILD-SNAPSHOT</version>
         </dependency>
-        // jetlinks 协议解析接口包
+        <!-->jetlinks 协议解析接口包<-->
         <dependency>
             <groupId>org.jetlinks</groupId>
             <artifactId>jetlinks-supports</artifactId>
             <version>1.0.2-BUILD-SNAPSHOT</version>
         </dependency>
-        // lombok，需要idea安装lombok插件，否则去掉
+        <!-->lombok，需要idea安装lombok插件，否则去掉<-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.10</version>
         </dependency>
-        // vertx核心包，可以用来进行网络模拟测试
+        <!-->vertx核心包，可以用来进行网络模拟测试<-->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
             <version>3.8.3</version>
             <scope>test</scope>
         </dependency>
-        // 单元测试包 
+        <!-->单元测试包<--> 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>5.5.2</version>
             <scope>test</scope>
         </dependency>
-		// logback日志
+		<!-->logback日志<-->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -55,7 +55,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
         </dependency>
 
     </dependencies>
-	// netty组件
+	<!-->netty组件<-->
     <dependencyManagement>
         <dependencies>
             <dependency>
