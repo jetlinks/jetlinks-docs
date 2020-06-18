@@ -38,6 +38,6 @@ $  ./mvnw clean package -DskipTests && java -jar ./jetlinks-standalone/target/je
 
 ::: warning 注意
 1.项目需要使用最新的java8(小版本号大于200),如`1.8.0_232`。  
-2.需安装lombox插件。  
+2.需安装lombok插件。  
 3.maven不能配置全局私服。
 :::
