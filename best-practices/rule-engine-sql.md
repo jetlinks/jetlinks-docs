@@ -166,6 +166,16 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 以下功能只在专业版中支持
 :::
 
+### device.properties
+
+获取设备已保存的全部最新属性,(注意: 由于使用es存储设备数据,此数据并不是完全实时的)
+
+```sql
+select 
+device.properties(this.deviceId) props,
+this.properties reports
+from "/device/*/*/message/property/report"
+```
 ### mqtt.client.publish
 
 推送消息到mqtt客户端.

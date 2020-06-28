@@ -19,9 +19,15 @@
 2. 增加多租户功能。(Pro)
 3. 增加设备分组。(Pro)
 4. 设备告警增加防抖设置。[#8](https://github.com/jetlinks/jetlinks-community/issues/8)
-
+5. 增加转发设备消息到Kafka以及RabbitMQ。(Pro)
+6. 规则引擎重构,完全重写底层实现,为后期分布式规则打基础。
+7. 新的规则引擎设计器,使用node-red实现。
+8. 规则引擎SQL中增加查询设备属性函数:`select device.properties(deviceId)`获取设备最新的全部属性值.
 
 主要BUG修复
+
+1. 导入标签时无法识别标签类型
+2. 
 
 ::: warning 升级说明
 专业版升级到此版本后,请执行以下操作:

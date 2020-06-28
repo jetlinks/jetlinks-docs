@@ -41,7 +41,6 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 | /message/property/read/reply  | ReadPropertyMessageReply |  读取属性回复  |
 | /message/property/write/reply  | WritePropertyMessageReply |  修改属性回复  |
 | /message/function/reply  | FunctionInvokeMessageReply |  调用功能回复  |
-| /message/property/report  | ReportPropertyMessage |  设备上报属性  |
 | /register  | DeviceRegisterMessage |  设备注册,通常与子设备消息配合使用  |
 | /unregister  | DeviceUnRegisterMessage |  设备注销,同上  |
 | /message/children/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备消息,{topic}为子设备消息对应的topic  |
