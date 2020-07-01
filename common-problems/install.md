@@ -33,7 +33,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
     links:
       - jetlinks:jetlinks
 ```
-修改项目目录docker/run-all下docker-compose.yml文件中ui的环境变量，将`API_BASE_PATH`修改为后台服务ip地址+端口。  
+查看项目目录docker/run-all下docker-compose.yml文件中ui的环境变量`API_BASE_PATH`，端口是否与后台服务端口一致，否则改之。  
 ## 错误日志: elasticsearch: Name or Service not know
 
 `elasticsearch`未正确启动,使用命令`docker-compose logs elasticsearch`查看日志,根据日志提示解决.
