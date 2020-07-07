@@ -108,6 +108,7 @@ module.exports = {
                     ['/dev-guide/subscribe-device-message', '从消息网关中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅消息'],
                     ['/dev-guide/device-firmware', '设备固件更新'],
+                    ['/dev-guide/multi-tenant', '多租户'],
 
                     // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],

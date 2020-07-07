@@ -9,7 +9,7 @@
 
 ## 1.3-RELEASE
 
-状态: 开发中,计划更新时间: 2020-07-01
+状态: 开发中,计划更新时间: 2020-07-10
 
 代码分支: `master`
 
@@ -23,10 +23,12 @@
 6. 规则引擎重构,完全重写底层实现,为后期分布式规则打基础。
 7. 新的规则引擎设计器,使用`node-red`实现。
 8. 规则引擎SQL中增加查询设备属性函数:`select device.properties(deviceId)`获取设备最新的全部属性值.
-9. 优化协议包加载逻辑,先下载到本地再加载。
-10. 升级`spring-boot`到`2.2.8.RELEASE`。
-11. 升级`netty`到`4.1.50.Final`。
-12. 升级`hsweb-framework`到`4.0.4`。
+9. 规则引擎SQL增加获取设备标签函数:`select device.tags(deviceId,'tag1','tag2')`.
+10. 规则引擎SQL增加设备选择器函数: `select * from device.selector(in_group('test-group'))`.
+11. 优化协议包加载逻辑,先下载到本地再加载。
+12. 升级`spring-boot`到`2.2.8.RELEASE`。
+13. 升级`netty`到`4.1.50.Final`。
+14. 升级`hsweb-framework`到`4.0.4`。
 
 主要BUG修复
 
