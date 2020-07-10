@@ -9,32 +9,37 @@
 
 ## 1.3-RELEASE
 
-状态: 开发中,计划更新时间: 2020-07-10
+更新时间: 2020-07-10
 
-代码分支: `master`
+代码分支: `1.3`
 
 主要优化 
 
 1. 协议优化，使用数据库保存的协议ID作为协议的ID，此项优化将影响生产功能。(Pro)
-2. 增加多租户功能。(Pro)
+2. 增加多租户功能。(Pro) [查看文档](../dev-guide/multi-tenant.md)
 3. 增加设备分组。(Pro)
 4. 设备告警增加防抖设置。[#8](https://github.com/jetlinks/jetlinks-community/issues/8)
 5. 增加转发设备消息到Kafka以及RabbitMQ。(Pro) [查看文档](../dev-guide/send-device-msg-mq.md)
-6. 规则引擎重构,完全重写底层实现,为后期分布式规则打基础。
+6. 规则引擎重构,完全重写底层实现。
 7. 新的规则引擎设计器,使用`node-red`实现。
-8. 规则引擎SQL中增加查询设备属性函数:`select device.properties(deviceId)`获取设备最新的全部属性值.
-9. 规则引擎SQL增加获取设备标签函数:`select device.tags(deviceId,'tag1','tag2')`.
-10. 规则引擎SQL增加设备选择器函数: `select * from device.selector(in_group('test-group'))`.
-11. 优化协议包加载逻辑,先下载到本地再加载。
-12. 升级`spring-boot`到`2.2.8.RELEASE`。
-13. 升级`netty`到`4.1.50.Final`。
-14. 升级`hsweb-framework`到`4.0.4`。
+8. ReactorQL中增加查询设备属性函数:`select device.properties(deviceId)`获取设备最新的全部属性值。
+9. ReactorQL增加获取设备标签函数:`select device.tags(deviceId,'tag1','tag2')`。
+10. ReactorQL增加设备选择器函数: `select * from device.selector(in_group('test-group'))`。
+11. 优化ReactorQL中分组聚合性能,多次聚合时不再驻留内存。
+12. 优化协议包加载逻辑,先下载到本地再加载。
+13. 性能优化,在某写情况下,造成reactor阻塞导致redis超时。
+14. 其他代码细节优化。
+15. 升级`spring-boot`到`2.2.8.RELEASE`。
+16. 升级`netty`到`4.1.50.Final`。
+17. 升级`hsweb-framework`到`4.0.4`。
 
 主要BUG修复
 
 1. 导入标签时无法识别标签类型。
-2. 修改主键默认列长度,解决id可能过长问题。
-3. 修复tcp使用脚本方式进行粘拆包使,如果`fixed(0)`可能导致粘拆包失效。
+2. 修复首次导入设备，并且含有地理位置标签时，地理位置数据不正确问题。
+3. 修改主键默认列长度,解决id可能过长问题。
+4. 修复tcp使用脚本方式进行粘拆包使,如果`fixed(0)`可能导致粘拆包失效。
+5. 前端一堆bug修复
 
 ::: warning 升级说明
 专业版升级到此版本后,请执行以下操作:
