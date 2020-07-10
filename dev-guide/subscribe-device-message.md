@@ -63,52 +63,6 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 }
 ```
 
-## 规则引擎
-
-规则引擎中产生的日志,事件等也会发送到消息网关中.
-
-### 规则日志
-
-```js
-`/rule-engine/{instanceId}/{nodeId}/log`
-{
-    "instanceId":"规则实例ID",
-    "nodeId":"节点ID",
-    "level":"日志级别",
-    "message":"日志内容",
-    "timestamp":"事件戳",
-    "context":{} //上下文信息
-}
-```
-
-### 规则事件
-
-```js
-
-`/rule-engine/{instanceId}/{nodeId}/event/{eventType}`
-
-{
-    "event":"事件类型",//
-    "instanceId":"实例ID",
-    "nodeId":"节点ID",
-    "ruleData":{
-        "data":"本节点产生的数据",
-        "attributes":{}//其他拓展属性
-    }//规则数据
-}
-
-```
-
-事件类型:
-
-|  event   | 名称  | 说明 |
-|  ----  | ----  | ----|
-| node_started  | 节点启动事件 | 启动规则时触发   |
-| node_execute_before  | 节点准备执行 |  执行节点之前触发  |
-| node_execute_result  | 节点产生数据 |    |
-| node_execute_done  | 节点执行完成 |    |
-| node_execute_fail  | 执行失败 |    |
-
 ## 日志
 
 ### 系统日志

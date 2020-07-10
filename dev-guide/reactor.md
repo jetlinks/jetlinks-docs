@@ -145,14 +145,25 @@ class MyFilter implements WebFilter{
 
 ::: warning 注意
 
-在开发中应该将多个流组合为一个流,而不是分别订阅流.例如:
+在开发中应该将多个流组合为一个流,而不是分别处理.例如:
 
 ```java
 //错误
-flux.doOnNext(data->this.save(data).subscribe());
+return flux.doOnNext(data->this.save(data).subscribe());
 
 //正确
-flux.flatMap(this::save);
+return flux.flatMap(this::save);
+
+//错误,没有将流组合在一起
+request.flatMap(this::save);
+Mono<Void> result = this.notifySaveSuccess();
+return result;
+
+//正确
+return request
+    .flatMap(this::save)
+    .then(this.notifySaveSuccess());
+
 ```
 :::
 
