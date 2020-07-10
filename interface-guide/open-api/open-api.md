@@ -127,6 +127,11 @@ X-Sign: c23fa********f25
 	"code": "success"
 }
 ```
+::: tip 说明：
+X-Sign为签名，`body`+`X-Timestamp`+`SecuryeKey`MD5加密  
+X-Timestamp为时间戳  
+X-Client-Id为平台openApi客户端id  
+:::
 
 ### 获取设备详情
 
