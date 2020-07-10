@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="优化文档">
-      <change afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jetlinks-docs.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/install-deployment/cluster.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/install-deployment/cluster.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interface-guide/open-api/open-api.md" beforeDir="false" afterPath="$PROJECT_DIR$/interface-guide/open-api/open-api.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +68,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/best-practices" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/install-deployment" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -84,11 +79,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/install-deployment" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/dev-guide" />
       <recent name="$PROJECT_DIR$/best-practices" />
       <recent name="$PROJECT_DIR$/.vuepress/public/basics-guide/files/device-connection" />
       <recent name="$PROJECT_DIR$/.vuepress/public/quick-start" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/common-problems" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/basics-guide/files/device-connection" />
@@ -278,28 +273,11 @@
       <workItem from="1592531274416" duration="525000" />
       <workItem from="1592532144588" duration="9430000" />
       <workItem from="1592790107161" duration="9575000" />
-      <workItem from="1593308408179" duration="5518000" />
-    </task>
-    <task id="LOCAL-00030" summary="文档优化">
-      <created>1584694607061</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1584694607061</updated>
-    </task>
-    <task id="LOCAL-00031" summary="文档优化">
-      <created>1585035106610</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1585035106610</updated>
-    </task>
-    <task id="LOCAL-00032" summary="增加文档更新记录&#10;增加快速部署文档">
-      <created>1585730409368</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1585730409368</updated>
+      <workItem from="1593308408179" duration="5578000" />
+      <workItem from="1593511169311" duration="3219000" />
+      <workItem from="1593679318524" duration="1829000" />
+      <workItem from="1593999539449" duration="280000" />
+      <workItem from="1593999905263" duration="23738000" />
     </task>
     <task id="LOCAL-00033" summary="网关设备手动关联子设备">
       <created>1585818427265</created>
@@ -623,7 +601,28 @@
       <option name="project" value="LOCAL" />
       <updated>1593510905365</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="优化文档">
+      <created>1593511106003</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1593511106003</updated>
+    </task>
+    <task id="LOCAL-00080" summary="优化文档">
+      <created>1593587210524</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1593587210524</updated>
+    </task>
+    <task id="LOCAL-00081" summary="优化文档">
+      <created>1593587502500</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1593587502500</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
