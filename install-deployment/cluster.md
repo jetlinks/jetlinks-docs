@@ -347,6 +347,9 @@ micrometer:
         step: 30s
 
 ```
+::: tip 注意：
+在多台服务器上启动jetlinks，配置中的jetlinks.server-id必须互不相同。
+:::
 
 在项目根目录执行：   
 ```shell script
@@ -359,7 +362,7 @@ mvn clean package -DskipTests
 nohup java -jar -Dspring.application.name=jetlinks-cluster-test-3   jetlinks-standalone.jar >jetlinks-pro.log 2>&1 &
 ```
 ::: tip 注意：
-三台服务启动的spring.application.name应不相同。
+三台服务启动的jetlinks.server-id应该互不相同，在application.yml中jetlinks.server-id引用了spring.application.name，所以此处的name应不相同。
 :::
 ## nginx配置
 通过nginx来代理前后端。  
