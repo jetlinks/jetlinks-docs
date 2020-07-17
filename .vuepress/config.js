@@ -88,7 +88,7 @@ module.exports = {
                     ['/basics-guide/device-manager.md', '设备管理'],
                     ['/basics-guide/course/network.md', '网络组件'],
                     ['/basics-guide/course/notification.md', '通知管理'],
-                    ['/basics-guide/rule-engine.md', '规则引擎'],
+                    ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
                     ['/basics-guide/course/device-alarm.md', '告警设置']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]

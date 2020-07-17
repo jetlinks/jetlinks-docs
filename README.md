@@ -31,7 +31,7 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 ## 架构
 
-![platform](quick-start/platform.svg)
+![platform](./platform.svg)
 
 ## 设备接入流程
 
