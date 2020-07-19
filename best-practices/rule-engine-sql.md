@@ -176,6 +176,44 @@ device.properties(this.deviceId) props,
 this.properties reports
 from "/device/*/*/message/property/report"
 ```
+
+:::tip
+`device.properties(this.deviceId,'property1','property2')`还可以通过参数获取指定的属性，如果未设置则获取全部属性。
+ :::
+
+ ### device.tags
+ 
+ 获取设备标签信息
+
+ ```sql
+select device.tags(this.deviceId) from "/device/*/*/message/property/report"
+ ```
+
+ :::tip
+`device.tags(this.deviceId,'tag1','tag2')`还可以通过参数获取指定的标签，如果未设置则获取全部标签。
+ :::
+
+### device.selector
+
+选择设备,如：
+
+```sql
+select dev.deviceId from "/device/*/*/message/property/report" t
+-- 获取和上报属性在同一个分组里，并且产品id为light-product的设备
+left join ( 
+            select this.id deviceId from 
+            device.selector(same_group(t.deviceId),product('light-product'))
+          ) dev
+```
+
+支持参数:
+
+1. in_gourp('groupId') 在指定的设备分组中
+2. same_group('deviceId') 在指定设备的相同分组中
+3. product('productId') 指定产品ID对应的设备
+4. tag('tag1Key','tag1Value','tag2Key','tag2Value') 按指定的标签获取
+5. state('online') 按指定的状态获取
+
 ### mqtt.client.publish
 
 推送消息到mqtt客户端.
