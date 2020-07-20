@@ -102,6 +102,7 @@ module.exports = {
                     ['/dev-guide/specification', '规范'],
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
+                    ['/dev-guide/custom-sql-term', '自定义通用SQL条件'],
                     ['/dev-guide/event-driver.md', '事件驱动之消息网关'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
@@ -110,7 +111,7 @@ module.exports = {
                     ['/dev-guide/websocket-subs', '使用websocket订阅消息'],
                     ['/dev-guide/device-firmware', '设备固件更新'],
                     ['/dev-guide/multi-tenant', '多租户'],
-
+                  
                     // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
                     // ['/dev-guide/device-operation.md', '设备操作'],
                     // ['/dev-guide/message-gateway.md', '消息网关'],
