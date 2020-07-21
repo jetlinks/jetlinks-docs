@@ -204,7 +204,7 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/connected
 
 与子设备消息配合使用,实现关联到网关的子设备离线.(默认情况下,网关离线,子设备也会全部自动离线.)
      
-topic: /{productId}/{deviceId}/child/{childDeviceId}/disconnected
+topic: /{productId}/{deviceId}/child/{childDeviceId}/disconnect
       
 方向: `上行`
 
