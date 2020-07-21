@@ -95,6 +95,10 @@ hsweb和jetlinks都使用`注解式`来声明web映射,方式与`spring-mvc`类�
 
 具体的接口内容请查看对应源代码.
 
+## 动态查询条件
+
+[请看这里](interface-guide/query-param.md)
+
 ## 权限控制
 
 hsweb提供来一套统一的权限控制API,方便进行细粒度的权限控制.
