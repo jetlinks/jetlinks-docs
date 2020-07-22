@@ -43,7 +43,7 @@ hsweb:
 
 - 步骤2: [启动JetLinks服务](ide-docker-start.md#启动JetLinks服务)。  
 
-- 步骤3: [启动UI](ui-start.md)。  
+- 步骤3: [启动UI-源码自行构建](ui-start.md#源码自行构建)。  
 
 ## 使用内嵌所需环境的方式启动jetlinks服务
 
@@ -110,8 +110,8 @@ logging:
 
 - 步骤3： [启动JetLinks服务](ide-docker-start.md#启动JetLinks服务)。  
        
-- 步骤4: [启动UI](ui-start.md)。  
+- 步骤4: [启动UI-源码自行构建](ui-start.md#源码自行构建)。  
 
 ## 启动成功后访问系统  
 
-地址: `http://localhost:9000`, 用户名:`admin`,密码:`admin`。
+地址: `http://localhost:8000`, 用户名:`admin`,密码:`admin`。

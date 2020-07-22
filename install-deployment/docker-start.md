@@ -43,5 +43,9 @@ $ docker-compose up
 
 ```
 ::: tip 注意：
-docker-compose中的jetlinks镜像持续更新中，启动docker之前请及时下载更新。
+docker-compose中的jetlinks、jetlinks-ui-antd镜像持续更新中，启动docker之前请及时下载更新。
 :::
+
+## 启动成功后访问系统  
+
+地址: `http://localhost:9000`, 用户名:`admin`,密码:`admin`。
