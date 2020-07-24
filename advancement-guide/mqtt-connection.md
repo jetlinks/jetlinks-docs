@@ -41,7 +41,8 @@ ii. 选择 `设备管理`-->`设备型号`--> 点击`导入配置`按钮
 iii. 选择[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)文件
 
 ::: tip 注意：
-上传文件需要将standalone/src/main/resources/application.yml中的static-location修改为http://后台服务ip:8848/upload，参考[协议上传问题](../common-problems/install.md#协议发布失败或出现不支持的协议：xxx)
+上传文件需要将standalone/src/main/resources/application.yml中的static-location修改为  
+http://后台服务ip:8848/upload，参考[协议上传问题](../common-problems/install.md#协议发布失败或出现不支持的协议：xxx)
 :::
 
 iv.型号导入完成效果如下图
@@ -169,7 +170,7 @@ ii. 单击User Credentials，设置User Name和Password。
 
 4.设置完成后，单击右下角的**OK**。
 
-## 设备操作
+## 设备消息
 
 设备连接上平台，并进行一些基本的事件收发、属性读取操作。
 
@@ -334,3 +335,44 @@ MQTT.fx 推送设备事件消息到平台
 
 ![事件上报内容](../basics-guide/files/device-connection/device-event-info.png)
 ![事件上报内容1](../basics-guide/files/device-connection/device-event-info1.png)
+
+### 地理位置上报
+
+1. 物模型中添加地理位置。通过属性定义添加地理位置类型属性。
+    
+![添加地理位置属性](../basics-guide/files/device-connection/insert-geo-property.png)  
+     
+2. 在设备产品详情页面点击`应用配置`按钮。  
+![应用配置](../basics-guide/files/device-connection/start-model.png)  
+
+3. 使用mqtt.fx连接到平台，设备上线后推送地理位置消息到平台， 此处使用topic为`/report-property`。  
+
+![推送地理位置消息](../basics-guide/files/device-connection/push-geo.png)  
+
+此处使用的报文为：  
+```json
+{
+    "deviceId":"test001",
+    "properties":{
+      "geo-test": "36.523,102.321"
+     }
+}
+```
+::: tip 注意：
+上报geo地理位置类型数据有三种格式，一是字符串以逗号分隔，如：`"145.1214,126.123"`;  
+二是数组类型，如:`[145.1214,126.123]`;  
+三是map类型，如：`{"lat":145.1214,"lon":126.123}`。  
+:::
+
+4. 上报成功后将在设备实例的运行状态中显示。  
+
+![地理位置展示](../basics-guide/files/device-connection/device-info-geo.png)  
+
+也可查看上报历史消息。  
+
+![地理位置历史记录](../basics-guide/files/device-connection/geo-history.png)  
+
+::: tip 注意：
+物模型中的标签也可创建geo类型，但不可通过标签上报地理位置信息，只能通过属性上报。  
+地理位置标签将主要运用在地图查询中。  
+:::
