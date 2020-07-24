@@ -40,7 +40,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 
 ## 更换数据库
 
-目前平台支持mysql、mssql、oracle、postgres、postgres数据库。
+目前平台支持mysql、mssql、oracle、postgres数据库。
 
 更换数据库（此处以mysql为例）需要注意的事项：  
 
@@ -61,6 +61,9 @@ easyorm:
 在mysql中此处default-schema应修改为mysql中存在的数据库名称，  
 如第一步url中数据库名为jetlinks，default-schema也应为jetlinks。
 :::
+
+若出现以下警告，应考虑mysql是否已创建相应库。  
+![mysql-connection-warning](images/mysql-connection-warning.png)  
 
 ## maven依赖问题
 大部分是因为配置了全局私服，在setting.xml文件中取消即可。  
