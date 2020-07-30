@@ -1,7 +1,7 @@
 
 JetLinks 使用[hsweb-easyorm](https://github.com/hs-web/hsweb-easy-orm)实现响应式的ORM. 
 
-# DAO
+## DAO
 
 `easyorm`封装了`r2dbc`实现了动态DDL,DSL动态条件等便捷操作.实现一个增删改差只需要2步.
 
@@ -43,9 +43,17 @@ ReactiveRepository<TestEntity,String> testRepository;
 启动类上需要注解: `@EnableEasyormRepository("实体类所在包,如: org.jetlinks.community.**.entity")`.
 :::
 
-# Service
+### CRUD API
 
-## CRUD Service
+ReactiveRepository提供了常见的crud方法:
+
+
+### 自定义通用查询条件
+
+
+## Service
+
+### CRUD Service
 hsweb提供了`GenericReactiveCrudService`,使用`ReactiveRepository`实现通用增删该查.例如:
 
 ```java
@@ -55,7 +63,7 @@ public class TestService extends GenericReactiveCrudService<TestEntity,String>{
 
 ```
 
-## 支持缓存的Service
+### 支持缓存的Service
 
 `GenericReactiveCacheSupportCrudService`
 
@@ -70,7 +78,7 @@ public class TestService extends GenericReactiveCacheSupportCrudService<TestEnti
 }
 ```
 
-## 支持树结构实体的Service
+### 支持树结构实体的Service
 
 `GenericReactiveTreeSupportCrudService`,提供了对树结构数据对一些通用处理,如`List`与`树结构`互转.
 
@@ -85,17 +93,17 @@ public class TestService extends GenericReactiveTreeSupportCrudService<TestEntit
 树结构实体需要实现: `TreeSortSupportEntity`接口,或者继承`GenericTreeSortSupportEntity`
 :::
 
-# Web
+## Web
 
 hsweb和jetlinks都使用`注解式`来声明web映射,方式与`spring-mvc`类似.
 
-## Web Crud
+### Web Crud
 
 增删改查与`Service`类似,实现接口:`ReactiveCrudController`(基于`ReactiveRepository`),或者`ReactiveServiceCrudController`基于(`ReactiveCrudService`)即可.树结构实体还可以实现:`ReactiveTreeServiceQueryController`接口.
 
 具体的接口内容请查看对应源代码.
 
-## 动态查询条件
+### 动态查询条件
 
 [请看这里](interface-guide/query-param.md)
 
