@@ -11,7 +11,7 @@ postgresql 11,redis 5.x,elasticsearch 6.8.x.
 
 ::: warning 注意
 以上服务在docker方式部署时使用docker-compose启动，可不再安装。  
-开发环境需要使用最新的java8(小版本号大于200),如1.8.0_232。
+需要使用最新的java8(小版本号大于200),如1.8.0_232。
 :::
 ::: tip 提示
  `postgresql`可更换为`mysql 5.7+`或者`sqlserver`,只需要修改配置中的`spring.r2dbc`和`easyorm`相关配置项即可.
