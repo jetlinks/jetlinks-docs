@@ -29,7 +29,6 @@
 
 
 
-
 ## 自定义SQL条件构造器
 
 新建一个类,继承`AbstractTermFragmentBuilder`,注解`@Component`注入到spring.

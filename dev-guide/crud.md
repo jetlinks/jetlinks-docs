@@ -43,12 +43,8 @@ ReactiveRepository<TestEntity,String> testRepository;
 启动类上需要注解: `@EnableEasyormRepository("实体类所在包,如: org.jetlinks.community.**.entity")`.
 :::
 
-### CRUD API
-
-ReactiveRepository提供了常见的crud方法:
-
-
 ### 自定义通用查询条件
+
 
 
 ## Service
@@ -105,7 +101,7 @@ hsweb和jetlinks都使用`注解式`来声明web映射,方式与`spring-mvc`类�
 
 ### 动态查询条件
 
-[请看这里](interface-guide/query-param.md)
+[请看这里](/interface-guide/query-param.md)
 
 ## 权限控制
 

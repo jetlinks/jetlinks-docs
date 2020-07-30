@@ -69,12 +69,11 @@ module.exports = {
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     ['/best-practices/poll-device-data.md', '从第三方或者设备主动拉取数据'],
-                    //['/basics-guide/course/data-visualization.md','数据可视化(Pro)'],
-                    //['/advancement-guide/children-device.md', '接入网关设备,并通过网关代理接入子设备'],
-                    // ['/advancement-guide/rule-engine-subscription.md', '通过规则引擎订阅设备消息,处理后发送邮件通知'],
-                    // ['/advancement-guide/rule-engine-send.md', '通过规则引擎向其他设备发送消息'],
                     ['/best-practices/rule-engine-sql.md', '规则引擎-数据转发'],
-                    // ['/advancement-guide/create-data-visualization.md','创建可视化图表,实时展示设备属性变更(PRO)'],
+                    ['/best-practices/rule-engine-http-server.md', '通过规则引擎发布http api服务(PRO)'],
+                    ['/best-practices/rule-engine-device-avg-temp.md', '通过规则引擎计算1分钟内设备平均温度(PRO)'],
+                    ['/best-practices/rule-engine-device-same-group.md', '当房间开门时,打开对应房间当空调(PRO)'],
+                    ['/dev-guide/device-firmware', '设备固件更新'],
                     ['/advancement-guide/benchmark.md', '压力测试']
                 ]
             },
@@ -103,21 +102,14 @@ module.exports = {
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
                     ['/dev-guide/custom-sql-term', '自定义通用SQL条件'],
-                    ['/dev-guide/event-driver.md', '事件驱动之消息网关'],
+                    ['/dev-guide/event-driver.md', '事件驱动'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
-                    ['/dev-guide/subscribe-device-message', '从消息网关中订阅消息'],
+                    ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅消息'],
-                    ['/dev-guide/device-firmware', '设备固件更新'],
-                    ['/dev-guide/multi-tenant', '多租户'],
-                  
-                    // ['/dev-guide/custom-dashboard.md', '自定义仪表盘']
-                    // ['/dev-guide/device-operation.md', '设备操作'],
-                    // ['/dev-guide/message-gateway.md', '消息网关'],
-                    // ['/dev-guide/device-gateway.md', '设备网关'],
-                    // ['/dev-guide/jetlinks-protocol', '协议开发'],
-                    // ['/dev-guide/rule-engine', '规则引擎']
+                    
+                    ['/dev-guide/multi-tenant', '多租户']
                 ]
             },
             {
