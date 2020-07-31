@@ -68,6 +68,7 @@ module.exports = {
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
+                    ['/best-practices/auto-register.md', '设备自注册到平台'],
                     ['/best-practices/poll-device-data.md', '从第三方或者设备主动拉取数据'],
                     ['/best-practices/rule-engine-sql.md', '规则引擎-数据转发'],
                     ['/best-practices/rule-engine-http-server.md', '通过规则引擎发布http api服务(PRO)'],

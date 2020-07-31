@@ -21,7 +21,9 @@
 5. websocket订阅设备消息可以实现租户下某个成员所有设备的消息订阅.
 6. 规则引擎增加作用域支持.
 7. 规则引擎函数节点增加多路输出支持.
-8. `spring event`增加响应式事件支持.
+8. `spring event`增加响应式事件支持,事件继承`DefaultAsyncEvent`.
+9. 弃用`MessageGateway`,重构为消息总线`EventBus`.
+10. 增加设备影子,`deviceOperator.getSelfConfig(DeviceConfigKey.shadow)`
 
 主要BUG修复
 

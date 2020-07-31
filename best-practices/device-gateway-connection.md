@@ -65,7 +65,7 @@
 ## 设备上线
 
 网关与平台建立连接时,会自动修改所有子设备的状态.
-如果要单独更新子设备上下线状态.请根据协议解析为`DeviceOnlineMessage`或者`DeviceOfflineMessage`.
+如果要单独更新子设备上下线状态.请根据协议解析为`ChildrenDeviceMessage<DeviceOnlineMessage>`或者`ChildrenDeviceMessage<DeviceOfflineMessage>`.
 
 ### 模拟网关设备上线（下线），子设备上线（下线）
 
