@@ -18,7 +18,8 @@ mvn clean package -Dmaven.test.skip=true
 
 ```shell script
 cd ./jetlinks-standalone
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone
+#构建docker镜像，可根据情况修改docker.image.name配置
+../mvnw docker:build -Ddocker.image.name=jetlinks
 docker push registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone
 ```
 
