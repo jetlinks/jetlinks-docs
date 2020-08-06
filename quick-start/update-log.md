@@ -23,7 +23,8 @@
 7. 规则引擎函数节点增加多路输出支持.
 8. `spring event`增加响应式事件支持,事件继承`DefaultAsyncEvent`.
 9. 弃用`MessageGateway`,重构为消息总线`EventBus`.
-10. 增加设备影子,`deviceOperator.getSelfConfig(DeviceConfigKey.shadow)`
+10. 增加设备影子,`deviceOperator.getSelfConfig(DeviceConfigKey.shadow)`.
+11. 修复设备告警设置多个动作时,只有一个动作生效的问题.
 
 主要BUG修复
 

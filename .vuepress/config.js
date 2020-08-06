@@ -1,5 +1,5 @@
 module.exports = {
-    title: 'jetlinks系统文档',
+    title: 'JetLinks 物联网基础平台',
     descirption: '测试文档',
     //basic: './dist',
     port: 9999,
@@ -70,6 +70,7 @@ module.exports = {
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
                     ['/best-practices/auto-register.md', '设备自注册到平台'],
                     ['/best-practices/poll-device-data.md', '从第三方或者设备主动拉取数据'],
+                    ['/best-practices/device-alarm.md', '设备上报数据,触发设备告警并发送邮件通知.'],
                     ['/best-practices/rule-engine-sql.md', '规则引擎-数据转发'],
                     ['/best-practices/rule-engine-http-server.md', '通过规则引擎发布http api服务(PRO)'],
                     ['/best-practices/rule-engine-device-avg-temp.md', '通过规则引擎计算1分钟内设备平均温度(PRO)'],
@@ -109,8 +110,9 @@ module.exports = {
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
                     ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅消息'],
-                    
-                    ['/dev-guide/multi-tenant', '多租户']
+                    ['/dev-guide/multi-tenant', '多租户'],
+                    ['/dev-guide/micro-service', '微服务']
+
                 ]
             },
             {
