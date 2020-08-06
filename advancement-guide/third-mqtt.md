@@ -4,26 +4,6 @@
 消息编解码与MQTT服务一样,从消息协议中使用`DefaultTransport.MQTT`来获取消息编解码器.
 本文使用mqtt.fx为设备端，通过emqtt接入平台。
 
-## 创建MQTT客户端网络组件
-
-1. 选择 `网络组件`-->`组件管理`--> 点击`新增组件`按钮。  
-![insert-mqtt-client](images/third-mqtt/insert-mqtt-client.png)  
-2. 在创建完成的模块上点击`启动`按钮。  
-![mqtt-client-start](images/third-mqtt/mqtt-client-start.png)  
-
-## 创建MQTT客户端设备网关
-
-1. 选择 `网络组件`-->`设备网关`--> 点击`新建`按钮。
-![insert-mqtt-gateway](images/third-mqtt/insert-mqtt-gateway.png)  
-::: tip 注意
-和MQTT服务设备网关不同的是,客户端必须指定消息协议,因为无法通过消息识别出对应的设备标识.
-在消息解码时也无法通过上下文(`MessageDecodeContext`)获取到设备操作接口(`DeviceOperator`).
-此处使用`演示协议v1`.
-:::
-此处使用的Topics:`/read-property,/device_online_status,/fire_alarm`。
-2. 在操作列点击`启动`按钮启动网关。  
-![mqtt-gateway-start](images/third-mqtt/mqtt-gateway-start.png)   
-
 ## 安装并启动EMQ
 
 可直接前往[官网下载](http://www.emqtt.io/downloads/) emqttd。  
@@ -41,6 +21,27 @@ docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8
 
 ![emq-dashboard](images/third-mqtt/emq-dashboard.png)
 
+## 创建MQTT客户端网络组件
+
+1. 选择 `网络组件`-->`组件管理`--> 点击`新增组件`按钮。  
+![insert-mqtt-client](images/third-mqtt/insert-mqtt-client.png)  
+2. 在创建完成的模块上点击`启动`按钮。  
+![mqtt-client-start](images/third-mqtt/mqtt-client-start.png)  
+
+## 创建MQTT客户端设备网关
+
+1. 选择 `网络组件`-->`设备网关`--> 点击`新建`按钮。
+![insert-mqtt-gateway](images/third-mqtt/insert-mqtt-gateway.png)  
+::: tip 注意
+和MQTT服务设备网关不同的是,客户端必须指定消息协议,因为无法通过消息识别出对应的设备标识.
+在消息解码时也无法通过上下文(`MessageDecodeContext`)获取到设备操作接口(`DeviceOperator`).
+此处使用`演示协议v1`.
+:::
+此处使用的Topics:`/read-property,/device_online_status,/fire_alarm`。  
+
+2. 在操作列点击`启动`按钮启动网关。  
+![mqtt-gateway-start](images/third-mqtt/mqtt-gateway-start.png)   
+
 ## 使用MQTT.fx连接EMQ
 
 ### 设置连接参数。  
@@ -49,6 +50,10 @@ docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8
 **此处参数设置：**  
 
 ![mqttfx-config](images/third-mqtt/mqttfx-config.png)  
+
+::: tip 注意：
+Client ID为设备实例Id，需在平台创建id为`MQTT_FX_Client`的设备实例。  
+:::
 
 ### 连接EMQ
 单击 Mqtt.fx客户端 中`Connect`进行连接。  

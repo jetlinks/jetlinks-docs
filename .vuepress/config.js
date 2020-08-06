@@ -116,7 +116,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'openApi接口文档',   // 必要的
+                title: 'openApi',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1

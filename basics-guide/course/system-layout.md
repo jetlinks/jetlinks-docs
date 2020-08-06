@@ -10,14 +10,14 @@
 2. 输入用户信息。  
 
 3. 点击`确定`进行保存。  
-![用户新增](../images/system/choose-permission.png)
+![用户新增](../images/system/choose-permission.png)  
 
 ### 编辑
 **操作步骤**
 1. 进入系统: `系统设置`-`用户管理`，在操作列点击`编辑`。  
 2. 编辑用户信息。  
 3. 点击`确定`进行保存。  
-![用户编辑](../images/system/update-user.png)
+![用户编辑](../images/system/update-user.png)  
 
 ### 分配权限 
 请参考[权限分配](#权限分配 "权限分配")  
@@ -89,3 +89,78 @@
 
 ## 角色管理
 请参考[机构管理](#机构管理)。
+
+## 租户管理
+
+### 新增
+**操作步骤**
+1. 进入系统: `系统设置`-`租户管理`-`添加`。  
+
+![进入租户页](../images/system/choose-tenant.png)  
+
+2. 输入租户信息。  
+
+3. 点击`确定`进行保存。  
+![租户新增](../images/system/save-tenant.png)  
+
+### 基本信息
+
+在列表页对应租户操作列点击`查看`，进入基本信息页面。  
+
+![查看](../images/system/tenant-view.png)  
+
+### 资产信息
+
+在基本信息页上点击`资产信息`选项卡进入资产信息页面。  
+
+![查看资产](../images/system/choose-assets.png)  
+
+#### 添加资产
+
+1. 点击相应资产框上的编辑按钮，进入资产编辑页面。
+
+![编辑资产](../images/system/update-assets.png)  
+
+2. 点击`添加`按钮进入资产添加页面。  
+
+3. 选择需要添加资产的租户成员。  
+
+4. 在列表中选择资产。  
+
+5. 点击`添加n项`按钮保存。  
+
+![添加资产](../images/system/add-assets.png)  
+
+#### 解绑资产
+
+勾选需要解绑的资产，点击`解绑n项`按钮即可。  
+
+![添加资产](../images/system/delete-assets.png)  
+
+### 成员管理
+
+租户新增时创建的用户默认为管理员。 
+
+#### 新增
+
+在成员管理页面，点击`新增`按钮。  
+
+![添加成员](../images/system/tenant-member.png)  
+
+#### 解绑
+
+在需要解绑的成员操作列点击`解绑`。  
+
+![解绑成员](../images/system/delete-tenant-member.png)  
+
+### 权限分配
+
+点击`查看权限`选项卡，进入权限分配页面，勾选相应权限后点击`更新权限信息`。  
+
+![分配权限](../images/system/bind-permission.png)  
+
+### 测试
+
+使用创建的租户账号登录平台，只能访问对应的资产。  
+
+![测试](../images/system/tenant-test.png)  
