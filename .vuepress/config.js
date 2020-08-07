@@ -176,7 +176,7 @@ module.exports = {
             //      ]
             // }
         ]
-    }
+    },
     // markdown: {
     //     // markdown-it-anchor 的选项
     //     anchor: {permalink: false},
@@ -196,5 +196,29 @@ module.exports = {
     //         md.render('- [x] checked');
     //     }
     // }
-}
+//     plugins: {
+//         '@vuepress/medium-zoom': {
+//             //selector: 'img',
+//             // medium-zoom options here
+//             // See: https://github.com/francoischalifour/medium-zoom#options
+//             options: {
+//                 margin: 16
+//             }
+//
+//         }
+//     }
+    plugins:[
+
+        [
+            'vuepress-plugin-medium-zoom',
+            {
+                //selector: 'img',
+                options: {
+                    margin: 16
+                }
+            }
+        ]
+
+    ]
+ }
 
