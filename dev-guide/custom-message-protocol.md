@@ -19,13 +19,13 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
         <dependency>
             <groupId>org.jetlinks</groupId>
             <artifactId>jetlinks-core</artifactId>
-            <version>1.0.2-BUILD-SNAPSHOT</version>
+            <version>1.1.1</version>
         </dependency>
         <!-->jetlinks 协议解析接口包<-->
         <dependency>
             <groupId>org.jetlinks</groupId>
             <artifactId>jetlinks-supports</artifactId>
-            <version>1.0.2-BUILD-SNAPSHOT</version>
+            <version>1.1.1</version>
         </dependency>
         <!-->lombok，需要idea安装lombok插件，否则去掉<-->
         <dependency>
@@ -52,6 +52,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
@@ -73,7 +74,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
 * 修改maven pom文件properties
 
-~~~xml
+```xml
  <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.locales>zh_CN</project.build.locales>
@@ -81,11 +82,11 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
         <project.build.jdk>${java.version}</project.build.jdk>
         <netty.version>4.1.45.Final</netty.version>
     </properties>
-~~~
+```
 
 * 添加maven编译规则
 
-~~~xml
+```xml
     <build>
         <plugins>
             <plugin>
@@ -100,11 +101,11 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
             </plugin>
         </plugins>
     </build>
-~~~
+```
 
 * 添加hsweb私服和阿里云仓库
 
-~~~xml
+```xml
     <repositories>
         <repository>
             <id>hsweb-nexus</id>
@@ -121,7 +122,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
         </repository>
     </repositories>
-~~~
+```
 
 
 
@@ -179,7 +180,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
 * 创建协议入口类： DemoProtocolSupportProvider
 
-~~~java
+```java
   import org.jetlinks.core.ProtocolSupport;
   import org.jetlinks.core.Value;
   import org.jetlinks.core.defaults.CompositeProtocolSupport;
@@ -216,14 +217,14 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
           return Mono.just(support);
       }
   }
-~~~
+```
 
-  ## 第四步  设备上报消息解码 
+## 第四步 设备上报消息解码 
 
-  ~~~java
+```java
 @AllArgsConstructor
-  @Slf4j
-  public class DemoTcpMessageCodec implements DeviceMessageCodec {
+@Slf4j
+public class DemoTcpMessageCodec implements DeviceMessageCodec {
         
        ....
         
@@ -267,13 +268,11 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 .....
       
   }
-  ~~~
+```
   
-  
+## 第五步 平台发送消息到设备（消息编码）
 
-  ## 第五步 平台发送消息到设备（消息编码）
-
-~~~java
+```java
 @AllArgsConstructor
 @Slf4j
 public class DemoTcpMessageCodec implements DeviceMessageCodec {
@@ -295,10 +294,33 @@ public class DemoTcpMessageCodec implements DeviceMessageCodec {
         return Mono.just(encodedMessage);
     }
 }
-~~~
+```
 
-## 第六步  打成jar包上传到平台，并进行调试
+## 第六步 打成jar包上传到平台，并进行测试
 
 以[TCP服务网关接入设备](../best-practices/tcp-connection.md#使用tcp工具接入)为例。
 
-进行协议上传和 配置，并使用TCP工具进行调试。
+进行协议上传和 配置，并使用TCP工具进行测试。
+
+::: tip 注意
+建议在编写协议包时，先用单元测试进行测试。最后再发布到平台进行模拟设备测试。
+:::
+
+## 调试(debug)协议
+
+将协议包工程放到和`jetlinks`相同到工程目录里,即可使用IDE进行debug.
+
+参照目录:
+```bash
+
+--jetlinks
+----|--dev
+----|---|-- demo-protocl    # 开发中的协议
+----|--jetlinks-components 
+----|--jetlinks-standalone
+----|-- ....
+```
+
+::: warning 注意
+在调试过程中修改代码可以进行热加载,但是重启服务后会失效,需要重新发布协议.
+:::
