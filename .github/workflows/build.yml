@@ -15,7 +15,6 @@ jobs:
             key: jetlinks-docs-repository
         - name: Install 🔧
           run: |
-            npm install -D vuepress-plugin-medium-zoom
             yarn install
             yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
