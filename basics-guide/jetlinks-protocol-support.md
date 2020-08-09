@@ -75,7 +75,7 @@ topic: `/{productId}/{deviceId}/properties/write`
 }
 ```
 
-回复Topic: `/{productId}/{deviceId}/properties/wirte/reply`
+回复Topic: `/{productId}/{deviceId}/properties/write/reply`
 
 方向: `上行`
 
