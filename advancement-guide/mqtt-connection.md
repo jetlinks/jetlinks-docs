@@ -121,6 +121,10 @@ iii. 设备日志
 MQTT服务组件配置  
 ![MQTT服务组件配置](../basics-guide/files/device-connection/mqtt-config.png)
 
+::: tip 注意：
+此处使用的端口为1889，docker启动时没有默认开启，使用docker启动jetlinks时请映射1889端口或者使用1883端口。  
+:::
+
 MQTT服务设备网关  
 ![MQTT服务设备网关](../basics-guide/files/device-connection/mqtt-gateway-info.png)
 
