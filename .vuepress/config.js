@@ -72,6 +72,7 @@ module.exports = {
                     ['/best-practices/poll-device-data.md', '从第三方或者设备主动拉取数据'],
                     ['/best-practices/device-alarm.md', '设备上报数据,触发设备告警并发送邮件通知.'],
                     ['/best-practices/rule-engine-sql.md', '规则引擎-数据转发'],
+                    ['/basics-guide/course/device-alarm.md', '规则引擎-告警设置'],
                     ['/best-practices/rule-engine-http-server.md', '通过规则引擎发布http api服务(PRO)'],
                     ['/best-practices/rule-engine-device-avg-temp.md', '通过规则引擎计算1分钟内设备平均温度(PRO)'],
                     ['/best-practices/rule-engine-device-same-group.md', '当房间开门时,打开对应房间当空调(PRO)'],
@@ -87,10 +88,9 @@ module.exports = {
                 children: [
                     ['/basics-guide/course/system-layout', '系统配置'],
                     ['/basics-guide/device-manager.md', '设备管理'],
-                    ['/basics-guide/course/network.md', '网络组件'],
+                    ['/basics-guide/course/network.md', '设备接入'],
                     ['/basics-guide/course/notification.md', '通知管理'],
-                    ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
-                    ['/basics-guide/course/device-alarm.md', '告警设置']
+                    ['/basics-guide/course/rule-engine-nodered.md', '规则引擎']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]
             },
