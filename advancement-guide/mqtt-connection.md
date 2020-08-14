@@ -8,7 +8,7 @@
 
 **例**
 
-i. 选择 `设备管理`-->`协议管理`--> 点击`新建协议`按钮
+i. 选择 `设备接入`-->`协议管理`--> 点击`新建协议`按钮
 
 ![新建协议导航](../basics-guide/files/device-connection/new-protocol.png)
 
@@ -26,15 +26,15 @@ vi. 点击保存，完成协议新增。
 
 ![新建型号协议](../basics-guide/files/device-connection/product-protocol.png)
 
-## 创建设备型号
+## 创建产品
 
-> 完整的设备型号创建，请参考[添加设备型号](../basics-guide/device-manager.md#添加设备型号)。
+> 完整的产品创建，请参考[添加设备型号](../basics-guide/device-manager.md#添加产品)。
 
 **例**
 
 i.下载型号文件[配置JSON](../basics-guide/files/device-connection/设备型号-智能温控.json)
 
-ii. 选择 `设备管理`-->`设备型号`--> 点击`导入配置`按钮
+ii. 选择 `设备管理`-->`产品`--> 点击`导入配置`按钮
 
 ![导入型号导航](../basics-guide/files/device-connection/import-product.png)
 
@@ -70,33 +70,33 @@ iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详
 事件定义参数：  
 ![型号信息3](../basics-guide/files/device-connection/device-product-info3.png)
 
-## 创建设备实例
+## 创建设备
 
-> 自定义创建设备实例，请参考[添加设备实例](../basics-guide/device-manager.md#添加设备实例)。
+> 自定义创建设备，请参考[添加设备](../basics-guide/device-manager.md#添加设备)。
 
 **例**
 
-i. 下载设备实例Excel文件[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)
+i. 下载设备Excel文件[设备Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)
 
-ii. 选择 `设备管理`-->`设备实例`--> 点击`导入实例`按钮
+ii. 选择 `设备管理`-->`设备`--> `其他批量操作`-->`批量导入设备`
 
 ![导入设备导航](../basics-guide/files/device-connection/import-device.png)
 
-iii. 选择需要导入的设备型号,点击文件上传  
+iii. 选择需要导入的产品,点击文件上传  
 
 ![选择型号](../basics-guide/files/device-connection/choose-device-product.png)  
 
-iv. 选择[设备实例Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
+iv. 选择[设备Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
 
-v. 设备实例导入完成效果如下图
+v. 设备导入完成效果如下图
 
 ![未激活的设备](../basics-guide/files/device-connection/device-instance-not-active.png)
 
-vi. 点击上图中`激活`链接完成设备实例激活，状态栏中发布状态变为`离线`代表设备激活成功。
+vi. 点击上图中`激活`链接完成设备激活，状态栏中发布状态变为`离线`代表设备激活成功。
 
 ![已激活的设备](../basics-guide/files/device-connection/device-instance-offline.png)
 
-### 创建成功的设备实例信息展示
+### 创建成功的设备信息展示
 
 i. 设备基本信息
 
@@ -157,7 +157,7 @@ MQTT Broker Profile Settings
 | :-----   | :-----  |
 | Broker Address       | 连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写远程连接地址 |
 | Broker Port        |   设置为`1889`   |
-| Client ID        |    设备Id。本文档中为演示设备实例`test001`   |
+| Client ID        |    设备Id。本文档中为演示设备`test001`   |
 
 General栏目下的设置项可保持系统默认，也可以根据您的具体需求设置。
 
@@ -223,7 +223,7 @@ iii.  单击Subscribe，订阅这个topic
 
 iv. 平台发送订阅操作
 
-单击设备实例页面中`test001`设备对应的`查看`链接
+单击设备页面中`test001`设备对应的`查看`链接
 
 选择弹出框中`运行状态板块`
 
@@ -320,7 +320,7 @@ MQTT.fx 推送设备事件消息到平台
 | 参数         | 说明    |
 | :-----   | :-----  |
 | deviceId       | 设备Id   |
-| pname        |   设备型号名称   |
+| pname        |   产品名称   |
 | aid        |   区域Id   |
 | a_name        |   区域名称   |
 | b_name        |   建筑名称   |
@@ -368,7 +368,7 @@ MQTT.fx 推送设备事件消息到平台
 三是map类型，如：`{"lat":36.523,"lon":102.321}`。  
 :::
 
-4. 上报成功后将在设备实例的运行状态中显示。  
+4. 上报成功后将在设备的运行状态中显示。  
 
 ![地理位置展示](../basics-guide/files/device-connection/device-info-geo.png)  
 
@@ -380,3 +380,5 @@ MQTT.fx 推送设备事件消息到平台
 物模型中的标签也可创建geo类型，但不可通过标签上报地理位置信息，只能通过属性上报。  
 地理位置标签将主要运用在地图查询中。  
 :::
+
+
