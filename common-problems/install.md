@@ -55,7 +55,7 @@ r2dbc:
 ```yaml
 easyorm:
   default-schema: jetlinks # 数据库默认的schema
-  dialqqect: mysql #数据库方言
+  dialect: mysql #数据库方言
 ```
 ::: warning 注意:
 在mysql中此处default-schema应修改为mysql中存在的数据库名称，  
