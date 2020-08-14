@@ -63,10 +63,14 @@ TODO
 获取用户认证信息,并使用`jwt`通过`http header`:`Authorization: jwt {token}`传递到下游服务。
 
 ::: tip JWT说明
-jwt使用`HMAC256`进行加密,密码通过:`jetlinks.token.jwt.password`进行配置。下游服务通过解析jwt中的subject,则为当前登录用户的认证信息。
+jwt默认使用`RSA`进行加密,公钥通过:`jetlinks.token.jwt.key`进行配置。下游服务通过解析jwt中的subject,则为当前登录用户的认证信息。
 
 ```java
-Algorithm algorithm = Algorithm.HMAC256(password);
+byte[] keyBytes = Base64.decodeBase64(key);
+X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+PublicKey key = keyFactory.generatePublic(keySpec);
+Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) key, null);
 JWTVerifier verifier = JWT.require(algorithm)
     .withIssuer("api.gateway")
     .build();
@@ -86,14 +90,13 @@ String infoJson=jwt.getSubject();//认证信息
 		"name": "超级管理员", //姓名
 		"type": "user" //类型
 	},
-	"permissions": [
-        {
+	"permissions": [{
 		"id": "device-instance", //权限ID
 		"name": "设备实例", //权限名称
 		"actions": ["query", "save", "delete"] //可进行到操作
-	}],
-	"dimensions": [ //用户维度
-        {
+  }],
+  //用户维度
+	"dimensions": [{
 		"id": "admin", //维度标识
 		"name": "管理员", //名称
 		"type": "role" //类型，如: 角色,机构,租户等
