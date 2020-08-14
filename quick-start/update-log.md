@@ -21,16 +21,18 @@
 5. websocket订阅设备消息可以实现租户下某个成员所有设备的消息订阅.
 6. 规则引擎增加作用域支持.
 7. 规则引擎函数节点增加多路输出支持.
-8. `spring event`增加响应式事件支持,事件继承`DefaultAsyncEvent`.
+8. `spring event`增加响应式事件支持,继承`DefaultAsyncEvent`或实现`AsyncEvent`即可.
 9. 弃用`MessageGateway`,重构为消息总线`EventBus`.
 10. 增加设备影子,`deviceOperator.getSelfConfig(DeviceConfigKey.shadow)`.
 11. 修复设备告警设置多个动作时,只有一个动作生效的问题.
+12. 规则引擎http请求节点增加Oauth2认证支持.(PRO)
 
 主要BUG修复
 
 1. 修复规则引擎中使用http请求节点发起`post`,`application/json`请求时参数错误问题
 2. 修复通知模版中使用表达式获取集合类型数据时,只能获取第一个元素的问题
-3. 前端一堆bug修复
+3. 修复reactorQL在union实时数据时无效问题
+4. 前端一堆bug修复
 
 
 ## 1.3-RELEASE
