@@ -662,7 +662,7 @@ X-Sign: c23fa********f25
 
 请求方式： POST  
 
-URL： `http(s)://localhost:8844/api/v1/{deviceId}/properties/_query`  
+URL： `http(s)://localhost:8844/api/v1/device/{deviceId}/properties/_query`  
 
 **说明：{deviceId}需要替换为设备实例的id。**  
 
