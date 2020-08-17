@@ -26,14 +26,22 @@
 10. 增加设备影子,`deviceOperator.getSelfConfig(DeviceConfigKey.shadow)`.
 11. 修复设备告警设置多个动作时,只有一个动作生效的问题.
 12. 规则引擎http请求节点增加Oauth2认证支持.(PRO)
+13. 升级spring-boot到`2.3.3-RELEASE`
+14. 优化docker构建方式,使用docker更新时请看升级说明
 
 主要BUG修复
 
 1. 修复规则引擎中使用http请求节点发起`post`,`application/json`请求时参数错误问题
 2. 修复通知模版中使用表达式获取集合类型数据时,只能获取第一个元素的问题
 3. 修复reactorQL在union实时数据时无效问题
-4. 前端一堆bug修复
+4. 修复首次启动时,初始化表结构可能导致阻塞而无法启动到问题
+5. 前端一堆bug修复
 
+::: warning 升级说明
+
+docker方式升级时,需要修改数据卷为: `"./data/upload:/application/static/upload"`
+
+:::
 
 ## 1.3-RELEASE
 
