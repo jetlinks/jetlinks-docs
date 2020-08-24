@@ -111,7 +111,7 @@ module.exports = {
                     ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅消息'],
                     ['/dev-guide/multi-tenant', '多租户'],
-                    ['/dev-guide/micro-service', '微服务']
+                    //['/dev-guide/micro-service', '微服务']
 
                 ]
             },

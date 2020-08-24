@@ -12,7 +12,83 @@
 2. spring-cloud-gateway: api网关，负责路由以及统一鉴权。
 3. alibaba-nacos: 注册中心、配置中心。
 4. spring-webflux: 响应式web框架。
-5. jetlinks-pro: jetlinks专业版相关模块。
+5. jetlinks-pro: jetlinks企业版相关模块。
+
+
+## 业务服务模块集成
+
+jetlinks cloud 使用`nacos`作为服务注册中心。微服务需要注册到`nacos`中。nacos使用请[查看文档](https://nacos.io/zh-cn/docs/what-is-nacos.html)。
+业务模块配置好后
+
+
+## 统一身份认证
+
+::: tip JWT说明
+jwt默认使用`RSA`进行加密,下游服务通过解析jwt中的subject,则为当前登录用户的认证信息。
+
+```java
+byte[] keyBytes = Base64.decodeBase64(key);
+X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+PublicKey key = keyFactory.generatePublic(keySpec);
+Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) key, null);
+JWTVerifier verifier = JWT.require(algorithm)
+    .withIssuer("api.gateway")
+    .build();
+DecodedJWT jwt = verifier.verify(token.substring(4));
+String infoJson=jwt.getSubject();//认证信息
+
+```
+:::
+
+认证信息格式:
+
+```json
+{
+	"user": {
+		"id": "1199596756811550720", //user id
+		"username": "admin", //用户名
+		"name": "超级管理员", //姓名
+		"type": "user" //类型
+	},
+	"permissions": [{
+		"id": "device-instance", //权限ID
+		"name": "设备实例", //权限名称
+		"actions": ["query", "save", "delete"] //可进行到操作
+  }],
+  //用户维度
+	"dimensions": [{
+		"id": "admin", //维度标识
+		"name": "管理员", //名称
+		"type": "role" //类型，如: 角色,机构,租户等
+	}],
+	"attributes": {}
+}
+```
+
+:::tip 租户维度说明
+当用户是一个租户的成员时,在认证信息中的维度信息(`dimensions`)中将会有如下数据:
+
+```json
+ {
+    "id": "77f1552ed133b44b3886a3ea965a6adc", //租户ID
+    "name": "测试", //租户名称
+    "type": "tenant", //类型固定为tenant
+    "options": {
+        "admin": true, //是否为租户管理员
+        "memberName": "测试", //租户成员名称
+        "main": true, //是否为主租户,同一个用户在多个租户中时,用来标识用户的主租户
+        "memberType": "tenantMember", //成员类型
+        "memberId": "39d36d9be23e97758d54b5eba97cbf5d"
+    }
+}
+```
+:::
+
+
+2. 业务服务模块集成
+3. 微服务之间API调用
+4. 跨地域微服务开发,调试
 
 ## 内部微服务开发
 
@@ -27,11 +103,11 @@
 ```bash
 --|--.... 
 --|--micro-services                     #微服务相关模块
---|------|---api-gateway-service        #api网关服务 |
+--|------|---api-gateway-service        #api网关服务 
 --|------|---authentication-service     #统一认证服务
---|------|---jetlinks-service           #jetlinks微服务 |
+--|------|---iot-service                #设备接入微服务 
 --|------|---service-components         #微服务通用组件
---|------|---service-dependencie        #微服务统一依赖管理 |
+--|------|---service-dependencie        #微服务统一依赖管理 
 --|--docker-compose.yml                 #使用docker快速启动开发环境
 --|--....
 
