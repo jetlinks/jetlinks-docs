@@ -91,9 +91,9 @@ from
 
 ```sql
 
-select take(this,5,1) msg 
+select * 
 from "/device/*/*/event/fire_alarm"
-_window('5s')
+_window('5s'),take(5,1)
 
 ```
 
@@ -123,7 +123,7 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | count           | 总数                   | count\(1\)                             |                                                             |
 | max             | 最大值                 | max\(val\)                             |                                                             |
 | min             | 最小值                 | min\(val\)                             |                                                             |
-| take            | 取指定数量数据         | take\(val\,5,-1) --取5个中的最后一个      |  take\(val\,start,num), start为负数时表示从末尾取              |
+| take            | 取指定数量数据         | take\(5,-1) --取5个中的最后一个            |  通常配合分组函数_window使用              |
 | >               | 大于                   | val > 10                               |                                                             |
 | <               | 小于                   | val < 10                               |                                                             |
 | =               | 等于                   | val = 10                               |                                                             |
