@@ -8,7 +8,7 @@
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
 ## 1.4-RELEASE
-预计更新时间: 2020-08-01
+预计更新时间: 2020-09-01
 
 代码分支: `master`
 
@@ -28,6 +28,7 @@
 12. 规则引擎http请求节点增加Oauth2认证支持.(PRO)
 13. 升级spring-boot到`2.3.3-RELEASE`
 14. 优化docker构建方式,使用docker更新时请看升级说明
+15. MQTT增加短连接支持
 
 主要BUG修复
 
