@@ -89,13 +89,13 @@ from
 
 ```
 
-5分钟之内发送了5次，只取第一次。
+5分钟之内只取第一次。
 
 ```sql
 
 select * 
 from "/device/*/*/message/event/fire_alarm"
-_window('5s'),take(5,1)
+_window('5m'),take(1) -- -1为取最后一次
 
 ```
 
