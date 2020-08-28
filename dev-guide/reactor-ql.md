@@ -4,6 +4,8 @@
 JetLinks封装了一套使用SQL来进行实时数据处理的工具包[查看源代码](https://github.com/jetlinks/reactor-ql)。
 通过将SQL翻译为[reactor](https://projectreactor.io/)来进行数据处理。
 规则引擎中的`数据转发`以及可视化规则中的`ReactorQL节点`均使用此工具包实现。
+默认情况下,SQL中的表名就是事件总线中的`topic`,如: `select * from "/device/*/*/message/property/*"`,
+表示订阅`/device/*/*/message/property/*`下的实时消息.
 
 ## SQL例子
 
@@ -81,7 +83,7 @@ from
    select
    collect_list((select this.deviceId deviceId)) idList, --聚合结果里的
    avg(temperature)                   avgTemp ,
-   from "/device/*/*/property/**" ,
+   from "/device/*/*/message/property/**" ,
    group by interval('1m') having avgTemp > 40
 )
 
@@ -92,7 +94,7 @@ from
 ```sql
 
 select * 
-from "/device/*/*/event/fire_alarm"
+from "/device/*/*/message/event/fire_alarm"
 _window('5s'),take(5,1)
 
 ```
