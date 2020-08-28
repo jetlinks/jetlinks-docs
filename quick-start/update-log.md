@@ -8,7 +8,7 @@
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
 ## 1.4-RELEASE
-预计更新时间: 2020-08-01
+预计更新时间: 2020-09-01
 
 代码分支: `master`
 
@@ -28,6 +28,11 @@
 12. 规则引擎http请求节点增加Oauth2认证支持.(PRO)
 13. 升级spring-boot到`2.3.3-RELEASE`
 14. 优化docker构建方式,使用docker更新时请看升级说明
+15. MQTT增加短连接支持,[见文档](../best-practices/sort-link.md)
+16. 增加登录验证码支持,通过`captcha.enabled=true`设置开启.
+17. 增加密码强度验证支持,通过`hsweb.user.password.validator`进行配置,默认`maxLength=8`,`level=2`
+18. 增加文件上传限制,通过`hsweb.upload.file.allow-files`或者`hsweb.upload.file.deny-files`进行配置
+19. ReactorQL增加take分组函数.`group by _window('10s'),take(1) -- 10秒取第一条数据`.
 
 主要BUG修复
 
