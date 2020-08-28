@@ -788,7 +788,7 @@ result | DevicePropertiesEntity | 返回值
 status | int | 状态码
 code | String  |  业务编码 
 
-DeviceDetail参数如下：    
+DevicePropertiesEntity参数如下：    
 名称       | 类型  | 描述  
 -------------- | -------------  | ------------- 
 id | String | 否 |  | 属性ID
@@ -804,6 +804,8 @@ objectValue | String | 否 |  | 结构体值
 value | String | 否 |  | 值
 timeValue | Date | 否 |  | 时间值
 orgId | String | 否 |  | 机构ID
+deviceId | String | 否 |  | 设备ID
+type | String | 否 |  | 类型
 
 请求示例:  
 
@@ -815,7 +817,6 @@ X-Sign: f4823a*********e76eb1d
 X-Timestamp: 1586511766004
 X-Client-Id: kF**********HRZ
 
-["test002","test003", "test004"]
 
 //响应
 HTTP/1.1 200 OK
@@ -836,6 +837,131 @@ X-Sign: c23fa********f25
 	}],
 	"status": 200,
 	"code": "success"
+}
+```
+
+### 聚合查询设备属性
+
+请求方式： GET  
+
+URL： `http(s)://localhost:8844/api/v1/device/{deviceId}/agg/{agg}/{property}/_query`
+
+说明：{deviceId}需要替换为设备实例的id,  
+     {agg}需要替换为聚合类型，包含：MIN, MAX, AVG, SUM, COUNT, NONE  
+     {property}需要替换为设备属性。  
+
+返回参数:
+名称       | 类型 | 描述  
+-------------- | ------------- | ------------- 
+result | List&#60;Map&#60;String, Object&#62;&#62; | 返回值
+status | int | 状态码
+code | String  |  业务编码 
+
+
+请求示例:  
+查询过去30分钟设备test001的温度属性每分钟的平均温度。  
+```js
+//请求
+POST /api/v1/device/test001/agg/AVG/temperature/_query
+Content-Type: application/json
+X-Sign: f4823a*********e76eb1d
+X-Timestamp: 1598579554299
+X-Client-Id: kF**********HRZ
+
+{
+	"interval": "1h",//时间间隔，单位为英文时间单位首字母，如小时h、天d等
+	"format": "yyyy-MM-dd HH:mm:ss",//时间格式
+	"from": "now-24h",//起始时间
+	"to": "now",//终止时间
+    "query": {
+    		"pageSize": 25//指定返回数据条数，默认25
+    	}
+}
+
+//响应
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23fa********f25
+
+{
+	"result": [{
+		"temperature": 32.8235294117647,
+		"time": "2020-08-28 09:52:00"
+	}, {
+		"temperature": 32.13333333333333,
+		"time": "2020-08-28 09:51:00"
+	}, {
+		"temperature": 34.11666666666667,
+		"time": "2020-08-28 09:50:00"
+	}, {
+		"temperature": 33.9,
+		"time": "2020-08-28 09:49:00"
+	}, {
+		"temperature": 33.85,
+		"time": "2020-08-28 09:48:00"
+	}, {
+		"temperature": 34.45,
+		"time": "2020-08-28 09:47:00"
+	}, {
+		"temperature": 32.75,
+		"time": "2020-08-28 09:46:00"
+	}, {
+		"temperature": 35.6,
+		"time": "2020-08-28 09:45:00"
+	}, {
+		"temperature": 35.06666666666667,
+		"time": "2020-08-28 09:44:00"
+	}, {
+		"temperature": 34.15,
+		"time": "2020-08-28 09:43:00"
+	}, {
+		"temperature": 37.629629629629626,
+		"time": "2020-08-28 09:42:00"
+	}, {
+		"temperature": 33.8,
+		"time": "2020-08-28 09:41:00"
+	}, {
+		"temperature": 33.42857142857143,
+		"time": "2020-08-28 09:40:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:39:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:38:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:37:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:36:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:35:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:34:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:33:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:32:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:31:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:30:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:29:00"
+	}, {
+		"temperature": 0.0,
+		"time": "2020-08-28 09:28:00"
+	}],
+	"code": "success",
+	"status": 200
 }
 ```
 

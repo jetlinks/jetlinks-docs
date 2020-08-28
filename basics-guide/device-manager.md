@@ -403,19 +403,56 @@ deviceOperator.getSelfConfig(DeviceConfigKey.shadow);
 
 ## 网关
 
+### 新增
+1. 进入系统: `设备管理`-`产品`。 在新建产品时选择设备类型为`网关设备`。  
+
+![新增网关设备](../basics-guide/files/device-connection/insert-gateway-device.png)  
+
+2. 进入系统： `设备管理`-`网关`。 设备类型为`网关设备`的设备将自动在此展示。 
+
+![网关](../basics-guide/files/device-connection/device-gateway.png)  
+
+### 绑定子设备
+
+1. 选择需要绑定的网关，点击`绑定子设备`按钮。  
+
+![绑定子设备](../basics-guide/files/device-connection/bind-child-device.png)  
+
+2. 在绑定子设备页面，选择需要绑定的子设备并保存。  
+
+![选择子设备](../basics-guide/files/device-connection/choose-child-device.png)  
+
+###  解绑子设备
+
+选择需要解绑子设备的网关，点击`解绑`按钮。  
+
+![解绑子设备](../basics-guide/files/device-connection/unbind-child-device.png)  
+
 ## 地理位置
 
 
-1. 物模型中添加地理位置。通过属性定义添加地理位置类型属性。
+1. 物模型中添加地理位置。通过标签添加地理位置类型属性。
     
 ![添加地理位置属性](../basics-guide/files/device-connection/insert-geo-property.png)  
      
 2. 在设备产品详情页面点击`应用配置`按钮。  
 ![应用配置](../basics-guide/files/device-connection/start-model.png)  
 
-3. 使用mqtt.fx连接到平台，设备上线后推送地理位置消息到平台， 此处使用topic为`/report-property`。  
+3. 在设备详情页将出现地理位置标签，编辑可设置坐标。  
 
-![推送地理位置消息](../basics-guide/files/device-connection/push-geo.png)  
+    ![编辑地理位置1](../basics-guide/files/device-connection/tags-geo.png)  
+    
+    点击编辑按钮进入标签编辑页面。  
+    
+    ![编辑地理位置2](../basics-guide/files/device-connection/into-tags-geo.png)  
+    
+    在地图界面选择坐标。  
+    
+    ![编辑地理位置3](../basics-guide/files/device-connection/choose-position.png)  
+ 
+4. 进入系统: `设备管理`-`地理位置`。 可在地图上查询到设备位置。  
+
+![地图查询](../basics-guide/files/device-connection/map-search.png)  
 
 ## 固件升级
 

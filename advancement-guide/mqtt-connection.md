@@ -18,7 +18,7 @@ iii. 选择型号类型为 `jar`
 
 iv. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
 
-v. 上传jar包  [demo-protocol-1.0.jar](https://github.com/jetlinks/jetlinks-community/blob/master/simulator/demo-protocol-1.0.jar)
+v. 上传jar包`demo-protocol-1.0.jar`，  请检出[demo-protocol](https://github.com/jetlinks/demo-protocol)自行打包。
 
 vi. 点击保存，完成协议新增。
 
