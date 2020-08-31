@@ -8,9 +8,9 @@
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
 ## 1.4-RELEASE
-预计更新时间: 2020-09-01
+更新时间: 2020-09-01
 
-代码分支: `master`
+代码分支: `1.4`
 
 主要优化
 
