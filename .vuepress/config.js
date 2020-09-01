@@ -65,6 +65,7 @@ module.exports = {
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT直接接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
+                    ['/best-practices/http-connection.md', '使用HTTP接入设备(PRO)'],
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
                     ['/best-practices/udp-connection.md', '使用UDP接入设备(PRO)'],
                     ['/best-practices/device-gateway-connection.md', '通过网关设备接入多个子设备'],
