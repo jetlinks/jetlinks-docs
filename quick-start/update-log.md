@@ -33,6 +33,8 @@
 17. 增加密码强度验证支持,通过`hsweb.user.password.validator`进行配置,默认`maxLength=8`,`level=2`
 18. 增加文件上传限制,通过`hsweb.upload.file.allow-files`或者`hsweb.upload.file.deny-files`进行配置
 19. ReactorQL增加take分组函数.`group by _window('10s'),take(1) -- 10秒取第一条数据`.
+20. 优化MQTT Client重试策略.
+21. 优化协议加载策略,不重复下载相同的文件.
 
 主要BUG修复
 
@@ -44,7 +46,7 @@
 
 ::: warning 升级说明
 
-docker方式升级时,需要修改数据卷为: `"./data/upload:/application/static/upload"`
+docker方式升级时,需要修改数据卷为: `"./data/upload:/application/static/upload"` 以及`"./data/protocols:/application/data/protocols"`
 
 :::
 
