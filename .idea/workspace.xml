@@ -1,0 +1,733 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="优化">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/create-udp-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-udp-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-udp-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-property-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-property-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.175530.21285.0.001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.182057.5941.0.001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.184328.7914.0.001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.184540.7999.0.001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.184828.8133.0.001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/report.20200807.185352.8239.0.001.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" beforeDir="false" afterPath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/basics-guide/course/system-layout.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/course/system-layout.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best-practices/tcp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/tcp-connection.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best-practices/udp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/udp-connection.md" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="jetlinks-docs" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master1" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$PROJECT_DIR$/../for_work/ck" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../app/apache-maven-3.3.9" />
+        <option name="userSettingsFile" value="$PROJECT_DIR$/../for_work/apache-maven-3.3.9/conf/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XN21VZaNEypj5I6C21S0jpCeO5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public/best-practices" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/basics-guide/images/system" />
+      <recent name="$PROJECT_DIR$/basics-guide/files/device-connection" />
+      <recent name="$PROJECT_DIR$/basics-guide/images/alarm" />
+      <recent name="$PROJECT_DIR$/advancement-guide" />
+      <recent name="$PROJECT_DIR$/interface-guide/device" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images/rule-engine" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/common-problems/images" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\浩\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="" />
+      <created>1580872016559</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580872016559</updated>
+      <workItem from="1580872017655" duration="14004000" />
+      <workItem from="1580959916230" duration="16376000" />
+      <workItem from="1581044638854" duration="12720000" />
+      <workItem from="1581302530196" duration="5121000" />
+      <workItem from="1581393409870" duration="4923000" />
+      <workItem from="1581906748459" duration="599000" />
+      <workItem from="1582087650914" duration="13473000" />
+      <workItem from="1582249148197" duration="2713000" />
+      <workItem from="1582272357706" duration="9918000" />
+      <workItem from="1582361457508" duration="10004000" />
+      <workItem from="1582455635909" duration="798000" />
+      <workItem from="1582632819357" duration="785000" />
+      <workItem from="1582633616714" duration="8370000" />
+      <workItem from="1582713183843" duration="7062000" />
+      <workItem from="1582792565962" duration="6334000" />
+      <workItem from="1583065100333" duration="9636000" />
+      <workItem from="1583145995852" duration="1956000" />
+      <workItem from="1583201534393" duration="599000" />
+      <workItem from="1583331064263" duration="599000" />
+      <workItem from="1583376504873" duration="599000" />
+      <workItem from="1583392445060" duration="599000" />
+      <workItem from="1583718005628" duration="2701000" />
+      <workItem from="1583738248417" duration="5183000" />
+      <workItem from="1583745907339" duration="519000" />
+      <workItem from="1583800367105" duration="21737000" />
+      <workItem from="1583887011099" duration="4592000" />
+      <workItem from="1583895826114" duration="8713000" />
+      <workItem from="1583974557911" duration="7627000" />
+      <workItem from="1584061089401" duration="12717000" />
+      <workItem from="1584255596152" duration="691000" />
+      <workItem from="1584320027782" duration="9035000" />
+      <workItem from="1584405429066" duration="17546000" />
+      <workItem from="1584492337393" duration="3234000" />
+      <workItem from="1584578886979" duration="6397000" />
+      <workItem from="1584667503041" duration="6140000" />
+      <workItem from="1584924612265" duration="11432000" />
+      <workItem from="1585012225432" duration="7092000" />
+      <workItem from="1585120522057" duration="599000" />
+      <workItem from="1585184726099" duration="786000" />
+      <workItem from="1585188600934" duration="1238000" />
+      <workItem from="1585271522302" duration="600000" />
+      <workItem from="1585531353872" duration="598000" />
+      <workItem from="1585613855937" duration="9867000" />
+      <workItem from="1585700687878" duration="593000" />
+      <workItem from="1585701648530" duration="617000" />
+      <workItem from="1585705144434" duration="1066000" />
+      <workItem from="1585709012916" duration="7321000" />
+      <workItem from="1585788755233" duration="4789000" />
+      <workItem from="1585874478846" duration="6820000" />
+      <workItem from="1586220594677" duration="3158000" />
+      <workItem from="1586306705251" duration="2687000" />
+      <workItem from="1586335701285" duration="563000" />
+      <workItem from="1586393594683" duration="2194000" />
+      <workItem from="1586480441323" duration="16713000" />
+      <workItem from="1586513017619" duration="263000" />
+      <workItem from="1586567191263" duration="30904000" />
+      <workItem from="1586706885974" duration="303000" />
+      <workItem from="1586739228619" duration="18072000" />
+      <workItem from="1586826299725" duration="819000" />
+      <workItem from="1586828699557" duration="234000" />
+      <workItem from="1586829097745" duration="598000" />
+      <workItem from="1586831586908" duration="4553000" />
+      <workItem from="1586914052818" duration="1192000" />
+      <workItem from="1586918607637" duration="8485000" />
+      <workItem from="1586996282913" duration="8163000" />
+      <workItem from="1587085435877" duration="10277000" />
+      <workItem from="1587345350326" duration="6861000" />
+      <workItem from="1587366271664" duration="6743000" />
+      <workItem from="1587433616262" duration="10280000" />
+      <workItem from="1587519900480" duration="1761000" />
+      <workItem from="1587525947219" duration="11758000" />
+      <workItem from="1587605378980" duration="6992000" />
+      <workItem from="1587692762304" duration="5859000" />
+      <workItem from="1587862860846" duration="7931000" />
+      <workItem from="1587949341780" duration="14208000" />
+      <workItem from="1588036982806" duration="9718000" />
+      <workItem from="1588062050001" duration="3157000" />
+      <workItem from="1588121617226" duration="9493000" />
+      <workItem from="1588150659540" duration="2404000" />
+      <workItem from="1588212284081" duration="14459000" />
+      <workItem from="1588252919129" duration="6082000" />
+      <workItem from="1588650973870" duration="846000" />
+      <workItem from="1588653169660" duration="1459000" />
+      <workItem from="1588728881999" duration="5799000" />
+      <workItem from="1588814624902" duration="2825000" />
+      <workItem from="1588835943177" duration="1309000" />
+      <workItem from="1588899717032" duration="2471000" />
+      <workItem from="1588987747900" duration="2665000" />
+      <workItem from="1588997510994" duration="3763000" />
+      <workItem from="1589159302913" duration="2671000" />
+      <workItem from="1589246509799" duration="7376000" />
+      <workItem from="1589341213786" duration="1209000" />
+      <workItem from="1589355723169" duration="10162000" />
+      <workItem from="1589505408178" duration="2109000" />
+      <workItem from="1589765671405" duration="4663000" />
+      <workItem from="1590636621753" duration="11255000" />
+      <workItem from="1590977252396" duration="7325000" />
+      <workItem from="1591321810667" duration="1927000" />
+      <workItem from="1591596279511" duration="5085000" />
+      <workItem from="1591670139130" duration="1254000" />
+      <workItem from="1591685663397" duration="3233000" />
+      <workItem from="1591842565318" duration="11603000" />
+      <workItem from="1591926351148" duration="3149000" />
+      <workItem from="1591957623448" duration="597000" />
+      <workItem from="1592185924742" duration="3324000" />
+      <workItem from="1592201227600" duration="4021000" />
+      <workItem from="1592272198382" duration="13616000" />
+      <workItem from="1592531274416" duration="525000" />
+      <workItem from="1592532144588" duration="9430000" />
+      <workItem from="1592790107161" duration="9575000" />
+      <workItem from="1593308408179" duration="5578000" />
+      <workItem from="1593511169311" duration="3219000" />
+      <workItem from="1593679318524" duration="1829000" />
+      <workItem from="1593999539449" duration="280000" />
+      <workItem from="1593999905263" duration="24728000" />
+      <workItem from="1594605387060" duration="14511000" />
+      <workItem from="1594952951388" duration="8835000" />
+      <workItem from="1595209268652" duration="19161000" />
+      <workItem from="1595384137779" duration="11718000" />
+      <workItem from="1595813572131" duration="562000" />
+      <workItem from="1595814169676" duration="1770000" />
+      <workItem from="1595821117156" duration="36783000" />
+      <workItem from="1596204396605" duration="889000" />
+      <workItem from="1596418942046" duration="40515000" />
+      <workItem from="1596794716172" duration="6746000" />
+      <workItem from="1597023480698" duration="32051000" />
+      <workItem from="1597628568115" duration="33324000" />
+      <workItem from="1598838058448" duration="1829000" />
+      <workItem from="1599115673825" duration="13845000" />
+    </task>
+    <task id="LOCAL-00064" summary="文档优化">
+      <created>1588653087910</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1588653087910</updated>
+    </task>
+    <task id="LOCAL-00065" summary="jetlinks/jetlinks-pro#35 文档首页调整为与介绍页相同">
+      <created>1588751208126</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1588751208128</updated>
+    </task>
+    <task id="LOCAL-00066" summary="优化文档">
+      <created>1588752714979</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1588752714979</updated>
+    </task>
+    <task id="LOCAL-00067" summary="文档优化">
+      <created>1588842879466</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1588842879466</updated>
+    </task>
+    <task id="LOCAL-00068" summary="文档优化">
+      <created>1589275841346</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1589275841347</updated>
+    </task>
+    <task id="LOCAL-00069" summary="文档优化">
+      <created>1589360781822</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1589360781823</updated>
+    </task>
+    <task id="LOCAL-00070" summary="文档优化">
+      <created>1589536126583</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1589536126584</updated>
+    </task>
+    <task id="LOCAL-00071" summary="jetlinks/jetlinks-pro#11 更新安装启动常见问题-使用docker启动所有环境后无法访问系统或提示服务器内部错误">
+      <created>1591608211930</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1591608211931</updated>
+    </task>
+    <task id="LOCAL-00072" summary="jetlinks/jetlinks-pro#36 更新文档截图为新版本-设备实例导入、mqtt网络组件调试">
+      <created>1591869955531</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1591869955532</updated>
+    </task>
+    <task id="LOCAL-00073" summary="通过http到第三方平台获取数据">
+      <created>1591942132596</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1591942132599</updated>
+    </task>
+    <task id="LOCAL-00074" summary="优化通过http到第三方平台获取数据">
+      <created>1592189928655</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1592189928656</updated>
+    </task>
+    <task id="LOCAL-00075" summary="优化文档">
+      <created>1592382197062</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1592382197063</updated>
+    </task>
+    <task id="LOCAL-00076" summary="优化文档">
+      <created>1592450798774</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1592450798774</updated>
+    </task>
+    <task id="LOCAL-00077" summary="jetlinks/jetlinks-pro#55 完善固件升级">
+      <created>1593510498306</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1593510498307</updated>
+    </task>
+    <task id="LOCAL-00078" summary="优化文档">
+      <created>1593510905365</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1593510905365</updated>
+    </task>
+    <task id="LOCAL-00079" summary="优化文档">
+      <created>1593511106003</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1593511106003</updated>
+    </task>
+    <task id="LOCAL-00080" summary="优化文档">
+      <created>1593587210524</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1593587210524</updated>
+    </task>
+    <task id="LOCAL-00081" summary="优化文档">
+      <created>1593587502500</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1593587502500</updated>
+    </task>
+    <task id="LOCAL-00082" summary="jetlinks/jetlinks-pro#74 集群部署文档">
+      <created>1594375571482</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1594375571483</updated>
+    </task>
+    <task id="LOCAL-00083" summary="jetlinks/">
+      <created>1594375610239</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1594375610239</updated>
+    </task>
+    <task id="LOCAL-00084" summary="优化">
+      <created>1594376051350</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1594376051350</updated>
+    </task>
+    <task id="LOCAL-00085" summary="增加提示">
+      <created>1594810367070</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1594810367071</updated>
+    </task>
+    <task id="LOCAL-00086" summary="优化">
+      <created>1594885455851</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1594885455851</updated>
+    </task>
+    <task id="LOCAL-00087" summary="修改子设备离线topic">
+      <created>1595296140873</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1595296140873</updated>
+    </task>
+    <task id="LOCAL-00088" summary="增加ui本地构建教程，优化各种方式启动说明">
+      <created>1595318830537</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1595318830537</updated>
+    </task>
+    <task id="LOCAL-00089" summary="优化">
+      <created>1595485921444</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1595485921447</updated>
+    </task>
+    <task id="LOCAL-00090" summary="jetlinks/jetlinks-pro#51 增加地理位置操作">
+      <created>1595586449190</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1595586449190</updated>
+    </task>
+    <task id="LOCAL-00091" summary="优化">
+      <created>1595814441218</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1595814441225</updated>
+    </task>
+    <task id="LOCAL-00092" summary="优化">
+      <created>1595901156391</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1595901156392</updated>
+    </task>
+    <task id="LOCAL-00093" summary="增加&#10;  通过规则引擎发布HTTP服务&#10;  在规则引擎中统计设备平均温度&#10;  通过规则引擎实现当房间开门时,打开对应房间的空调">
+      <created>1596203348000</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1596203348000</updated>
+    </task>
+    <task id="LOCAL-00094" summary="优化">
+      <created>1596421550699</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1596421550700</updated>
+    </task>
+    <task id="LOCAL-00095" summary="优化">
+      <created>1596608102395</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1596608102395</updated>
+    </task>
+    <task id="LOCAL-00096" summary="优化">
+      <created>1596619161203</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1596619161203</updated>
+    </task>
+    <task id="LOCAL-00097" summary="jetlinks/jetlinks-docs#2租户相关">
+      <created>1596692558188</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1596692558189</updated>
+    </task>
+    <task id="LOCAL-00098" summary="优化图片点击可放大">
+      <created>1596798771745</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1596798771745</updated>
+    </task>
+    <task id="LOCAL-00099" summary="优化">
+      <created>1596799398240</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1596799398240</updated>
+    </task>
+    <task id="LOCAL-00100" summary="优化">
+      <created>1596799709971</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1596799709971</updated>
+    </task>
+    <task id="LOCAL-00101" summary="优化">
+      <created>1596800112037</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1596800112038</updated>
+    </task>
+    <task id="LOCAL-00102" summary="优化">
+      <created>1596800437625</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1596800437625</updated>
+    </task>
+    <task id="LOCAL-00103" summary="优化">
+      <created>1596801234451</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1596801234451</updated>
+    </task>
+    <task id="LOCAL-00104" summary="优化">
+      <created>1596801426419</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1596801426419</updated>
+    </task>
+    <task id="LOCAL-00105" summary="优化">
+      <created>1597026120449</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1597026120449</updated>
+    </task>
+    <task id="LOCAL-00106" summary="优化">
+      <created>1597135194481</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1597135194481</updated>
+    </task>
+    <task id="LOCAL-00107" summary="优化">
+      <created>1597376188575</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1597376188575</updated>
+    </task>
+    <task id="LOCAL-00108" summary="优化">
+      <created>1597389248447</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1597389248447</updated>
+    </task>
+    <task id="LOCAL-00109" summary="重写操作手册">
+      <created>1597407043085</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1597407043085</updated>
+    </task>
+    <task id="LOCAL-00110" summary="更新名词">
+      <created>1597409954788</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1597409954788</updated>
+    </task>
+    <task id="LOCAL-00111" summary="增加设备影子">
+      <created>1597746547799</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1597746547801</updated>
+    </task>
+    <task id="LOCAL-00112" summary="优化操作手册，增加聚合查询设备属性api文档">
+      <created>1598617316722</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1598617316722</updated>
+    </task>
+    <option name="localTasksCounter" value="113" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/home/wangzheng/jetlinks-docs/basics-guide/files/device-connection" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="jetlinks/jetlinks-pro#17 创建告警" />
+    <MESSAGE value="jetlinks/jetlinks-pro#17 配置型号下所有设备都告警规则设备实；配置单个设备的告警规则" />
+    <MESSAGE value="jetlinks/jetlinks-pro#11 更新常见问题-各种方式启动后无法访问系统或提示服务器内部错误或账号密码错误" />
+    <MESSAGE value="jetlinks/jetlinks-pro#35 文档首页调整为与介绍页相同" />
+    <MESSAGE value="文档优化" />
+    <MESSAGE value="jetlinks/jetlinks-pro#11 更新安装启动常见问题-使用docker启动所有环境后无法访问系统或提示服务器内部错误" />
+    <MESSAGE value="jetlinks/jetlinks-pro#36 更新文档截图为新版本-设备实例导入、mqtt网络组件调试" />
+    <MESSAGE value="通过http到第三方平台获取数据" />
+    <MESSAGE value="优化通过http到第三方平台获取数据" />
+    <MESSAGE value="jetlinks/jetlinks-pro#55 完善固件升级" />
+    <MESSAGE value="优化文档" />
+    <MESSAGE value="jetlinks/jetlinks-pro#74 集群部署文档" />
+    <MESSAGE value="jetlinks/" />
+    <MESSAGE value="增加提示" />
+    <MESSAGE value="修改子设备离线topic" />
+    <MESSAGE value="增加ui本地构建教程，优化各种方式启动说明" />
+    <MESSAGE value="jetlinks/jetlinks-pro#51 增加地理位置操作" />
+    <MESSAGE value="增加&#10;  通过规则引擎发布HTTP服务&#10;  在规则引擎中统计设备平均温度&#10;  通过规则引擎实现当房间开门时,打开对应房间的空调" />
+    <MESSAGE value="jetlinks/jetlinks-docs#2租户相关" />
+    <MESSAGE value="优化图片点击可放大" />
+    <MESSAGE value="优化" />
+    <MESSAGE value="重写操作手册" />
+    <MESSAGE value="更新名词" />
+    <MESSAGE value="增加设备影子" />
+    <MESSAGE value="优化操作手册，增加聚合查询设备属性api文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化操作手册，增加聚合查询设备属性api文档" />
+  </component>
+</project>

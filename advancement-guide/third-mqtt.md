@@ -35,7 +35,7 @@ docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8
 ::: tip 注意
 和MQTT服务设备网关不同的是,客户端必须指定消息协议,因为无法通过消息识别出对应的设备标识.
 在消息解码时也无法通过上下文(`MessageDecodeContext`)获取到设备操作接口(`DeviceOperator`).
-此处使用`演示协议v1`.
+此处使用`demo`协议.
 :::
 此处使用的Topics:`/read-property,/device_online_status,/fire_alarm`。  
 

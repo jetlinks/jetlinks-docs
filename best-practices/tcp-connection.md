@@ -5,9 +5,9 @@
 
 请参考[创建协议](../advancement-guide/mqtt-connection.md#创建协议)
 
-## 创建设备型号
+## 创建产品
 
-1. 选择 `设备管理`-->`设备型号`--> 点击`新建`按钮。  
+1. 选择 `设备管理`-->`产品`--> 点击`新建`按钮。  
 
 ![设备型号新增](images/insert-device-product.png)  
 
@@ -29,9 +29,9 @@
 
 ![设备型号发布](images/device-product-published.png)  
 
-## 创建设备实例
+## 创建设备
 
-1. 选择 `设备管理`-->`设备实例`--> 点击`新建`按钮。  
+1. 选择 `设备管理`-->`设备`--> 点击`添加设备`按钮。  
 
 ![设备新增](images/insert-device.png)  
 
@@ -41,7 +41,7 @@
 
 ## 创建TCP服务网络组件
 
-1. 选择 `网络组件`-->`组件管理`--> 点击`新增组件`按钮。  
+1. 选择 `设备接入`-->`网络组件`--> 点击`新增组件`按钮。  
 ![insert-mqtt-client](images/insert-tcp-server.png)  
 ::: tip 注意
 本文档使用javascript自定义脚本的方式解析消息。
@@ -66,12 +66,12 @@ var BytesUtils = org.jetlinks.core.utils.BytesUtils;
 
 ## 创建TCP服务设备网关
 
-1. 选择 `网络组件`-->`设备网关`--> 点击`新建`按钮。
+1. 选择 `设备接入`-->`设备网关`--> 点击`新建`按钮。
 ![insert-mqtt-gateway](images/insert-tcp-server-gateway.png)  
 ::: tip 注意
-和MQTT服务设备网关不同的是,客户端必须指定消息协议,因为无法通过消息识别出对应的设备标识.
+和MQTT服务设备网关不同的是,TCP必须指定消息协议,因为无法通过消息识别出对应的设备标识.
 在消息解码时也无法通过上下文(`MessageDecodeContext`)获取到设备操作接口(`DeviceOperator`).
-此处使用`演示协议v1`.
+此处使用`demo`协议.
 :::
 2. 在操作列点击`启动`按钮启动网关。  
 ![mqtt-gateway-start](images/tcp-server-gateway-start.png)   
