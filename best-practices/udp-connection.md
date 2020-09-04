@@ -1,5 +1,5 @@
 # 使用UDP服务网关接入设备
-本文档使用[Packet Sender](https://packetsender.com/download#show)工具模拟tcp客户端接入平台。
+本文档使用`SocketTool4`工具模拟tcp客户端接入平台。
 
 ## 创建协议
 
