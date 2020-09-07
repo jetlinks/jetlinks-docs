@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="优化">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/create-udp-client.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-udp-server-gateway.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-udp-server.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-device-online.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-device-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-event.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-product-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-property-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-property-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-server-gateway-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/udp-server-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.175530.21285.0.001.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.182057.5941.0.001.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.184328.7914.0.001.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.184540.7999.0.001.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.184828.8133.0.001.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/report.20200807.185352.8239.0.001.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" beforeDir="false" afterPath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/course/system-layout.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/course/system-layout.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/tcp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/tcp-connection.md" afterDir="false" />
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best-practices/coap-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/coap-connection.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/best-practices/udp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/udp-connection.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -88,7 +84,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public/best-practices" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -98,19 +94,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images/rule-engine" />
+      <recent name="$PROJECT_DIR$/.vuepress/public/common-problems/images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/basics-guide/images/system" />
       <recent name="$PROJECT_DIR$/basics-guide/files/device-connection" />
       <recent name="$PROJECT_DIR$/basics-guide/images/alarm" />
       <recent name="$PROJECT_DIR$/advancement-guide" />
       <recent name="$PROJECT_DIR$/interface-guide/device" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images/rule-engine" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/common-problems/images" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -312,21 +308,7 @@
       <workItem from="1597023480698" duration="32051000" />
       <workItem from="1597628568115" duration="33324000" />
       <workItem from="1598838058448" duration="1829000" />
-      <workItem from="1599115673825" duration="13845000" />
-    </task>
-    <task id="LOCAL-00064" summary="文档优化">
-      <created>1588653087910</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1588653087910</updated>
-    </task>
-    <task id="LOCAL-00065" summary="jetlinks/jetlinks-pro#35 文档首页调整为与介绍页相同">
-      <created>1588751208126</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1588751208128</updated>
+      <workItem from="1599115673825" duration="24107000" />
     </task>
     <task id="LOCAL-00066" summary="优化文档">
       <created>1588752714979</created>
@@ -657,7 +639,21 @@
       <option name="project" value="LOCAL" />
       <updated>1598617316722</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="使用UDP接入设备">
+      <created>1599137665636</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1599137665637</updated>
+    </task>
+    <task id="LOCAL-00114" summary="优化">
+      <created>1599186550042</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1599186550042</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -703,7 +699,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="jetlinks/jetlinks-pro#17 创建告警" />
     <MESSAGE value="jetlinks/jetlinks-pro#17 配置型号下所有设备都告警规则设备实；配置单个设备的告警规则" />
     <MESSAGE value="jetlinks/jetlinks-pro#11 更新常见问题-各种方式启动后无法访问系统或提示服务器内部错误或账号密码错误" />
     <MESSAGE value="jetlinks/jetlinks-pro#35 文档首页调整为与介绍页相同" />
@@ -723,11 +718,12 @@
     <MESSAGE value="增加&#10;  通过规则引擎发布HTTP服务&#10;  在规则引擎中统计设备平均温度&#10;  通过规则引擎实现当房间开门时,打开对应房间的空调" />
     <MESSAGE value="jetlinks/jetlinks-docs#2租户相关" />
     <MESSAGE value="优化图片点击可放大" />
-    <MESSAGE value="优化" />
     <MESSAGE value="重写操作手册" />
     <MESSAGE value="更新名词" />
     <MESSAGE value="增加设备影子" />
     <MESSAGE value="优化操作手册，增加聚合查询设备属性api文档" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化操作手册，增加聚合查询设备属性api文档" />
+    <MESSAGE value="使用UDP接入设备" />
+    <MESSAGE value="优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化" />
   </component>
 </project>
