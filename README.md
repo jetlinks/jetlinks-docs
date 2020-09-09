@@ -18,22 +18,20 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 官方QQ群: `2021514`
 
+在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test`.
+
 ## 技术栈
 
-1. [Spring Boot 2.2.x](https://spring.io/projects/spring-boot)
+1. [Spring Boot 2.3.x](https://spring.io/projects/spring-boot)
 2. [Spring WebFlux](https://spring.io/) 响应式Web支持
 3. [R2DBC](https://r2dbc.io/) 响应式关系型数据库驱动
 4. [Project Reactor](https://projectreactor.io/) 响应式编程框架
 4. [Netty](https://netty.io/),[Vert.x](https://vertx.io/) 高性能网络编程框架
 5. [ElasticSearch](https://www.elastic.co/cn/products/enterprise-search) 全文检索，日志，时序数据存储
-6. [PostgreSQL](https://www.postgresql.org) 业务功能数据管理
-7. [hsweb framework 4](https://github.com/hs-web) 业务功能基础框架
+6. [Redis](https://redis.io/) Redis,设备配置,状态管理,缓存.
+7. [PostgreSQL](https://www.postgresql.org) 业务功能数据管理
+8. [hsweb framework 4](https://github.com/hs-web) 业务功能基础框架
 
 ## 架构
 
 ![platform](./platform.svg)
-
-## 设备接入流程
-
-![flow](quick-start/flow.svg)
-

@@ -1,11 +1,40 @@
 # 更新记录
 
 最新社区版代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
-[gitee](https://gitee.com/jetlinks/jetlinks-community)上,master为最新开发分支。
+[gitee](https://gitee.com/jetlinks/jetlinks-community)上.
 
 专业版代码托管在[github](https://github.com/jetlinks/jetlinks-pro)上,购买专业版后可获取专业版代码以及后续更新。
 
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
+
+::: warning 注意
+master为最新开发分支. 线上使用请根据情况切换到对应版本的分支.
+:::
+
+## 1.5-RELEASE
+
+预计更新时间: 2020-09-30
+
+代码分支: `master`
+
+主要优化
+
+1. 升级elasticsearch client到7.9
+2. 使用WebCliet实现ElasticSearchClient.
+4. 优化设备数据存储策略,统一设备数据管理接口`DeviceDataService`.
+5. 增加使用时序模块进行`行式存储`和`列式存储`设备属性数据,支持自定义策略.
+6. 优化同时查询多个设备属性到策略:按属性分组聚合取第一条数据.
+7. 增加`InfluxDB`存储设备数据.
+
+功能变更
+
+1. 废弃: `/api/v1/product/`下相关API
+2. 增加: `/api/v1/product/{productId}/agg/{agg}/{property}/_query` 聚合查询产品下设备属性API
+3. 所有设备属性相关接口,返回值`value`以及`formatValue`修改为于物模型对应.去除`numberValue`,`timeValue`等字段.
+
+修复BUG
+
+
 
 ## 1.4-RELEASE
 更新时间: 2020-09-01

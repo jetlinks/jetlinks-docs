@@ -11,8 +11,27 @@
 
 ```java
 public interface Authenticator {
+   /**
+     * 对指定对设备进行认证
+     *
+     * @param request 认证请求
+     * @param device  设备
+     * @return 认证结果
+     */
     Mono<AuthenticationResponse> authenticate(@Nonnull AuthenticationRequest request,
                                               @Nonnull DeviceOperator device);
+
+    /**
+     *  在MQTT服务网关中指定了认证协议时,将调用此方法进行认证。
+     *  注意: 认证通过后,需要设置设备ID.{@link AuthenticationResponse#success(String)}
+     * @param request  认证请求
+     * @param registry 设备注册中心
+     * @return 认证结果
+     */
+    default Mono<AuthenticationResponse> authenticate(@Nonnull AuthenticationRequest request,
+                                                      @Nonnull DeviceRegistry registry) {
+        return Mono.just(AuthenticationResponse.success());
+    }
 }
 ```
 
@@ -87,7 +106,8 @@ public interface Authenticator {
 5. frag_part 当前分片索引
 6. frag_last 是否为最后一个分片,当无法确定分片数量的时候,可以将分片设置到足够大,最后一个分片设置:`frag_last=true`来完成返回.
 7. keepOnline 与`DeviceOnlineMessage`配合使用,在TCP短链接,保持设备一直在线状态,连接断开不会设置设备离线.
-
+8. keepOnlineTimeoutSeconds 指定在线超时时间,在短链接时,如果超过此间隔没有收到消息则认为设备离线.
+   
 ::: tip
 messageId通常由平台自动生成,如果设备不支持消息id,可在自定义协议中通过Map的方式来做映射,将设备返回的消息与平台的messageId进行绑定.
 :::

@@ -23,9 +23,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/quick-start/introduction.md', '介绍'],
-                    //['/quick-start/download.md', '获取源代码'],
-                    //['/quick-start/demo.md', '演示'],
+                    ['/', '介绍'],
                     ['/quick-start/update-log.md', '更新记录']
                 ]
             },
@@ -50,18 +48,11 @@ module.exports = {
                 //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
-                children: [
+                children: [ 
+                    ['/best-practices/start.md', '最佳实践'],
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
                     ['/basics-guide/protocol-support.md', '设备消息协议解析SDK'],
-                    ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议']
-                ]
-            },
-            {
-                title: '最佳实践',   // 必要的
-                //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
-                collapsable: false, // 可选的, 默认值是 true,
-                sidebarDepth: 2,    // 可选的, 默认值是 1
-                children: [
+                    ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议'],
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT直接接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
@@ -82,6 +73,7 @@ module.exports = {
                     ['/advancement-guide/benchmark.md', '压力测试']
                 ]
             },
+             
             {
                 title: '操作手册',   // 必要的
                 //	path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
