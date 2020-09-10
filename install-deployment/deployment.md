@@ -1,51 +1,127 @@
-# 快速部署
+# 部署到服务器
 
-在[获取源代码](docker-start.md#获取源代码)后可通过以下两种方式部署程序。  
-## docker方式
+## 前端部署
 
-1. [安装docker](docker-start.md#安装docker)  
+环境要求
+- nodeJs v12.xx
+- npm v6.xx
 
-2. 使用maven命令将项目打包  
+1. 获取源代码  
+```shell script
+$ git clone https://github.com/jetlinks/jetlinks-ui-antd.git
+```
+
+2. 使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
+```shell script
+npm install
+npm run-script build 
+cp -r dist docker/       
+```
+
+### 使用docker部署前端
+1. 构建docker镜像  
+```bash
+docker build -t docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd ./docker
+```
+
+2. 运行docker镜像  
+```bash
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd
+```
+::: tip 注意
+环境变量`API_BASE_PATH`为后台API根地址. 由docker容器内进行自动代理. 请根据自己的系统环境配置环境变量: `API_BASE_PATH`
+:::
+
+### 使用nginx部署
+
+1. 复制`dist`目录下到文件到`/usr/share/nginx/html`
+2. 添加nginx配置文件
+
+nginx配置参考：
+
+```conf
+server {
+    listen 80;
+    # gzip config
+    gzip on;
+    gzip_min_length 1k;
+    gzip_comp_level 9;
+    gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml;
+    gzip_vary on;
+    gzip_disable "MSIE [1-6]\.";
+
+    root /usr/share/nginx/html;
+    include /etc/nginx/mime.types;
+    location / {
+        index  index.html;
+    }
+
+    location ^~/jetlinks/ {
+        proxy_pass http://jetlinks:8844/; #修改此地址为后台服务地址
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Real-IP  $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_connect_timeout   1;
+        proxy_buffering off;
+        chunked_transfer_encoding off;
+        proxy_cache off;
+        proxy_send_timeout      30m;
+        proxy_read_timeout      30m;
+        client_max_body_size    100m;
+    }
+}
+```
+
+
+## 后端部署
+
+### 使用docker部署后端
+
+1. 使用maven命令将项目打包  
 在代码根目录执行：  
 
 ```shell script
 mvn clean package -Dmaven.test.skip=true
 ```
-3.使用docker构建镜像  
+
+2. 使用docker构建镜像  
 ::: tip 注意
 请自行准备docker镜像仓库，此处以registry.cn-shenzhen.aliyuncs.com阿里云私有仓库为例。
 :::
 
 ```shell script
-cd ./jetlinks-standalone
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone .
+$ cd ./jetlinks-standalone
+$ docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest .
 ```
 
-4.拉取镜像  
-在需要部署的服务器上拉取构建成功的镜像。  
+3. 推送镜像
 
-```shell script
-docker pull registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone
+```bash
+$ docker push registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest
 ```
 
-5.创建docker-compose文件  
+4. 创建docker-compose文件  
 
-```shell script
+```bash
 version: '2'
 services:
   redis:
     image: redis:5.0.4
-    container_name: jetlinks-redis
-    ports:
-      - "6379:6379"
+    container_name: jetlinks-ce-redis
+    #    ports:
+    #      - "6379:6379"
     volumes:
-      - "./data/redis:/data"
+      - "redis-volume:/data"
     command: redis-server --appendonly yes
     environment:
       - TZ=Asia/Shanghai
   elasticsearch:
-    image: elasticsearch:6.7.2
-    container_name: jetlinks-elasticsearch
+    image: elasticsearch:6.8.11
+    container_name: jetlinks-ce-elasticsearch
     environment:
       ES_JAVA_OPTS: -Djava.net.preferIPv4Stack=true -Xms1g -Xmx1g
       transport.host: 0.0.0.0
@@ -55,54 +131,55 @@ services:
       discovery.zen.ping.unicast.hosts: elasticsearch
     volumes:
       - elasticsearch-volume:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+  #    ports:
+  #      - "9200:9200"
+  #      - "9300:9300"
   kibana:
-    image: kibana:6.7.2
-    container_name: jetlinks-kibana
+    image: kibana:6.8.11
+    container_name: jetlinks-ce-kibana
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     links:
       - elasticsearch:elasticsearch
     ports:
-      - "5601:5601"
+      - "5602:5601"
     depends_on:
       - elasticsearch
   postgres:
     image: postgres:11-alpine
-    container_name: jetlinks-postgres
+    container_name: jetlinks-ce-postgres
+    volumes:
+      - "postgres-volume:/var/lib/postgresql/data"
     ports:
       - "5432:5432"
-    volumes:
-      - "./data/postgres:/var/lib/postgresql/data"
     environment:
       POSTGRES_PASSWORD: jetlinks
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
-  rabbitmq:
-    image: rabbitmq:management-alpine
-    container_name: rabbitmq
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=jetlinks
-      - RABBITMQ_ERLANG_COOKIE=jetlinks
+  ui:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:latest
+    container_name: jetlinks-ce-ui
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - 9000:80
+    environment:
+      - "API_BASE_PATH=http://jetlinks:8848/" #API根路径
+    volumes:
+      - "jetlinks-volume:/usr/share/nginx/html/upload"
+    links:
+      - jetlinks:jetlinks
   jetlinks:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:1.2-SNAPSHOT #版本号同源代码pom.xml中的版本号同步
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest
     container_name: jetlinks-ce
     ports:
       - 8848:8848 # API端口
-      - 1883:1883 # MQTT端口
-      - 8000:8000 # 预留
-      - 8001:8001 # 预留
-      - 8002:8002 # 预留
+      - 1883-1890:1883-1890 # 预留
+      - 8000-8010:8000-8010 # 预留
     volumes:
-      - "jetlinks-volume:/static/upload"  # 持久化上传的文件
+      - "jetlinks-volume:/application/static/upload"  # 持久化上传的文件
+      - "jetlinks-protocol-volume:/application/data/protocols"
     environment:
      # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
+      - "TZ=Asia/Shanghai"
       - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
       - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
       - "spring.r2dbc.username=postgres"
@@ -130,9 +207,11 @@ volumes:
   redis-volume:
   elasticsearch-volume:
   jetlinks-volume:
+  jetlinks-protocol-volume:
 ```
+
 ::: tip 注意：
-jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步
+jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步。
 :::
 
 6.运行docker-compose文件
@@ -141,48 +220,25 @@ jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版�
 docker-compose up -d
 ```
 
-## jar包方式
+### jar包方式
 
-1.使用maven命令将项目打包   
-   在代码根目录执行：  
+1.使用maven命令将项目打包，在代码根目录执行：  
    
-   ```shell script
-   mvn clean package -Dmaven.test.skip=true
-   ```
+```shell script
+./mvnw clean package -Dmaven.test.skip=true
+```
+
 2.将jar包上传到需要部署的服务器上。  
+
+jar包文件地址: `jetlinks-standalone/target/jetlinks-standalone.jar`
 
 3.使用java命令运行jar包  
 
-```shell script
-java -jar jetlinks-standalone.jar
+```bash
+$ java -jar jetlinks-standalone.jar
 ```
 
-## 前端部署
-
-1.获取源代码  
-```shell script
-git clone https://github.com/jetlinks/jetlinks-ui-antd.git
-```
-
-2.使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
-```shell script
-npm install
-npm run-script build   
-cp -r dist docker/       
-```
-3.构建docker镜像  
-```shell script
-docker build -t docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT ./docker
-```
-4.运行docker镜像  
-```shell script
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.0-SNAPSHOT
-```
 ::: tip 注意
-环境变量`API_BASE_PATH`为后台API根地址. 由docker容器内进行自动代理. 请根据自己的系统环境配置环境变量: `API_BASE_PATH`
+请根据情况调整jvm参数等信息.
 :::
-
-### 前端环境要求
-- nodeJs v12.14
-- npm v6.13
 

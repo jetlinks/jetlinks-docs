@@ -33,13 +33,10 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/install-deployment/required-environment.md', '平台所需环境'],
-                    ['/install-deployment/docker-start.md', '使用docker快速启动'],
-                    ['/install-deployment/ide-docker-start.md', '使用docker+源代码启动开发环境'],
-                    ['/install-deployment/ui-start.md', 'UI启动'],
-                    ['/install-deployment/not-docker-start.md', '非docker环境启动'],
-                    ['/quick-start/demo.md', '快速体验设备接入'],
-                    ['/install-deployment/deployment.md', '部署'],
+                    ['/install-deployment/start-with-source.md', '本地源码启动'],
+                    ['/install-deployment/docker-start.md', '使用docker启动'],
+                    // ['/install-deployment/ide-docker-start.md', '开发环境最佳实践'],
+                    ['/install-deployment/deployment.md', '部署到服务器'],
                     ['/install-deployment/cluster.md', '集群部署']
                 ]
             },
@@ -51,7 +48,7 @@ module.exports = {
                 children: [ 
                     ['/best-practices/start.md', '最佳实践'],
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
-                    ['/basics-guide/protocol-support.md', '设备消息协议解析SDK'],
+                    ['/basics-guide/protocol-support.md', '协议开发说明'],
                     ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议'],
                     ['/advancement-guide/mqtt-connection.md', '使用MQTT直接接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],

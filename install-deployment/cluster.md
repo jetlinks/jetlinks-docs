@@ -6,18 +6,21 @@ jetlinks以及所需中间件的集群部署
 ::: 
 ## 集群架构图
 ![集群架构图](./cluster.svg)
+
 ## redis集群安装配置
 这里准备在一台服务器上搭建一个三主三从的redis集群。  
 
-1.安装redis 
+1. 安装redis 
 先[下载redis](http://download.redis.io/releases/),本文档以redis5.0.5为例。  
 下载完成后进行解压、编译、安装。  
+
 ::: tip 注意：
 redis是由C语言编写的，它的运行需要C环境，所以编译前需安装 gcc。
 ::: 
-1.新建一个cluster文件夹，用来存放集群节点目录。  
+
+2. 新建一个cluster文件夹，用来存放集群节点目录。  
 分别在172.16.4.11上创建7000、7003、7001、7004、7002、7005六文件夹，，这些节点分别使用7000、7003、7001、7004、7002、7005端口，以7000节点为例配置如下：
-```shell script
+```bash
 port 7000
 bind 172.16.4.11
 cluster-enabled yes
@@ -26,12 +29,14 @@ cluster-node-timeout 5000
 appendonly no
 daemonize  yes 
 ```
+
 其他节点只需修改端口和文件名，依次按此进行配置即可，配置完成后启动节点。  
 ::: tip 注意：
 建议appendonly在从节点开启，主节点关闭。
 :::
+
 2.  主从节点分配 
-```shell script
+```bash
 redis-cli --cluster create 172.16.4.11:7000 172.16.4.11:7001 172.16.4.11:7002 172.16.4.11:7003 172.16.4.11:7004 172.16.4.11:7005 --cluster -replicas 1
 ```
 ::: tip 注意：
@@ -51,13 +56,13 @@ d1ae6c623694c5f1fafc64d7abbeac4a9926ff49 172.16.4.11:7004@17004 slave 238585a079
 redis集群搭建请参考[redis官方文档](https://redis.io/topics/cluster-tutorial)  
 
 ## elasticsearch集群安装配置
-1. 分别在三台服务器上安装elasticsearch6.7.2
+1. 分别在三台服务器上安装elasticsearch
 前往官网[下载](https://www.elastic.co/cn/downloads/elasticsearch)。  
 下载完成后安装es。  
 2. 配置elasticsearch.yml文件
 
 ```shell script
-ops@jetlinks-server-3:~/elasticsearch-6.7.2/config$ sudo vi elasticsearch.yml 
+ops@jetlinks-server-3:~/elasticsearch/config$ sudo vi elasticsearch.yml 
 # ======================== Elasticsearch Configuration =========================
 #
 # NOTE: Elasticsearch comes with reasonable defaults for most settings.
@@ -364,6 +369,7 @@ nohup java -jar -Dspring.application.name=jetlinks-cluster-test-3   jetlinks-sta
 ::: tip 注意：
 三台服务启动的jetlinks.server-id应该互不相同，在application.yml中jetlinks.server-id引用了spring.application.name，所以此处的name应不相同。
 :::
+
 ## nginx配置
 通过nginx来代理前后端。  
 1. 安装nginx  
@@ -439,7 +445,7 @@ systemctl status nginx.service
 ```
 
 ## tcp负载均衡配置方式
-用于代理设备连接。  
+用于代理设备连接。此处使用nginx作为演示,也可以使用LVS,haProxy等方式。
 
 配置文件：
 ```text
