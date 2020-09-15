@@ -63,19 +63,56 @@ public interface Authenticator {
 ## 消息编解码器
 
 用于将平台`统一的消息(Message)`与`设备端能处理的消息(EncodedMessage)`进行相互转换.
+设备网关从`网络组件`中接收到报文后,会调用对应协议包的消息编解码器进行处理.
 
 接口(`DeviceMessageCodec`)定义:
 
 ```java
+class DeviceMessageCodec{
   //此编解码器支持的网络协议,如: DefaultTransport.MQTT
   Transport getSupportTransport();
   //将平台发往设备的消息编码为设备端对消息
   Publisher<? extends EncodedMessage> encode(MessageEncodeContext context);
   //将设备发往平台的消息解码为平台统一的消息
   Publisher<? extends Message> decode(MessageDecodeContext context);
+}
 ```
 
-编码: 可以从上下文`MessageEncodeContext`中获取当前设备操作接口`DeviceOperator`以及平台统一的设备消息`Message`.根据设备侧定义的协议转换为对应的`EncodedMessage`.
+::: tip 注意
+方法返回值是响应式结果,根据情况返回`Mono`(单条消息)或者`Flux`(多条消息).
+:::
+
+## 上下文
+
+### 编码上下文类结构
+
+```java
+class MessageEncodeContext{
+    //获取当前设备操作接口,可通过此接口获取对应设备的配置等信息
+    DeviceOperator getDevice();
+    //平台下发的指令,具体请查看平台统一设备消息定义
+    Message getMessage();
+
+    //强制回复设备消息,在http等场景下,通过调用http api下发指令,然后直接调用此方法回复结果即可.
+    Mono<Void> reply(Publisher<? extends DeviceMessage> replyMessage);
+
+    //获取当前会话,需要将MessageEncodeContext强制转换为ToDeviceMessageContext
+    DeviceSession getSession();
+}
+```
+
+### 解码上下文类结构
+
+```java
+class class MessageDecodeContext{
+    //获取当前设备操作接口,可通过此接口获取对应设备的配置等信息
+    DeviceOperator getDevice();
+
+    //从网络组件中接收到的消息,不同的网络组件消息类型不同,
+    //使用时根据网络方式强制转换为对应的类型.
+    EncodedMessage getMessage();
+}
+```
 
 ::: tip 注意
 不同的网络协议需要转换为不同的`EncodedMessage`类型.比如,MQTT需要转换为`MqttMessage`.
@@ -83,7 +120,76 @@ public interface Authenticator {
 大部分情况下:`MessageDecodeContext`可转为`FromDeviceMessageContext`,可获取到当前设备的连接会话`DeviceSession`,通过会话可以直接发送消息到设备.
 :::
 
-解码: 可以从上下文`MessageDecodeContext`中获取设备操作接口`DeviceOperator`以及设备消息`EncodedMessage`,然后将消息转换为平台统一的消息.
+### EncodedMessage
+从网络组件中接收到的消息,不同的网络组件消息类型不同。
+公共方法:
+
+```java
+class EncodedMessage{
+    //获取原始报文
+    ByteBuf getPayload();
+    //报文转为字符串
+    String payloadAsString();
+    //报文转为JSON对象
+    JSONObject payloadAsJson();
+    //报文转为JSON数组
+    JSONArray payloadAsJsonArray();
+    // 报文转为字节数组
+    byte[] payloadAsBytes()
+}
+```
+
+### MQTT消息
+
+```java
+class MqttMessage extends EncodedMessage{
+    String getTopic();
+    int getQos();
+}
+```
+
+### HTTP消息
+
+如果是`POST`,`PUT`,`PATCH`等请求,`EncodedMessage.getPayload`即为请求体.
+
+```java
+class HttpExchangeMessage{
+    String getUrl();
+    String getPath();
+    HttpMethod getMethod();
+    MediaType getContentType();
+    //请求头
+    List<Header> getHeaders();
+    //url上的查询参数
+    Map<String, String> getQueryParameters();
+    //POST application/x-www-form-urlencoded时的请求参数
+    Map<String, String> getRequestParam();
+
+    //响应成功
+    Mono<Void> ok(String msg);
+    //响应失败
+    Mono<Void> error(int status,String msg);
+}
+```
+
+### CoAP消息
+```java
+CoapExchangeMessage{
+    String getPath();
+    CoAP.Code getCode();
+    List<Option> getOptions();
+    //响应请求
+    void response(CoapResponseMessage message);
+    //since 1.5 release
+    void response(CoAP.ResponseCode code);
+    //since 1.5 release
+    void response(CoAP.ResponseCode code,byte[] body);
+}
+```
+
+### TCP,UDP消息
+TCP和UDP 直接操作`EncodedMessage`中的方法即可
+
 
 ## 消息发送拦截器
 

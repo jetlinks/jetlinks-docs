@@ -374,7 +374,7 @@ JSON对象参数设置说明如下表。
 
 ![编辑设备影子](images/device/device-shadow.png)  
 
-4. 获取是设备影子配置。  
+4. 在协议包中获取设备影子配置。  
 
 ```java
 deviceOperator.getSelfConfig(DeviceConfigKey.shadow);
