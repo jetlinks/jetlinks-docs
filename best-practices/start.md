@@ -189,19 +189,19 @@ ChildDeviceMessage{
 :::
 
 
-|  topic   | 类型  | 说明 |
-|  ----  | ----  | ----|
-| /online  | DeviceOnlineMessage | 设备上线   |
-| /offline  | DeviceOfflineMessage |  设备离线  |
-| /message/event/{eventId}  | DeviceEventMessage |  设备事件  |
-| /message/property/report  | ReportPropertyMessage |  设备上报属性  |
-| /message/property/read/reply  | ReadPropertyMessageReply |  读取属性回复  |
-| /message/property/write/reply  | WritePropertyMessageReply |  修改属性回复  |
-| /message/function/reply  | FunctionInvokeMessageReply |  调用功能回复  |
-| /register  | DeviceRegisterMessage |  设备注册,通常与子设备消息配合使用  |
-| /unregister  | DeviceUnRegisterMessage |  设备注销,同上  |
-| /message/children/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备消息,{topic}为子设备消息对应的topic  |
-| /message/children/reply/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备回复消息,同上  |
+| topic                                              | 类型                       | 说明                                      |
+| -------------------------------------------------- | -------------------------- | ----------------------------------------- |
+| /online                                            | DeviceOnlineMessage        | 设备上线                                  |
+| /offline                                           | DeviceOfflineMessage       | 设备离线                                  |
+| /message/event/{eventId}                           | DeviceEventMessage         | 设备事件                                  |
+| /message/property/report                           | ReportPropertyMessage      | 设备上报属性                              |
+| /message/property/read/reply                       | ReadPropertyMessageReply   | 读取属性回复                              |
+| /message/property/write/reply                      | WritePropertyMessageReply  | 修改属性回复                              |
+| /message/function/reply                            | FunctionInvokeMessageReply | 调用功能回复                              |
+| /register                                          | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用         |
+| /unregister                                        | DeviceUnRegisterMessage    | 设备注销,同上                             |
+| /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage         | 子设备消息,{topic}为子设备消息对应的topic |
+| /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage         | 子设备回复消息,同上                       |
  
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
@@ -319,3 +319,239 @@ public enum DataType{
 应该将对报文处理的类封装为独立的类，然后在开发过程中，使用单元测试验证处理是否正确。
 避免直接在`DeviceMessageCodec`里编写处理逻辑。
 :::
+
+## 存储策略选择
+
+从1.5.0开始,专业版支持在产品中配置数据存储策略,
+不同的策略使用不同的数据存储方式来保存设备数据.
+
+### 默认-行式存储
+
+这是系统默认情况下使用的存储方案,使用elasticsearch存储设备数据.
+每一个属性值都保存为一条索引记录.典型应用场景: 设备每次只会上报一部分属性,
+以及支持读取部分属性数据的时候.
+
+优点: 灵活,几乎满足任意场景下的属性数据存储.
+缺点: 设备属性个数较多时,数据量指数增长,可能性能较低.
+
+::: warning 警告
+1. 在确定好存储方案后,尽量不要跨类型进行修改,如将: 行式存储修改为列式存储,可能会导致数据结构错乱.
+2. 在创建物模型时,请根据存储策略判断好是否支持此类型以及ID格式
+:::
+
+索引结构:
+
+1. 属性索引模版: `properties_{productId}_template`
+
+mappings:
+```js
+{
+ "properties" : {
+          "geoValue" : { // 地理位置值,物模型配置的类型为地理位置时,此字段有值
+            "type" : "geo_point"
+          },
+          "productId" : { // 产品ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "objectValue" : { // 结构体值,物模型配置的类型为结构体时,此字段有值
+            "type" : "nested"
+          },
+          "type" : { // 物模型中配置的属性类型
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "timeValue" : { //时间类型的值
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          },
+          "deviceId" : { //设备ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "formatValue" : { //格式化后的值
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "createTime" : { //平台记录数据的时间
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          },
+          "propertyName" : { //属性名称
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "property" : { //属性ID,与物模型属性ID一致
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "numberValue" : { //物模型中属性类型为数字相关类型时,此字段有值
+            "type" : "double"
+          },
+          "id" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "value" : { //通用值,所有类型都转为字符串
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "timestamp" : { //设备消息中的时间戳
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          }
+        }
+}
+```
+
+2. 事件索引模版: `event_{productId}_{eventId}_template`
+
+mappings:
+```js
+{
+   "properties" : {
+          "productId" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "createTime" : { //创建时间
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          },
+        
+          "id" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "value" : {   //如果物模型中类型不是结构体(对象类型),则会有此字段并且类型与物模型类型相匹配
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          //如果物模型中类型是结构体(对象类型),会根据结构体配置的字段添加到索引中.
+
+
+          "deviceId" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "timestamp" : { //设备消息中的时间戳
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          }
+        } 
+}
+```
+
+3. 设备日志索引模版: `device_log_{productId}_template`
+
+mappings:
+```js
+{
+    "properties" : {
+          "productId" : { //产品ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "createTime" : { //创建时间
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          },
+          "id" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "type" : { //日志类型
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "deviceId" : { //设备ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "content" : { //日志内容
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "timestamp" : { //设备消息中的时间戳
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          }
+        }
+}
+```
+
+### 默认-列式存储
+
+使用elasticsearch存储设备数据.
+一个属性作为一列,一条属性消息作为一条索引记录进行存储,适合设备每次都上报所有的属性值的场景.
+
+优点: 在属性个数较多,并且设备每次都会上报全部属性时,性能更高
+缺点: 设备必须上报全部属性.
+
+索引结构:
+
+1. 属性索引模版: `properties_{productId}_template`
+
+mappings:
+
+```js
+{
+ "properties" : {
+          "productId" : { // 产品ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "deviceId" : { //设备ID
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          "createTime" : { //平台记录数据的时间
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          },
+          "id" : {
+            "ignore_above" : 512,
+            "type" : "keyword"
+          },
+          //根据物模型中配置的属性,一个属性对应一列
+          //....
+
+          "timestamp" : { //设备消息中的时间戳
+            "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
+            "type" : "date"
+          }
+        }
+}
+```
+
+2. 事件和日志与`默认-行式存储`一致
+
+### InfluxDB-行式存储
+
+与`默认-行式存储`行为一致,使用`influxdb`进行数据存储.
+
+measurement说明:
+
+1. 属性: `properties_{productId}`
+2. 事件: `event_{productId}_{eventId}`
+3. 日志: `device_log_{productId}`
+
+### InfluxDB-列式存储
+
+与`默认-列式存储`行为一致,使用`influxdb`进行数据存储
+
+measurement说明:
+
+1. 属性: `properties_{productId}`
+2. 事件: `event_{productId}_{eventId}`
+3. 日志: `device_log_{productId}`
+
+### TDEngine-列式存储
+
+与`默认-列式存储`行为一致,使用`TDEngine`进行数据存储
+
+超级表说明:
+
+1. 属性: `properties_{productId}`
+2. 事件: `event_{productId}_{eventId}`
+3. 日志: `device_log_{productId}`
