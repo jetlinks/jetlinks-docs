@@ -29,6 +29,8 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 9. 增加swagger接口文档,访问`doc.html`即可. (Pro)
 10. 增加网络模拟器,可以在线模拟设备消息了. (Pro)
 11. 在DeviceMessage头中可以指定`log`来设置设备日志记录.
+12. 增加使用mqtt来订阅平台设备消息. [查看文档](../dev-guide/mqtt-subs.md)
+13. 增加统一单点登录功能. [查看文档](../dev-guide/sso.md)
 
 功能变更
 
