@@ -29,19 +29,19 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
 :::
 
-|  topic   | 类型  | 说明 |
-|  ----  | ----  | ----|
-| /online  | DeviceOnlineMessage | 设备上线   |
-| /offline  | DeviceOfflineMessage |  设备离线  |
-| /message/event/{eventId}  | DeviceEventMessage |  设备事件  |
-| /message/property/report  | ReportPropertyMessage |  设备上报属性  |
-| /message/property/read/reply  | ReadPropertyMessageReply |  读取属性回复  |
-| /message/property/write/reply  | WritePropertyMessageReply |  修改属性回复  |
-| /message/function/reply  | FunctionInvokeMessageReply |  调用功能回复  |
-| /register  | DeviceRegisterMessage |  设备注册,通常与子设备消息配合使用  |
-| /unregister  | DeviceUnRegisterMessage |  设备注销,同上  |
-| /message/children/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备消息,{topic}为子设备消息对应的topic  |
-| /message/children/reply/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备回复消息,同上  |
+| topic                                              | 类型                       | 说明                                      |
+| -------------------------------------------------- | -------------------------- | ----------------------------------------- |
+| /online                                            | DeviceOnlineMessage        | 设备上线                                  |
+| /offline                                           | DeviceOfflineMessage       | 设备离线                                  |
+| /message/event/{eventId}                           | DeviceEventMessage         | 设备事件                                  |
+| /message/property/report                           | ReportPropertyMessage      | 设备上报属性                              |
+| /message/property/read/reply                       | ReadPropertyMessageReply   | 读取属性回复                              |
+| /message/property/write/reply                      | WritePropertyMessageReply  | 修改属性回复                              |
+| /message/function/reply                            | FunctionInvokeMessageReply | 调用功能回复                              |
+| /register                                          | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用         |
+| /unregister                                        | DeviceUnRegisterMessage    | 设备注销,同上                             |
+| /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage         | 子设备消息,{topic}为子设备消息对应的topic |
+| /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage         | 子设备回复消息,同上                       |
 
 ## 设备告警
 

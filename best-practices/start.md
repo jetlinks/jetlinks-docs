@@ -23,12 +23,12 @@
 
 ### 消息组成
 
-消息主要由`deviceId`,`messageId`,`headers`组成.
+消息主要由`deviceId`,`messageId`,`headers`,`timestamp`组成.
 
 `deviceId`为设备的唯一标识,`messageId`为消息的唯一标识,`headers`为消息头,通常用于对自定义消息处理的行为,如是否异步消息,
 是否分片消息等.
 
-常用的(Headers)[https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java]:
+常用的[Headers](https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java):
 
 1. async 是否异步,boolean类型.
 2. timeout 指定超时时间. 毫秒.
@@ -65,7 +65,7 @@ ReadPropertyMessage{
 ReadPropertyMessageReply{
     String deviceId;
     String messageId;
-    long timestamp;
+    long timestamp; //时间戳(毫秒)
     boolean success;
     Map<String,Object> properties;//属性键值对
 }
@@ -81,7 +81,7 @@ WritePropertyMessage{
 WritePropertyMessageReply{
     String deviceId;
     String messageId;
-    long timestamp;
+    long timestamp; //时间戳(毫秒)
     boolean success;
     Map<String,Object> properties; //回复被修改的属性最新值
 }
@@ -91,7 +91,7 @@ WritePropertyMessageReply{
 ReportPropertyMessage{
     String deviceId;
     String messageId;
-    long timestamp;
+    long timestamp; //时间戳(毫秒)
     Map<String,Object> properties;
 }
 ```
@@ -134,7 +134,7 @@ FunctionInvokeMessageReply{
 EventMessage{
     String event; //事件标识,在元数据中定义
     Object data;  //与元数据中定义的类型一致,如果是对象类型,请转为java.util.HashMap,禁止使用自定义类型.
-    long timestamp;
+    long timestamp; //时间戳(毫秒)
 }
 ```
 
@@ -170,8 +170,6 @@ ChildDeviceMessage{
 
 父子设备消息处理[请看这里](../best-practices/device-gateway-connection.md)
 
-
-
 ### 设备消息对应事件总线topic
 
 协议包将设备上报后的报文解析为平台统一的设备消息后,会将消息转换为对应的topic
@@ -195,14 +193,19 @@ ChildDeviceMessage{
 | /offline                                           | DeviceOfflineMessage       | 设备离线                                  |
 | /message/event/{eventId}                           | DeviceEventMessage         | 设备事件                                  |
 | /message/property/report                           | ReportPropertyMessage      | 设备上报属性                              |
+| /message/send/property/read                        | ReadPropertyMessage        | 平台下发读取消息指令                      |
+| /message/send/property/write                       | WritePropertyMessage       | 平台下发修改消息指令                      |
 | /message/property/read/reply                       | ReadPropertyMessageReply   | 读取属性回复                              |
 | /message/property/write/reply                      | WritePropertyMessageReply  | 修改属性回复                              |
+| /message/send/function                             | FunctionInvokeMessage      | 平台下发功能调用                          |
 | /message/function/reply                            | FunctionInvokeMessageReply | 调用功能回复                              |
 | /register                                          | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用         |
 | /unregister                                        | DeviceUnRegisterMessage    | 设备注销,同上                             |
 | /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage         | 子设备消息,{topic}为子设备消息对应的topic |
 | /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage         | 子设备回复消息,同上                       |
- 
+| /message/direct                                    | DirectDeviceMessage        | 透传消息                                  |
+| /message/tags/update                               | UpdateTagMessage           | 更新标签消息 since 1.5                    |
+
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
 :::

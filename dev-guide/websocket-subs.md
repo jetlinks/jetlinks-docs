@@ -66,9 +66,8 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 
 ## 订阅设备消息
 
-与消息网关中的设备topic一致,[查看topic列表](./subscribe-device-message.md#设备消息).
-消息内容(`payload`)将与[设备消息类型](../basics-guide/protocol-support.md#平台统一消息定义)一致.
-
+与消息网关中的设备topic一致,[查看topic列表](../best-practices/start.md#设备消息对应事件总线topic).
+消息负载(`payload`)将与[设备消息类型](../best-practices/start.md#平台统一设备消息定义)一致.
 
 ## 发送设备指令
 
