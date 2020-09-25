@@ -584,7 +584,7 @@ jetlinks:
 
 #### 数据类型说明
 
-1. 为了灵活性，数字类型统一为`number(32,4)`类型
+1. 数字类型统一为`number(32,物模型中配置的精度)`类型
 2. 时间类型为`timestamp`
 3. 结构体(object)和array为`Clob`
 4. 设置了字符长度`expands.maxLength`大于`2048`时,为`Clob`
