@@ -558,3 +558,66 @@ measurement说明:
 1. 属性: `properties_{productId}`
 2. 事件: `event_{productId}_{eventId}`
 3. 日志: `device_log_{productId}`
+
+### 记录设备最新数据到数据库
+
+`1.5.0版本`中增加了记录最新设备数据到数据库中，以便进行更丰富等统计查询等操作.
+
+通过配置文件开启:
+```yml
+jetlinks:
+  device:
+     storage:
+         enable-last-data-in-db: true #是否将设备最新到数据存储到数据库
+```
+
+::: tip 注意
+开启后,设备的属性,事件属性的最新值将记录到表`dev_lsg_{productId}`中. 主键`id`为设备ID.
+开启此功能可能降低系统的吞吐量.
+:::
+
+#### 物模型与数据库表字段说明
+
+1. 属性id即字段
+2. 当事件类型为结构体类型时, 字段为:`{eventId}_{结构体属性ID}`,否则为:`{eventId}_value`
+3. 在发布产品时,会自动创建或者修改表结构.
+
+#### 数据类型说明
+
+1. 为了灵活性，数字类型统一为`number(32,4)`类型
+2. 时间类型为`timestamp`
+3. 结构体(object)和array为`Clob`
+4. 设置了字符长度`expands.maxLength`大于`2048`时,为`Clob`
+5. 其他为`varchar`
+   
+::: waring 提示
+请勿频繁修改物模型类型,可能导致数据格式错误.
+:::
+
+#### 根据最新的设备数据查询设备数量等操作
+
+在任何设备相关等动态查询条件中.使用自定义条件`dev-latest`来进行查询.例如:
+```js
+{
+"terms":[
+   {
+    "column":"id$dev-latest$demo-device" 
+    ,"value":"temp1 > 10"  //查询表达式
+   }
+ ]
+}
+```
+
+`id$dev-latest$demo-device`说明:
+**id**: 表示使用查询主表的id作为设备id
+**dev-latest**: 表示使用自定义条件`dev-latest`,此处为固定值
+**demo-device**: 产品ID
+
+`temp1 > 10`说明:
+
+`temp1`最新值大于10. 条件支持`=`,`>`,`<`,`>=`,`<=`,`in`,`btw`,`isnull`等通用条件,支持嵌套查询.如:
+`temp1 > 10 and (temp2 >30 or state = 1)`
+
+::: tip 说明
+所有参数和查询条件都经过了处理,没有SQL注入问题,请放心使用.
+:::

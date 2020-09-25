@@ -31,17 +31,19 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 11. 在DeviceMessage头中可以指定`log`来设置设备日志记录.
 12. 增加使用mqtt来订阅平台设备消息. [查看文档](../dev-guide/mqtt-subs.md)
 13. 增加统一单点登录功能. [查看文档](../dev-guide/sso.md)
+14. 增加按设备和产品聚合查询多个属性API
+15. 增加保存设备最新的数据到数据库中,以支持可根据最新数据来统计设备数量等需求.[查看文档](../best-practices/start.md#记录设备最新数据到数据库)
 
 功能变更
 
 1. 废弃: `/api/v1/product/`下相关API
-2. 增加: `/api/v1/product/{productId}/agg/{agg}/{property}/_query` 聚合查询产品下设备属性API
+2. 废弃: `/api/v1/device/{deviceId}/properties/_query` API,使用`/device/instance/{deviceId}/property/{property}/_query`代替
 3. 所有设备属性相关接口,返回值`value`以及`formatValue`修改为于物模型对应.去除`numberValue`,`timeValue`等字段.
 
 修复BUG
 
 1. 修复使用mqtt可能无法进行自注册问题
-2. 
+
 
 
 ## 1.4-RELEASE
