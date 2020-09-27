@@ -590,7 +590,7 @@ jetlinks:
 4. 设置了字符长度`expands.maxLength`大于`2048`时,为`Clob`
 5. 其他为`varchar`
    
-::: waring 提示
+::: warning 提示
 请勿频繁修改物模型类型,可能导致数据格式错误.
 :::
 
