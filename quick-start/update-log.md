@@ -38,7 +38,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 1. 废弃: `/api/v1/product/`下相关API
 2. 废弃: `/api/v1/device/{deviceId}/properties/_query` API,使用`/device/instance/{deviceId}/property/{property}/_query`代替
-3. 所有设备属性相关接口,返回值`value`以及`formatValue`修改为于物模型对应.去除`numberValue`,`timeValue`等字段.
+3. 设备属性相关接口,返回值`value`以及`formatValue`修改为与物模型对应的类型值.
 
 修复BUG
 
