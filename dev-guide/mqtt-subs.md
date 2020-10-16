@@ -29,3 +29,9 @@ messaging:
 与消息网关中的设备topic一致,[查看topic列表](../best-practices/start.md#设备消息对应事件总线topic).
 消息负载(`payload`)将与[设备消息类型](../best-practices/start.md#平台统一设备消息定义)一致.
 
+::: tip 提示 
+1.6版本后支持分组订阅:同一个用户订阅相同的topic,只有其中一个订阅者收到消息.
+
+在topic前增加`$shared`即可,如: `$shared/device/+/+/#`
+:::
+

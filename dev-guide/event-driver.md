@@ -43,34 +43,8 @@ public Mono<Void> saveUser(UserEntity entity){
 ## topic列表
 
 ### 设备消息
-
-所有设备消息的`topic`的前缀均为: `/device/{productId}/{deviceId}`.
-如:设备`device-1`上线消息: `/device/product-1/device-1/online`.
-可通过通配符订阅所有设备的指定消息,如:`/device/*/*/online`,
-或者订阅所有消息:`/device/**`.
-
-::: tip
-使用通配符订阅可能将收到大量的消息,请保证消息的处理速度,否则会影响系统消息吞吐量.
-:::
-
-
-|  topic   | 类型  | 说明 |
-|  ----  | ----  | ----|
-| /online  | DeviceOnlineMessage | 设备上线   |
-| /offline  | DeviceOfflineMessage |  设备离线  |
-| /message/event/{eventId}  | DeviceEventMessage |  设备事件  |
-| /message/property/report  | ReportPropertyMessage |  设备上报属性  |
-| /message/property/read/reply  | ReadPropertyMessageReply |  读取属性回复  |
-| /message/property/write/reply  | WritePropertyMessageReply |  修改属性回复  |
-| /message/function/reply  | FunctionInvokeMessageReply |  调用功能回复  |
-| /register  | DeviceRegisterMessage |  设备注册,通常与子设备消息配合使用  |
-| /unregister  | DeviceUnRegisterMessage |  设备注销,同上  |
-| /message/children/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备消息,{topic}为子设备消息对应的topic  |
-| /message/children/reply/{childrenDeviceId}/{topic}  | ChildDeviceMessage |  子设备回复消息,同上  |
  
-::: warning
-列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
-:::
+ [点击查看](../best-practices/start.md#设备消息对应事件总线topic)
 
 ## 设备告警
 

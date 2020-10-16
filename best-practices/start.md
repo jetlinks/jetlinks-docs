@@ -208,6 +208,13 @@ ChildDeviceMessage{
 
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
+
+在1.6版本后,支持订阅设备分组和租户下的设备消息了.
+
+* 设备分组topic前缀: `/device-group/{groupId}`
+* 租户topic前缀: `/tenant/{tenantId}`
+  
+例如: `/device-group/{groupId}/device/{productId}/{deviceId}/**`
 :::
 
 ## 设备接入流程

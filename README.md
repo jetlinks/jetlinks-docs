@@ -18,7 +18,7 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 官方QQ群: `2021514`
 
-在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test`.
+在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test123456`.
 
 ## 技术栈
 
