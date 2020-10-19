@@ -31,7 +31,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 8. 网络组件`MQTT Client`中的`clientId`,`username`,`password`支持表达式.可通过`${#env.getProperty(...)}`来获取配置文件中的配置.
 9. 增加场景联动规则接口(Pro)
 
-::: warn 更新说明
+::: warning 更新说明
 原配置`elasticsearch.client`相关配置已失效，请使用`spring.data.elasticsearch.client.reactive.endpoints`进行配置.
 :::
 
