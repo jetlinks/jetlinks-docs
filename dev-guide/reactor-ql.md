@@ -99,6 +99,20 @@ _window('5m'),take(1) -- -1为取最后一次
 
 ```
 
+限流: 10秒内超过2次则获取最后一条数据
+
+```sql
+select * from 
+( select * from "/device/demo-device/device001/message/event/alarm" )
+group by
+_window('10s') --时间窗口
+,trace() -- 跟踪分组内行号信息
+,take(-1) --取最后一条数据
+having 
+  row.index > 2  -- 跟踪分组内的行号
+and 
+  row.elapsed>1000 -- 距离上一行的时间
+```
 
 ::: warning 注意
 SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必须指定`this`或者以表别名开头. 

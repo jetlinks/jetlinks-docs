@@ -97,6 +97,7 @@ module.exports = {
                     ['/dev-guide/custom-sql-term', '自定义通用SQL条件'],
                     ['/dev-guide/event-driver.md', '事件驱动,消息总线'],
                     ['/dev-guide/reactor-ql.md', 'ReactorQL,使用SQL处理实时数据.'],
+                    ['/dev-guide/rule-engine.md', '规则引擎说明'],
                     //['/dev-guide/utils', '常用API及工具类'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
