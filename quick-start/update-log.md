@@ -26,8 +26,14 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 3. 集成小度智能家居平台,`小度小度,打开空调`.（Pro可选模块）
 4. 增加设备消息转发到`租户`,`设备分组`对应的消息总线,**更新后请重新激活设备才能生效**(Pro)。
 5. 通过mqtt订阅设备消息,使用`$shared/`作为前缀时,同一个用户只会收到一个消息通知.
-6. 增加场景联动规则(Pro)
-7. ReactorQL增加列转行,使用`$this`作为别名时,将列对象填充到当前行中.
+6. ReactorQL增加列转行,使用`$this`作为别名时,将列对象填充到当前行中.
+7. ReactorQL增加行跟踪,通过`row.index`获取行号,通过`row.elapsed`获取距离上一行的时间间隔(ms);
+8. 网络组件`MQTT Client`中的`clientId`,`username`,`password`支持表达式.可通过`${#env.getProperty(...)}`来获取配置文件中的配置.
+9. 增加场景联动规则接口(Pro)
+
+::: warn 更新说明
+原配置`elasticsearch.client`相关配置已失效，请使用`spring.data.elasticsearch.client.reactive.endpoints`进行配置.
+:::
 
 ## 1.5-RELEASE
 
