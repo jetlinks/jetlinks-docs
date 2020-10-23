@@ -139,7 +139,7 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | count           | 总数                   | count\(1\)                             |                                                             |
 | max             | 最大值                 | max\(val\)                             |                                                             |
 | min             | 最小值                 | min\(val\)                             |                                                             |
-| take            | 取指定数量数据         | take\(5,-1) --取5个中的最后一个            |  通常配合分组函数_window使用              |
+| take            | 取指定数量数据         | take\(5,-1) --取5个中的最后一个        | 通常配合分组函数_window使用                                 |
 | >               | 大于                   | val > 10                               |                                                             |
 | <               | 小于                   | val < 10                               |                                                             |
 | =               | 等于                   | val = 10                               |                                                             |
@@ -172,6 +172,13 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | math\.tan       | 正切                   | math\.tan\(val\)                       |                                                             |
 | math\.atan      | 反正切                 | math\.atan\(val\)                      |                                                             |
 | math\.tanh      | 双曲正切               | math\.tanh\(val\)                      |                                                             |
+| skewness        | 偏度特征值             | skewness(val)                          | 偏度特征值聚合函数 (Pro)                                    |
+| kurtosis        | 峰度特征值             | kurtosis(val)                          | 峰度特征值聚合函数 (Pro)                                    |
+| variance        | 方差                   | variance(val)                          | 方差聚合函数 (Pro)                                         |
+| geo_mean        | 几何平均数             | geo_mean(val)                          | 几何平均数聚合函数 (Pro)                                    |
+| sum_of_squ      | 平方和                 | sum_of_squ(val)                        | 平方和聚合函数 (Pro)                                        |
+| stan_dev        | 标准差                 | stan_dev(val)                          | 标准差聚合函数 (Pro)                                        |
+| slope           | 斜度                   | slope(val)                             | 使用最小二乘回归模型计算斜度,大于0为向上,小于0为向下 (Pro)  |
 
 
 ## 拓展函数
@@ -195,7 +202,72 @@ from "/device/*/*/message/property/report"
 `device.properties(this.deviceId,'property1','property2')`还可以通过参数获取指定的属性，如果未设置则获取全部属性。
  :::
 
- ### device.tags
+ ### device.properties.history
+
+ 查询设备历史数据
+
+ ```sql
+ --聚合查询
+select * from device.properties.history(
+    select avg(temperature) avgVal 
+    from "deviceId" -- from 支持: 按设备ID查询: "deviceId", 查询多个设备: device('1','2') 按产品查询: product('id')
+    where timestamp between now()-86400000 to now()
+)
+ ```
+
+```sql
+ --按时间分组
+select * from device.properties.history(
+    select avg(temperature) avgVal 
+    from "deviceId"
+    where timestamp between now()-86400000 to now()
+    group by interval('1d')
+)
+ ```
+
+```sql
+-- 订阅实时数据,然后查询对应设备的历史数据
+select 
+(
+select maxVal,avgVal from 
+    device.properties.history(
+        select 
+        max(temp3) maxVal,
+        avg(temp3) avgVal
+        from device(t.deviceId)
+        -- 前一天的数据
+        where timestamp between time('now-1d') and t.timestamp
+    )
+) $this,
+t.properties.temp3 temp3
+from "/device/*/*/message/property/**" t
+```
+
+
+### device.properties.latest
+
+查询设备最新的数据
+
+```sql
+select * from device.properties.latest(
+    select 
+    temperature
+    from "productId" --表名为产品ID
+    where id = 'deviceId' -- id则为设备ID
+)
+```
+
+聚合查询
+
+```sql
+select * from device.properties.latest(
+    select 
+    avg(temperature) temperature
+    from "productId" --表名为产品ID
+)
+```
+
+### device.tags
  
  获取设备标签信息
 
