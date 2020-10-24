@@ -187,24 +187,30 @@ ChildDeviceMessage{
 :::
 
 
-| topic                                              | 类型                       | 说明                                      |
-| -------------------------------------------------- | -------------------------- | ----------------------------------------- |
-| /online                                            | DeviceOnlineMessage        | 设备上线                                  |
-| /offline                                           | DeviceOfflineMessage       | 设备离线                                  |
-| /message/event/{eventId}                           | DeviceEventMessage         | 设备事件                                  |
-| /message/property/report                           | ReportPropertyMessage      | 设备上报属性                              |
-| /message/send/property/read                        | ReadPropertyMessage        | 平台下发读取消息指令                      |
-| /message/send/property/write                       | WritePropertyMessage       | 平台下发修改消息指令                      |
-| /message/property/read/reply                       | ReadPropertyMessageReply   | 读取属性回复                              |
-| /message/property/write/reply                      | WritePropertyMessageReply  | 修改属性回复                              |
-| /message/send/function                             | FunctionInvokeMessage      | 平台下发功能调用                          |
-| /message/function/reply                            | FunctionInvokeMessageReply | 调用功能回复                              |
-| /register                                          | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用         |
-| /unregister                                        | DeviceUnRegisterMessage    | 设备注销,同上                             |
-| /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage         | 子设备消息,{topic}为子设备消息对应的topic |
-| /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage         | 子设备回复消息,同上                       |
-| /message/direct                                    | DirectDeviceMessage        | 透传消息                                  |
-| /message/tags/update                               | UpdateTagMessage           | 更新标签消息 since 1.5                    |
+| topic                                              | 类型                           | 说明                                      |
+| -------------------------------------------------- | ------------------------------ | ----------------------------------------- |
+| /online                                            | DeviceOnlineMessage            | 设备上线                                  |
+| /offline                                           | DeviceOfflineMessage           | 设备离线                                  |
+| /message/event/{eventId}                           | DeviceEventMessage             | 设备事件                                  |
+| /message/property/report                           | ReportPropertyMessage          | 设备上报属性                              |
+| /message/send/property/read                        | ReadPropertyMessage            | 平台下发读取消息指令                      |
+| /message/send/property/write                       | WritePropertyMessage           | 平台下发修改消息指令                      |
+| /message/property/read/reply                       | ReadPropertyMessageReply       | 读取属性回复                              |
+| /message/property/write/reply                      | WritePropertyMessageReply      | 修改属性回复                              |
+| /message/send/function                             | FunctionInvokeMessage          | 平台下发功能调用                          |
+| /message/function/reply                            | FunctionInvokeMessageReply     | 调用功能回复                              |
+| /register                                          | DeviceRegisterMessage          | 设备注册,通常与子设备消息配合使用         |
+| /unregister                                        | DeviceUnRegisterMessage        | 设备注销,同上                             |
+| /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage             | 子设备消息,{topic}为子设备消息对应的topic |
+| /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage             | 子设备回复消息,同上                       |
+| /message/direct                                    | DirectDeviceMessage            | 透传消息                                  |
+| /message/tags/update                               | UpdateTagMessage               | 更新标签消息 since 1.5                    |
+| /firmware/pull                                     | RequestFirmwareMessage         | 拉取固件请求 (设备->平台)                 |
+| /firmware/pull/reply                               | RequestFirmwareMessageReply    | 拉取固件请求回复 (平台->设备)             |
+| /firmware/report                                   | ReportFirmwareMessage          | 上报固件信息                              |
+| /firmware/progress                                 | UpgradeFirmwareProgressMessage | 上报更新固件进度                          |
+| /firmware/push                                     | UpgradeFirmwareMessage         | 推送固件更新                              |
+| /firmware/push/reply                               | UpgradeFirmwareMessageReply    | 固件更新回复                              |
 
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
@@ -341,8 +347,9 @@ public enum DataType{
 每一个属性值都保存为一条索引记录.典型应用场景: 设备每次只会上报一部分属性,
 以及支持读取部分属性数据的时候.
 
-优点: 灵活,几乎满足任意场景下的属性数据存储.
-缺点: 设备属性个数较多时,数据量指数增长,可能性能较低.
+**优点**: 灵活,几乎满足任意场景下的属性数据存储.
+
+**缺点**: 设备属性个数较多时,数据量指数增长,可能性能较低.
 
 ::: warning 警告
 1. 在确定好存储方案后,尽量不要跨类型进行修改,如将: 行式存储修改为列式存储,可能会导致数据结构错乱.
@@ -495,8 +502,9 @@ mappings:
 使用elasticsearch存储设备数据.
 一个属性作为一列,一条属性消息作为一条索引记录进行存储,适合设备每次都上报所有的属性值的场景.
 
-优点: 在属性个数较多,并且设备每次都会上报全部属性时,性能更高
-缺点: 设备必须上报全部属性.
+**优点**: 在属性个数较多,并且设备每次都会上报全部属性时,性能更高
+
+**缺点**: 设备必须上报全部属性,包括读取属性,修改属性回复,都必须返回全部属性数据.
 
 索引结构:
 
