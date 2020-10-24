@@ -129,16 +129,16 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | /               | 除法运算               | temp/10                                | 对应函数: math\.divi\(temp,10\)                             |
 | %               | 取模运算               | temp%2                                 | 对应函数: math\.mod\(temp,2\)                               |
 | &               | 位与运算               | val&3                                  | 对应函数: bit\_and\(val,3\)                                 |
-| \\\|            | 位或运算               | val\\\|3                               | 对应函数: bit\_or\(val,3\)                                  |
+| \|              | 位或运算               | val\|3                                 | 对应函数: bit\_or\(val,3\)                                  |
 | ^               | 异或运算               | val^3                                  | 对应函数: bit\_mutex\(val,3\)                               |
 | <<              | 位左移运算             | val<<2                                 | 对应函数: bit\_left\_shift\(val,2\)                         |
 | >>              | 位右移运算             | val>>2                                 | 对应函数: bit\_right\_shift\(val,2\)                        |
-| \\\|\\\|        | 字符拼接               | val\\\|\\\|'度'                        | 对应函数: concat\(val,'度'\)                                |
-| avg             | 平均值                 | avg\(val\)                             |                                                             |
-| sum             | 合计值                 | sum\(val\)                             |                                                             |
-| count           | 总数                   | count\(1\)                             |                                                             |
-| max             | 最大值                 | max\(val\)                             |                                                             |
-| min             | 最小值                 | min\(val\)                             |                                                             |
+| \|\|            | 字符拼接               | val\|\|'度'                            | 对应函数: concat\(val,'度'\)                                |
+| avg             | 平均值                 | avg\(val\)                             | 聚合函数,平均值                                             |
+| sum             | 合计值                 | sum\(val\)                             | 聚合函数,合计值                                             |
+| count           | 总数                   | count\(1\)                             | 聚合函数,计数                                               |
+| max             | 最大值                 | max\(val\)                             | 聚合函数,最大值                                             |
+| min             | 最小值                 | min\(val\)                             | 聚合函数,最小值                                             |
 | take            | 取指定数量数据         | take\(5,-1) --取5个中的最后一个        | 通常配合分组函数_window使用                                 |
 | >               | 大于                   | val > 10                               |                                                             |
 | <               | 小于                   | val < 10                               |                                                             |
@@ -179,6 +179,10 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | sum_of_squ      | 平方和                 | sum_of_squ(val)                        | 平方和聚合函数 (Pro)                                        |
 | stan_dev        | 标准差                 | stan_dev(val)                          | 标准差聚合函数 (Pro)                                        |
 | slope           | 斜度                   | slope(val)                             | 使用最小二乘回归模型计算斜度,大于0为向上,小于0为向下 (Pro)  |
+| time            | 转换时间               | time('now-1d')                         | 使用表达式来转换时间,返回毫秒时间戳(Pro)                    |
+| jsonata         | jsonata表达式          | jsonata('$abs(val)')                   | 使用jsonata表达式来提取行数据(Pro)                          |
+| spel            | spel表达式             | spel('#val')                           | 使用spel表达式来提取行数据(Pro)                             |
+| env             | 获取配置信息           | env('key','默认值')                    | 获取系统配置信息(Pro)                                       |
 
 
 ## 拓展函数
