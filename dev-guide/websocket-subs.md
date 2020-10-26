@@ -176,3 +176,58 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 ::: tip
 详细使用见[Dashboard说明](./dashboard.md)
 :::
+
+## 订阅设备告警数据
+
+发送消息到websocket
+
+```js
+{
+    "type": "sub", //固定为sub
+    "topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+    "parameter": {},
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+平台推送:
+
+```js
+{
+	"payload": {   //告警相关数据
+		"deviceId": "设备ID",
+        "deviceName": "设备名称",
+        "alarmId": "告警ID",
+        "alarmName": "告警名称"
+        //...其他告警数据
+	},
+	"requestId": "request-id", //订阅请求的ID
+	"topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+	"type": "result" //为comlete是则表示同步完成.
+}
+```
+
+## 订阅场景联动
+发送消息到websocket
+
+```js
+{
+    "type": "sub", //固定为sub
+    "topic": "/scene/{alarmId}",
+    "parameter": {},
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+平台推送:
+
+```js
+{
+	"payload": {   //触发场景的数据内容,触发方式不同,数据格式不同
+        
+	},
+	"requestId": "request-id", //订阅请求的ID
+	"topic": "/scene/{alarmId}",
+	"type": "result" //为comlete是则表示同步完成.
+}
+```
