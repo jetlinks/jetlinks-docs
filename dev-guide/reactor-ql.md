@@ -121,68 +121,71 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 
 ## SQL支持列表
 
-| 函数/表达式     | 用途                   | 示例                                   | 说明                                                        |
-| --------------- | ---------------------- | -------------------------------------- | ----------------------------------------------------------- |
-| \+              | 加法运算               | temp\+10                               | 对应函数: math\.plus\(temp,10\)                             |
-| \-              | 减法运算               | temp\-10                               | 对应函数: math\.sub\(temp,10\)                              |
-| \*              | 乘法运算               | temp\*10                               | 对应函数: math\.mul\(temp,10\)                              |
-| /               | 除法运算               | temp/10                                | 对应函数: math\.divi\(temp,10\)                             |
-| %               | 取模运算               | temp%2                                 | 对应函数: math\.mod\(temp,2\)                               |
-| &               | 位与运算               | val&3                                  | 对应函数: bit\_and\(val,3\)                                 |
-| \|              | 位或运算               | val\|3                                 | 对应函数: bit\_or\(val,3\)                                  |
-| ^               | 异或运算               | val^3                                  | 对应函数: bit\_mutex\(val,3\)                               |
-| <<              | 位左移运算             | val<<2                                 | 对应函数: bit\_left\_shift\(val,2\)                         |
-| >>              | 位右移运算             | val>>2                                 | 对应函数: bit\_right\_shift\(val,2\)                        |
-| \|\|            | 字符拼接               | val\|\|'度'                            | 对应函数: concat\(val,'度'\)                                |
-| avg             | 平均值                 | avg\(val\)                             | 聚合函数,平均值                                             |
-| sum             | 合计值                 | sum\(val\)                             | 聚合函数,合计值                                             |
-| count           | 总数                   | count\(1\)                             | 聚合函数,计数                                               |
-| max             | 最大值                 | max\(val\)                             | 聚合函数,最大值                                             |
-| min             | 最小值                 | min\(val\)                             | 聚合函数,最小值                                             |
-| take            | 取指定数量数据         | take\(5,-1) --取5个中的最后一个        | 通常配合分组函数_window使用                                 |
-| >               | 大于                   | val > 10                               |                                                             |
-| <               | 小于                   | val < 10                               |                                                             |
-| =               | 等于                   | val = 10                               |                                                             |
-| \!=             | 不等于                 | val \!=10                              | 等同于: <> ,如: val <> 10                                   |
-| >=              | 大于等于               | val>=10                                |                                                             |
-| <=              | 小于等于               | val<=10                                |                                                             |
-| in              | 在\.\.之中             | val in \(1,2,3\)                       |                                                             |
-| not in          | 不在\.\.之中           | val not in \(1,2,3\)                   |                                                             |
-| like            | 模糊匹配               | name like 'a%'                         | not like 同理                                               |
-| between         | 在之间                 | val between 1 and 10                   |                                                             |
-| now             | 当前时间               | now\(\)                                | 默认返回时间戳,可传入格式化参数\.                           |
-| date\_format    | 格式化日期             | date\_format\(now\(\),'yyyy\-MM\-dd'\) |                                                             |
-| cast            | 转换类型               | cast\(val as boolean\)                 | 支持类型: string,boolean,int,double,float,date,decimal,long |
-| interval        | 时间分组               | interval\('10s'\)                      | 分组函数,按时间分组                                         |
-| \_window        | 窗口分组               | \_window\(10\)                         | 窗口,支持按数量和时间窗口                                   |
-| collect\_list   | 聚合结果转为list       | collect\_list\(\(select deviceId\)\)   | 把聚合的的结果转为list                                      |
-| rows\_to\_array | 将结果集转为单元素数组 | rows\_to\_array\(idList\)              | 把只有一个属性的结果集中的属性转为集合                      |
-| new\_map        | 创建一个map            | new\_map\('k1',v1,'k2',v2\)            |                                                             |
-| new\_array      | 创建一个集合           | new\_array\(1,2,3,4\)                  |                                                             |
-| math\.ceil      | 向上取整               | math\.ceil\(val\)                      |                                                             |
-| math\.floor     | 向下取整               | math\.floor\(val\)                     |                                                             |
-| math\.round     | 四舍五入               | math\.round\(val\)                     |                                                             |
-| math\.log       | log运算                | math\.log\(val\)                       |                                                             |
-| math\.sin       | 正弦                   | math\.sin\(val\)                       |                                                             |
-| math\.asin      | 反正弦                 | math\.asin\(val\)                      |                                                             |
-| math\.sinh      | 双曲正弦               | math\.sinh\(val\)                      |                                                             |
-| math\.cos       | 余弦                   | math\.cos\(val\)                       |                                                             |
-| math\.acos      | 反余弦                 | math\.acos\(val\)                      |                                                             |
-| math\.cosh      | 双曲余弦               | math\.cosh\(val\)                      |                                                             |
-| math\.tan       | 正切                   | math\.tan\(val\)                       |                                                             |
-| math\.atan      | 反正切                 | math\.atan\(val\)                      |                                                             |
-| math\.tanh      | 双曲正切               | math\.tanh\(val\)                      |                                                             |
-| skewness        | 偏度特征值             | skewness(val)                          | 偏度特征值聚合函数 (Pro)                                    |
-| kurtosis        | 峰度特征值             | kurtosis(val)                          | 峰度特征值聚合函数 (Pro)                                    |
-| variance        | 方差                   | variance(val)                          | 方差聚合函数 (Pro)                                         |
-| geo_mean        | 几何平均数             | geo_mean(val)                          | 几何平均数聚合函数 (Pro)                                    |
-| sum_of_squ      | 平方和                 | sum_of_squ(val)                        | 平方和聚合函数 (Pro)                                        |
-| stan_dev        | 标准差                 | stan_dev(val)                          | 标准差聚合函数 (Pro)                                        |
-| slope           | 斜度                   | slope(val)                             | 使用最小二乘回归模型计算斜度,大于0为向上,小于0为向下 (Pro)  |
-| time            | 转换时间               | time('now-1d')                         | 使用表达式来转换时间,返回毫秒时间戳(Pro)                    |
-| jsonata         | jsonata表达式          | jsonata('$abs(val)')                   | 使用jsonata表达式来提取行数据(Pro)                          |
-| spel            | spel表达式             | spel('#val')                           | 使用spel表达式来提取行数据(Pro)                             |
-| env             | 获取配置信息           | env('key','默认值')                    | 获取系统配置信息(Pro)                                       |
+| 函数/表达式     | 用途                       | 示例                                   | 说明                                                        |
+| --------------- | -------------------------- | -------------------------------------- | ----------------------------------------------------------- |
+| \+              | 加法运算                   | temp\+10                               | 对应函数: math\.plus\(temp,10\)                             |
+| \-              | 减法运算                   | temp\-10                               | 对应函数: math\.sub\(temp,10\)                              |
+| \*              | 乘法运算                   | temp\*10                               | 对应函数: math\.mul\(temp,10\)                              |
+| /               | 除法运算                   | temp/10                                | 对应函数: math\.divi\(temp,10\)                             |
+| %               | 取模运算                   | temp%2                                 | 对应函数: math\.mod\(temp,2\)                               |
+| &               | 位与运算                   | val&3                                  | 对应函数: bit\_and\(val,3\)                                 |
+| \|              | 位或运算                   | val\|3                                 | 对应函数: bit\_or\(val,3\)                                  |
+| ^               | 异或运算                   | val^3                                  | 对应函数: bit\_mutex\(val,3\)                               |
+| <<              | 位左移运算                 | val<<2                                 | 对应函数: bit\_left\_shift\(val,2\)                         |
+| >>              | 位右移运算                 | val>>2                                 | 对应函数: bit\_right\_shift\(val,2\)                        |
+| \|\|            | 字符拼接                   | val\|\|'度'                            | 对应函数: concat\(val,'度'\)                                |
+| avg             | 平均值                     | avg\(val\)                             | 聚合函数,平均值                                             |
+| sum             | 合计值                     | sum\(val\)                             | 聚合函数,合计值                                             |
+| count           | 总数                       | count\(1\)                             | 聚合函数,计数                                               |
+| max             | 最大值                     | max\(val\)                             | 聚合函数,最大值                                             |
+| min             | 最小值                     | min\(val\)                             | 聚合函数,最小值                                             |
+| take            | 取指定数量数据             | take\(5,-1) --取5个中的最后一个        | 通常配合分组函数_window使用                                 |
+| >               | 大于                       | val > 10                               |                                                             |
+| <               | 小于                       | val < 10                               |                                                             |
+| =               | 等于                       | val = 10                               |                                                             |
+| \!=             | 不等于                     | val \!=10                              | 等同于: <> ,如: val <> 10                                   |
+| >=              | 大于等于                   | val>=10                                |                                                             |
+| <=              | 小于等于                   | val<=10                                |                                                             |
+| in              | 在\.\.之中                 | val in \(1,2,3\)                       |                                                             |
+| not in          | 不在\.\.之中               | val not in \(1,2,3\)                   |                                                             |
+| like            | 模糊匹配                   | name like 'a%'                         | not like 同理                                               |
+| between         | 在之间                     | val between 1 and 10                   |                                                             |
+| now             | 当前时间                   | now\(\)                                | 默认返回时间戳,可传入格式化参数\.                           |
+| date\_format    | 格式化日期                 | date\_format\(now\(\),'yyyy\-MM\-dd'\) |                                                             |
+| cast            | 转换类型                   | cast\(val as boolean\)                 | 支持类型: string,boolean,int,double,float,date,decimal,long |
+| interval        | 时间分组                   | interval\('10s'\)                      | 分组函数,按时间分组                                         |
+| \_window        | 窗口分组                   | \_window\(10\)                         | 窗口,支持按数量和时间窗口                                   |
+| collect\_list   | 聚合结果转为list           | collect\_list\(\(select deviceId\)\)   | 把聚合的的结果转为list                                      |
+| rows\_to\_array | 将结果集转为单元素数组     | rows\_to\_array\(idList\)              | 把只有一个属性的结果集中的属性转为集合                      |
+| new\_map        | 创建一个map                | new\_map\('k1',v1,'k2',v2\)            |                                                             |
+| new\_array      | 创建一个集合               | new\_array\(1,2,3,4\)                  |                                                             |
+| math\.ceil      | 向上取整                   | math\.ceil\(val\)                      |                                                             |
+| math\.floor     | 向下取整                   | math\.floor\(val\)                     |                                                             |
+| math\.round     | 四舍五入                   | math\.round\(val\)                     |                                                             |
+| math\.log       | log运算                    | math\.log\(val\)                       |                                                             |
+| math\.sin       | 正弦                       | math\.sin\(val\)                       |                                                             |
+| math\.asin      | 反正弦                     | math\.asin\(val\)                      |                                                             |
+| math\.sinh      | 双曲正弦                   | math\.sinh\(val\)                      |                                                             |
+| math\.cos       | 余弦                       | math\.cos\(val\)                       |                                                             |
+| math\.acos      | 反余弦                     | math\.acos\(val\)                      |                                                             |
+| math\.cosh      | 双曲余弦                   | math\.cosh\(val\)                      |                                                             |
+| math\.tan       | 正切                       | math\.tan\(val\)                       |                                                             |
+| math\.atan      | 反正切                     | math\.atan\(val\)                      |                                                             |
+| math\.tanh      | 双曲正切                   | math\.tanh\(val\)                      |                                                             |
+| if              | 条件取值                   | if(a<1,'when true','when false')       |                                                             |
+| range           | 范围判断,等同于between and | range(val,1,10)                        |                                                             |
+| median          | 中位数                     | median(val)                            | 中位数 (Pro)                                                |
+| skewness        | 偏度特征值                 | skewness(val)                          | 偏度特征值聚合函数 (Pro)                                    |
+| kurtosis        | 峰度特征值                 | kurtosis(val)                          | 峰度特征值聚合函数 (Pro)                                    |
+| variance        | 方差                       | variance(val)                          | 方差聚合函数 (Pro)                                         |
+| geo_mean        | 几何平均数                 | geo_mean(val)                          | 几何平均数聚合函数 (Pro)                                    |
+| sum_of_squ      | 平方和                     | sum_of_squ(val)                        | 平方和聚合函数 (Pro)                                        |
+| stan_dev        | 标准差                     | stan_dev(val)                          | 标准差聚合函数 (Pro)                                        |
+| slope           | 斜度                       | slope(val)                             | 使用最小二乘回归模型计算斜度,大于0为向上,小于0为向下 (Pro)  |
+| time            | 转换时间                   | time('now-1d')                         | 使用表达式来转换时间,返回毫秒时间戳(Pro)                    |
+| jsonata         | jsonata表达式              | jsonata('$abs(val)')                   | 使用jsonata表达式来提取行数据(Pro)                          |
+| spel            | spel表达式                 | spel('#val')                           | 使用spel表达式来提取行数据(Pro)                             |
+| env             | 获取配置信息               | env('key','默认值')                    | 获取系统配置信息(Pro)                                       |
 
 
 ## 拓展函数
