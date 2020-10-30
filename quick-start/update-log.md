@@ -11,13 +11,13 @@
 master为最新开发分支. 线上使用请根据情况切换到对应版本的分支.
 :::
 
-当前最新稳定版本`1.5-RELEASE`,对应代码分支`1.5`.
+当前最新稳定版本`1.6-RELEASE`,对应代码分支`1.6`.
 
 ## 1.6-RELEASE
 
-预计更新时间: 2020-10-31
+更新时间: 2020-10-30
 
-代码分支: `master`
+代码分支: `1.6`
 
 主要优化
 
@@ -32,6 +32,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 9. ReactorQL增加设备历史数据和最新数据查询函数[查看SQL说明](../dev-guide/reactor-ql.md#device-properties-history)(Pro).
 10. 网络组件`MQTT Client`中的`clientId`,`username`,`password`支持表达式.可通过`${#env.getProperty(...)}`来获取配置文件中的配置.
 11. 增加场景联动规则接口(Pro).
+12. 优化对redis cluster的支持.
 
 ::: warning 更新说明
 原配置`elasticsearch.client`相关配置已失效，请使用`spring.data.elasticsearch.client.reactive.endpoints`进行配置.

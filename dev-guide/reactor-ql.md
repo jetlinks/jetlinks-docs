@@ -180,7 +180,7 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | variance        | 方差                       | variance(val)                          | 方差聚合函数 (Pro)                                         |
 | geo_mean        | 几何平均数                 | geo_mean(val)                          | 几何平均数聚合函数 (Pro)                                    |
 | sum_of_squ      | 平方和                     | sum_of_squ(val)                        | 平方和聚合函数 (Pro)                                        |
-| stan_dev        | 标准差                     | stan_dev(val)                          | 标准差聚合函数 (Pro)                                        |
+| std_dev        | 标准差                     | std_dev(val)                          | 标准差聚合函数 (Pro)                                        |
 | slope           | 斜度                       | slope(val)                             | 使用最小二乘回归模型计算斜度,大于0为向上,小于0为向下 (Pro)  |
 | time            | 转换时间                   | time('now-1d')                         | 使用表达式来转换时间,返回毫秒时间戳(Pro)                    |
 | jsonata         | jsonata表达式              | jsonata('$abs(val)')                   | 使用jsonata表达式来提取行数据(Pro)                          |
