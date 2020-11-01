@@ -21,7 +21,7 @@ cp -r dist docker/
 ### 使用docker部署前端
 1. 构建docker镜像  
 ```bash
-docker build -t docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd ./docker
 ```
 
 2. 运行docker镜像  
