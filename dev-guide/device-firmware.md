@@ -104,8 +104,12 @@ jetlinks专业版在`>=1.2`中提供了固件管理功能,提供对设备固件�
 
 前提: 消息协议解析设备上报的消息为:`RequestFirmwareMessage`.
 
-```json
+```js
 {
+	"headers":{
+		"force":false, //是否强制拉取更新. 为true时强制拉取固件更新信息
+		"latest":false //是否拉取最新的固件,false为从头开始拉取
+	},
     "deviceId":"设备ID",
     "timestampe":"毫秒时间戳",
     "messageId":"消息ID",
