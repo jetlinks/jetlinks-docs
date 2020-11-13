@@ -227,7 +227,9 @@ DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
             "MQTT认证配置"
             , "")
             .add("username", "username", "MQTT用户名", new StringType())
-            .add("password", "password", "MQTT密码", new PasswordType());
+            .add("password", "password", "MQTT密码", new PasswordType())
+            .add("productKey", "productKey", "产品密钥", new PasswordType(),DeviceConfigScope.product) //只有产品需要配置
+            ;
 //设置MQTT所需要到配置
  support.addConfigMetadata(DefaultTransport.MQTT, mqttConfig);
 

@@ -320,3 +320,47 @@ throw new java.lang.RuntimeException("错误");
     }
 }
 ```
+
+### http请求
+
+配置:
+
+```js
+{
+    executor:"http-request",
+    configuration:{
+        "method":"GET,POST,PUT,PATCH,DELETE", //http method
+        "authType":"basic,bearer,oauth2" ,//认证类型,为null时不认证
+        "url":"请求地址",
+        "connectTimeout":"连接超时时间,默认10秒",
+        "maxHeaderLength":"最大请求头长度,默认10k",
+        "useTls":false,//是否开启tls认证
+        "tls":"证书ID",//对应设备接入-证书管理里的ID
+        //authType为basic时需要以下配置
+        "user":"",
+        "password":"",
+        //authType为bearer时需要以下配置
+        "token":"authType为bearer时的token值",
+        //authType为oauth2时需要以下配置
+        "grantType":"client_credentials",
+        "tokenUrl":"申请token的地址",
+        "client_id":"",
+        "client_secret":"",
+        "bodyType":"formBody,jsonBody" //formBody为表单提交，jsonBody为json提交
+    }
+}
+```
+
+::: tip 节点输入
+将上游节点输出的结果作为请求内容,可通过函数节点拼接请求内容.
+
+{
+    "url":"如果为null则使用节点配置中的值",
+    "method":"如果为null则使用节点配置中的值",
+    "contentType":"application/json",
+    "headers":{},
+    "queryParameters":{},//拼接到url上的参数
+    "payload":{}//post请求时的请求体
+}
+
+:::

@@ -211,6 +211,7 @@ ChildDeviceMessage{
 | /firmware/progress                                 | UpgradeFirmwareProgressMessage | 上报更新固件进度                          |
 | /firmware/push                                     | UpgradeFirmwareMessage         | 推送固件更新                              |
 | /firmware/push/reply                               | UpgradeFirmwareMessageReply    | 固件更新回复                              |
+| /log                                               | DeviceLogMessage               | 设备日志                                  |
 
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
@@ -219,6 +220,7 @@ ChildDeviceMessage{
 
 * 设备分组topic前缀: `/device-group/{groupId}`
 * 租户topic前缀: `/tenant/{tenantId}`
+* 成员topic前缀: `/user/{userId}`
   
 例如: `/device-group/{groupId}/device/{productId}/{deviceId}/**`
 :::

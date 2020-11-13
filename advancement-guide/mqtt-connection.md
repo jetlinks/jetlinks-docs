@@ -128,6 +128,10 @@ MQTT服务组件配置
 MQTT服务设备网关  
 ![MQTT服务设备网关](../basics-guide/files/device-connection/mqtt-gateway-info.png)
 
+::: warning 警告
+大部分情况无需选择`认证协议`. 
+:::
+
 ## 使用MQTT.fx接入
 
 1.下载并安装MQTT.fx软件。请访问[MQTT.fx官网](https://mqttfx.jensd.de/index.php/download?spm=a2c4g.11186623.2.16.20ab5800HxuVJR)。
