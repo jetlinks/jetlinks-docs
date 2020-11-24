@@ -226,7 +226,7 @@ from "/device/*/*/message/property/report"
 select * from device.properties.history(
     select avg(temperature) avgVal 
     from "deviceId" -- from 支持: 按设备ID查询: "deviceId", 查询多个设备: device('1','2') 按产品查询: product('id')
-    where timestamp between now()-86400000 to now()
+    where timestamp between now()-86400000 and now()
 )
  ```
 
@@ -235,7 +235,7 @@ select * from device.properties.history(
 select * from device.properties.history(
     select avg(temperature) avgVal 
     from "deviceId"
-    where timestamp between now()-86400000 to now()
+    where timestamp between now()-86400000 and now()
     group by interval('1d')
 )
  ```
