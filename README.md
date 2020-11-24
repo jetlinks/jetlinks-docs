@@ -6,15 +6,19 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 ## 核心特性
 
-支持统一物模型管理,多种设备,多种厂家,统一管理。
+完全开源(社区版免费),基于事件驱动,拓展性强.
+
+支持统一物模型管理,多种设备,多种厂家,多种报文,统一管理。
 
 统一设备连接管理,多协议适配(TCP,MQTT,UDP,CoAP,HTTP等),屏蔽网络编程复杂性,灵活接入不同厂家不同协议的设备。
 
-灵活的规则引擎,设备告警,消息通知,数据转发.可基于SQL进行复杂的数据处理逻辑.
+灵活的规则引擎,设备告警,消息通知,数据转发,场景联动.
+
+强大的[ReactorQL](./dev-guide/reactor-ql.md)引擎,使用SQL来处理实时数据.可拓展自定义函数.
 
 地理位置:统一管理地理位置信息,支持区域搜索. 
 
-数据可视化: 实现拖拽配置数据图表,设备组态等.
+灵活的非侵入[多租户](./dev-guide/multi-tenant.md)数据权限控制.
 
 官方QQ群: `2021514`
 
@@ -35,3 +39,8 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 ## 架构
 
 ![platform](./platform.svg)
+
+
+## 设备接入流程
+
+![flow](./best-practices/device-flow.svg)

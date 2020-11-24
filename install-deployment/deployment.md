@@ -116,7 +116,7 @@ services:
     #      - "6379:6379"
     volumes:
       - "redis-volume:/data"
-    command: redis-server --appendonly yes
+    command: redis-server --appendonly yes --requirepass "redispassword"
     environment:
       - TZ=Asia/Shanghai
   elasticsearch:
@@ -184,10 +184,15 @@ services:
       - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
       - "spring.r2dbc.username=postgres"
       - "spring.r2dbc.password=jetlinks"
-      - "elasticsearch.client.host=elasticsearch"
-      - "elasticsearch.client.post=9200"
       - "spring.redis.host=redis"
       - "spring.redis.port=6379"
+      - "spring.redis.password=redispassword"#生产环境请配置redis密码
+      # 生产环境下请配置es的密码，或者关闭公网访问
+      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
+#      - "spring.data.elasticsearch.client.reactive.username=admin"
+#      - "spring.data.elasticsearch.client.reactive.password=admin" 
+#      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+#      - "jetlinks.device.storage.enable-last-data-in-db=true" # 开启记录最新数据到数据库，但是会降低吞吐量
       - "logging.level.io.r2dbc=warn"
       - "logging.level.org.springframework.data=warn"
       - "logging.level.org.springframework=warn"

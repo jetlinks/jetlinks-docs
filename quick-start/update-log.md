@@ -20,15 +20,19 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 代码分支: `master`
 
 1. 优化设备配置定义,可以指定配置作用域(单独设置产品的配置或者设备的配置),见`DefaultConfigMetadata.add`方法.
-2. 设备标签查询支持表达式: `tag1=value1 and tag2=value2`(没有sql注入问题,放心使用).
+2. 设备标签查询(`id$dev-tag`)支持表达式: `tag1=value1 and tag2=value2`(没有sql注入问题,放心使用).
 3. 增加支持数据库维护产品分类.
 4. 优化拉取固件升级逻辑,使用`headers.force`标记是否强制拉取固件,使用`headers.latest`标记是否拉取最新的固件信息. (Pro)
 5. 优化设备消息转发逻辑,在`headers`中增加`members`,标记此设备所属的用户id.(需要重新激活设备) (Pro)
 6. 优化告警推送逻辑,解决租户添加了告警通知时,无法订阅新添加到设备告警问题.(Pro)
 7. 增加`Headers.mergeLatest`消息头,设备属性相关消息设置此头,将合并旧的属性数据到消息中.(此操作会降低系统吞吐量)(Pro)
 8. 修复集群下,修改物模型后其他节点不会生效问题。
-9. 事件总线集群通信增加RSocket支持以提升性能,通过配置`jetlinks.event-bus.roskcet.enabled`开启.(Pro)
-
+9. 优化设备指令下发,指令消息ID和设备id进行绑定防止重复。
+10. 事件总线集群通信增加RSocket支持以提升性能,通过配置`jetlinks.event-bus.roskcet.enabled`开启.(Pro)
+11. ReactorQL增加`_window_until`和`_window_until_change`函数.(Pro)
+12. 优化事件总线性能,在使用`TopicPayload`后需要手动调用`release()`释放资源.
+13. 优化`设备数据行式存储策略`:取消存储`propertyName`,`formatValue`字段,`influxdb`下只存储`numberValue`,`timeValue`,`value`.
+14. 优化物模型拓展信息配置,可在协议包中`support.setExpandsConfigMetadata`来指定配置(需要升级jetlinks-core 1.1.4)
 
 ## 1.6-RELEASE
 

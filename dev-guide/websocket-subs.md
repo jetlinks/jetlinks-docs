@@ -177,6 +177,47 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 详细使用见[Dashboard说明](./dashboard.md)
 :::
 
+## 订阅引擎事件数据
+
+发送消息到websocket
+
+```js
+{
+    "type": "sub", //固定为sub
+    "topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
+    "parameter": {},
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+平台推送:
+
+```js
+{
+	"payload": {   
+	 //规则数据,不同的节点和事件类型数据不同
+	},
+	"requestId": "request-id", //订阅请求的ID
+	"topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
+	"type": "result" //为comlete是则表示订阅结束.
+}
+```
+
+::: tip event说明
+
+**error**: 执行节点错误
+```js
+{
+    message:"错误消息",
+    stack:"异常栈信息",
+    type::"错误类型"
+}
+```
+**result**: 节点数据输出
+**complete**: 执行节点完成
+
+:::
+
 ## 订阅设备告警数据
 
 发送消息到websocket
@@ -203,7 +244,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 	},
 	"requestId": "request-id", //订阅请求的ID
 	"topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
-	"type": "result" //为comlete是则表示同步完成.
+	"type": "result" //为comlete是则表示订阅结束.
 }
 ```
 

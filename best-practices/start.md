@@ -30,14 +30,14 @@
 
 常用的[Headers](https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/Headers.java):
 
-1. async 是否异步,boolean类型.
-2. timeout 指定超时时间. 毫秒.
-3. frag_msg_id 分片主消息ID,为下发消息的`messageId`
-4. frag_num 分片总数
-5. frag_part 当前分片索引
-6. frag_last 是否为最后一个分片,当无法确定分片数量的时候,可以将分片设置到足够大,最后一个分片设置:`frag_last=true`来完成返回.
-7. keepOnline 与`DeviceOnlineMessage`配合使用,在TCP短链接,保持设备一直在线状态,连接断开不会设置设备离线.
-8. keepOnlineTimeoutSeconds 指定在线超时时间,在短链接时,如果超过此间隔没有收到消息则认为设备离线.
+1. **async** 是否异步,boolean类型.
+2. **timeout** 指定超时时间. 毫秒.
+3. **frag_msg_id** 分片主消息ID,为下发消息的`messageId`
+4. **frag_num** 分片总数
+5. **frag_part** 当前分片索引
+6. **frag_last** 是否为最后一个分片,当无法确定分片数量的时候,可以将分片设置到足够大,最后一个分片设置:`frag_last=true`来完成返回.
+7. **keepOnline** 与`DeviceOnlineMessage`配合使用,在TCP短链接,保持设备一直在线状态,连接断开不会设置设备离线.
+8. **keepOnlineTimeoutSeconds** 指定在线超时时间,在短链接时,如果超过此间隔没有收到消息则认为设备离线.
    
 ::: tip
 messageId通常由平台自动生成,如果设备不支持消息id,可在自定义协议中通过Map的方式来做映射,将设备返回的消息与平台的messageId进行绑定.
@@ -57,12 +57,15 @@ messageId通常由平台自动生成,如果设备不支持消息id,可在自定�
 
 ```java
 ReadPropertyMessage{
+    Map<String,Object> headers;
     String deviceId; 
     String messageId;
+    long timestamp; //时间戳(毫秒)
     List<String> properties;//可读取多个属性
 }
 
 ReadPropertyMessageReply{
+    Map<String,Object> headers;
     String deviceId;
     String messageId;
     long timestamp; //时间戳(毫秒)
@@ -73,12 +76,15 @@ ReadPropertyMessageReply{
 
 ```java
 WritePropertyMessage{
+    Map<String,Object> headers;
     String deviceId; 
     String messageId;
+    long timestamp; //时间戳(毫秒)
     Map<String,Object> properties;
 }
 
 WritePropertyMessageReply{
+    Map<String,Object> headers;
     String deviceId;
     String messageId;
     long timestamp; //时间戳(毫秒)
@@ -89,6 +95,7 @@ WritePropertyMessageReply{
 
 ```java
 ReportPropertyMessage{
+    Map<String,Object> headers;
     String deviceId;
     String messageId;
     long timestamp; //时间戳(毫秒)
@@ -104,9 +111,11 @@ ReportPropertyMessage{
 
 ```java
 FunctionInvokeMessage{
+    Map<String,Object> headers;
     String functionId;//功能标识,在元数据中定义.
     String deviceId;
     String messageId;
+    long timestamp; //时间戳(毫秒)
     List<FunctionParameter> inputs;//输入参数
 }
 
@@ -116,6 +125,7 @@ FunctionParameter{
 }
 
 FunctionInvokeMessageReply{
+    Map<String,Object> headers;
     String deviceId;
     String messageId;
     long timestamp;
@@ -132,6 +142,7 @@ FunctionInvokeMessageReply{
 
 ```java
 EventMessage{
+    Map<String,Object> headers;
     String event; //事件标识,在元数据中定义
     Object data;  //与元数据中定义的类型一致,如果是对象类型,请转为java.util.HashMap,禁止使用自定义类型.
     long timestamp; //时间戳(毫秒)
@@ -227,7 +238,7 @@ ChildDeviceMessage{
 
 ## 设备接入流程
 
-![flow](../quick-start/flow.svg)
+![flow](./device-flow.svg)
 
 ## 设备接入最佳实践
 
@@ -388,17 +399,9 @@ mappings:
             "ignore_above" : 512,
             "type" : "keyword"
           },
-          "formatValue" : { //格式化后的值
-            "ignore_above" : 512,
-            "type" : "keyword"
-          },
           "createTime" : { //平台记录数据的时间
             "format" : "epoch_millis||strict_date_hour_minute_second||strict_date_time||strict_date",
             "type" : "date"
-          },
-          "propertyName" : { //属性名称
-            "ignore_above" : 512,
-            "type" : "keyword"
           },
           "property" : { //属性ID,与物模型属性ID一致
             "ignore_above" : 512,
