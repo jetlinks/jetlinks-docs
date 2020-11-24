@@ -208,7 +208,7 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/connected
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
+"deviceId":"子设备ID", //毫秒时间戳
 "messageId":"随机消息ID",
 "timestamp":1584331469964//时间戳
 }
