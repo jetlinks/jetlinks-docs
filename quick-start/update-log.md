@@ -33,6 +33,9 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 12. 优化事件总线性能,在使用`TopicPayload`后需要手动调用`release()`释放资源.
 13. 优化`设备数据行式存储策略`:取消存储`propertyName`,`formatValue`字段,`influxdb`下只存储`numberValue`,`timeValue`,`value`.
 14. 优化物模型拓展信息配置,可在协议包中`support.setExpandsConfigMetadata`来指定配置(需要升级jetlinks-core 1.1.4)
+15. 增加内存使用检查,当内存使用剩余低于15%时,丢弃请求防止内存溢出导致系统崩溃.可通过启动参数`-Dmemory.waterline=0.15`进行配置.(Pro)
+16. 优化elasticsearch背压策略,丢弃无法写入的Buffer防止内存溢出.(Pro)
+17. 优化集群下对设备网关的支持.(Pro)
 
 ## 1.6-RELEASE
 
