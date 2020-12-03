@@ -131,8 +131,8 @@ module.exports = {
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
-                    ['/big-screen/start/本地启动', '启动'],
-                    ['big-screen/baiscs/快速入门', '快速入门'],
+                    ['/big-screen/start/start', '启动'],
+                    ['big-screen/baiscs/open', '快速入门'],
                 ]
             },
             {
