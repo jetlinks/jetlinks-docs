@@ -124,6 +124,18 @@ module.exports = {
                 ]
             },
             {
+                title: '大屏',   // 必要的
+                //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+                collapsable: false, // 可选的, 默认值是 true,
+                sidebarDepth: 2,    // 可选的, 默认值是 1
+                children: [
+                    //['', '介绍'],
+                    //['', '快速开始'],
+                    ['/big-screen/start/本地启动', '启动'],
+                    ['big-screen/baiscs/快速入门', '快速入门'],
+                ]
+            },
+            {
                 title: '常见问题',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
