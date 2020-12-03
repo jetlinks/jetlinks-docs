@@ -8,6 +8,7 @@ ADD .vuepress/dist/interface-guide /usr/share/nginx/html/interface-guide
 ADD .vuepress/dist/best-practices /usr/share/nginx/html/best-practices
 ADD .vuepress/dist/install-deployment /usr/share/nginx/html/install-deployment
 ADD .vuepress/dist/quick-start /usr/share/nginx/html/quick-start
+ADD .vuepress/dist/big-screen /usr/share/nginx/html/big-screen
 ADD .vuepress/dist/404.html /usr/share/nginx/html/
 ADD .vuepress/dist/index.html /usr/share/nginx/html/
 ADD docker-entrypoint.sh /docker-entrypoint.sh
