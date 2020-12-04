@@ -31,6 +31,16 @@ $ npm install
 $ npm run serve 
 ```
 
+在jetlinks中修改大屏跳转地址： jetlinks-pro/jetlinks-standalone/src/main/resources/application.yml
+```yaml
+api:
+  urls:
+    big-screen-path: http://localhost:9002/ #localhost根据大屏实际部署地址修改
+```
+创建大屏权限：进入平台，系统设置=>权限管理=>新建
+
+![创建权限](big-screen-permission.png)
+
 赋权：进入平台，系统设置=>用户管理=>赋权，给用户赋权：
 
 ![image-20201123170823171](image-20201123170823171.png)
