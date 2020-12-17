@@ -32,7 +32,6 @@ topic: `/{productId}/{deviceId}/properties/read`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"消息ID",
 "deviceId":"设备ID",
 "properties":["sn","model"] //要读取到属性列表
@@ -46,15 +45,13 @@ topic: `/{productId}/{deviceId}/properties/read`
 ```json
 //成功
 {
-    "timestamp":1601196762389, //毫秒时间戳
     "messageId":"与下行消息中的messageId相同",
     "properties":{"sn":"test","model":"test"}, //key与设备模型中定义的属性id一致
     "deviceId":"设备ID",
-    "success":true
+    "success":true,
 }
 //失败. 下同
 {
-    "timestamp":1601196762389, //毫秒时间戳
     "messageId":"与下行消息中的messageId相同",
     "success":false,
     "code":"error_code",
@@ -72,7 +69,6 @@ topic: `/{productId}/{deviceId}/properties/write`
     
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"消息ID",
 "deviceId":"设备ID",
 "properties":{"color":"red"} //要设置的属性
@@ -87,10 +83,9 @@ topic: `/{productId}/{deviceId}/properties/write`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"与下行消息中的messageId相同",
 "properties":{"color":"red"}, //设置成功后的属性,可不返回
-"success":true
+"success":true,
 }
 ```
 
@@ -104,7 +99,6 @@ topic: `/{productId}/{deviceId}/properties/report`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"随机消息ID",
 "properties":{"temp":36.8} //上报数据
 }
@@ -120,7 +114,6 @@ topic: `/{productId}/{deviceId}/function/invoke`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"消息ID",
 "deviceId":"设备ID",
 "function":"playVoice",//功能ID
@@ -137,9 +130,8 @@ topic: `/{productId}/{deviceId}/function/invoke`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"与下行消息中的messageId相同",
-"output":"success", //返回执行结果,具体类型与物模型中功能输出类型一致
+"output":"success", //返回执行结果
 "success":true,
 }
 ```    
@@ -154,9 +146,8 @@ topic: /{productId}/{deviceId}/event/{eventId}
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"随机消息ID",
-"data":100 //上报数据,类型与物模型事件中定义的类型一致
+"data":100 //上报数据
 }
 ```
 
@@ -172,7 +163,6 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/register
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"随机消息ID",
 "deviceId":"子设备ID"
 }
@@ -190,7 +180,6 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/unregister
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"随机消息ID",
 "deviceId":"子设备ID"
 }
@@ -208,7 +197,6 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/connected
 
 ```json
 {
-"deviceId":"子设备ID", //毫秒时间戳
 "messageId":"随机消息ID",
 "timestamp":1584331469964//时间戳
 }
@@ -226,7 +214,6 @@ topic: /{productId}/{deviceId}/child/{childDeviceId}/disconnect
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
 "messageId":"随机消息ID",
 "timestamp":1584331469964//时间戳
 }

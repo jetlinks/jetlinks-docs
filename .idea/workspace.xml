@@ -1,30 +1,761 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-event-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-event-report-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/device-property-refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/emq-connection-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/emq-dashboard.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/insert-mqtt-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/insert-mqtt-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqtt-client-debug.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqtt-client-message-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqtt-client-message-subscribe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqtt-client-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqtt-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-connection.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-device-event-report.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-replay-device-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-replyed-property-value.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-sub-read-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-subscribe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/advancement-guide/images/third-mqtt/read-device-property-reply-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/coap-server-gateway/coap-server-connected-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/coap-server-gateway/create-coap-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/coap-server-gateway/device-received-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/coap-server-gateway/save-coap-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/coap-server-gateway/send-device-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/choose-device-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/demo-protocol-1.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-event-info.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-event-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-event-report-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-general-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-not-active.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-run-info-temp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance-run-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-instance.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-offline-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-online-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-info.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-info2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-info3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-smokeSensation001.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-product-unpublished.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/device-property-refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/fh3j-protocol-2.0.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/import-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/import-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-connection-general.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-connection-tsl.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-connection-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-connection.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-gateway-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-publish-topic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqtt-sub.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqttfx-device-event-report.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqttfx-index.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqttfx-replay-device-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqttfx-replyed-property-value.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/mqttfx-sub-read-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/new-protocol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/product-protocol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/read-device-property-reply-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/read-device-property.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/rule-dingding-message-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/save-mqtt-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/智能温控测试设备.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/device-connection/设备型号-智能温控.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/emq-client-monitor.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/emq-mqtt-client-connected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/emq-sub-mqtt-client-topic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/mqtt-fx-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/mqttfx-publish-online-msg.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/save-mqtt-client-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/save-mqtt-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/mqtt-client-gateway/start-mqtt-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/rule-transfer-message/create-rule-model.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/files/rule-transfer-message/generate-message-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/agreement-info-jar.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/agreement-info-script.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/agreement-list.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/choose-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/choose-tab-shadow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-find-info.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-find-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-find-info2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-info.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-log.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-running-state.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-running-state.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/device-shadow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-attribute.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-attribute1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-attribute2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-events.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-events.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-functions.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-functions.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-functions1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-info.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-json.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/model-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/device/mqtt-gateway-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/delete-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/delete-mqtt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/insert-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/insert-mqtt-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/insert-mqtt-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-debug1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-debug2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-debug3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-debug4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-debug5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/mqtt-fx-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/save-device-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/save-mqtt-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/update-certificate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/network/update-mqtt-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/139-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/163-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/TencentEnterprise-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/corpWeChat-send-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/device-instance-general-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/dingding-send-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/mail-send-test-result.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/mail-send-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-139-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-TencentEnterprise-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-aliyun-mail-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-corpWeChat-notify-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-corpWeChat-notify-template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-dingding-notify-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-dingding-notify-template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-mail-notify-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-mail-notify-template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-mail-notify-template1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-mail-notify-template2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-sms-notify-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-sms-notify-template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-voice-notify-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/save-voice-notify-template.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/sms-send-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/notify/voice-send-test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/openApi/openApi-empower.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/openApi/openApi-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/openApi/openApi-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule-engine/new-rule-model.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule-engine/rule-engine-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule-engine/rule-engine-stop.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/dingding-config-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/dingding-template-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-dingding-message-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-dingding-message-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-dingding-notice-dingding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-dingding-result.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-example-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/rule-list.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/rule/save-rule-dingding.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/autz-settings-permission.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/choose-field.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/choose-org.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/choose-permission.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/column-choose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/column-setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/data-view.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/delete-org.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/fast-permission-setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/field-access-play.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/have-permission.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/insert-org-child.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/insert-org.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/insert-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/into-field-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/into-org-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/into-org.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/into-permission-setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/menu-insert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/menu-search-box.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/menu-update.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/no-permission.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/org-bind-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/org-bind-user1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/org-bind-user2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/org-choose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/org-setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permiss-field-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-choose.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-create.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-importexport.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-insert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-save.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-searchbox.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-setting-bind.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-setting-navigation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-setting-play.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-setting-save.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-setting.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/permission-update.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/save-field-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/update-field-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/update-org-access.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/update-org.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/update-user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/user-insert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/user-search-box.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/user-update.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/images/system/video.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/create-mqtt-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/create-mqtt-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/create-protocol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/device-instance-general-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/device-instance-run-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/device-run-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/import-product-properties.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/mqtt-server-started.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/basics-guide/quick-start-images/new-device-instance.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/files/设备型号-子设备型号.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/files/设备型号-智能温控.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/files/设备型号-演示型号.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/files/设备实例-子设备.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/files/设备实例.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/OpenApiAuthenticationProcess.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/OpenApi认证流程.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/QQ图片20200402170919.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/QQ图片20200402171003.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/bind-child.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/bind-child1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/choose-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-http-start.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/coap-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/config-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/config-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/create-openapi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/create-udp-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-event-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-event-report-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-event-report-log1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-insert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-offline-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-offline-persistent-tcp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-offline1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-offline2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-online-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-online-persistent-tcp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-online1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-online2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-info2-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-info2-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-info2-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-info2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/event-report-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-device-event1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-device-event2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-device-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-device-published.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-product.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/http-server-gateway-start.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-coap-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-device-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-http-server-gateway.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-http-server.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-rule-engine-sql.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-tcp-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-tcp-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-udp-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/insert-udp-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/log1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/log2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/online-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/postman-event-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/postman-report-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/report1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/ac-open-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/active-device-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/bind-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-ac-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-avg-temp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-device-ac001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-device-group.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-lock-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/create-notify.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/debug-http.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/deploy-lock-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/device-avg-temp-debug.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/device-command-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/email.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/http-listener-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/http-response.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/http-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/into-designer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/into-device-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/invoke-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/lock-open-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/mqtt-auth.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/mqttfx-ac001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/mqttfx-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/postman.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/push-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/reactorQL-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/save-http-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/subscribe-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/update-ReactorQL-lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/update-ReactorQL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/update-device-command-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/update-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/rule-engine/update-http-listener.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/sender-type.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/start-simulator.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/tcp-connection-general.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/tcp-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/tcp-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-property-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-property-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/udp-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/best-practices/images/update-rule-engine-sql.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/WebSocket-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/WebSocket-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/WebSocket-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/WebSocket-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/下载和导入可视化应用-下载.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/下载和导入可视化应用-导入.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/删除可视化应用-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/删除可视化应用-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/动态数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/动态数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/动态数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/动态数据-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/可视化应用管理-复制-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/可视化应用管理-复制-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/可视化应用管理-编辑-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/可视化应用管理-重命名-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/数据配置管理.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/新增1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/新增2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/新增3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/新增4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/无标题.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/查看可视化应用-预览-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/查看可视化应用-预览-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/柱形图2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/柱形图3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/柱形图4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/柱形图5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/编辑1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/脚本1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/脚本2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/脚本3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/脚本4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/设备数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/设备数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/设备数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/调整组件的图层和位置-编辑-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/调整组件的图层和位置-编辑-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/调整组件的图层和位置-编辑-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/静态数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/静态数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/静态数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/预览可视化应用.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/预览并保存可视化应用-预览-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/baiscs/预览并保存可视化应用-预览-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/start/big-screen-permission.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/start/image-20201123151335501.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/big-screen/start/image-20201123170823171.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/common-problems/images/mysql-connection-warning.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/common-problems/images/ui-api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/create-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/delete-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/firmware-view.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/insert-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/push-message.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/release-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/save-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/task-complete.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/update-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/update-history.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/updating-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/dev-guide/images/upgrade-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/quick-start/flow.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/public/quick-start/platform.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/.vuepress/styles/index.styl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/benchmark.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/children-device.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/create-data-visualization.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/custom-protocol.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-event-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-event-report-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/device-property-refresh.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/emq-connection-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/emq-dashboard.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/insert-mqtt-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/insert-mqtt-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqtt-client-debug.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqtt-client-message-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqtt-client-message-subscribe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqtt-client-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqtt-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-config.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-connection.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-device-event-report.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-replay-device-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-replyed-property-value.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-sub-read-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/mqttfx-subscribe.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/images/third-mqtt/read-device-property-reply-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/jetlinks-protocol.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/mqtt-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/rule-engine-send.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/rule-engine-subscription.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/tcp-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/advancement-guide/third-mqtt.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/auto-register.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/c-2-c.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/coap-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/device-alarm.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/device-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/device-flow.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/device-gateway-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/files/设备型号-子设备型号.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/files/设备型号-智能温控.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/files/设备型号-演示型号.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/files/设备实例-子设备.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/files/设备实例.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/http-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/OpenApiAuthenticationProcess.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/bind-child.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/bind-child1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/choose-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-http-start.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/coap-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/config-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/config-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/create-openapi.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/create-udp-client.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-event-info.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-event-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-event-report-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-event-report-log1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-insert.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-offline-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-offline-persistent-tcp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-offline.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-offline1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-offline2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-online-log.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-online-persistent-tcp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-online1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-online2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-info1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-info2-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-info2-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-info2-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-info2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/event-report-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-device-event1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-device-event2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-device-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-device-published.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-product.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/http-server-gateway-start.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-coap-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-device-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-http-server-gateway.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-http-server.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-rule-engine-sql.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-tcp-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-tcp-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-udp-server-gateway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/insert-udp-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/log1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/log2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/online-send.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/postman-event-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/postman-report-property.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/report1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/ac-open-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/active-device-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/bind-device.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-ac-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-avg-temp.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-device-ac001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-device-group.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-lock-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/create-notify.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/debug-http.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/deploy-lock-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/device-avg-temp-debug.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/device-command-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/email.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/http-listener-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/http-response.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/http-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/into-designer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/into-device-product.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/invoke-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/lock-open-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/mqtt-auth.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/mqttfx-ac001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/mqttfx-lock001.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/postman.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/push-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/reactorQL-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/save-http-server.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/subscribe-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/update-ReactorQL-lock.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/update-ReactorQL.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/update-device-command-node.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/update-function.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/rule-engine/update-http-listener.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/sender-type.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/start-simulator.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/tcp-connection-general.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/tcp-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/tcp-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-device-online.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-device-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-event-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-event-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-event.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-product-published.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-property-changed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-property-logs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-report-property.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-server-gateway-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/udp-server-start.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/images/update-rule-engine-sql.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/jetlinks对接其他云平台教程-HTTP方式.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/open-api.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/poll-device-data.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/rule-engine-device-avg-temp.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/rule-engine-device-same-group.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/rule-engine-http-server.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/rule-engine-sql.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/rule-engine.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/sort-link.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/tcp-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/best-practices/udp-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/WebSocket-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/WebSocket-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/WebSocket-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/WebSocket-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/open.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/下载和导入可视化应用-下载.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/下载和导入可视化应用-导入.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/删除可视化应用-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/删除可视化应用-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/动态数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/动态数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/动态数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/动态数据-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/可视化应用管理-复制-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/可视化应用管理-复制-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/可视化应用管理-编辑-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/可视化应用管理-重命名-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/数据配置管理.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/新增1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/新增2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/新增3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/新增4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/无标题.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/查看可视化应用-预览-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/查看可视化应用-预览-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/柱形图2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/柱形图3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/柱形图4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/柱形图5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/编辑1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/脚本1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/脚本2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/脚本3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/脚本4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/设备数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/设备数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/设备数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/调整组件的图层和位置-编辑-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/调整组件的图层和位置-编辑-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/调整组件的图层和位置-编辑-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/静态数据-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/静态数据-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/静态数据-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/预览可视化应用.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/预览并保存可视化应用-预览-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/baiscs/预览并保存可视化应用-预览-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/start/big-screen-permission.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/start/image-20201123151335501.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/start/image-20201123170823171.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/big-screen/start/start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/build-and-push.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/images/mysql-connection-warning.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/images/run-jar-error.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/images/ui-api.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/install.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/mqtt-connection.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/network-components.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/common-problems/tcp-network-components.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/crud.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/custom-dashboard.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/custom-message-protocol.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/custom-notification-component.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/custom-sql-term.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/dashboard.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/device-firmware.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/device-firmware.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/device-gateway.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/device-operation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/event-driver.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/create-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/delete-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/firmware-view.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/insert-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/push-message.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/release-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/save-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/task-complete.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/update-firmware.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/update-history.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/updating-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/images/upgrade-task.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/jetlinks-protocol.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/message-gateway.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/micro-service.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/micro-service.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/mqtt-subs.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/multi-tenant.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/multi-tenant.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/reactor-ql.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/reactor.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/rule-engine.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/send-device-msg-mq.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/send-message.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/specification.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/sso.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/sso.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/subscribe-device-message.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/subscribe-messages.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/utils.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/dev-guide/websocket-subs.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/docker-entrypoint.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/cluster.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/cluster.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/deployment.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/docker-probation.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/docker-start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/ide-docker-start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/not-docker-start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/required-environment.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/start-with-source.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/install-deployment/ui-start.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/authentication.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/device/device-instance.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/device/device-product.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/enum.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/open-api/access.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/open-api/open-api.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/interface-guide/query-param.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/platform.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/demo.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/download.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/flow.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/introduction.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/platform.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/quick-start/update-log.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-problems/rule-engine.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/coap-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/coap-connection.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/udp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/udp-connection.md" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,13 +787,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="$PROJECT_DIR$/.idea" />
-      </set>
-    </option>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -73,8 +797,12 @@
     </option>
   </component>
   <component name="ProjectId" id="1XN21VZaNEypj5I6C21S0jpCeO5" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
@@ -84,7 +812,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -108,18 +836,6 @@
       <recent name="$PROJECT_DIR$/advancement-guide" />
       <recent name="$PROJECT_DIR$/interface-guide/device" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="Applet">
@@ -160,16 +876,7 @@
       </method>
     </configuration>
   </component>
-  <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand />
-          <select />
-        </treeState>
-      </serviceView>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration>C:\Users\浩\AppData\Roaming\Subversion</configuration>
   </component>
@@ -309,6 +1016,8 @@
       <workItem from="1597628568115" duration="33324000" />
       <workItem from="1598838058448" duration="1829000" />
       <workItem from="1599115673825" duration="24107000" />
+      <workItem from="1608173028549" duration="454000" />
+      <workItem from="1608174147239" duration="167000" />
     </task>
     <task id="LOCAL-00066" summary="优化文档">
       <created>1588752714979</created>
@@ -657,7 +1366,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -689,13 +1398,12 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
