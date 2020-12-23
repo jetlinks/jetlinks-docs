@@ -8,27 +8,29 @@
 
 **例**
 
-i. 选择 `设备接入`-->`协议管理`--> 点击`新建协议`按钮
+i. 选择 `设备接入`-->`协议管理`--> 点击`新建`按钮
 
 ![新建协议导航](../basics-guide/files/device-connection/new-protocol.png)
 
-ii. 输入型号名称
+ii.输入协议ID
 
-iii. 选择型号类型为 `jar`
+iii. 输入型号名称
 
-iv. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
+iv. 选择型号类型为 `jar`
 
-v. 上传jar包`demo-protocol-1.0.jar`，  请检出[demo-protocol](https://github.com/jetlinks/demo-protocol)自行打包。
+v. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
 
-vi. 点击保存，完成协议新增。
+vi. 上传jar包`demo-protocol-1.0.jar`，  请检出[demo-protocol](https://github.com/jetlinks/demo-protocol)自行打包。
+
+vii. 点击确认，完成协议新增。
 
 ### 创建完成信息展示  
 
 ![新建型号协议](../basics-guide/files/device-connection/product-protocol.png)
 
+viii. 在操作列表中将协议发布。
+![新建型号协议](../basics-guide/files/device-connection/protocol-release.png)
 ## 创建产品
-
-> 完整的产品创建，请参考[添加设备型号](../basics-guide/device-manager.md#添加产品)。
 
 **例**
 
@@ -45,21 +47,24 @@ iii. 选择[配置JSON](../basics-guide/files/device-connection/设备型号-智
 http://后台服务ip:8848/upload，参考[协议上传问题](../common-problems/install.md#协议发布失败或出现不支持的协议：xxx)
 :::
 
-iv.型号导入完成效果如下图
+iv.产品导入完成后，产品状态为`未发布`,效果如下图
 
-![未发布型号](../basics-guide/files/device-connection/device-product-unpublished.png)  
+![未发布产品](../basics-guide/files/device-connection/device-product-unpublished.png)  
 
- v.点击上图中`未发布`链接完成型号发布，导航栏中发布状态变为`已发布`代表发布成功。  
+ v.点击刚导入产品中的`...`按钮会出现`发布`按钮，点击`发布`按钮完成产品发布，导航栏中发布状态变为`已发布`代表发布成功。  
 
-![已发布型号](../basics-guide/files/device-connection/device-product-published.png)
+![已发布产品](../basics-guide/files/device-connection/device-product-published.png)
 
-### 创建成功的型号信息展示 
+### 创建成功的产品信息展示 
 
-i. 点击导航栏中`编辑`链接查看型号基本信息
+i. 点击产品中`编辑`链接查看和编辑产品的基本信息
+![产品编辑按钮](../basics-guide/files/device-connection/compile.png)
 
-ii. 点击弹出框中`设备定义`板块查看型号设备定义
+ii. 点击产品中`查看`→`物模型`,对产品设备定义
+![产品查看按钮](../basics-guide/files/device-connection/check.png)
+![物模型按钮](../basics-guide/files/device-connection/Physical-model.png)
 
-iii. 点击属性定义、事件定义对应操作下的编辑按钮查看更详细的型号信息  
+iii. 点击属性定义信、事件定义对应操作下的编辑按钮查看更详细的型号息  
 
 属性定义参数：  
 ![型号信息1](../basics-guide/files/device-connection/device-product-info1.png)  
@@ -84,54 +89,68 @@ ii. 选择 `设备管理`-->`设备`--> `其他批量操作`-->`批量导入设�
 
 iii. 选择需要导入的产品,点击文件上传  
 
-![选择型号](../basics-guide/files/device-connection/choose-device-product.png)  
+![选择产品](../basics-guide/files/device-connection/choose-device-product.png)  
 
-iv. 选择[设备Excel](../basics-guide/files/device-connection/智能温控测试设备.xlsx)文件
-
-v. 设备导入完成效果如下图
+iv. 设备导入完成效果如下图
 
 ![未激活的设备](../basics-guide/files/device-connection/device-instance-not-active.png)
 
-vi. 点击上图中`激活`链接完成设备激活，状态栏中发布状态变为`离线`代表设备激活成功。
+v. 点击上图中`启用`链接完成设备激活，状态栏中发布状态变为`离线`代表设备激活成功。
 
 ![已激活的设备](../basics-guide/files/device-connection/device-instance-offline.png)
 
 ### 创建成功的设备信息展示
 
-i. 设备基本信息
-
+i. 点击查看链接可以看到设备基本信息（实例信息）
+![点击查看按钮](../basics-guide/files/device-connection/device-instance-general-check.png)
 ![设备基本信息](../basics-guide/files/device-connection/device-instance-general-info.png)
 
-ii. 设备运行状态信息
+ii. 设备运行状态信息（运行状态）
 
 ![设备运行状态信息](../basics-guide/files/device-connection/device-instance-run-info.png)
 
-iii. 设备日志
+iii.设备功能信息（设备功能）
+
+![设备功能信息](../basics-guide/files/device-connection/device-instance-function.png)
+
+iv. 设备日志（日志管理）
 
 ![设备日志](../basics-guide/files/device-connection/device-instance-log.png)
+
+v.告警设置
+
+![告警设置](../basics-guide/files/device-connection/device-instance-alarm.png)
+
+vi.可视化
+
+![可视化](../basics-guide/files/device-connection/device-instance-visual.png)
+
+vii.设备影子
+
+![设备影子](../basics-guide/files/device-connection/device-instance-sign.png)
 
 ## 创建网关配置
 
 参照[启动设备网关服务](../basics-guide/course/device-gateway.md)
 
 **例**
-- 创建MQTT服务网络组件
-- 创建MQTT服务设备网关
-
-MQTT服务组件配置  
-![MQTT服务组件配置](../basics-guide/files/device-connection/mqtt-config.png)
-
+i.创建MQTT服务网络组件以及MQTT服务组件配置 
+![MQTT服务组件创建和配置](../basics-guide/files/device-connection/mqtt-config.png)
 ::: tip 注意：
 此处使用的端口为1889，docker启动时没有默认开启，使用docker启动jetlinks时请映射1889端口或者使用1883端口。  
 :::
+ii.启动MQTT服务组件（灰色为未启动，蓝色为启动）
+![MQTT服务组件启动](../basics-guide/files/device-connection/mqtt-start.png)
 
-MQTT服务设备网关  
-![MQTT服务设备网关](../basics-guide/files/device-connection/mqtt-gateway-info.png)
+iii.创建MQTT服务设备网关以及MQTT服务设备网关配置  
+![MQTT服务设备网关创建和配置](../basics-guide/files/device-connection/mqtt-gateway-info.png)
 
-::: warning 警告
-大部分情况无需选择`认证协议`. 
+iv.启动MQTT服务设备网关，点击 `启动`，`状态`变为`已启动`
+![MQTT启动](../basics-guide/files/device-connection/mqtt-gateway-start1.png)
+![MQTT启动](../basics-guide/files/device-connection/mqtt-gateway-start2.png)
+::: tip 注意：
+大部分情况无需选择认证协议. 
 :::
-
 ## 使用MQTT.fx接入
 
 1.下载并安装MQTT.fx软件。请访问[MQTT.fx官网](https://mqttfx.jensd.de/index.php/download?spm=a2c4g.11186623.2.16.20ab5800HxuVJR)。
@@ -192,19 +211,19 @@ ii. 单击User Credentials，设置User Name和Password。
 
 ![设备上线](../basics-guide/files/device-connection/device-online.png)
 
-在设备日志模块可以看到设备上线日志
+点击该设备的`查看`→`日志管理`，在设备日志模块可以看到设备上线日志
 
 ![设备上线日志](../basics-guide/files/device-connection/device-online-log.png)
 
 单击 Mqtt fx 中`Disconnect`断开连接
 
-![mqtt连接](../basics-guide/files/device-connection/mqtt-connection.png)
+![mqtt断开连接](../basics-guide/files/device-connection/mqtt-connection-stop.png)
 
 平台中设备状态变为离线即为断开连接成功
 
 ![设备离线](../basics-guide/files/device-connection/device-offline.png)
 
-在设备日志模块可以看到设备离线日志
+点击该设备的`查看`→`日志管理`，在设备日志模块可以看到设备离线日志
 
 ![设备离线日志](../basics-guide/files/device-connection/device-offline-log.png)
 
@@ -384,5 +403,3 @@ MQTT.fx 推送设备事件消息到平台
 物模型中的标签也可创建geo类型，但不可通过标签上报地理位置信息，只能通过属性上报。  
 地理位置标签将主要运用在地图查询中。  
 :::
-
-
