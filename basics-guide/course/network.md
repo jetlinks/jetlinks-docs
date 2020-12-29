@@ -8,7 +8,7 @@
 
 ### 新增
 **操作步骤**
-1. 进入系统: `网络组件`-`证书管理`-`新建`。  
+1. 进入系统: `设备接入`-`证书管理`-`新建`。  
 
 2. 输入证书信息。  
 
@@ -17,13 +17,13 @@
 
 ### 编辑
 **操作步骤**
-1. 进入系统: `网络组件`-`证书管理`，在操作列点击`编辑`。  
+1. 进入系统: `设备接入`-`证书管理`，在操作列点击`编辑`。  
 2. 编辑证书信息。  
 3. 点击`确定`进行保存。  
 ![证书编辑](../images/network/update-certificate.png)
 
 ### 删除
-进入系统: `网络组件`-`证书管理`，在操作列点击`删除`。  
+进入系统: `设备接入`-`证书管理`，在操作列点击`删除`。  
 
 ![证书删除](../images/network/delete-certificate.png)
 
@@ -43,13 +43,13 @@
 ### 添加协议
 
 1. 登录物联网管理平台。
-2. 在左侧导航栏，选择设备管理 > 协议管理。
-3. 在协议管理管理页面协议管理列表中，单击协议管理所对应的`新建型号`操作按钮。
+2. 在左侧导航栏，选择设备接入 > 协议管理。
+3. 在协议管理管理页面协议管理列表中，单击协议管理所对应的`新建`操作按钮。
 4. 在弹出对话框中，填写协议相关信息，然后点击`保存`。
 
-![协议jar包基本信息](../images/device/agreement-info-jar.gif)
+![协议jar包基本信息](../images/device/agreement-info-jar.png)
 
-属性参数设置说明如下表。
+协议jar包属性参数设置说明如下表。
 
 |参数       | 描述 |
 | :--------------: | ------------- |
@@ -59,9 +59,9 @@
 | 文件地址      | 上传的jar包在平台的文件路径。|
 | 描述      | 输入文字，对该功能进行说明或备注。长度限制为100字。|
 
-![协议脚本基本信息](../images/device/agreement-info-script.gif)
+![协议脚本基本信息](../images/device/agreement-info-script.png)
 
-属性参数设置说明如下表。
+协议脚本属性参数设置说明如下表。
 
 | 参数       | 描述 |
 | :--------------: | -------------
@@ -75,13 +75,18 @@
 
 后续操作步骤:  
 
-![协议jar包基本信息](../images/device/agreement-list.gif)
+
 
 1. 在协议管理列表中单击该型号的`编辑`按钮，可以修改基本信息。
+![协议jar包编辑信息](../images/device/agreement-compile.png)
+![协议jar包编辑信息](../images/device/agreement-compile1.png)
 2. 在协议管理列表中单击该型号的`发布`按钮，将该协议注册到注册中心，添加设备型号时将会查询消息协议时就能查询到该协议。
    + 协议管理发布后,状态将变为`已发布`状态，已发布的设备型号或者是已绑定设备实例的设备型号将不支持删除。
+   ![协议jar包发布信息](../images/device/agreement-release.png)
+   ![协议jar包发布信息](../images/device/agreement-release1.png)
 3. 在协议管理列表中单击该型号的`删除`按钮，将物理删除该协议。
-   + `已发布`状态的协议将不显示`删除`按钮
+   （注：`已发布`状态的协议将不显示`删除`按钮）
+   ![协议jar包删除信息](../images/device/agreement-delete.png)
 
 ## 网络组件
 
@@ -90,7 +95,7 @@
 #### 新增
 **服务：**
 **操作步骤**
-1. 进入系统: `网络组件`-`组件管理`-`新建`。  
+1. 进入系统: `设备接入`-`网络组件`-`新增组件`。  
 
 2. 输入服务配置信息。  
 
@@ -107,11 +112,12 @@
 | PORT | 服务端口 | 是 |
 | TLS | 是否开启证书 | 否 |
 | 证书 | 选择证书 | 否 |
+| 最大消息长度 | 设置最大的消息长度 | 否 |
 | 描述 | 组件描述 | 否 |
 
 **客户端：**
 **操作步骤**
-1. 进入系统: `网络组件`-`组件管理`-`新建`。  
+1. 进入系统: `设备接入`-`网络组件`-`新增组件`。  
 
 2. 输入客户端配置信息。  
 
@@ -136,7 +142,7 @@
 
 **服务：**
 **操作步骤**
-1. 进入系统: `网络组件`-`组件管理`，点击对应配置的编辑按钮。  
+1. 进入系统: `设备接入`-`网络组件`，点击对应配置的编辑按钮。  
 
 2. 输入服务配置信息。  
 
@@ -148,7 +154,7 @@
 操作步骤与服务端相同。
 
 #### 删除
-进入系统: `网络组件`-`组件管理`，点击对应配置的删除按钮。  
+进入系统: `设备接入`-`网络组件`，点击对应配置的删除按钮。  
 
 ![mqttserver删除](../images/network/delete-mqtt.png)
 
@@ -158,7 +164,7 @@
 
 **操作步骤**  
 
-1. 进入系统：`网络组件`-`组件管理`。  
+1. 进入系统：`设备接入`-`网络组件`。  
 
 2. 选择对应的MQTT服务组件，点击`启动`，点击`调试`。  
 
@@ -281,7 +287,7 @@
 
 #### 启动MQTT服务
 
-进入系统: `网络组件`-`组件管理` 点击左侧菜单中的`MQTT服务` 添加一个MQTT服务.
+进入系统: `设备接入`-`网络组件` 点击右侧菜单中组件类型选择`MQTT服务`， 添加一个MQTT服务.
 
 ![add mqtt server](../images/network/save-mqtt-server.png)
 
@@ -290,13 +296,14 @@
 #### 测试连接
 
 1. 点击表格中的`操作`-`调试`.
+![调试按钮位置](../images/network/mqtt-fx-debug.png)
 2. 点击调试界面中的`开始`按钮.
-3. 使用[MQTT.fx](http://mqttfx.org/)软件进行连接测试.
+3. 请访问[MQTT.fx官网](https://mqttfx.jensd.de/index.php/download?spm=a2c4g.11186623.2.16.20ab5800HxuVJR)软件进行连接测试.
 
 ![add mqtt server](../images/network/mqtt-fx-config.png)
 
 在调试MQTT服务界面打印出相关连接消息则表示服务正常.
-
+![调试按钮位置](../images/network/mqtt-fx-debug_suceess.png)
 注意:
 
 1. 一定要先在调试界面中点击开始.否则会拒绝MQTT连接.
@@ -327,22 +334,28 @@
 
 #### 创建MQTT客户端
 
-进入系统: `网络组件`-`组件管理` 点击左侧菜单中的`MQTT客户端` 添加一个MQTT客户端。
+进入系统: `设备接入`-`网络组件` 点击右侧菜单中组件类型选择`MQTT客户端` ，添加一个MQTT客户端。
 
 ![add mqtt server](../files/mqtt-client-gateway/save-mqtt-client.png)
 
 
 #### 测试连接
 
-使用[EMQ](https://docs.emqx.io/broker/v3/cn/install.html)软件进行连接测试.
+使用[EMQ](https://www.emqx.io/downloads#broker)软件进行连接测试.
 
-1.[安装](https://docs.emqx.io/broker/v3/cn/install.html#)完成EMQ，并启动
+1.使用docker启动
+```
+$docker pull emqx/emqx:4.2.3
+
+$docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:4.2.3
+```
+使用[EMQ](https://docs.emqx.cn/cn/broker/latest/getting-started/dashboard.html)开发文档查看原始用户名和密码.
 
 2.进入emq客户端监控界面
 
 ![emq客户端监控](../files/mqtt-client-gateway/emq-client-monitor.png)
 
-3.点击状态列中的`已停止`开启服务. 状态变为`已启动`则为启动完成.
+3.点击状态列中的`启动状态`开启服务.变为蓝色则为启动完成.
 
 ![启动mqtt客户单](../files/mqtt-client-gateway/start-mqtt-client.png)
 
@@ -353,7 +366,7 @@
 
 #### 创建设备网关
 
-新建设备网关配置
+点击 `设备接入`→`设备网关`
 
 ![add device gateway](../files/mqtt-client-gateway/save-mqtt-client-gateway.png)
 
@@ -396,7 +409,7 @@ ii. 在EMQ订阅监控列表中，看到有MQTT客户端设备网关新建时，
 
 ![add mqtt server](../files/mqtt-client-gateway/mqtt-fx-config.png)
 
-> 注意：上图第2步中port为EMQ服务所暴露的端口
+> 注意：上图第2步中port为EMQ服务所暴露的端口（1883）
 
 3.发送设备上线消息到EMQ中
 
@@ -425,11 +438,11 @@ ii. 在EMQ订阅监控列表中，看到有MQTT客户端设备网关新建时，
 
 #### 一、 创建CoAP服务并启动
 
-进入系统: `网络组件`-`组件管理` 点击左侧菜单中的`CoAP服务` 添加一个CoAP服务。
+进入系统: `设备接入`-`网络组件`，点击`新增组件`，在组件类型选择`CoAP服务`。
 
 ![add mqtt server](../files/coap-server-gateway/save-coap-server.png)
 
-点击状态列中的`已停止`开启服务. 状态变为`已启动`则为启动完成.
+点击`启动状态`按钮，从灰色变成蓝色代表启动成功。
 
 
 ##### 测试连接
@@ -478,17 +491,7 @@ iii. 设备日志
 
 **使用Node CoAP CLI测试**
 
-i. 安装[Node CoAP CLI](https://www.npmjs.com/package/coap-cli)
-
-ii. 点击`操作`列中的`启动`按钮，启动网关。
-
-iii. 终端输入: `coap post coap://127.0.0.1:12344/chiefdata/push/fire_alarm/department/1/area/1/dev/test001 -p {\"devid\":\"test001\"} -O 2100,test001` 
-
-![send-device-event](../files/coap-server-gateway/send-device-event.png)
-
-vi. 设备收到一条上报事件则代表CoAP网关测试成功
-
-![设备事件展示](../files/coap-server-gateway/device-received-event.png)
+参照[使用CoAP接入设备（PRO)](/best-practices/coap-connection.md)进行测试
 
 网关状态说明:
 
