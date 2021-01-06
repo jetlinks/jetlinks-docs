@@ -6,24 +6,24 @@
 
 ## 安装并启动EMQ
 
-可直接前往[官网下载](http://www.emqtt.io/downloads/) emqttd。  
+可直接前往[官网下载](https://www.emqx.io/cn/downloads#broker) emqttd。  
 本文使用docker搭建。  
 ### 拉取镜像  
 ```shell script
-docker pull registry.cn-hangzhou.aliyuncs.com/synbop/emqttd:2.3.6
+docker pull emqx/emqx:4.2.5
 ```
 ### 运行镜像  
 ```shell script
-docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8083:8083 -d registry.cn-hangzhou.aliyuncs.com/synbop/emqttd:2.3.6
+docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:4.2.5
 ```
 ### 访问EMQ Dashboard
-在浏览器中输入 http:192.168.99.100: 18083,默认账号密码为用户名：admin 密码：public。
+在浏览器中输入 http://localhost:18083/,默认账号密码为用户名：admin 密码：public。
 
 ![emq-dashboard](images/third-mqtt/emq-dashboard.png)
 
 ## 创建MQTT客户端网络组件
 
-1. 选择 `网络组件`-->`组件管理`--> 点击`新增组件`按钮。  
+1. 选择 `设备接入`-->`网络组件`--> 点击`新增组件`按钮。  
 ![insert-mqtt-client](images/third-mqtt/insert-mqtt-client.png)  
 2. 在创建完成的模块上点击`启动`按钮。  
 ![mqtt-client-start](images/third-mqtt/mqtt-client-start.png)  
