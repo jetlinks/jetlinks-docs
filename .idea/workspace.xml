@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-event-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-product.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/coap-server-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/best-practices/images/insert-coap-server.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-changed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-event-logs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product-published.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-product.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-gateway-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/coap-server-start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server-gateway.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/insert-coap-server.png" afterDir="false" />
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="docs:修改操作手册">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/coap-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/coap-connection.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/udp-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/udp-connection.md" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -109,18 +88,6 @@
       <recent name="$PROJECT_DIR$/interface-guide/device" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -130,6 +97,17 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -689,13 +667,12 @@
         </entry>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
