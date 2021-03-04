@@ -13,6 +13,17 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 当前最新稳定版本`1.8-RELEASE`,对应代码分支`1.8`.
 
+## 1.9-RELEASE
+
+预计更新时间: 待定
+
+代码分支: `master`
+
+1. 增加设备独立物模型支持,可给单独的设备配置物模型.
+2. 基本实现GB28181国标视频设备接入,支持`直播`,`云台控制`,`级联操作`.(选配模块)
+3. RabbitMQ增加`routeKey`配置,可在配置文件中指定`device.message.writer.rabbitmq.consumer-route-key`和`device.message.writer.rabbitmq.producer-route-key`.（Pro）
+4. 当设置了`device.message.writer.rabbitmq.consumer=false`时,不创建MQ消费者.(Pro)
+
 ## 1.8-RELEASE
 
 更新时间: 2021-01-12
@@ -34,7 +45,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 13. 发送功能调用指令时,增加参数校验和参数类型转换.(可通过`headers.force`跳过校验)
 14. 优化设备分类数据初始化,默认使用`-`进行id分隔(使用`|`可能导致400错误.)
 15. 通过jvm参数`-Djetlinks.eventbus.payload.pool.enabled=true`开启事件总线对象池,提升性能.
-16. 修复在多租户可能存在的事务问题,表现: 无权限删除,仍然执行了资产解绑操作.(Pro)
+16. 修复在多租户可能存在的事务问题,表现: 无删除权限,仍然执行了资产解绑操作.(Pro)
 17. 优化`elasticsearch 7.2.0`以上版本的聚合查询
 
 ## 1.7-RELEASE
