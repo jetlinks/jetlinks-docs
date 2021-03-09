@@ -23,6 +23,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 2. 基本实现GB28181国标视频设备接入,支持`直播`,`云台控制`,`级联操作`.(选配模块)
 3. RabbitMQ增加`routeKey`配置,可在配置文件中指定`device.message.writer.rabbitmq.consumer-route-key`和`device.message.writer.rabbitmq.producer-route-key`.（Pro）
 4. 当设置了`device.message.writer.rabbitmq.consumer=false`时,不创建MQ消费者.(Pro)
+5. 设备支持独立物模型,可单独配置设备到物模型.
 
 ## 1.8-RELEASE
 
