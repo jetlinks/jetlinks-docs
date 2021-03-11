@@ -82,6 +82,8 @@ module.exports = {
                     ['/basics-guide/course/network.md', '设备接入'],
                     ['/basics-guide/course/notification.md', '通知管理'],
                     ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
+                    ['/basics-guide/cloud-docking.md', '云云对接'],
+                    ['/basics-guide/movie.md', '视频网关'],
                     ['/basics-guide/DemoDevice.md', 'DemoDevice操作流程']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]
@@ -113,7 +115,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'openApi',   // 必要的
+                title: '第三方平台',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
