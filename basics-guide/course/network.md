@@ -334,7 +334,7 @@
 
 #### 创建MQTT客户端
 
-进入系统: `设备接入`-`网络组件` 点击右侧菜单中组件类型选择`MQTT客户端` ，添加一个MQTT客户端。
+进入系统: `设备接入`-`网络组件` 点击`新增组件` ，组件类型选择MQTT客户端。
 
 ![add mqtt server](../files/mqtt-client-gateway/save-mqtt-client.png)
 
@@ -345,9 +345,9 @@
 
 1.使用docker启动
 ```
-$docker pull emqx/emqx:4.2.3
+$docker pull emqx/emqx:4.2.7
 
-$docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:4.2.3
+$docker run -d --name emqx -p 1883:1883 -p 8083:8083 -p 8883:8883 -p 8084:8084 -p 18083:18083 emqx/emqx:4.2.7
 ```
 使用[EMQ](https://docs.emqx.cn/cn/broker/latest/getting-started/dashboard.html)开发文档查看原始用户名和密码.
 
