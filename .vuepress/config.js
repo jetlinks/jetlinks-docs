@@ -50,8 +50,8 @@ module.exports = {
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
                     ['/basics-guide/protocol-support.md', '协议开发说明'],
                     ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议'],
-                    ['/advancement-guide/mqtt-connection.md', '使用MQTT直接接入设备'],
-                    ['/advancement-guide/third-mqtt.md', '通过第三方MQTT服务接入设备'],
+                    ['/advancement-guide/mqtt-connection.md', '通过MQTT直连接入设备'],
+                    ['/advancement-guide/third-mqtt.md', '通过MQTT Broker接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
                     ['/best-practices/http-connection.md', '使用HTTP接入设备(PRO)'],
                     ['/best-practices/coap-connection.md', '使用CoAP接入设备(PRO)'],
@@ -84,7 +84,7 @@ module.exports = {
                     ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
                     ['/basics-guide/cloud-docking.md', '云云对接'],
                     ['/basics-guide/movie.md', '视频网关'],
-                    ['/basics-guide/DemoDevice.md', 'DemoDevice操作流程']
+                    ['/basics-guide/DemoDevice.md', '树莓派演示设备操作流程']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]
             },

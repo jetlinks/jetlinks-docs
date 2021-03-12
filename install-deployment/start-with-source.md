@@ -11,6 +11,8 @@
 
 ::: tip 注意
 如果你是linux或者macOS系统,或者是windows10. 推荐[使用docker安装所需环境](./ide-docker-start.md)
+
+项目启动后会自动创建表结构,但是数据库需要手动创建。
 :::
 
 ## 下载源代码
@@ -35,11 +37,12 @@ spring:
     port: 6379
   r2dbc:
     url: r2dbc:postgresql://127.0.0.1:5432/jetlinks  # 数据库postgresql数据库配置
+    #url: r2dbc:mysql://127.0.0.1:5432/jetlinks # 支持切换到mysql数据库
     username: postgres  # 数据库用户名
     password: jetlinks  # 数据库密码
 easyorm:
-  default-schema: public # 数据库名
-  dialect: postgres # 数据库方言
+  default-schema: public # 数据库名 修改了数据库请修改这里
+  dialect: postgres # 数据库方言，支持 postgres,mysql,h2
 elasticsearch:
   embedded:
     enabled: false # 为true时使用内嵌的elasticsearch
@@ -53,7 +56,7 @@ hsweb:
   file:
     upload:
       static-file-path: ./static/upload   # 上传的文件存储路径
-      static-location: http://127.0.0.1:${server.port}/upload # 上传文件后,使用此地址作为根路径访问上传后的文件.
+      static-location: http://127.0.0.1:${server.port}/upload # 上传文件后,将使用此地址来访问文件,在部署到服务器后需要修改这个地址为服务器的ip.
 ```
 
 ::: tip 说明

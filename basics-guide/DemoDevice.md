@@ -1,4 +1,10 @@
-# DemoDevicies手册
+# 树莓派演示设备操作手册
+
+通过树莓派来接入传感器到JetLinks平台。 [演示视频](https://www.bilibili.com/video/BV1VA411W7JC)
+
+::: tip
+协议代码以及传感器未开源,如果想获取演示设备以及协议代码,请联系商务.
+:::
 
 ## 新建
 
@@ -23,7 +29,7 @@
 
 ### 创建协议
 1.点击 `设备接入` → `协议管理` → `新建`
-
+上传对应的协议文件,
 输入类名org.jetlinks.pisenser.protocol.PiSenserProtocolSupportProvider
 
 （注：jar包在系统 /home/pi 目录下面）
