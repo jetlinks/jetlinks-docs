@@ -18,7 +18,7 @@
 
 4. 方法名首字母小写,使用驼峰命名. 名称要见名知义.
     
-    正确: findById(String id), deployDeviceInstance(List<String> deviceInstanceIdList)
+    正确: findById(String id), deployDeviceInstance(List&lt;String&gt;deviceInstanceIdList)
     错误: getData(String arg)
  
 5. 局部变量首字母小写,使用驼峰命名. 名称要见名知义.

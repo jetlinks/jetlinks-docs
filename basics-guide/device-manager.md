@@ -201,9 +201,10 @@
 5. 点击产品的`查看`→选择`物模型`，
   添加属性定义：在属性定义表格右上角有个添加按钮，点击按钮将弹出会话框。设置参数完成后，单击`保存`。
 
-![产品属性信息1](images/device/model-attribute0.png)  
+![产品属性信息0](images/device/model-attribute0.png)
 ![产品属性信息1](images/device/model-attribute1.png)
 ![产品属性信息2](images/device/model-attribute2.png)
+
 
 属性参数设置说明如下表。
 
@@ -262,7 +263,6 @@ JSON对象参数设置说明如下表。
 
 + 添加标签定义：在标签定义表格右上角有个添加按钮，点击按钮将弹出会话框。设置参数完成后，单击`确认`。
 
-![产品标签信息](images/device/model-events1.png)
 
 事件参数设置说明如下表。
 

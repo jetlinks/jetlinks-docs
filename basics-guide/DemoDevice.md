@@ -31,6 +31,8 @@
 1.点击 `设备接入` → `协议管理` → `新建`
 上传对应的协议文件,
 输入类名org.jetlinks.pisenser.protocol.PiSenserProtocolSupportProvider
+
+（注：jar包在系统 /home/pi 目录下面）
 ![创建协议](images/device_demo/create_protocol.png)
 
 2.在操作栏中点击点击`发布`
@@ -49,6 +51,8 @@
 4.导入物模型
 
 ·下载快速导入物模型的文件,再点击`应用配置`
+
+（注：物模型文件在/home/pi 目录下面，）
 ![导入物模型](images/device_demo/download.png)
 ### 创建设备:
 
