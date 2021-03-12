@@ -145,6 +145,11 @@ ii.启动MQTT服务组件（灰色为未启动，蓝色为启动）
 iii.创建MQTT服务设备网关以及MQTT服务设备网关配置  
 ![MQTT服务设备网关创建和配置](../basics-guide/files/device-connection/mqtt-gateway-info.png)
 
+::: warning 警告
+大部分情况，请勿勾选`认证协议`,认证协议的作用是: 使用指定的协议来进行统一的认证。不勾选时，则使用产品里选择的协议来进行认证，
+这2种认证方式在协议包内的实现方式是不同的。大部分情况下不需要选择。
+:::
+
 iv.启动MQTT服务设备网关，点击 `启动`，`状态`变为`已启动`
 ![MQTT启动](../basics-guide/files/device-connection/mqtt-gateway-start1.png)
 ![MQTT启动](../basics-guide/files/device-connection/mqtt-gateway-start2.png)
