@@ -261,6 +261,9 @@ from "/device/*/*/message/property/**" t
 
 ### device.properties.latest
 
+::: tip
+此功能需要开启[设备最新数据存储](../best-practices/start.html#记录设备最新数据到数据库)
+:::
 查询设备最新的数据
 
 ```sql
@@ -310,10 +313,13 @@ left join (
 支持参数:
 
 1. in_gourp('groupId') 在指定的设备分组中
-2. same_group('deviceId') 在指定设备的相同分组中
-3. product('productId') 指定产品ID对应的设备
-4. tag('tag1Key','tag1Value','tag2Key','tag2Value') 按指定的标签获取
-5. state('online') 按指定的状态获取
+2. in_group_tree('groupId') 在指定分组中（包含下级分组）
+3. same_group('deviceId') 在指定设备的相同分组中
+4. product('productId') 指定产品ID对应的设备
+5. tag('tag1Key','tag1Value','tag2Key','tag2Value') 按指定的标签获取
+6. state('online') 按指定的状态获取
+7. in_tenant('租户ID') 在指定租户中的设备
+8. org('机构ID') 在指定机构中
 
 ### mqtt.client.publish
 
