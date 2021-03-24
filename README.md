@@ -74,7 +74,7 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 | 钉钉消息通知                 | ✅      | ✅                     | ✅                         |
 | MQTT(TLS)                    | ✅      | ✅                     | ✅                         |
 | TCP(TLS)                     | ✅      | ✅                     | ✅                         |
-| CoAP(DTLS)                   | ⭕      | ✅                     | ✅                         |
+| UDP,CoAP(DTLS)                   | ⭕      | ✅                     | ✅                         |
 | Http,WebSocket(TLS)          | ⭕      | ✅                     | ✅                         |
 | 转发设备数据到RabbitMQ,Kafka | ⭕      | ✅                     | ✅                         |
 | Geo地理位置支持              | ⭕      | ✅                     | ✅                         |
