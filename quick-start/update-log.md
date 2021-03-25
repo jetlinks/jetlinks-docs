@@ -25,6 +25,11 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 4. 当设置了`device.message.writer.rabbitmq.consumer=false`时,不创建MQ消费者.(Pro)
 5. 设备支持独立物模型,可单独配置设备的物模型.
 6. 适配`tdengine 2.0.16.0` (pro)
+7. 优化规则引擎编辑器,实现组件模块化动态加载.（Pro）
+8. 修复启动服务时,如果某个产品物模型发布失败,导致后面的产品终止发布的问题.
+9. 增加`ignoreLatest`消息头,`message.addHeader("ignoreLatest",true)` 忽略记录最新数据到数据库.
+10. 修复租户下操作设备告警提示无权限.(Pro)
+11. 优化租户在解绑成员时,同时解绑成员的资产信息.(Pro)
 
 ## 1.8-RELEASE
 

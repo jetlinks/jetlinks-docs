@@ -155,6 +155,10 @@ EventMessage{
 2. `DeviceOfflineMessage` 设备上线消息,通常用于网关代理的子设备的下线操作.
 3. `ChildrenDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
 4. `ChildrenDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
+5. `UpdateTagMessage`更新设备标签.
+6. `DerivedMetadataMessage` 更新设备独立物模型.
+7. `DeviceRegisterMessage` 设备注册消息,通过设置消息头`message.addHeader("deviceName","设备名称");`和
+   `message.addHeader("productId","产品ID")`可实现设备自动注册
 
 消息定义:
 
@@ -223,6 +227,9 @@ ChildDeviceMessage{
 | /firmware/push                                     | UpgradeFirmwareMessage         | 推送固件更新                              |
 | /firmware/push/reply                               | UpgradeFirmwareMessageReply    | 固件更新回复                              |
 | /log                                               | DeviceLogMessage               | 设备日志                                  |
+| /message/tags/update                               | UpdateTagMessage               | 更新标签                                  |
+| /metadata/derived                                  | DerivedMetadataMessage         | 更新物模型                                |
+
 
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
