@@ -4,7 +4,7 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 是一个开箱即用,可二次开发的企业级物联网基础平台。平台实现了物联网相关的众多基础功能,
 能帮助你快速建立物联网相关业务系统。
 
-点击添加官方QQ:①群[2021514](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
+点击添加官方QQ:①群(已满)[2021514](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
 ,②群[324606263](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
 
 ## 核心特性
@@ -94,6 +94,7 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 | 电信CTWing平台接入           | ⭕      | ✅ (付费选配模块)      | ✅ (付费选配模块)          |
 | 移动OneNet平台接入           | ⭕      | ✅ (付费选配模块)      | ✅ (付费选配模块)          |
 | GBT/28181视频设备接入        | ⭕      | ✅ (付费选配模块)      | ✅ (付费选配模块)          |
+| OPC UA                     | ⭕      | ✅ (付费选配模块)      | ✅ (付费选配模块)          |
 | 商业限制                     | 无     | <span style='color:red;font-weight:800'>仅限单个项目</span><br/>按年订阅更新 | <span style='color:green;font-weight:800'>不限项目数量</span><br/>按年授权许可 |
 | 定价                         | 免费   | 加QQ群`2021514`联系商务 | 加QQ群`2021514`联系商务     |
 

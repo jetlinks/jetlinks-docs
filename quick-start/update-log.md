@@ -24,12 +24,16 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 3. RabbitMQ增加`routeKey`配置,可在配置文件中指定`device.message.writer.rabbitmq.consumer-route-key`和`device.message.writer.rabbitmq.producer-route-key`.（Pro）
 4. 当设置了`device.message.writer.rabbitmq.consumer=false`时,不创建MQ消费者.(Pro)
 5. 设备支持独立物模型,可单独配置设备的物模型.
-6. 适配`tdengine 2.0.16.0` (pro)
+6. 适配`tdengine 2.0.16.0`,优化sql长度策略. (pro)
 7. 优化规则引擎编辑器,实现组件模块化动态加载.（Pro）
 8. 修复启动服务时,如果某个产品物模型发布失败,导致后面的产品终止发布的问题.
 9. 增加`ignoreLatest`消息头,`message.addHeader("ignoreLatest",true)` 忽略记录最新数据到数据库.
 10. 修复租户下操作设备告警提示无权限.(Pro)
 11. 优化租户在解绑成员时,同时解绑成员的资产信息.(Pro)
+12. 优化子设备消息回复处理
+13. 物模型属性增加存储方式功能,可配置部分属性不存储.
+14. 增加虚拟属性功能,可通过规则来计算出虚拟属性值.(Pro)
+15. 增加租户成员绑定(`TenantMemberBindEvent`),解绑(`TenantMemberUnBindEvent`)事件.可通过`spring-event`订阅处理此事件.(Pro)
 
 ## 1.8-RELEASE
 
