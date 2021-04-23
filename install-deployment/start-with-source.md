@@ -60,7 +60,7 @@ hsweb:
 ```
 
 ::: tip 说明
-除了修改配置文件意外,还可以通过修改环境变量或者启动参数来修改配置,比如:
+除了修改配置文件以外,还可以通过修改环境变量或者启动参数来修改配置,比如:
 ```bash
 java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar --spring.elasticsearch.embedded.enabled=true
 ```
@@ -77,7 +77,7 @@ $ ./mvnw clean package -Dmaven.test.skip=true
 
 windows 环境下打包
 ```bash
-$ mvnw.cmd clean package -Dmaven.test.skip=true
+$ mvnw.cmd clean package '-Dmaven.test.skip=true'
 ```
 
 启动
