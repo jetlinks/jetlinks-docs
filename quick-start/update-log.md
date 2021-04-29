@@ -34,6 +34,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 13. 物模型属性增加存储方式功能,可配置部分属性不存储.
 14. 增加虚拟属性功能,可通过规则来计算出虚拟属性值.(Pro)
 15. 增加租户成员绑定(`TenantMemberBindEvent`),解绑(`TenantMemberUnBindEvent`)事件.可通过`spring-event`订阅处理此事件.(Pro)
+16. 优化子设备状态检查，当检查子设备状态时，将会尝试发送`ChildDeviceMessage<DeviceStateCheckMessage>`给网关，处理后返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`.
 
 ## 1.8-RELEASE
 

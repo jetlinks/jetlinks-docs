@@ -108,6 +108,7 @@ module.exports = {
                     // ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅平台消息'],
                     ['/dev-guide/mqtt-subs', '使用mqtt订阅平台消息'],
+                    ['/dev-guide/commons-api', '平台内部核心接口,类说明'],
                     ['/dev-guide/multi-tenant', '多租户'],
                     ['/dev-guide/sso', '单点登录'],
                     //['/dev-guide/micro-service', '微服务']
