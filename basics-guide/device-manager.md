@@ -477,7 +477,7 @@ deviceOperator.getSelfConfig(DeviceConfigKey.shadow);
 1. 物模型中添加地理位置。通过标签添加地理位置类型属性。
     
 ![添加地理位置属性](../basics-guide/files/device-connection/insert-geo-property.png)  
-     
+![添加地理位置属性](../basics-guide/files/device-connection/insert-geo-property_one.png)
 2. 在产品详情页面点击`应用配置`按钮。  
 ![应用配置](../basics-guide/files/device-connection/start-model.png)  
 
