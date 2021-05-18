@@ -35,6 +35,12 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 14. 增加虚拟属性功能,可通过规则来计算出虚拟属性值.(Pro)
 15. 增加租户成员绑定(`TenantMemberBindEvent`),解绑(`TenantMemberUnBindEvent`)事件.可通过`spring-event`订阅处理此事件.(Pro)
 16. 优化子设备状态检查，当检查子设备状态时，将会尝试发送`ChildDeviceMessage<DeviceStateCheckMessage>`给网关，处理后返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`.
+17. 增加`ClickHouse`设备数据存储策略支持.(Pro)
+18. 增加权限过滤功能,可配置禁止赋予自己没有的权限给其他用户.`hsweb.permission.filter`相关配置
+19. 设备和产品的租户绑定逻辑优化: 绑定设备时，自动绑定产品.解绑产品时,自动解绑设备.(Pro)
+20. 用户管理增加租户权限控制.(Pro)
+21. 当向`keepOnline`当设备发送消息时,如果原始连接已断开,将返回`CONNECTION_LOST`错误.
+22. 设置`keepOnline`的会话将被持久化,重启服务后自动恢复.(Pro)
 
 ## 1.8-RELEASE
 
