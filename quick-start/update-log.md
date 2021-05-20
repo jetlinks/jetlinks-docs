@@ -24,7 +24,23 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 3. RabbitMQ增加`routeKey`配置,可在配置文件中指定`device.message.writer.rabbitmq.consumer-route-key`和`device.message.writer.rabbitmq.producer-route-key`.（Pro）
 4. 当设置了`device.message.writer.rabbitmq.consumer=false`时,不创建MQ消费者.(Pro)
 5. 设备支持独立物模型,可单独配置设备的物模型.
-6. 适配`tdengine 2.0.16.0` (pro)
+6. 适配`tdengine 2.0.16.0`,优化sql长度策略. (pro)
+7. 优化规则引擎编辑器,实现组件模块化动态加载.（Pro）
+8. 修复启动服务时,如果某个产品物模型发布失败,导致后面的产品终止发布的问题.
+9. 增加`ignoreLatest`消息头,`message.addHeader("ignoreLatest",true)` 忽略记录最新数据到数据库.
+10. 修复租户下操作设备告警提示无权限.(Pro)
+11. 优化租户在解绑成员时,同时解绑成员的资产信息.(Pro)
+12. 优化子设备消息回复处理
+13. 物模型属性增加存储方式功能,可配置部分属性不存储.
+14. 增加虚拟属性功能,可通过规则来计算出虚拟属性值.(Pro)
+15. 增加租户成员绑定(`TenantMemberBindEvent`),解绑(`TenantMemberUnBindEvent`)事件.可通过`spring-event`订阅处理此事件.(Pro)
+16. 优化子设备状态检查，当检查子设备状态时，将会尝试发送`ChildDeviceMessage<DeviceStateCheckMessage>`给网关，处理后返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`.
+17. 增加`ClickHouse`设备数据存储策略支持.(Pro)
+18. 增加权限过滤功能,可配置禁止赋予自己没有的权限给其他用户.`hsweb.permission.filter`相关配置
+19. 设备和产品的租户绑定逻辑优化: 绑定设备时，自动绑定产品.解绑产品时,自动解绑设备.(Pro)
+20. 用户管理增加租户权限控制.(Pro)
+21. 当向`keepOnline`当设备发送消息时,如果原始连接已断开,将返回`CONNECTION_LOST`错误.
+22. 设置`keepOnline`的会话将被持久化,重启服务后自动恢复.(Pro)
 
 ## 1.8-RELEASE
 

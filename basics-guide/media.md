@@ -1,18 +1,19 @@
 # 视频网关
 
+
+
 ## 基本配置
 
 ### 操作步骤
+
 1、进入系统：`视频网关`-`基本配置`
 
 2、填写流媒体基本到信息。
 
 3、点击保存。
-![基本配置](images/movie/install.png)
-:::tip 注意
-GB28181/2016标签也需要配置
+![基本配置](images/media/install.png)
+:::tip 注意 GB28181/2016标签也需要配置
 :::
-
 
 ## 视频设备
 
@@ -20,53 +21,51 @@ GB28181/2016标签也需要配置
 
 ### 查看
 
-####操作步骤：
+#### 操作步骤：
 
 1、进入系统：`视频网关`-`视频设备`-`查看`
 
 2、跳转到设备到基本信息界面
 
-![基本配置](images/movie/select-movie.png)
+![基本配置](images/media/select-media.png)
 
-![基本配置](images/movie/select-equipment.png)
+![基本配置](images/media/select-equipment.png)
 
-###  编辑
+### 编辑
 
 选择需要编辑到设备，在操作栏点击编辑，可以对设备对基本信息进行编辑
 
-![编辑设备](images/movie/update-equipment.png)
-
+![编辑设备](images/media/update-equipment.png)
 
 ### 查看通道
+
 点击操作栏`查看通道`可以查询到此设备所使用的通道和基本的信息以及查看摄像头监控画面。
-![查看通道](images/movie/select-Channel.png)
-![查看通道](images/movie/select-Channel1.png)
+![查看通道](images/media/select-Channel.png)
+![查看通道](images/media/select-Channel1.png)
 
+### 更新通道
 
-###  更新通道
+![更新通道](images/media/update-Channel.png)
 
-![更新通道](images/movie/update-Channel.png)
-
-
-## 分屏展示 
+## 分屏展示
 
 分屏展示对摄像头监控画面进行播放，支持单屏，四分屏，九分屏，和全屏，对于可以旋转对摄像头也可以通过右边对调节按钮调整摄像头方向。
-![分屏](images/movie/split_screen.png)
-
+![分屏](images/media/split_screen.png)
 
 ## 国标级联
 
 把本地平台的设备推送给上级平台。
 
-###  新增
+### 新增
 
 #### 操作步骤：
+
 1、进入系统：`视屏网关`-`国标级联`-`新建`
 
 2、填写上级平台的基本信息。
 
 3、点击确定保存
-![新建](images/movie/Cascading.png)
+![新建](images/media/Cascading.png)
 
 ### 编辑
 

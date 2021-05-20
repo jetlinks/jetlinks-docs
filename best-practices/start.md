@@ -38,7 +38,10 @@
 6. **frag_last** 是否为最后一个分片,当无法确定分片数量的时候,可以将分片设置到足够大,最后一个分片设置:`frag_last=true`来完成返回.
 7. **keepOnline** 与`DeviceOnlineMessage`配合使用,在TCP短链接,保持设备一直在线状态,连接断开不会设置设备离线.
 8. **keepOnlineTimeoutSeconds** 指定在线超时时间,在短链接时,如果超过此间隔没有收到消息则认为设备离线.
-   
+9. **ignoreStorage** 不存储此消息数据,如: 读写属性回复默认也会记录到属性时序数据库中,设置为true后,将不记录.(1.9版本后支持)
+10. **ignoreLog** 不记录此消息到日志,如: 设置为true,将不记录此消息的日志.
+11. **mergeLatest** 是否合并最新属性数据,设置此消息头后,将会把最新的消息合并到消息体里(需要[开启最新数据存储](#记录设备最新数据到数据库)).
+    
 ::: tip
 messageId通常由平台自动生成,如果设备不支持消息id,可在自定义协议中通过Map的方式来做映射,将设备返回的消息与平台的messageId进行绑定.
 :::
@@ -97,7 +100,7 @@ WritePropertyMessageReply{
 ReportPropertyMessage{
     Map<String,Object> headers;
     String deviceId;
-    String messageId;
+    String messageId; //可为空
     long timestamp; //时间戳(毫秒)
     Map<String,Object> properties;
 }
@@ -155,6 +158,10 @@ EventMessage{
 2. `DeviceOfflineMessage` 设备上线消息,通常用于网关代理的子设备的下线操作.
 3. `ChildrenDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
 4. `ChildrenDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
+5. `UpdateTagMessage`更新设备标签.
+6. `DerivedMetadataMessage` 更新设备独立物模型.
+7. `DeviceRegisterMessage` 设备注册消息,通过设置消息头`message.addHeader("deviceName","设备名称");`和
+   `message.addHeader("productId","产品ID")`可实现设备自动注册
 
 消息定义:
 
@@ -222,7 +229,10 @@ ChildDeviceMessage{
 | /firmware/progress                                 | UpgradeFirmwareProgressMessage | 上报更新固件进度                          |
 | /firmware/push                                     | UpgradeFirmwareMessage         | 推送固件更新                              |
 | /firmware/push/reply                               | UpgradeFirmwareMessageReply    | 固件更新回复                              |
-| /log                                               | DeviceLogMessage               | 设备日志                                  |
+| /message/log                                       | DeviceLogMessage               | 设备日志                                  |
+| /message/tags/update                               | UpdateTagMessage               | 更新标签                                  |
+| /metadata/derived                                  | DerivedMetadataMessage         | 更新物模型                                |
+
 
 ::: warning 注意
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.

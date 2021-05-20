@@ -83,7 +83,7 @@ module.exports = {
                     ['/basics-guide/course/notification.md', '通知管理'],
                     ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
                     ['/basics-guide/cloud-docking.md', '云云对接'],
-                    ['/basics-guide/movie.md', '视频网关'],
+                    ['/basics-guide/media.md', '视频网关'],
                     ['/basics-guide/DemoDevice.md', '树莓派演示设备操作流程']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]
@@ -108,6 +108,7 @@ module.exports = {
                     // ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
                     ['/dev-guide/websocket-subs', '使用websocket订阅平台消息'],
                     ['/dev-guide/mqtt-subs', '使用mqtt订阅平台消息'],
+                    ['/dev-guide/commons-api', '平台内部核心接口,类说明'],
                     ['/dev-guide/multi-tenant', '多租户'],
                     ['/dev-guide/sso', '单点登录'],
                     //['/dev-guide/micro-service', '微服务']
