@@ -59,7 +59,7 @@ JetLinks 使用全响应式([reactor](https://projectreactor.io/))编程.
 约定: 
 
 1. 所有可能涉及到IO或者异步操作(`网络请求`,`数据库操作`,`文件操作`)的方法,返回值全部为`Mono`或者`Flux`.
-2. 所有代码不运行出现阻塞操作,如: `Thread.sleep`,`Mono.block`,`Flux.block`.
+2. 所有代码不允许出现阻塞操作,如: `Thread.sleep`,`Mono.block`,`Flux.block`.
 3. 响应式方法间调用,应该组装为同一个`Publisher`.
     
     正确: return deviceService
