@@ -15,7 +15,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 ## 1.9-RELEASE
 
-预计更新时间: 待定
+预计更新时间: 2021-05-31
 
 代码分支: `master`
 
@@ -39,8 +39,10 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 18. 增加权限过滤功能,可配置禁止赋予自己没有的权限给其他用户.`hsweb.permission.filter`相关配置
 19. 设备和产品的租户绑定逻辑优化: 绑定设备时，自动绑定产品.解绑产品时,自动解绑设备.(Pro)
 20. 用户管理增加租户权限控制.(Pro)
-21. 当向`keepOnline`当设备发送消息时,如果原始连接已断开,将返回`CONNECTION_LOST`错误.
+21. 当向`keepOnline`的设备发送消息时,如果原始连接已断开,将返回`CONNECTION_LOST`错误.
 22. 设置`keepOnline`的会话将被持久化,重启服务后自动恢复.(Pro)
+23. 默认关闭设备最新数据存储,通过`jetlinks.device.storage.enable-last-data-in-db=true`开启.(Pro)
+24. 属性物模型增加属性值来源,配置为`手动`时,在发送修改属性指令(`WritePropertyMessage`)时,将直接生效,不会发送到设备.
 
 ## 1.8-RELEASE
 
