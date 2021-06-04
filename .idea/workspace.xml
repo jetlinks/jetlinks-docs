@@ -2,82 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="持续优化">
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/create-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/create-DuerOS1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/create-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/create-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/delete-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/delete-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/delete-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/jump.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/select-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/start1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/update-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/update-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/cloud-docking/update-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/Product_categories_add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/Product_categories_add_son.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/Product_categories_delete.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/Product_categories_select_son.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/Product_categories_update.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device/model-attribute0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/Cascading.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/install.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/select-Channel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/select-Channel1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/select-equipment.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/select-movie.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/split_screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/update-Channel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/basics-guide/images/movie/update-equipment.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/cloud-docking.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/create-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/create-DuerOS1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/create-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/create-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/delete-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/delete-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/delete-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/jump.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/select-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/start.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/start1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/update-DuerOS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/update-OneNet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/cloud-docking/update-aliyun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/Cascading.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/install.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/select-Channel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/select-Channel1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/select-equipment.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/select-movie.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/split_screen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/update-Channel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/movie/update-equipment.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/system/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/system/img_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/system/img_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/system/insert-Permissions-client.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/images/system/update-Permissions.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/basics-guide/movie.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/best-practices/images/empowerment.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/DemoDevice.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/DemoDevice.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/course/network.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/course/network.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/course/system-layout.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/course/system-layout.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/device-manager.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/device-manager.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/coap-server-gateway/create-coap-server-gateway.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/coap-server-gateway/create-coap-server-gateway.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/coap-server-gateway/save-coap-server.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/coap-server-gateway/save-coap-server.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/emq-client-monitor.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/emq-client-monitor.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/save-mqtt-client-gateway.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/save-mqtt-client-gateway.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/save-mqtt-client.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/save-mqtt-client.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/start-mqtt-client.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/files/mqtt-client-gateway/start-mqtt-client.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/images/device/model-attribute0.png" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/images/device/model-attribute0.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/images/create-openapi.png" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/images/create-openapi.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev-guide/specification.md" beforeDir="false" afterPath="$PROJECT_DIR$/dev-guide/specification.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install-deployment/start-with-source.md" beforeDir="false" afterPath="$PROJECT_DIR$/install-deployment/start-with-source.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interface-guide/open-api/access.md" beforeDir="false" afterPath="$PROJECT_DIR$/interface-guide/open-api/access.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/QQ图片20210603180407.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/QQ图片20210603180449.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/QQ图片20210603180455.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/image.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/image1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vuepress/public/media-guide/src/image2.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,15 +60,21 @@
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -149,11 +85,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\code\jetlinks\jetlinks-docs\.vuepress\public" />
       <recent name="$PROJECT_DIR$/.vuepress/public/best-practices" />
       <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images" />
       <recent name="$PROJECT_DIR$/.vuepress/public/basics-guide/images/device" />
       <recent name="$PROJECT_DIR$/.vuepress/public/best-practices/images/rule-engine" />
-      <recent name="$PROJECT_DIR$/.vuepress/public/common-problems/images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/basics-guide/images/system" />
@@ -212,6 +148,7 @@
       </serviceView>
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration>C:\Users\浩\AppData\Roaming\Subversion</configuration>
   </component>
@@ -351,6 +288,7 @@
       <workItem from="1597628568115" duration="33324000" />
       <workItem from="1598838058448" duration="1829000" />
       <workItem from="1599115673825" duration="24107000" />
+      <workItem from="1622771090982" duration="450000" />
     </task>
     <task id="LOCAL-00066" summary="优化文档">
       <created>1588752714979</created>
@@ -699,7 +637,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
