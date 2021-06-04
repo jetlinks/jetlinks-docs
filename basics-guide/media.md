@@ -9,7 +9,9 @@
 1、进入系统：`视频网关`-`基本配置`
 
 2、填写流媒体基本到信息。
-[配置示例](hhttps://github.com/jetlinks/jetlinks-docs/tree/media-doc/media-guide)
+
+具体配置信息。查看[配置示例](hhttps://github.com/jetlinks/jetlinks-docs/tree/media-doc/media-guide)
+
 
 3、点击保存。
 ![基本配置](images/media/install.png)
