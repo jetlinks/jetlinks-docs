@@ -8,7 +8,7 @@
 
 ## 设备操作底层类,接口
 
-1. `DeviceRegister`: 设备注册中心,用于统一管理设备信息以及提供设备操作接口.
+1. `DeviceRegistry`: 设备注册中心,用于统一管理设备信息以及提供设备操作接口.
 2. `DeviceOperator`: 设备操作接口,通过`DeviceRegister.getDevice(deviceId)`获取,用于对设备进行相关操作,如获取配置,发送消息等.
 3. `DeviceProductOperator`: 产品操作接口,通过`DeviceProductOperator.getProduct(productId)`获取.
 4. `EventBus`: 事件总线,通过事件总线去订阅设备数据来实现解耦.(也可以用过`@Subscribe()`注解订阅).
