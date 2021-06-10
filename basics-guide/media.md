@@ -10,6 +10,9 @@
 
 2、填写流媒体基本到信息。
 
+具体配置信息。查看[配置示例](hhttps://github.com/jetlinks/jetlinks-docs/tree/media-doc/media-guide)
+
+
 3、点击保存。
 ![基本配置](images/media/install.png)
 :::tip 注意 GB28181/2016标签也需要配置
