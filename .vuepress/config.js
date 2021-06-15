@@ -150,7 +150,8 @@ module.exports = {
                     ['/common-problems/install.md', '安装,启动常见问题'],
                     ['/common-problems/network-components.md', '网络组件常见问题'],
                     ['/common-problems/mqtt-connection.md', '使用MQTT接入时的常见问题'],
-                    ['/common-problems/tcp-network-components.md', 'TCP网络组件常见问题']
+                    ['/common-problems/tcp-network-components.md', 'TCP网络组件常见问题'],
+                    ['/common-problems/FAQ.md', '其他常见问题']
                 ]
             },
             // {
