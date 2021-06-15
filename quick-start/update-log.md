@@ -20,7 +20,8 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 1. 增加批量下发设备指令功能,支持查看下发记录,自动重试等(Pro)
 2. 上报属性和读取属性回复增加`属性源时间`和`属性状态`,行式存储时,会使用源时间当作时间戳进行存储.
-
+3. GB28181视频接入支持预置位、看守位指令。
+4. ClickHouse增加指定存储策略,支持集群轮询写,分布式读。(Pro)
 
 ## 1.9-RELEASE
 
@@ -43,7 +44,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 13. 增加虚拟属性功能,可通过规则来计算出虚拟属性值.(Pro)
 14. 增加租户成员绑定(`TenantMemberBindEvent`),解绑(`TenantMemberUnBindEvent`)事件.可通过`spring-event`订阅处理此事件.(Pro)
 15. 优化子设备状态检查，当检查子设备状态时，将会尝试发送`ChildDeviceMessage<DeviceStateCheckMessage>`给网关，处理后返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`.
-16. 增加`ClickHouse`设备数据存储策略支持.(Pro)
+16. 增加`ClickHouse`设备数据存储策略支持.(试验性)(Pro)
 17. 增加权限过滤功能,可配置禁止赋予自己没有的权限给其他用户.`hsweb.permission.filter`相关配置
 18. 设备和产品的租户绑定逻辑优化: 绑定设备时，自动绑定产品.解绑产品时,自动解绑设备.(Pro)
 19. 用户管理增加租户权限控制.(Pro)
