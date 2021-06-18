@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="持续优化">
-      <change beforePath="$PROJECT_DIR$/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common-problems/FAQ.md" beforeDir="false" afterPath="$PROJECT_DIR$/common-problems/FAQ.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -286,7 +287,8 @@
       <workItem from="1622771090982" duration="3469000" />
       <workItem from="1623027563949" duration="595000" />
       <workItem from="1623300323223" duration="2344000" />
-      <workItem from="1623749725591" duration="1184000" />
+      <workItem from="1623749725591" duration="3282000" />
+      <workItem from="1623980533073" duration="11000" />
     </task>
     <task id="LOCAL-00066" summary="优化文档">
       <created>1588752714979</created>
