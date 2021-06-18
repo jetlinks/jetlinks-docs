@@ -3,7 +3,7 @@
 最新社区版代码托管在[github](https://github.com/jetlinks/jetlinks-community)和
 [gitee](https://gitee.com/jetlinks/jetlinks-community)上.
 
-专业版代码托管在[github](https://github.com/jetlinks/jetlinks-pro)上,购买专业版后可获取专业版代码以及后续更新。
+企业版代码托管在[github](https://github.com/jetlinks/jetlinks-pro)上,购买企业版后可获取企业版代码以及后续更新。
 
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
@@ -19,9 +19,10 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 代码分支: `master`
 
 1. 增加批量下发设备指令功能,支持查看下发记录,自动重试等(Pro)
-2. 上报属性和读取属性回复增加`属性源时间`和`属性状态`,行式存储时,会使用源时间当作时间戳进行存储.
-3. GB28181视频接入支持预置位、看守位指令。
+2. 上报属性和读取属性回复增加`属性源时间`和`属性状态`;行式存储时,会使用源时间当作时间戳进行存储.
+3. GB28181视频接入支持预置位、看守位指令。(Pro)
 4. ClickHouse增加指定存储策略,支持集群轮询写,分布式读。(Pro)
+5. HTTP消息增加文件上传支持`HttpExchangeMessage.multiPart()`。(Pro)
 
 ## 1.9-RELEASE
 

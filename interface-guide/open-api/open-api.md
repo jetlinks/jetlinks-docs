@@ -3,7 +3,7 @@
 
 ::: tip 注意
 
-在专业版`1.5.0`中已经集成了在线文档支持,打开`http://[ip]:[JetLinks后台端口]/doc.html`即可查看全部接口信息.   
+在企业版`1.5.0`中已经集成了在线文档支持,打开`http://[ip]:[JetLinks后台端口]/doc.html`即可查看全部接口信息.   
 
 如在demo环境中： http://demo.jetlinks.cn:9010/doc.html
 :::
