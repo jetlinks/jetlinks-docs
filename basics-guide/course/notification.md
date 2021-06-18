@@ -217,7 +217,7 @@
 | appSecret | 应用的密钥 | 是 |
 | 说明 | 输入文字，对该配置进行说明或备注。长度限制为100字 | 否 |
 
-> 参考文档：<https://ding-doc.dingtalk.com/doc?spm=a2115p.8777639.0.0.66804260fOANzg#/serverapi2/eev437>
+> 参考文档：<https://developers.dingtalk.com/document/app/basic-concepts/title-kux-it4-9c7>
 
 ### 模板信息
 
@@ -237,7 +237,7 @@
 | 全部用户 | 是否发送给企业全部用户 | 可选 |
 | 内容 | 消息内容，消息类型和样例参考“消息类型与数据格式”。支持表达式替换。最长不超过2048个字节 | 是 |
 
-> 参考文档：<https://ding-doc.dingtalk.com/doc#/serverapi2/pgoxpy>
+> 参考文档：<https://developers.dingtalk.com/document/app/app-faq>
 > 注：`钉钉推送消息需要到钉钉开发平台应用中心内添加IP白名单`
 
 > 表达式说明：表达式通用格式为$符号开头,两个大括号中填写需要被替换的内容。例：${test}

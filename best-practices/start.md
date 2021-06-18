@@ -155,7 +155,7 @@ EventMessage{
 ### 其他消息
 
 1. `DeviceOnlineMessage` 设备上线消息,通常用于网关代理的子设备的上线操作.
-2. `DeviceOfflineMessage` 设备上线消息,通常用于网关代理的子设备的下线操作.
+2. `DeviceOfflineMessage` 设备离线消息,通常用于网关代理的子设备的下线操作.
 3. `ChildrenDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
 4. `ChildrenDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
 5. `UpdateTagMessage`更新设备标签.
