@@ -595,6 +595,10 @@ measurement说明:
 2. 事件: `event_{productId}_{eventId}`
 3. 日志: `device_log_{productId}`
 
+### 自定义存储策略
+
+在后台代码中实现`DeviceDataStoragePolicy`接口,然后注入到`Spring`即可。
+
 ### 记录设备最新数据到数据库
 
 `1.5.0企业版本`中增加了记录最新设备数据到数据库中，以便进行更丰富的统计查询等操作.

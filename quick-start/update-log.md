@@ -23,6 +23,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 3. GB28181视频接入支持预置位、看守位指令。(Pro)
 4. ClickHouse增加指定存储策略,支持集群轮询写,分布式读。(Pro)
 5. HTTP消息增加文件上传支持`HttpExchangeMessage.multiPart()`。(Pro)
+6. JetLinks后端接口国际化支持(jsr303,枚举(`I18nEnumDict`),异常(`I18nSupportException`))。[查看说明](../dev-guide/crud.md)
 
 ## 1.9-RELEASE
 
