@@ -15,7 +15,7 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 **统一设备接入,海量设备管理**
 
-TCP/UDP/MQTT/HTTP、TLS/DLS、不同厂商、不同设备、不同报文、统一接入，统一管理.
+TCP/UDP/MQTT/HTTP、TLS/DTLS、不同厂商、不同设备、不同报文、统一接入，统一管理.
 
 **强大的规则引擎**
 
