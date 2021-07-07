@@ -7,6 +7,11 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 点击添加官方QQ:①群(已满)[2021514](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
 ,②群[324606263](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
 
+:::warning 特此声明
+近日有不法分子利用`低价JetLinks企业版源代码`实施诈骗，我方已报警备案。购买企业版请联系`官方QQ群管理员`，QQ群内一切`主动私聊你的都是骗子`。
+在第三方获取到的企业版源码，由此带来的法律后果自行承担。
+:::
+
 ## 核心特性
 
 **开放源代码**
