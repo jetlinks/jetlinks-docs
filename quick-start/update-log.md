@@ -23,7 +23,9 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 3. GB28181视频接入支持预置位、看守位指令。(Pro)
 4. ClickHouse增加指定存储策略,支持集群轮询写,分布式读。(Pro)
 5. HTTP消息增加文件上传支持`HttpExchangeMessage.multiPart()`。(Pro)
-6. JetLinks后端接口国际化支持(jsr303,枚举(`I18nEnumDict`),异常(`I18nSupportException`))。[查看说明](../dev-guide/i8n.md)
+6. JetLinks后端接口国际化支持(jsr303,枚举(`I18nEnumDict`),异常(`I18nSupportException`))。[查看说明](../dev-guide/i18n.md)
+7. 提供对游标分页查询支持,部分数据库可能不支持offset方式分页,当分页结果中`scoll`为`true`时,表示游标分页,此时不支持使用`pageIndex`进行分页,下一页查询时需要在动态查询条件中指定上一页返回的`scrollId`:`"context":{"scrollId":"上一页的ID"}`,并且查询条件变化后,需要重置页码以及`scrollId`.
+8. 设备数据存储策略增加`cassandra`支持,可将设备数据写入到`cassandra`中(Pro).
 
 ## 1.9-RELEASE
 
