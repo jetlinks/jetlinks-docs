@@ -84,6 +84,7 @@ module.exports = {
                     ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
                     ['/basics-guide/cloud-docking.md', '云云对接'],
                     ['/basics-guide/media.md', '视频网关'],
+                    ['/basics-guide/opc-ua.md', 'OPC UA'],
                     ['/basics-guide/DemoDevice.md', '树莓派演示设备操作流程']
                     //['/basics-guide/course/logger.md', '日志管理']
                 ]

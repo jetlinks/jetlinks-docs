@@ -50,7 +50,7 @@ docker-compose up -d
 ---
 ## 切换成mysql数据库报'unknown database jetlinks'
 
- 自行在mysql数据库里创建jetlinks的数据库，表可不建 
+ 自行在mysql数据库里创建jetlinks的数据库，表可不建，项目会在启动时自己创建表结构以及初始化部分数据。
 
 ---
 
@@ -70,6 +70,29 @@ docker-compose up -d
 如使用mysql：则需要指定dialect为mysql<br/>
 default-schema也需要改成创建的数据库名
 
+## 数据库切换至mysql后项目启动时报"Operator called default onErrorDropped",下拉至底部抛出"Caused by: javax.net.ssl.SSLHandshakeException: No appropriate protocol (protocol is disabled or cipher suites are inappropriate)"
+
+查看数据库是否开启SSL
+
+```yaml
+show global variables like '%ssl%';
++---------------+-----------------+
+| Variable_name | Value           |
++---------------+-----------------+
+| have_openssl  | YES             |
+| have_ssl      | YES             |    #已经开启了SSL
+| ssl_ca        | ca.pem          |
+| ssl_capath    |                 |
+| ssl_cert      | server-cert.pem |
+| ssl_cipher    |                 |
+| ssl_crl       |                 |
+| ssl_crlpath   |                 |
+| ssl_key       | server-key.pem  |
++---------------+-----------------+
+```
+
+如果开启了ssl 可以在连接地址中加入`ssl=false`【r2dbc协议参数】参数指定关闭ssl连接;
+项目启动时如报警告时区未设置，加上`serverTimezone=GMT`参数。
 
 ---
 
@@ -158,25 +181,25 @@ api.urls.big-screen-path=http://公网ip:9002/
 ## 视频网关如何配置？
 [视频网关配置](../media-guide/media-base-config.md)
 
-##关于集群下的mqtt客户端组件无法共享订阅问题？
-1.集群下的服务器要分配不同的server-id
-2.网络组件->独立配置->填写不同的服务ip/域名、clientId
-3.推送消息时topic无需带“/”
+## 关于集群下的mqtt客户端组件无法共享订阅问题？
+1. 集群下的服务器要分配不同的server-id
+2. 网络组件->独立配置->填写不同的服务ip/域名、clientId
+3. 推送消息时topic无需带“/”
 
 ## 关于设备->运行状态无法自动刷新需要手动刷新问题。
-F12查看console报错原因<br/>
-提示connection failed<br/>
-9000代理后端端口不正确<br/>
-修改前端API_BASE_PATH路径 
-* docker方式启动指定-e 参数
+1. F12查看console报错原因
+2. 提示connection failed
+3. 9000代理后端端口不正确
+4. 修改前端API_BASE_PATH路径 
+5. docker方式启动指定-e 参数
 
 ## 自定义的消息协议为什么点击方法调用返回超时？
-1.自定义的协议jar包是否有这个功能？<br/>
-2.自定义的协议jar包是否上传至jetlinks平台重新发布？<br/>
-3.自定义协议是否使用了正确的下发消息？<br/>
+1. 自定义的协议jar包是否有这个功能？
+2. 自定义的协议jar包是否上传至jetlinks平台重新发布？
+3. 自定义协议是否使用了正确的下发消息类型？
 如：
-* 调用设备功能需使用：FunctionInvokeMessage
-* 设备属性读取需使用：ReadPropertyMessage
+调用设备功能需使用：FunctionInvokeMessage<br/>
+设备属性读取需使用：ReadPropertyMessage<br/>
 ...
   
 ## 如何使用podman部署？
