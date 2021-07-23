@@ -168,30 +168,53 @@
 ![系统配置](../images/system/system-configuration.png)  
 
 ## 租户管理
-
+用于系统租户的新增、修改、资产分配、权限分配。
 ### 新增
 **操作步骤**
-1. 进入系统: `系统设置`-`租户管理`-`添加`。  
+1. 进入系统: `系统设置`-`租户管理`-`添加`。
+2. 输入租户信息。
+3. 点击`确定`进行保存。  
 
 ![进入租户页](../images/system/choose-tenant.png)  
 
-2. 输入租户信息。  
 
-3. 点击`确定`进行保存。  
 ![租户新增](../images/system/save-tenant.png)  
 
-### 基本信息
+### 查看基本信息
+**操作步骤**
 
-在列表页对应租户操作列点击`查看`，进入基本信息页面。  
+进入系统:   `系统设置`→`租户管理`。  
 
 ![查看](../images/system/tenant-view.png)  
 
-### 资产信息
+点击查看基本信息
 
-在基本信息页上点击`资产信息`选项卡进入资产信息页面。  
+![更新基本信息](../images/system/tenant-update.png)
+### 资产信息
+**操作步骤**
+1、进入系统: 系统设置→租户管理→查看。
+
+2、在基本信息页上点击`资产信息`选项卡进入资产信息页面。
 
 ![查看资产](../images/system/choose-assets.png)  
+ 
+查看资产信息
 
+**操作步骤**
+
+2、进入系统: 系统设置→租户管理→查看。
+
+1、点击查看资产信息。
+
+![查看资产信息](../images/system/view-assets.png)
+
+查看产品资产：点击查看产品。
+
+![查看产品资产信息](../images/system/view-products.png)
+
+查看设备资产：点击查看设备。
+
+![查看设备资产信息](../images/system/view-device.png)
 #### 添加资产
 
 1. 点击相应资产框上的编辑按钮，进入资产编辑页面。
@@ -210,9 +233,15 @@
 
 #### 解绑资产
 
-勾选需要解绑的资产，点击`解绑n项`按钮即可。  
+**操作步骤**
 
-![添加资产](../images/system/delete-assets.png)  
+1、进入系统: 系统设置→租户管理→查看→资产信息。
+
+2、点击编辑。
+
+3、勾选需要解绑的资产，点击`解绑n项`按钮即可。  
+
+![解绑资产](../images/system/delete-assets.png)  
 
 ### 成员管理
 
@@ -239,8 +268,49 @@
 权限分配页面所展示的权限需要提前在`权限管理`→`编辑`，将`分类`设置为`多租户`，这样权限分配页面才有相应的权限设置。
 ![设置多租户接口](../images/system/update-openapi-permission.png)
 :::
-### 测试
+### 租户测试
+   
+1、统计分析
 
-使用创建的租户账号登录平台，只能访问对应的资产。  
+对租户拥有产品、设备、告警数、消息通知有个笼统概括，管理员还显示对租户的一个统计。
 
-![测试](../images/system/tenant-test.png)  
+管理员界面：
+![管理员界面](../images/system/admin-ui.png)  
+
+普通租户界面
+![普通租户界面](../images/system/ordinary-ui.png)
+
+
+2、个人设置
+
+基本设置
+
+  可对用户姓名、主租户、联系电话、说明等进行修改。
+![基本设置界面](../images/system/personal-settings.png)
+
+3、安全设置
+
+可对用户密码进行修改。
+![基本设置界面](../images/system/update-pwd.png)
+
+4、通知订阅
+
+![通知订阅](../images/system/notification-subscriptions.png)
+
+### 系统设置
+::: tip 注意：
+注：只有管理员才拥有
+:::
+
+1、基本信息
+
+![基本信息](../images/system/essential.png)
+
+2、资产信息
+![资产信息](../images/system/asset.png)
+
+3、成员管理
+![资产信息](../images/system/manage.png)
+
+4、查看权限
+![资产信息](../images/system/Permissions.png)
