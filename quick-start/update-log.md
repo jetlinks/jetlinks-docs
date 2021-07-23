@@ -26,15 +26,17 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 6. JetLinks后端接口国际化支持(jsr303,枚举(`I18nEnumDict`),异常(`I18nSupportException`))。[查看说明](../dev-guide/i18n.md)
 7. 提供对游标分页查询支持,部分数据库可能不支持offset方式分页,当分页结果中`scoll`为`true`时,表示游标分页,此时不支持使用`pageIndex`进行分页,下一页查询时需要在动态查询条件中指定上一页返回的`scrollId`:`"context":{"scrollId":"上一页的ID"}`,并且查询条件变化后,需要重置页码以及`scrollId`.
 8. 设备数据存储策略增加`cassandra`支持,可将设备数据写入到`cassandra`中(Pro).
-9. 增加数据源管理,统一管理各种数据源(RabbitMQ,Kafka,物模型)等(Pro).
+9. 增加数据源管理,统一管理各种数据源(RabbitMQ,Kafka)等(Pro).
 10. 增加RabbitMQ数据源实现,支持`创建生产者,消费者`,`RabbitMQ管理功能(添加用户,权限等)`(Pro).
 11. 规则引擎中增加RabbitMQ,Kafka转发节点(Pro).
 12. 规则引擎节点增加权限控制支持,可通过`rule.engine.executor-filter`进行相关配置(Pro).
-13. `MQTT Broker`方式接入设备支持设置QoS.
-14. 增加`FileQueue`工具类,可将队列数据持久化到本地文件.
-15. 增加`ParallelIntervalHelper`工具类,可对并行操作进行延迟来实现并行转串行的效果.
-16. `DeviceDataManager`接口增加`getTags`方法,可在协议包中通过此方式来获取设备标签.
-17. 在TCP网络组件中的粘拆包处理方式脚本中增加`parser.newBuffer()`方法,[使用方法](https://gitee.com/jetlinks/jetlinks-community/blob/master/jetlinks-components/network-component/tcp-component/src/test/java/org/jetlinks/community/network/tcp/parser/strateies/ScriptPayloadParserBuilderTest.java#L63-73).
+13. 规则引擎`ReactorQL`节点支持租户权限控制,`rule.engine.task-executor.reactor-ql.enable-tenant=true`开启.(Pro)
+14. 子设备自动注册时,同时绑定设备资产到网关所在到租户用户下(Pro).
+15. `MQTT Broker`方式接入设备支持设置QoS.
+16. 增加`FileQueue`工具类,可将队列数据持久化到本地文件.
+17. 增加`ParallelIntervalHelper`工具类,可对并行操作进行延迟来实现并行转串行的效果.
+18. `DeviceDataManager`接口增加`getTags`方法,可在协议包中通过此方式来获取设备标签.
+19. 在TCP网络组件中的粘拆包处理方式脚本中增加`parser.newBuffer()`方法,[使用方法](https://gitee.com/jetlinks/jetlinks-community/blob/master/jetlinks-components/network-component/tcp-component/src/test/java/org/jetlinks/community/network/tcp/parser/strateies/ScriptPayloadParserBuilderTest.java#L63-73).
 
 Bug修复:
 1. 修复关闭权限验证时，可能无法使用`POST`动态查询问题

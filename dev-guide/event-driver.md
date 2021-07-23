@@ -18,8 +18,8 @@ topic支持路径通配符,如:`/device/**` 或者`/device/*/message/*`.
 
 ```java
 
-@Subscribe("/user/*/saved")
-public Mono<Void> handleDeviceMessage(UserEntity entity){
+@Subscribe("/device/**")
+public Mono<Void> handleDeviceMessage(DeviceMessage message){
     return publishDeviecMessageToKafka(message);
 }
 
