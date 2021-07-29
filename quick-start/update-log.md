@@ -31,12 +31,14 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 11. 规则引擎中增加RabbitMQ,Kafka转发节点(Pro).
 12. 规则引擎节点增加权限控制支持,可通过`rule.engine.executor-filter`进行相关配置(Pro).
 13. 规则引擎`ReactorQL`节点支持租户权限控制,`rule.engine.task-executor.reactor-ql.enable-tenant=true`开启.(Pro)
-14. 子设备自动注册时,同时绑定设备资产到网关所在到租户用户下(Pro).
-15. `MQTT Broker`方式接入设备支持设置QoS.
-16. 增加`FileQueue`工具类,可将队列数据持久化到本地文件.
-17. 增加`ParallelIntervalHelper`工具类,可对并行操作进行延迟来实现并行转串行的效果.
-18. `DeviceDataManager`接口增加`getTags`方法,可在协议包中通过此方式来获取设备标签.
-19. 在TCP网络组件中的粘拆包处理方式脚本中增加`parser.newBuffer()`方法,[使用方法](https://gitee.com/jetlinks/jetlinks-community/blob/master/jetlinks-components/network-component/tcp-component/src/test/java/org/jetlinks/community/network/tcp/parser/strateies/ScriptPayloadParserBuilderTest.java#L63-73).
+14. 规则引擎设备指令节点发送指令发生异常时,将返回转为消息回复,而不是抛出异常.
+15. 子设备自动注册时,同时绑定设备资产到网关所在到租户用户下(Pro).
+16. 优化设备会话状态,如果同一个设备在不同的集群节点连接,以最后连接的为准,之前的会断开(Pro).
+17. `MQTT Broker`方式接入设备支持设置QoS.
+18. 增加`FileQueue`工具类,可将队列数据持久化到本地文件.
+19. 增加`ParallelIntervalHelper`工具类,可对并行操作进行延迟来实现并行转串行的效果.
+20. `DeviceDataManager`接口增加`getTags`方法,可在协议包中通过此方式来获取设备标签.
+21. 在TCP网络组件中的粘拆包处理方式脚本中增加`parser.newBuffer()`方法,[使用方法](https://gitee.com/jetlinks/jetlinks-community/blob/master/jetlinks-components/network-component/tcp-component/src/test/java/org/jetlinks/community/network/tcp/parser/strateies/ScriptPayloadParserBuilderTest.java#L63-73).
 
 Bug修复:
 1. 修复关闭权限验证时，可能无法使用`POST`动态查询问题

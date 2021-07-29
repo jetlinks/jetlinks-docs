@@ -19,6 +19,8 @@ username: secureId+"|"+timestamp
 password: md5(secureId+"|"+timestamp+"|"+secureKey)
 ```
 
+<a href="./mqtt-auth-generator.html" target="_blank">在线生成工具</a>
+ 
 说明: `secureId`以及`secureKey`在创建设备产品和设备实例时进行配置.
 `timestamp`为当前系统时间戳(毫秒),与系统时间不能相差5分钟.
 
