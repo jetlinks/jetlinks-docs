@@ -263,7 +263,7 @@ topic: `/{productId}/{deviceId}/child/{childDeviceId}/disconnect`
 
 平台主动断开设备连接时，会发送此指令到网关
      
-topic: `/{productId}/{deviceId}/child/{childDeviceId}/disconnect/reply`
+topic: `/{productId}/{deviceId}/child-reply/{childDeviceId}/disconnect/reply`
       
 方向: `上行`
 
@@ -299,7 +299,7 @@ topic: `/{productId}/{deviceId}/child/{childDeviceId}/state-check`
 
 在查看子设备详情或者检查设备状态时，将会收到此消息
      
-topic: `/{productId}/{deviceId}/child/{childDeviceId}/state-check/reply`
+topic: `/{productId}/{deviceId}/child-reply/{childDeviceId}/state-check/reply`
       
 方向: `上行`
 
@@ -322,6 +322,16 @@ topic: `/{productId}/{deviceId}/child/{childDeviceId}/{topic}`
 
 ::: tip
  {topic} 以及数据格式与设备topic定义一致. 如: 获取子设备属性: `/1/d1/child/c1/properties/read`,
+:::
+
+### 子设备指令回复消息
+     
+topic: `/{productId}/{deviceId}/child-reply/{childDeviceId}/{topic}`
+      
+方向: `上行`, 根据{topic}决定.
+
+::: tip
+ {topic} 以及数据格式与设备topic定义一致. 如: 获取子设备属性回复: `/1/d1/child-reply/c1/properties/read/reply`,
 :::
 
 ### 更新标签消息
