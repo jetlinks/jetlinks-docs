@@ -508,12 +508,31 @@ topic: `/{productId}/{deviceId}/direct`
 方向`上行`,透传设备消息,将报文传入`mqtt payload`中
 
 
-### 
+### 时间同步
  
+topic: `/{productId}/{deviceId}/time-sync`
+
+方向`上行`,用于同步服务器的时间.格式:
+```json
+{
+    "messageId":"消息ID"
+}
+```
+平台回复:
+
+ topic: `/{productId}/{deviceId}/time-sync/reply`
+
+方向`下行`,同步服务器的时间回复.格式:
+```json
+{
+    "messageId":"消息ID",
+    "timestamp":1601196762389 //UTC毫秒时间戳
+}
+```
+
+
 ## CoAP接入
 使用CoAP协议接入仅需要对数据进行加密即可.加密算法: AES/ECB/PKCS5Padding.
-
-使用自定义Option: `2100:设备ID` 来标识设备.
 
 将请求体进行加密,密钥为在创建设备产品和设备实例时进行配置的(`secureKey`).
 
@@ -525,10 +544,9 @@ topic: `/{productId}/{deviceId}/direct`
 
 发送认证请求:
 ```text
-POST /auth
+POST /{productId}/{deviceId}/request-token
 Accept: application/json
 Content-Format: application/json
-2100: 设备ID
 2110: 签名 md5(payload+secureKey)
 payload: {"timestamp":"时间戳"}
 ```
@@ -543,8 +561,7 @@ payload: {"token":"令牌"}
 
 例如:
 ```text
-POST /test/device1/event/fire_alarm
-2100: 设备ID
+POST /{productId}/{deviceId}/{topic}
 2111: 令牌
 ...其他Option
 payload: json数据
