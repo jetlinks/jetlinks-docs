@@ -21,12 +21,12 @@ cp -r dist docker/
 ### 使用docker部署前端
 1. 构建docker镜像  
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0 ./docker
 ```
 
 2. 运行docker镜像  
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0
 ```
 ::: tip 注意
 环境变量`API_BASE_PATH`为后台API根地址. 由docker容器内进行自动代理. 请根据自己的系统环境配置环境变量: `API_BASE_PATH`
