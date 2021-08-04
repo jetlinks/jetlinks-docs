@@ -1,6 +1,6 @@
 # 使用MQTT服务网关接入设备
 
-本文档以MQTT.fx为例，介绍使用第三方软件以MQTT协议接入物联网平台。MQTT.fx是一款基于Eclipse Paho，使用Java语言编写的MQTT客户端工具。支持通过Topic订阅和发布消息。
+本文档以MQTTX为例，介绍使用第三方软件以MQTT协议接入物联网平台。MQTTX是一款基于Eclipse Paho，使用Java语言编写的MQTT客户端工具。支持通过Topic订阅和发布消息。
 
 ## 创建协议
 
@@ -18,9 +18,9 @@ iii. 输入型号名称
 
 iv. 选择型号类型为 `jar`
 
-v. 输入类名`org.jetlinks.demo.protocol.DemoProtocolSupportProvider`
+v. 输入类名`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`
 
-vi. 上传jar包`demo-protocol-1.0.jar`，  请检出[demo-protocol](https://github.com/jetlinks/demo-protocol)自行打包。
+vi. 上传jar包`jetlinks-official-protocol-2.0-SNAPSHOT.jar`，  请检出[jetlinks-official-protocol](https://github.com/jetlinks/jetlinks-official-protocol)自行打包。
 
 vii. 点击确认，完成协议新增。
 
@@ -156,13 +156,13 @@ iv.启动MQTT服务设备网关，点击 `启动`，`状态`变为`已启动`
 ::: tip 注意：
 大部分情况无需选择认证协议. 
 :::
-## 使用MQTT.fx接入
+## 使用MQTTX接入
 
-1.下载并安装MQTT.fx软件。请访问[MQTT.fx官网](https://mqttfx.jensd.de/index.php/download?spm=a2c4g.11186623.2.16.20ab5800HxuVJR)。
+1.下载并安装MQTTX软件。请访问[MQTTX官网](https://mqttx.app/zh)。
 
-2.打开MQTT.fx软件，单击设置图标。
+2.打开MQTTX软件，点击`New Connection`创建一个连接。
 
-![mqttfx首页](../basics-guide/files/device-connection/mqttfx-index.png)
+![mqttx首页](../basics-guide/files/device-connection/mqttx-index.png)
 
 3.设置连接参数。
 
@@ -176,29 +176,16 @@ i. 设置基本信息
 
 | 参数         | 说明    |
 | :-----   | :-----  |
-| Profile Name       | 输入您的自定义名称。   |
-| Profile Type        |   选择为**MQTT Broker**。   |
-
-MQTT Broker Profile Settings
-
-| 参数         | 说明    |
-| :-----   | :-----  |
-| Broker Address       | 连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写远程连接地址 |
-| Broker Port        |   设置为`1889`   |
+|  Name       | 输入您的自定义名称。   |
 | Client ID        |    设备Id。本文档中为演示设备`test001`   |
-
-General栏目下的设置项可保持系统默认，也可以根据您的具体需求设置。
-
-ii. 单击User Credentials，设置User Name和Password。
-
-> 在消息协议未定义前,username,password可以填写任意字符,但是不能留空。
-
+| Host       |    连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写远程连接地址   |
+|  Port        |   设置为`1889`   |
+| Username       |    接入账号   |
+|  Password        |   接入密码  |
+:::tip 提示
+ username和password[自动生成器](http://doc.jetlinks.cn/basics-guide/mqtt-auth-generator.html)
 ![mqtt用户名名密码设置](../basics-guide/files/device-connection/mqtt-connection-user.png)
-
-| 参数         | 说明    |
-| :-----   | :-----  |
-| User Name       | 由[消息协议定义](../basics-guide/protocol-support.md)中决定User Name值（消息协议未定义时可填写任意值）   |
-| Password         |   由[消息协议定义](../basics-guide/protocol-support.md)中决定Password值  （消息协议未定义时可填写任意值） |
+:::
 
 4.设置完成后，单击右下角的**OK**。
 
@@ -208,7 +195,7 @@ ii. 单击User Credentials，设置User Name和Password。
 
 ### 设备上下线
 
-单击 Mqtt fx 中`Connect`进行连接
+单击 MqttX 中`Connect`进行连接
 
 ![mqtt连接](../basics-guide/files/device-connection/mqtt-connection.png)
 
@@ -220,7 +207,7 @@ ii. 单击User Credentials，设置User Name和Password。
 
 ![设备上线日志](../basics-guide/files/device-connection/device-online-log.png)
 
-单击 Mqtt fx 中`Disconnect`断开连接
+单击 MqttX 中`Disconnect`断开连接
 
 ![mqtt断开连接](../basics-guide/files/device-connection/mqtt-connection-stop.png)
 
@@ -237,19 +224,7 @@ ii. 单击User Credentials，设置User Name和Password。
 第2步中回复平台属性值需要在第1步平台发送订阅以后的十秒钟内完成，否则平台会视为该次操作超时，导致读取属性值失败。
 :::
 
-1.平台告知设备（MQTT.fx）需要设备返回设备属性
-
-在MQTT.fx上订阅消息，订阅物联网平台下发设备返回属性的Topic
-
-i.  在MQTT.fx上，单击Subscribe。
-
-ii. 输入平台获取设备属性会发送给网关的topic`/read-property`
-
-iii.  单击Subscribe，订阅这个topic
-
-![订阅topic](../basics-guide/files/device-connection/mqtt-sub.png)
-
-iv. 平台发送订阅操作
+1.平台告知设备（MQTTX）需要设备返回设备属性
 
 单击设备页面中`test001`设备对应的`查看`链接
 
@@ -259,7 +234,7 @@ iv. 平台发送订阅操作
 
 ![平台属性订阅操作](../basics-guide/files/device-connection/device-property-refresh.png)
 
-v. 订阅topic: `/read-property`对应的消息
+MQTTX会收到平台下发的订阅
 
 ![订阅topic](../basics-guide/files/device-connection/mqttfx-sub-read-property.png)
 
@@ -267,39 +242,36 @@ v. 订阅topic: `/read-property`对应的消息
  复制好订阅该topic收到的消息中的messageId。此messageId将作为回复与平台设备属性的凭据之一
 :::
 
-2.设备（MQTT.fx）回复平台设备属性值
+2.设备（MQTTX）回复平台设备属性值
 
-在MQTT.fx上发送消息，发送平台所需要的设备属性值。
+在MQTTX上发送消息，发送平台所需要的设备属性值。
 
-i.  在MQTT.fx上，单击 `Publish`。
-
-ii.  输入一个回复平台属性值消息Topic和要发送的消息内容，单击Publish，向平台推送该消息。
+i 输入一个回复平台属性值消息Topic(这里的为`/{productId}/{deviceId}/properties/read/reply`)和要发送的消息内容，
+单击Publish，向平台推送该消息。
 
 ![回复设备属性](../basics-guide/files/device-connection/mqttfx-replay-device-property.png)
 
 | 参数         | 说明    |
 | :-----   | :-----  |
-| messageId       | 第一步订阅平台topic“/read-property”所收到的messageId值   |
+| messageId       | 平台所下发的messageId值   |
 | deviceId        |   设备Id   |
 | timestamp        |   当前时间戳   |
 | success        |   成功标识   |
-| properties        |   设备属性值对象。例如： { "threshold":"50"}   |
+| properties        |   设备属性值对象。例如： { "temperature":"50"}   |
 
 该文档所使用的回复内容
 
 ```json
 {
-    "messageId":"第一步订阅平台topic“/read-property”所收到的messageId值",
-    "deviceId":"test001",
-    "timestamp":1583809148000,
-    "success":true,
-    "properties":{
-      "temperature":36.5
-     }
+ "timestamp":1601196762389,
+ "messageId":"第一次平台订阅设备,MQTTX所收到的messageId值",
+ "properties":{"temperature":"50"},
+ "deviceId":"test001",
+ "success":true
 }
 ```
 
-iii. 平台收到Mqtt.fx推送的属性值
+iii. 平台收到MqttX推送的属性值
 
 ![平台收到属性值](../basics-guide/files/device-connection/mqttfx-replyed-property-value.png)
 
@@ -315,49 +287,33 @@ iv. 读取设备属性回复的日志
 
 ### 设备事件上报
 
-MQTT.fx 推送设备事件消息到平台
+MQTTX 推送设备事件消息到平台
 
 以火灾报警事件为例。
 
-1.在MQTT.fx上，单击 `Publish`。  
+1.在MQTTX上，订阅topic`/{productId}/{deviceId}/event/{eventId}`。  
 
 2.输入事件上报Topic和要发送的事件内容，单击Publish按钮，向平台推送该事件消息。
 
 ![设备事件上报](../basics-guide/files/device-connection/mqttfx-device-event-report.png)
 
-该文档使用的topic: `/fire_alarm`
-
 该文档所使用的回复内容
 
 ```json
 {
-   "deviceId":"test001",
-    "pname":"智能温控",
-    "aid":105,
-    "a_name":"未来科技城",
-    "b_name":"C2 栋",
-    "l_name":"12-05-201",
-    "timestamp":"2019-11-06 16:28:50",
-    "alarm_type":1,
-    "alarm_describe":"火灾报警",
-    "event_id":1,
-    "event_count":1
+ "timestamp":1627960319,
+ "messageId":"1422143789942595584",
+ "data":{"a_name":"未来科技城",
+  "b_name":"C2 栋",
+  "l_name":"12-05-2012"}
 }
 ```
 
 | 参数         | 说明    |
 | :-----   | :-----  |
-| deviceId       | 设备Id   |
-| pname        |   产品名称   |
-| aid        |   区域Id   |
-| a_name        |   区域名称   |
-| b_name        |   建筑名称   |
-| l_name        |   位置名称   |
-| timestamp        |   上报时间   |
-| alarm_type        |   报警类型   |
-| alarm_describe        |   报警描述   |
-| event_id        |   事件 ID   |
-| event_count        |   该事件上报次数   |
+| timestamp       | 毫秒时间戳   |
+| messageId        |   随机消息ID   |
+| data        |   上报数据，类型与物模型事件中定义的类型一致   |
 
 3.事件上报设备日志
 
@@ -377,17 +333,18 @@ MQTT.fx 推送设备事件消息到平台
 2. 在设备产品详情页面点击`应用配置`按钮。  
 ![应用配置](../basics-guide/files/device-connection/start-model.png)  
 
-3. 使用mqtt.fx连接到平台，设备上线后推送地理位置消息到平台， 此处使用topic为`/report-property`。  
+3. 使用mqttX连接到平台，设备上线后推送地理位置消息到平台， 此处使用topic为`/{productId}/{deviceId}/properties/report`。  
 
 ![推送地理位置消息](../basics-guide/files/device-connection/push-geo.png)  
 
 此处使用的报文为：  
 ```json
 {
-    "deviceId":"test001",
-    "properties":{
-      "geo-test": "102.321,36.523"
-     }
+ "timestamp":1601196762389,
+ "messageId":"ddddd",
+ "properties":{
+  "geoPoint": "102.321,36.523"
+ }
 }
 ```
 ::: tip 注意：
@@ -408,3 +365,31 @@ MQTT.fx 推送设备事件消息到平台
 物模型中的标签也可创建geo类型，但不可通过标签上报地理位置信息，只能通过属性上报。  
 地理位置标签将主要运用在地图查询中。  
 :::
+
+### 调用设备功能
+
+1. MQttX连接上平台
+
+2.选择设备功能模块,点击执行,向设备发送topic
+![设备功能模块](../basics-guide/files/device-connection/device-function.png)  
+
+3.在MQttX订阅topic为`/{productId}/{deviceId}/function/invoke/reply`。
+![设备功能模块](../basics-guide/files/device-connection/mqttx-device-function-replay.png)
+此处使用的报文为：
+```json
+{
+ "timestamp":1601196762389,
+ "messageId":"1422497215780651008",
+ "output":"success",
+ "success":true
+}
+```
+| 参数         | 说明    |
+| :-----   | :-----  |
+| timestamp       | 毫秒时间戳   |
+| messageId        |    与设备下发中的messageId相同"  |
+| output        |   返回执行结果,具体类型与物模型中功能输出类型一致   |
+| success        |   成功状态   |
+
+4.设备功能调用成功
+![设备功能模块](../basics-guide/files/device-connection/mqttx-device-function-success.png)
