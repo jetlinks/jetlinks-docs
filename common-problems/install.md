@@ -40,7 +40,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 
 ## 更换数据库
 
-目前平台支持mysql、mssql、oracle、postgres数据库。
+目前平台支持mysql、mssql、postgres数据库。
 
 更换数据库（此处以mysql为例）需要注意的事项：  
 

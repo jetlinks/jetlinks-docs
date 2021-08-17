@@ -30,9 +30,9 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 1. 租户成员可指定授予全部租户内全部数据权限.(Pro)
 2. 增加数据权限功能，可将数据绑定到任意维度(角色,机构)中,实现数据权限控制.支持对单条数据的操作级别控制(Pro)
-3. 设备协议`ProtocoSupport`增加自定义设备信息,在创建设备时,可自定义生成设备的相关配置.
-4. 视频模块增加其他视频接入支持(Onvif,固定rtsp,rtmp地址).(选配模块)
-5. 视频模块查看本地录像,云端录像功能.(选配模块)
+3. 设备协议`CompositeProtocolSupport.onBeforeDeviceCreate`增加自定义设备信息,在创建设备时,可自定义生成设备的相关配置.
+<!-- 4. 视频模块增加其他视频接入支持(Onvif,固定rtsp,rtmp地址).(选配模块) -->
+4. 视频模块GB28181查看录像,快进,暂停,跳转播放.(选配模块)
 
 
 ::: warning 更新说明
@@ -48,7 +48,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 5. 使用`CorrelatesAssetsHolderQueryController`替换`CorrelatesAssetsHolderQueryController`
 6. 使用注解`AssetsController`替换`TenantAssets`.
 
-`AssertsHolder`:针对租户以及其他自定义的数据权限相关操作.
+`AssetsHolder`:针对租户以及其他自定义的数据权限相关操作.
 
 `TenantMember`:只针对租户进行数据权限相关操作.
 
