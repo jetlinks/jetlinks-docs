@@ -14,18 +14,20 @@ $ git clone https://github.com/jetlinks/jetlinks-big-screen.git
 $ cd jetlinks-big-screen
 ```
 
-修改后台接口地址：进入在src/config.js，修改后端请求地址
+修改后台接口地址：进入vue.config.js，修改后端请求地址
 
 ```javascript
-if(process.env.NODE_ENV === "production"){ // 生产环境
-  axios.defaults.baseURL = origin
-  window.requestUrl = origin
-  window.wsUrl = origin.replace(window.location.protocol, 'ws:') //websocket
-}else{//开发环境
-  axios.defaults.baseURL = '你的后端地址'
-  window.requestUrl = '你的后端地址'
-  window.wsUrl = '你的后端ws地址'
-}
+devServer: {
+    proxy: {
+        "/jetlinks": {
+            target: "http://demo.jetlinks.cn/jetlinks", // 你的后端地址
+                changeOrigin: true,
+                ws: "ws://demo.jetlinks.cn/jetlinks", // 你的后端websocket地址
+                pathRewrite: {
+                '^/jetlinks': ''
+            }
+        },
+    }
 ```
 
 启动：
