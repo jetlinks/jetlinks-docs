@@ -5,6 +5,45 @@
 
 [查看源码](https://github.com/jetlinks/jetlinks-official-protocol)
 
+## 官方协议topic主题说明
+
+|  名词   | 解释  |
+|  ----  | ----  |
+| 上行topic  | 设备端向平台发送 |
+| 下行topic  | 平台向设备端发送 |
+
+
+## Topic列表
+### 下行Topic:
+         读取设备属性: /{productId}/{deviceId}/properties/read
+         修改设备属性: /{productId}/{deviceId}/properties/write
+         调用设备功能: /{productId}/{deviceId}/function/invoke
+
+
+### 网关设备
+          读取子设备属性: /{productId}/{deviceId}/child/{childDeviceId}/properties/read
+          修改子设备属性: /{productId}/{deviceId}/child/{childDeviceId}/properties/write
+          调用子设备功能: /{productId}/{deviceId}/child/{childDeviceId}/function/invoke
+
+### 上行Topic:
+          读取属性回复: /{productId}/{deviceId}/properties/read/reply
+          修改属性回复: /{productId}/{deviceId}/properties/write/reply
+          调用设备功能: /{productId}/{deviceId}/function/invoke/reply
+          上报设备事件: /{productId}/{deviceId}/event/{eventId}
+          上报设备属性: /{productId}/{deviceId}/properties/report
+          上报设备派生物模型: /{productId}/{deviceId}/metadata/derived
+
+
+### 网关设备
+          子设备上线消息: /{productId}/{deviceId}/child/{childDeviceId}/connected
+          子设备下线消息: /{productId}/{deviceId}/child/{childDeviceId}/disconnect
+          读取子设备属性回复: /{productId}/{deviceId}/child/{childDeviceId}/properties/read/reply
+          修改子设备属性回复: /{productId}/{deviceId}/child/{childDeviceId}/properties/write/reply
+          调用子设备功能回复: /{productId}/{deviceId}/child/{childDeviceId}/function/invoke/reply
+          上报子设备事件: /{productId}/{deviceId}/child/{childDeviceId}/event/{eventId}
+          上报子设备派生物模型: /{productId}/{deviceId}/child/{childDeviceId}/metadata/derived
+
+
 ## MQTT接入
 
 目前支持MQTT3.1.1和3.1版本协议.
