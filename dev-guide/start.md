@@ -38,5 +38,5 @@ JetLinks基于`SpringBoot`, 配置方式与SpringBoot完全一致:`application.y
       file:
         upload: # 文件上传
             static-file-path: ./static/upload   # 静态文件保存目录
-            static-location: http://localhost:8844/upload   #静态文件下载路径
+            static-location: http://localhost:8848/upload   #静态文件下载路径
 ```
