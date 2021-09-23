@@ -241,23 +241,25 @@ spring:
   reactor:
     debug-agent:
       enabled: true # 开启调试代理,在打印异常时将会生成调用踪栈信息
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: 
+              - http://172.16.4.13:9200
+              - http://172.16.4.12:19200
+              - http://172.16.4.11:9200
+          max-in-memory-size: 100MB
+          socket-timeout: 10s
+          connection-timeout: 15s
 easyorm:
   default-schema: public # 数据库默认的schema
   dialect: postgres #数据库方言
 elasticsearch:
-  client:
-    max-conn-total: 128
-    connect-timeout: 5000
-    socket-timeout: 5000
-    connection-request-timeout: 8000
-    hosts:                      # es集群配置
-      - http://172.16.4.13:9200
-      - http://172.16.4.12:19200
-      - http://172.16.4.11:9200
   index:
     default-strategy: time-by-month #默认es的索引按月进行分表
     settings:
-      number-of-shards: 1 # es 分片数量
+      number-of-shards: 3 # es 分片数量
       number-of-replicas: 0 # 副本数量
 device:
   message:

@@ -98,7 +98,7 @@ module.exports = {
                     ['/dev-guide/specification', '规范'],
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
-                    ['/dev-guide/custom-sql-term', '自定义通用SQL条件'],
+                    ['/dev-guide/custom-sql-term.md', '自定义通用SQL条件'],
                     ['/dev-guide/event-driver.md', '事件驱动,消息总线'],
                     ['/dev-guide/reactor-ql.md', 'ReactorQL,使用SQL处理实时数据.'],
                     ['/dev-guide/rule-engine.md', '规则引擎说明'],
@@ -107,11 +107,11 @@ module.exports = {
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
                     // ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
-                    ['/dev-guide/websocket-subs', '使用websocket订阅平台消息'],
-                    ['/dev-guide/mqtt-subs', '使用mqtt订阅平台消息'],
-                    ['/dev-guide/commons-api', '平台内部核心接口,类说明'],
-                    ['/dev-guide/multi-tenant', '多租户'],
-                    ['/dev-guide/sso', '单点登录'],
+                    ['/dev-guide/websocket-subs.md', '使用websocket订阅平台消息'],
+                    ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
+                    ['/dev-guide/commons-api.md', '平台内部核心接口,类说明'],
+                    ['/dev-guide/assets.md', '数据权限控制'],
+                    ['/dev-guide/sso.md', '单点登录'],
                     //['/dev-guide/micro-service', '微服务']
 
                 ]
