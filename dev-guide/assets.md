@@ -45,7 +45,7 @@ jetlinks:
 ![flow](./assets.svg)
 
 1. 动态查询(QueryParamEntity)将被注入条件`DimensionAssetsTerm`.查询数据时，会自动添加数据权限控制查询条件.(仅支持关系型数据库)
-2. 默认会将方法的第一个参数当成资产ID,使用注解`AssetsController.type`值作为资产类型,获取资产绑定`AssetHolder.getBindings`信息并进行权限控制.
+2. 默认会将方法的第一个参数当成资产ID,使用注解`AssetsController.type`值作为资产类型,获取资产绑定`AssetsHolder.getBindings`信息并进行权限控制.
 3. 可通过`AssetsController.assetIdIndex`来修改方法上资产ID参数索引.
 4. 如果设置了`AssetsController.assetObjectIndex`,则会将对应索引的方法参数当成资产对象进行处理，使用`AssetsController.property`当作资产ID属性从资产对象中获取资产ID进行控制.
 
