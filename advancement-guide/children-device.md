@@ -2,11 +2,11 @@
 
 场景: 设备的接入是由设备侧的网关(下称父设备)代理的. 一个父设备管理着多个子设备.
 
-在自定义消息协议里,将收到的`设备消息(ChildrenDeviceMessage)`转换为对应`子设备消息`即可(通过`DeviceMessage.deviceId`).
+在自定义消息协议里,将收到的`设备消息(ChildDeviceMessage)`转换为对应`子设备消息`即可(通过`DeviceMessage.deviceId`).
 
 一个典型的流程:
 
-1. 自定义消息协议编解码: `ChildrenDeviceMessage`则为平台发往子设备的消息.
+1. 自定义消息协议编解码: `ChildDeviceMessage`则为平台发往子设备的消息.
 2. 父设备通过MQTT接入平台.
 3. 父设备上报子设备数据,消息协议需要解码为`ChildDeviceMessage`或者`ChildDeviceMessageReply`. `ChildDeviceMessage.deviceId`为
    父设备ID,`ChildDeviceMessage.message.deviceId`为子设备ID.

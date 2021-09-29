@@ -11,7 +11,7 @@
 流程:
 
 1. 父设备通过MQTT等方式接入平台,子设备自动上线.
-2. 平台下发子设备消息.网关使用协议的编解码器会收到`ChildrenDeviceMessage`,将其编码为网关设备能识别的消息即可.
+2. 平台下发子设备消息.网关使用协议的编解码器会收到`ChildDeviceMessage`,将其编码为网关设备能识别的消息即可.
 3. 父设备上报子设备数据,解码器将收到的设备报文解码为`ChildDeviceMessage`或者`ChildDeviceMessageReply`. 注意:`ChildDeviceMessage.deviceId`为
    父设备ID,`ChildDeviceMessage.message.deviceId`为子设备ID.
 
@@ -65,7 +65,7 @@
 ## 设备上线
 
 网关与平台建立连接时,会自动修改所有子设备的状态.
-如果要单独更新子设备上下线状态.请根据协议解析为`ChildrenDeviceMessage<DeviceOnlineMessage>`或者`ChildrenDeviceMessage<DeviceOfflineMessage>`.
+如果要单独更新子设备上下线状态.请根据协议解析为`ChildDeviceMessage<DeviceOnlineMessage>`或者`ChildDeviceMessage<DeviceOfflineMessage>`.
 
 ### 模拟网关设备上线（下线），子设备上线（下线）
 

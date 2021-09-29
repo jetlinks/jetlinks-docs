@@ -154,3 +154,41 @@ public Mono<Void> method(MyEntity entity){
 ## 自定义资产权限控制
 
 实现`AssetsHolderProvider`接口,并根据用户信息返回`AssetsHolder`.
+
+## 对ElasticSearch的支持
+
+ElasticSearch直接使用对应的字段(`tenantId`,`members`,`bindins`,)进行查询,字段说明:
+
+1. `tenantId`: 租户ID,当用户为租户管理员时,以此字段进行查询
+2. `members`: 租户成员ID,当用户为非租户管理员时,以`tenantId`和`members`组合查询
+3. `bindins`: 维度绑定信息,当用户绑定了维度,并且开启了资产维度数据权限控制时,以此字段进行查询
+
+`bindins`的值规则为: `md5(dimensionType+"|"+dimensionId)`.
+
+如果需要对`ElasticSearch`存储的相关数据进行数据权限控制,可以在存储数据时，添加对应的字段. 
+平台已经对[设备数据统计](./micrometer.md#设备统计)支持了数据权限控制.
+
+查询时的权限控制:
+可以利用`AssetsHolder.injectQueryParam`来注入数据权限控制条件.例如:
+
+```java
+
+AssetsHolder
+    .injectQueryParam(param,"device", "deviceId")//资产类型和id属性可以为任意值,因为最终会被替换为实际的字段
+    .flatMapMany(this::doQuery)
+    ...
+
+```
+也支持嵌套类型字段
+
+```java
+AssetsHolder
+    .injectQueryParam(param,"device", "tags.deviceId")//资产类型和id属性可以为任意值,因为最终会被替换为实际的字段
+    .flatMapMany(this::doQuery)
+    ...
+```
+
+## 注意
+
+平台内对大部分功能都默认开启了数据权限控制,但是部分功能
+如: 设备接入，规则引擎中的脚本等面向开发运维人员的功能,可能会对系统造成安全问题,不建议开放终端用户.

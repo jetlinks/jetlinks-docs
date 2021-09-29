@@ -156,8 +156,8 @@ EventMessage{
 
 1. `DeviceOnlineMessage` 设备上线消息,通常用于网关代理的子设备的上线操作.
 2. `DeviceOfflineMessage` 设备离线消息,通常用于网关代理的子设备的下线操作.
-3. `ChildrenDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
-4. `ChildrenDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
+3. `ChildDeviceMessage` 子设备消息,通常用于网关代理的子设备的消息.
+4. `ChildDeviceMessageReply` 子设备消息回复,用于平台向网关代理的子设备发送消息后设备回复给平台的结果.
 5. `UpdateTagMessage`更新设备标签.
 6. `DerivedMetadataMessage` 更新设备独立物模型.
 7. `DeviceRegisterMessage` 设备注册消息,通过设置消息头`message.addHeader("deviceName","设备名称");`和
