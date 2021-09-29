@@ -6,7 +6,7 @@
 
 ## 安装并启动EMQ
 
-可直接前往[官网下载](http://www.emqtt.io/downloads/) emqttd。  
+可直接前往[官网下载](https://docs.emqx.cn/broker/v4.3/getting-started/install.html) emqttd。  
 本文使用docker搭建。  
 ### 拉取镜像  
 ```shell script
