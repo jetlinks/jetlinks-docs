@@ -1,7 +1,7 @@
 # 平台统计和监控
 
 原理: 平台利用[Micrometer](https://micrometer.io/)对相关功能进行监控和统计,
-默认每个30秒,上报相关的统计指标数据,并使用`TimeSeriesManager`进行存储(默认使用`Elasticsearch`实现). 
+默认每隔30秒,上报相关的统计指标数据,并使用`TimeSeriesManager`进行存储(默认使用`Elasticsearch`实现). 
 然后可通过聚合查询等操作查看统计数据.
 
 ## 使用
