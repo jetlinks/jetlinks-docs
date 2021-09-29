@@ -11,9 +11,9 @@
 
 ### 测试连接
 
-使用[EMQ](https://docs.emqx.io/broker/v3/cn/install.html)软件进行连接测试.
+使用[EMQ](https://docs.emqx.cn/broker/v4.3/getting-started/install.html)软件进行连接测试.
 
-1.[安装](https://docs.emqx.io/broker/v3/cn/install.html#)完成EMQ，并启动
+1.[安装](https://docs.emqx.cn/broker/v4.3/getting-started/install.html)完成EMQ，并启动
 
 2.进入emq客户端监控界面
 

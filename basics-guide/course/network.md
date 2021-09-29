@@ -358,7 +358,7 @@
 
 #### 测试连接
 
-使用[EMQ](https://www.emqx.io/downloads#broker)软件进行连接测试.
+使用[EMQ](https://docs.emqx.cn/broker/v4.3/getting-started/install.html)软件进行连接测试.
 
 1.使用docker启动
 ```
