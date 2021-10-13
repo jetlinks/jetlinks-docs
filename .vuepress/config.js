@@ -50,6 +50,7 @@ module.exports = {
                     ['/advancement-guide/jetlinks-protocol.md', '物模型说明'],
                     ['/basics-guide/protocol-support.md', '协议开发说明'],
                     ['/basics-guide/jetlinks-protocol-support.md', 'JetLinks官方协议'],
+                    ['/basics-guide/jetlinks-protocol-demo.md', 'JetLinks演示协议'],
                     ['/advancement-guide/mqtt-connection.md', '通过MQTT直连接入设备'],
                     ['/advancement-guide/third-mqtt.md', '通过MQTT Broker接入设备'],
                     ['/best-practices/tcp-connection.md', 'TCP透传方式接入设备'],
