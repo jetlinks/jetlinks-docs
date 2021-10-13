@@ -1,11 +1,14 @@
 # JetLinks 开源物联网平台
 
 JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发, 
-是一个开箱即用,可二次开发的企业级物联网基础平台。平台实现了物联网相关的众多基础功能,
+是一个开源的企业级物联网基础开发平台，实现了物联网相关以及相关业务开发的众多基础功能,
 能帮助你快速建立物联网相关业务系统。
 
 点击添加官方QQ:①群(已满)[2021514](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
 ,②群[324606263](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
+
+在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test123456`.
+测试用户未开放全部权限,建议本地运行社区版体验或者联系商务试用企业版.
 
 :::warning 特此声明
 近日有不法分子利用`低价JetLinks企业版源代码`实施诈骗，我方已报警备案。购买企业版请联系`官方QQ群管理员`，QQ群内一切`主动私聊你的都是骗子`。
@@ -16,27 +19,32 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 
 **开放源代码**
 
-全部源代码开放,可自由二次开发.前后端分离,接口全开放.
+全部源代码开放,可自由拓展功能,不再受制于人.前后端分离,接口全开放.
 
 **统一设备接入,海量设备管理**
 
 TCP/UDP/MQTT/HTTP、TLS/DTLS、不同厂商、不同设备、不同报文、统一接入，统一管理.
 
-**强大的规则引擎**
+**规则引擎**
 
-强大的可视化规则设计器.以及多种规则模型支持(设备告警,场景联动等).
+灵活的规则模型配置,支持多种规则模型以及[自定义规则模型](./dev-guide/rule-engine.md).
+设备告警,场景联动,均由统一的规则引擎管理.
+
+强大的可视化规则设计器.
 ![rule-engine.png](./rule-engine.png)
 
-**可视化大屏**
+::: tip 说明
+可视化规则设计器基于node-red,后端使用纯java实现.
+:::
 
-可视化大屏设计器,灵活配置大屏展示。
-![big-screen.png](./big-screen.png)
+**数据权限控制**
 
-**多租户**
+灵活的非侵入[数据权限控制](./dev-guide/assets.md)。可实现不同机构,不同用户共享数据。
+可控制单条数据的操作权限。支持自定义维度(公司,部门...)
 
-灵活的非侵入[多租户](./dev-guide/multi-tenant.md)数据权限控制。可实现不同租户,不同用户共享数据。
+**多种数据存储策略**
 
-在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test123456`.
+支持灵活的设备[数据存储策略](./best-practices/start.md#存储策略选择)，可将不同类型的设备数据存储到不同的地方。
 
 ## 技术栈
 
@@ -86,7 +94,7 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 | Geo地理位置支持              | ⭕      |  ✅                         |
 | 规则引擎-可视化设计器        | ⭕      |  ✅                         |
 | OpenAPI,OAuth2认证           | ⭕      | ✅                         |
-| 多租户逻辑数据隔离           | ⭕      |  ✅                         |
+| 数据权限控制                 | ⭕      |  ✅                         |
 | 集群支持                     | ⭕      |  ✅                         |
 | QQ群技术支持                 | ⭕      |  ✅                         |
 | 一对一技术支持               | ⭕      | ✅                         |
