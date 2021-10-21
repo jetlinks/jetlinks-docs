@@ -178,3 +178,47 @@ Demo中使用签名的方式接入。
 
 **[前往下载Demo](https://github.com/jetlinks/jetlinks-openapi-demo)**。
 
+## OAuth2.0
+
+平台也支持通过OAuth2.0进行认证,支持: `authorization_code`和`client_credentials`以及`refresh_token`.
+
++ 授权地址: http://{domain}/#/user/login
++ client_id: 第三方平台中配置的clientId
++ ClientSecret: 第三方平台中配置的secureKey
++ Token地址: http://{domain}/jetlinks/oauth2/token
+
+例如:
+```js
+POST /jetlinks/oauth2/token
+Content-Type: application/json
+
+{
+    "grant_type": "client_credentials", //固定client_credentials
+    "client_id":"client_id",            
+    "client_secret":"client_secret",
+}
+
+响应:
+
+{
+    "access_token":"access_token",
+    "refresh_token":"refresh_token",
+    "expires_in":7200 //有效期,单位秒
+}
+```
+
+使用token请求接口:
+
+```js
+POST /device/instance/_query
+Authorization: bearer access_token
+
+{}
+```
+
+或者
+```js
+POST /device/instance/_query?access_token=access_token
+ 
+{}
+```

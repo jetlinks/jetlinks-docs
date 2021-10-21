@@ -595,6 +595,35 @@ measurement说明:
 2. 事件: `event_{productId}_{eventId}`
 3. 日志: `device_log_{productId}`
 
+### ClickHouse-行式存储
+
+与`默认-行式存储`行为一致,使用`ClickHouse`进行数据存储.
+
+::: tip 说明
+ClickHouse不支持大量并发查询,请根据实际情况选择.
+:::
+
+### Cassandra-行式存储
+
+与`默认-行式存储`行为一致,使用`Cassandra`进行数据存储.
+
+分区说明:
+
+1. 设备属性: (deviceId,property,partition)
+2. 设备事件: (deviceId,partition)
+3. 设备日志: (deviceId,partition)
+   
+partition规则:
+
+通过`jetlinks.device.storage.cassandra.partition-interval=MONTHS`进行配置,
+支持:`MINUTES`,`HOURS`,`DAYS`,`WEEKS`,`MONTHS`,`YEARS`,`FOREVER`.
+
+::: tip 注意
+1. 在查询条件没有设置时间的时候，默认只会查询最近2个分区周期内的数据。
+前端在查询时，建议默认指定时间范围，并且时间间隔不能与配置的分区周期相差太多，否则会影响查询性能.
+2. Cassandra仅支持使用滚动分页,跳转分页深度过大会降低查询速度.执行count的性能也较低,建议查询时,使用[滚动分页](./../interface-guide/query-param.md#滚动分页).
+:::
+
 ### 自定义存储策略
 
 在后台代码中实现`DeviceDataStoragePolicy`接口,然后注入到`Spring`即可。

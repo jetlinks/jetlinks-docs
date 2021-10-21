@@ -1,4 +1,4 @@
-# 公共查询参数
+# 动态查询参数
 查询参数对象在各查询接口中频繁使用，本文将对此对象进行说明。
 
 各属性如下表所示:
@@ -38,30 +38,30 @@ Term对象各属性如下表所示：
 ### TermType
 TermType各条件如下所示：
 
-| 类型值         | 条件                                                                             |
-| -------------- | -------------------------------------------------------------------------------- |
-| eq             | ==                                                                               |
-| not            | !=                                                                               |
-| like           | like                                                                             |
-| nlike          | not like                                                                         |
-| gt             | &#62;                                                                            |
-| lt             | &#60;                                                                            |
-| gte            | &#62;=                                                                           |
-| lte            | &#60;=                                                                           |
-| in             | in                                                                               |
-| nin            | not in                                                                           |
-| empty          | =''                                                                              |
-| nempty         | !=''                                                                             |
-| isnull         | is null                                                                          |
-| notnull        | not null                                                                         |
-| btw            | between                                                                          |
-| nbtw           | not between                                                                      |
-| dev-group      | 按设备分组查询对应设备数据,例查询`testgroup`分组下的设备: *deviceId* dev-group `testgroup`                    |
-| dev-group-tree | 查询设备分组及子分组对应设备数据,例查询`testgroup`分组及子分组下的设备: *deviceId* dev-group-tree `testgroup`          |
-| dev-latest     | 根据设备最新属性查询设备数据,例查询查询`demo-device`产品下最新数据temp大于10的设备: *deviceId$dev-latest$demo-device* is `'temp>10'`                   |
-| dev-same-group | 查询相同设备下的数据,例查询与设备ID`deviceId0001`相同分组下的设备: *deviceId* dev-same-group `deviceId0001`                   |
-| dev-tag        | 根据设备标签查询设备数据,例查询标签key为`tagKey`值为`tagValue`的设备:  *deviceId*  dev-tag `tagKey:tagValue` |
-| dev-prod-cat   | 根据产品分类查询设备数据,例查询产品分类为`categoryid`的设备: *deviceId* dev-prod-cat `categoryid`                     |
+| 类型值         | 条件                                                                                                                                 |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| eq             | ==                                                                                                                                   |
+| not            | !=                                                                                                                                   |
+| like           | like                                                                                                                                 |
+| nlike          | not like                                                                                                                             |
+| gt             | &#62;                                                                                                                                |
+| lt             | &#60;                                                                                                                                |
+| gte            | &#62;=                                                                                                                               |
+| lte            | &#60;=                                                                                                                               |
+| in             | in                                                                                                                                   |
+| nin            | not in                                                                                                                               |
+| empty          | =''                                                                                                                                  |
+| nempty         | !=''                                                                                                                                 |
+| isnull         | is null                                                                                                                              |
+| notnull        | not null                                                                                                                             |
+| btw            | between                                                                                                                              |
+| nbtw           | not between                                                                                                                          |
+| dev-group      | 按设备分组查询对应设备数据,例查询`testgroup`分组下的设备: *deviceId* dev-group `testgroup`                                           |
+| dev-group-tree | 查询设备分组及子分组对应设备数据,例查询`testgroup`分组及子分组下的设备: *deviceId* dev-group-tree `testgroup`                        |
+| dev-latest     | 根据设备最新属性查询设备数据,例查询查询`demo-device`产品下最新数据temp大于10的设备: *deviceId$dev-latest$demo-device* is `'temp>10'` |
+| dev-same-group | 查询相同设备下的数据,例查询与设备ID`deviceId0001`相同分组下的设备: *deviceId* dev-same-group `deviceId0001`                          |
+| dev-tag        | 根据设备标签查询设备数据,例查询标签key为`tagKey`值为`tagValue`的设备:  *deviceId*  dev-tag `tagKey:tagValue`                         |
+| dev-prod-cat   | 根据产品分类查询设备数据,例查询产品分类为`categoryid`的设备: *deviceId* dev-prod-cat `categoryid`                                    |
 
 ::: tip 说明
 
@@ -114,3 +114,36 @@ POST请求时:
     ]
 }
 ```
+
+## 滚动分页
+
+部分存储方式支持滚动分页,能实现更快的查询性能,使用说明:
+
+在执行分页查询时,可以根据返回分页结果中的:
+
+```js
+{
+    "scroll":true, //为true时表示支持滚动分页
+    "scrollId":"", //滚动ID,需要在下次查询时携带此ID,为空则表示为最后一页
+    "total":100,    // 数据总数
+    "data":[        // 数据内容
+
+    ]
+}
+```
+
+在执行动态查询时,通过设置滚动ID到查询上下文中进行下一页查询:
+
+```js
+{
+  "context":{
+    "scrollId":"" //上一页查询返回的scrollId
+  }
+ "terms":[],
+ "total":65535 // 设置此值后,后端将不进行count操作,可以提升查询速度,滚动分页时建议设置为任意值.
+}
+```
+
+::: tip 注意
+当查询条件变化后,需要重置滚动ID为空.
+:::
