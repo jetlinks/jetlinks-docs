@@ -21,7 +21,7 @@
 ### 上行Topic:
           读取属性回复: /read-property
           修改属性回复: /write-property
-          调用设备功能: /invoke-function
+          设备功能回复: /invoke-function
           上报设备事件: /dev_msg
           上报设备属性: /report-property
 
@@ -124,8 +124,7 @@ topic: `/report-property`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
-"messageId":"随机消息ID",
+"deviceId":"设备id",
 "properties":{"temp":36.8} //上报数据
 }
 ```

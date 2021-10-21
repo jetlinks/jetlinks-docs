@@ -19,6 +19,10 @@ mvn clean package -Dmaven.test.skip=true
 *  ubantu 18.0.x系统<br/>
 *  自行配置国内镜像仓库地址
 
+## 项目使用jar包方式在服务器使用jar命令启动时报如下错误
+![jar部署错误截图](./images/w32excp.png)
+设置`application.yml`内的参数，参数如下
+>  spring.reactor.debug-agent.enabled=false
 
 ##   启动报elasticsearch节点无法进入
 进入jetlinks挂载目录`data`文件夹内，进入data文件夹，找到`elasticsearch`目录

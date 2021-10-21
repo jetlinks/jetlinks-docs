@@ -145,8 +145,7 @@ topic: `/{productId}/{deviceId}/properties/report`
 
 ```json
 {
-"timestamp":1601196762389, //毫秒时间戳
-"messageId":"随机消息ID",
+"deviceId":"设备id",
 "properties":{"temp":36.8} //上报数据
 }
 ```
