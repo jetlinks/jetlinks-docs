@@ -33,5 +33,5 @@ sso:
       token-url: https://gitee.com/oauth/token  # 获取token的接口
       user-info-url: https://gitee.com/api/v5/user  # 获取用户信息的接口
       user-id-property: login   # 用户信息接口返回json中用户id的字段
-      redirect-uri: http://localhost:9000/jetlinks/sso/notify/gitee # 申请token时传入的重定向地址,与OAuth2平台配置一致
+      redirect-uri: http://localhost:9000/jetlinks/sso/gitee/notify # 申请token时传入的重定向地址,与OAuth2平台配置一致
 ```
