@@ -42,6 +42,14 @@ $ docker-compose up -d
 
 ![type.png](./images/type.png)
 
+::: tip 注意：
+如何需要添加认证的接口，可以在项目的`micro-services`文件夹中`api-gateway-service`模块下的`application.yml`下配置，不需要认证的接口也在里面配置，
+
+如图：
+![config.png](./images/config.png)
+
+:::
+
 ### docker方式启动前端
 如果前端不需要改动可以输入以下命令启动前端，本地[运行前端](http://doc.jetlinks.cn/install-deployment/start-with-source.html)
 ```bash
