@@ -3,7 +3,7 @@ JetLinks 使用[hsweb-easyorm](https://github.com/hs-web/hsweb-easy-orm)实现�
 
 ## DAO
 
-`easyorm`封装了`r2dbc`实现了动态DDL,DSL动态条件等便捷操作.实现一个增删改差只需要2步.
+`easyorm`封装了`r2dbc`实现了动态DDL,DSL动态条件等便捷操作.实现一个增删改查只需要2步.
 
 创建实体类,使用jpa注解描述映射关系.
 
