@@ -14,7 +14,7 @@
 
 
 ## Topic列表
-### 下行Topic:
+### 下行Topic
          读取设备属性: /{productId}/{deviceId}/properties/read
          修改设备属性: /{productId}/{deviceId}/properties/write
          调用设备功能: /{productId}/{deviceId}/function/invoke
@@ -25,7 +25,7 @@
           修改子设备属性: /{productId}/{deviceId}/child/{childDeviceId}/properties/write
           调用子设备功能: /{productId}/{deviceId}/child/{childDeviceId}/function/invoke
 
-### 上行Topic:
+### 上行Topic
           读取属性回复: /{productId}/{deviceId}/properties/read/reply
           修改属性回复: /{productId}/{deviceId}/properties/write/reply
           调用设备功能: /{productId}/{deviceId}/function/invoke/reply
@@ -285,7 +285,7 @@ topic: `/{productId}/{deviceId}/child/{childDeviceId}/offline`
      
 topic: `/{productId}/{deviceId}/child/{childDeviceId}/disconnect`
       
-方向: `上行`
+方向: `下行`
 
 消息格式: 
 
