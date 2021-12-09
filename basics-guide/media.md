@@ -7,6 +7,10 @@
 2、填写GB28181信令服务信息。
 ![基本配置](images/media/gb28181.png)
 
+> SIP ID：https://www.cnblogs.com/cash/p/14177671.html (opens new window)根据这个网站提供的规则进行编写
+> 
+> SIP 域：SIP ID取前10位
+
 - 具体端口开放根据部署情况而定
 - 如使用jar包部署且为本地部署则不受限制
 - 如使用jar包部署但使用云服务器部署，需要到云服务器控制台安全组开放udp端口
@@ -22,7 +26,7 @@
 
 2、填写流媒体基本到信息。
 
-具体配置信息。查看[配置示例](../media-guide/media-base-config.md)
+摄像头配置信息。查看[配置示例](../media-guide/media-base-config.md)
 
 
 3、点击保存。
