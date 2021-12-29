@@ -182,6 +182,17 @@ api.urls.big-screen-path=http://公网ip:9002/
 
 ----
 
+## 调试邮件发送报No appropriate protocol (protocol is disabled or cipher suites are inappropriate)
+配置以下参数
+```yaml
+ mail.smtp.starttls.enable：true
+ mail.smtp.auth：true
+ mail.smtp.socketFactory.class：javax.net.ssl.SSLSocketFactory
+ mail.smtp.socketFactory.port：465
+ mail.smtp.port：465
+ mail.smtp.ssl.protocols：TLSv1.2
+```
+
 ## 视频网关如何配置？
 [视频网关配置](../media-guide/media-base-config.md)
 
@@ -209,3 +220,4 @@ api.urls.big-screen-path=http://公网ip:9002/
 ## 如何使用podman部署？
 podman大部分兼容docker，并且可以直接使用docker镜像、命令非常相似
 podman默认的镜像库为国外的，可以使用国内的镜像地址来镜像加速。
+
