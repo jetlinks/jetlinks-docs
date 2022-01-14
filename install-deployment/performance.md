@@ -8,14 +8,14 @@
 也应避免直接将控制台日志重定向到文件,因为可能会导致打印日志线程阻塞.推荐配置`logback-spring.xml`来将日志异步输出到文件.
 通过修改`application.yml`中的`logging.level.`相关配置来调整日志级别.
 
-## 关闭reactor debug agent
+## 关闭reactor `debug-agent`
 
-reactor debug agent 就在reactor调用链中添加追踪信息,可能会导致调用链变长影响性能.
+reactor `debug-agent` 会在reactor调用链中添加追踪信息,可能会影响性能.
 通过配置`spring.reactor.debug-agent.enabled=false`来关闭.
 
 ## 关闭最新数据存储
 
-在企业版中,开启了设备最新数据存储时,会将设备数据写到关系型数据库.
+在企业版中,开启了[设备最新数据存储](http://doc.jetlinks.cn/best-practices/start.html#%E8%AE%B0%E5%BD%95%E8%AE%BE%E5%A4%87%E6%9C%80%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93)时,会将设备数据写到关系型数据库.
 此功能使用场景: 通过最新数据来关联查询设备相关的数据比如: 查询温度大于40度的设备列表.
 如果没有场景使用最新数据,可以关闭此功能:`jetlinks.device.storage.enable-last-data-in-db=false`.
 
