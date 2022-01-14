@@ -38,7 +38,8 @@ module.exports = {
                     // ['/install-deployment/ide-docker-start.md', '开发环境最佳实践'],
                     ['/install-deployment/jetlinks-cloud.md', '启动jetlinks微服务版本'],
                     ['/install-deployment/deployment.md', '部署到服务器'],
-                    ['/install-deployment/cluster.md', '集群部署']
+                    ['/install-deployment/cluster.md', '集群部署'],
+                    ['/install-deployment/performance.md', '性能优化']
                 ]
             },
             {
