@@ -17,10 +17,14 @@
 
 ## 下载源代码
 
-建议使用`git clone`下载源代码,注意代码分支,`master`为最新的开发分支.其他分支为对应的版本.
+1. 进入[Gitee](https://gitee.com/jetlinks/jetlinks-community)
+2. Star仓库
+![star.png](./images/star.png)
+3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`master`为最新的开发分支.其他分支为对应的版本.
+![star.png](./images/download.png)
 
 ```bash
-$ git clone https://github.com/jetlinks/jetlinks-community.git
+$ git clone https://gitee.com/jetlinks/jetlinks-community.git
 $ cd jetlinks-community
 ```
 
@@ -64,6 +68,8 @@ hsweb:
 ```bash
 java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar --spring.elasticsearch.embedded.enabled=true
 ```
+
+修改了数据库配置也要同时修改`easyorm.dialect`以及`easyorm.default-schema`配置.
 :::
 
 ## 使用命令行启动

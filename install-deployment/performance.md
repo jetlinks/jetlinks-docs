@@ -39,5 +39,5 @@ reactor `debug-agent` 会在reactor调用链中添加追踪信息,可能会影�
 在运行过程中,发生内存溢出,或者cpu过高时. 
 1. 查看日志是否有大量的日志输出,如果有,根据日志内容来分析.
 2. 使用`jps`命令查看进程`pid`,执行`jstack -l [pid]`.查看是否有被`BLOCKED`,或者调用栈比较长的线程,根据调用栈分析对应的代码.
-3. 使用`async profiler`或者(Arthas)[https://arthas.aliyun.com/doc/profiler.html?highlight=profiler]来收集火焰图,分析调用栈耗时情况.
+3. 使用`async profiler`或者[Arthas](https://arthas.aliyun.com/doc/profiler.html?highlight=profiler)来收集火焰图,分析调用栈耗时情况.
    在本地可以使用`Idea`提供的`Profiler`来监控.
