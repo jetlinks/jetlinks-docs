@@ -85,6 +85,7 @@ module.exports = {
                     ['/basics-guide/course/network.md', '设备接入'],
                     ['/basics-guide/course/notification.md', '通知管理'],
                     ['/basics-guide/course/rule-engine-nodered.md', '规则引擎'],
+                    ['/basics-guide/data-forwarding.md', '平台设备数据转发'],
                     ['/basics-guide/cloud-docking.md', '云云对接'],
                     ['/basics-guide/media.md', '视频网关'],
                     ['/basics-guide/opc-ua.md', 'OPC UA'],
