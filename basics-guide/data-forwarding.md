@@ -1,3 +1,4 @@
+
 # 数据转发第三方平台
 
 > 平台提供了四种数据转发的方式，`开放OpenApi`、`在线订阅websocket数据`、`规则引擎转发`及`MQTT订阅`
@@ -11,7 +12,7 @@
 本功能仅在企业版中提供. 
 :::
 
-## 创建第三方平台
+### 创建第三方平台
 
 进入平台:[系统设置]-[第三方平台]
 
@@ -24,7 +25,7 @@
  与其他用户相同,可以将用户绑定到机构实现数据权限控制.
 :::
 
-## 赋权
+### 赋权
 
 点击操作列中的赋权按钮对第三方平台进行赋权.大部分情况下只需要勾选: `设备操作API`和`设备数据API`权限即可.
 
@@ -35,8 +36,8 @@
 此赋权操作实际上是对`第三方平台`对应对`用户主体`进行赋权.
 :::
 
-## 使用签名的方式
-### 验证流程
+### 使用签名的方式
+#### 验证流程
 
 ![流程](./images/rule-engine/OpenApiAuthenticationProcess.png)
 
@@ -49,7 +50,7 @@
 
 :::
 
-### 签名
+#### 签名
 
 平台使用签名来校验客户端请求的完整性以及合法性.
 
@@ -83,7 +84,7 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 
 ```
 
-### 验签
+#### 验签
 
 使用和签名相同的算法(不需要对响应结果排序):
 
@@ -102,7 +103,7 @@ if(sign.equalsIgnoreCase(signHeader)){
 
 ```
 
-## 使用token的方式
+### 使用token的方式
 
 通过请求接口`/api/v1/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
 
@@ -173,14 +174,14 @@ X-Access-Token: 3bcddb719b01da679b88d07acde2516
 }
 ```
     
-## Demo 
+### Demo 
 
 Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。  
 Demo中使用签名的方式接入。  
 
 **[前往下载Demo](https://github.com/jetlinks/jetlinks-openapi-demo)**。
 
-## OAuth2.0
+### OAuth2.0
 
 平台也支持通过OAuth2.0进行认证,支持: `authorization_code`和`client_credentials`以及`refresh_token`.
 
@@ -230,7 +231,7 @@ POST /device/instance/_query?access_token=access_token
 > 在`1.1`版本后提供websocket方式订阅平台消息的功能.
 可以通过websocket来订阅设备,规则引擎,设备告警等相关消息.
 
-## 接口
+### 接口
 
 ```tip
 websocket统一接口为: `/messaging/{token}`,
@@ -246,7 +247,7 @@ ws.onmessage=function(e){console.log(e.data)}
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接.
 ```
 
-## 订阅消息
+### 订阅消息
 
 向websocket发送消息,格式为:
 
@@ -282,7 +283,7 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 
 :::
 
-## 取消订阅
+### 取消订阅
 
 向websocket发送消息,格式为:
 
@@ -293,12 +294,12 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 }
 ```
 
-## 订阅设备消息
+### 订阅设备消息
 
 与消息网关中的设备topic一致,[查看topic列表](../best-practices/start.md#设备消息对应事件总线topic).
 消息负载(`payload`)将与[设备消息类型](../best-practices/start.md#平台统一设备消息定义)一致.
 
-## 发送设备指令
+### 发送设备指令
 
 发送消息到websocket
 
@@ -346,7 +347,7 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 
 :::
 
-## 批量同步设备状态
+### 批量同步设备状态
 
 发送消息到websocket
 
@@ -379,7 +380,7 @@ type为complete时标识本此订阅已结束,通常是订阅有限数据流时(
 ```
 
 
-## dashboard
+### dashboard仪表盘
 
 订阅仪表盘数据:
 
@@ -406,7 +407,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 详细使用见[Dashboard说明](./dashboard.md)
 :::
 
-## 订阅引擎事件数据
+### 订阅引擎事件数据
 
 发送消息到websocket
 
@@ -447,7 +448,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 
 :::
 
-## 订阅设备告警数据
+### 订阅设备告警数据
 
 发送消息到websocket
 
@@ -477,7 +478,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 }
 ```
 
-## 订阅场景联动
+### 订阅场景联动
 发送消息到websocket
 
 ```js
@@ -506,7 +507,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 
 >tip 在`1.5`企业版本后提供mqtt方式订阅平台消息的功能.可以通过mqtt来订阅设备,规则引擎,设备告警等相关消息.
 
-## 接口
+### 修改配置文件
 
 通过配置:
 ```yml
@@ -517,7 +518,7 @@ messaging:
     host: 0.0.0.0 #绑定网卡
 ```
 
-## 认证
+### 认证
 
 默认使用`token`(可以使用`OpenAPI`申请token)作为`clientId`,`username`和`password`可以不填写.
 
@@ -527,7 +528,7 @@ messaging:
 平台topic使用的通配符为`*`，在使用MQTT订阅时需要将通配符转换为mqtt的通配符: `*`转为`+`,`**`转为`#`.
 :::
 
-## 订阅设备消息
+### 订阅设备消息
 
 与消息网关中的设备topic一致,[查看topic列表](http://doc.jetlinks.cn/best-practices/start.html#%E8%AE%BE%E5%A4%87%E6%B6%88%E6%81%AF%E5%AF%B9%E5%BA%94%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BFtopic).
 消息负载(`payload`)将与[设备消息类型](http://doc.jetlinks.cn/best-practices/start.html#%E5%B9%B3%E5%8F%B0%E7%BB%9F%E4%B8%80%E8%AE%BE%E5%A4%87%E6%B6%88%E6%81%AF%E5%AE%9A%E4%B9%89)一致.
@@ -550,9 +551,8 @@ messaging:
 
 ![实时订阅平台设备数据](./images/rule-engine/1.jpg)
 
-配置转发
 
-### 函数
+### 配置转发
 
 ::: tip
 
@@ -564,7 +564,7 @@ messaging:
 
 查看下游节点接收参数
 
-#### 订阅MQTT
+### 订阅MQTT
 
 选择服务端，该服务端需要在网络组件内配置`MQTT客户端`
 
@@ -581,7 +581,7 @@ messaging:
 
 ![实时订阅平台设备数据](./images/rule-engine/3.png)
 
-#### HTTP请求
+### HTTP请求
 
 订阅实时数据同上。
 
@@ -592,7 +592,7 @@ messaging:
 
 配置http请求查看
 
-#### 写入Kafka
+### 写入Kafka
 
 订阅实时数据同上。
 
@@ -600,7 +600,7 @@ messaging:
 
 函数配置同MQTT订阅一致
 
-#### 写入数据库
+### 写入数据库
 
 订阅实时数据同上。
 
