@@ -21,8 +21,8 @@
 | notnull          | not null             | \.notNull\(\)                                          | 不为null                                                                                                |
 | empty            | = ''                 | \.isEmpty\(\)                                          | 为空字符                                                                                                  |
 | nempty           | \!=''                | \.notEmpty\(\)                                         | 不为字符                                                                                                  |
-| bwt              | between              | \.between\(\)                                          | 在之间                                                                                                   |
-| nbwt             | not between          | \.notBetween                                           | 不在之间                                                                                                  |
+| btw              | between              | \.between\(\)                                          | 在之间                                                                                                   |
+| nbtw            | not between          | \.notBetween                                           | 不在之间                                                                                                  |
 | dev\-group       | exists\(\.\.\.\.\.\) | \.where\("deviceId$dev\-group",groupId\)               | 按设备分组查询 \(Pro\)                                                                                       |
 | dev\-same\-group | exists\(\.\.\.\.\.\) | \.where\("deviceId$dev\-same\-group",anotherDeviceId\) | 查询同一个分组的设备，如果要包含此设备则使用: deviceId$dev\-same\-group$contains \(Pro\)                                    |
 | dev\-tag         | exists\(\.\.\.\.\.\) | \.where\("deviceId$dev\-tag","tagKey:tagValue"\)       | 按标签查询,支持格式: `key:value`,`[{"key":"tagKey","value":"tagValue"}]`                                  |
