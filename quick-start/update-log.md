@@ -17,12 +17,61 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 代码分支: `2.0`
 
+1. 在`1.20`版本基础上
+2. 增加菜单管理,角色按菜单赋权.角色增加数据权限设置.
+3. 全新的设备接入流程.
+4. 增加端口资源管理.
+
+
+## 1.20-RELEASE
+
+代码分支: `1.20`
+
 1. 升级`spring-boot 2.5`
-2. 升级`project-reactor 2020.x` 以及相关API适配
-3. 新的集群管理方案.
-4. 适配`java 11`.
-5. 增加菜单管理,角色按菜单赋权.角色增加数据权限设置.
-6. 全新的设备接入流程.
+2. 升级`project-reactor 2020.x`
+3. 升级`jetlinks-core 1.2`
+4. 新的集群管理方案.
+5. 重写设备会话管理策略`DeviceSessionManager`.
+6. 优化配置逻辑.
+   
+::: warning 升级说明
+
+1. 更新后请先测试后再发布到正式环境.
+2. 原会话管理器`org.jetlinks.core.server.session.DeviceSessionManager` 已由`org.jetlinks.core.device.session.DeviceSessionManager`替代,有使用到的地方请替换之.
+3. 集群管理已经更换,配置集群时需要修改以下配置文件
+```yml
+jetlinks:
+  server-id: ${spring.application.name}:${server.port} #集群节点ID,不同集群节点请设置不同的ID
+  cluster:
+    id: ${jetlinks.server-id}
+    name: ${spring.application.name}
+    port: 1${server.port} # 集群通信通信本地端口
+    external-host: 127.0.0.1  #集群节点通信对外暴露的host
+    external-port: ${jetlinks.cluster.port} #集群节点通信对外暴露的端口
+    rpc-port: 2${server.port} # 集群节点本地RPC端口
+    rpc-external-host: ${jetlinks.cluster.external-host}  #集群节点RPC对外暴露host
+    rpc-external-port: 2${server.port} #集群节点RPC对外暴露端口
+  #    seeds:  #集群种子节点,集群时,配置为集群节点的 external-host:external-port
+  #      - 127.0.0.1:18844
+```
+
+4. 跨域设置,spring 5.3后不支持设置`credentials`为`true`时指定`origins`通配符了.
+```yml
+hsweb:
+  cors:
+    enable: true
+    configs:
+      - path: /**
+        allowed-headers: "*"
+        allowed-methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+        allowed-origins: ["*"] #allow-credentials为true时必须指定固定的地址
+#        allow-credentials: true #只能为true或者不设置
+        max-age: 1800
+```
+
+
+:::
+
 
 ## 1.13-RELEASE
 
