@@ -22,10 +22,10 @@
 :::
 设备上报数据到平台流程
 
-![设备上报数据流程](./decode-flow.svg)
+![设备上报数据流程](./img/decode-flow.svg)
 
 
 平台下发指令到设备流程
 
-![设备下发数据流程](./encode-flow.svg)
+![设备下发数据流程](./img/encode-flow.svg)
 
