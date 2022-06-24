@@ -57,8 +57,13 @@ npm install coap-cli -g
  
 2. 模拟设备设备属性上报
 
+- MAC操作系统命令
 ```shell script
 echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap post coap://localhost:8009/report-property
+```
+- windows操作系统命令
+```shell script
+echo {"deviceId":"coap-test-001","properties":{"temperature":36.5}} | coap post coap://localhost:8009/report-property
 ```
 在设备`运行状态`中可以看到温度属性已发生变化。  1
 
@@ -71,8 +76,13 @@ echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap 
  
 3. 模拟设备上报事件
 
+- MAC操作脚本
 ```shell script
 echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"未来科技城","b_name":"C2 栋","l_name":"12-05-201","timestamp":"2019-11-06 16:28:50","alarm_type":1,"alarm_describe":"火灾报警","event_id":1,"event_count":1}' | coap post coap://localhost:8009/fire_alarm
+```
+- windows操作系统命令
+```shell script
+echo {"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"未来科技城","b_name":"C2 栋","l_name":"12-05-201","timestamp":"2019-11-06 16:28:50","alarm_type":1,"alarm_describe":"火灾报警","event_id":1,"event_count":1} | coap post coap://localhost:8009/fire_alarm
 ```
 
 
