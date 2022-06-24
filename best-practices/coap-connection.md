@@ -60,7 +60,7 @@ npm install coap-cli -g
 ```shell script
 echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap post coap://localhost:8009/report-property
 ```
-在设备`运行状态`中可以看到温度属性已发生变化。  
+在设备`运行状态`中可以看到温度属性已发生变化。  1
 
 ![coap-report-property](images/coap-report-property.png)  
 
