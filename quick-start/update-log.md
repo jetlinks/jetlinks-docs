@@ -29,6 +29,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 10. 取消设备告警功能,由新的告警中心替代.
 11. 增加透传消息解析功能,协议包中标记支持透传消息,在界面上通过脚本来处理透传消息为平台的消息. [协议例子](https://github.com/jetlinks/transparent-protocol)
 12. 重构脚本引擎,使用新的脚本API:`Scripts`.增加安全性控制(默认禁止访问java类)以及循环执行控制(防止死循环)(Pro).
+13. 平台所有脚本语言支持更换为`js`.
 
 ::: warning 更新说明
 
@@ -60,6 +61,7 @@ network:
 1. 更新后请先测试后再发布到正式环境.
 2. 原会话管理器`org.jetlinks.core.server.session.DeviceSessionManager` 已由`org.jetlinks.core.device.session.DeviceSessionManager`替代,有使用到的地方请替换之.
 3. 集群管理已经更换,配置集群时需要修改以下配置文件,特别注意: 容器启动注意配置和开放对外暴露的host和端口:`port`, `external-host`,`external-port`以及`rpc-port`,`rpc-external-host`,`rpc-external-port`
+4. 设备在线量统计逻辑变更（含查询接口）, 实现见: `DeviceSessionMeasurementProvider`
 
 ```yml
 jetlinks:
