@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="持续优化">
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="coapTest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common-problems/FAQ.md" beforeDir="false" afterPath="$PROJECT_DIR$/common-problems/FAQ.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/best-practices/coap-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/coap-connection.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +43,9 @@
       </set>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -60,25 +63,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="DatabaseDriversLRU" value="mysql" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.vuepress/public" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/code/jetlinks-docs&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\code\jetlinks\jetlinks-docs\.vuepress\public" />
@@ -289,20 +280,9 @@
       <workItem from="1623300323223" duration="2344000" />
       <workItem from="1623749725591" duration="3282000" />
       <workItem from="1623980533073" duration="11000" />
-    </task>
-    <task id="LOCAL-00066" summary="优化文档">
-      <created>1588752714979</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1588752714979</updated>
-    </task>
-    <task id="LOCAL-00067" summary="文档优化">
-      <created>1588842879466</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1588842879466</updated>
+      <workItem from="1656051805054" duration="1362000" />
+      <workItem from="1656059183241" duration="2113000" />
+      <workItem from="1657856243990" duration="129000" />
     </task>
     <task id="LOCAL-00068" summary="文档优化">
       <created>1589275841346</created>
@@ -633,7 +613,21 @@
       <option name="project" value="LOCAL" />
       <updated>1599186550042</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="test">
+      <created>1656051876156</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1656051876157</updated>
+    </task>
+    <task id="LOCAL-00116" summary="coapTest">
+      <created>1656052557492</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1656052557492</updated>
+    </task>
+    <option name="localTasksCounter" value="117" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -674,12 +668,9 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="jetlinks/jetlinks-pro#11 更新常见问题-各种方式启动后无法访问系统或提示服务器内部错误或账号密码错误" />
-    <MESSAGE value="jetlinks/jetlinks-pro#35 文档首页调整为与介绍页相同" />
     <MESSAGE value="文档优化" />
     <MESSAGE value="jetlinks/jetlinks-pro#11 更新安装启动常见问题-使用docker启动所有环境后无法访问系统或提示服务器内部错误" />
     <MESSAGE value="jetlinks/jetlinks-pro#36 更新文档截图为新版本-设备实例导入、mqtt网络组件调试" />
@@ -703,6 +694,8 @@
     <MESSAGE value="使用UDP接入设备" />
     <MESSAGE value="优化" />
     <MESSAGE value="持续优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="持续优化" />
+    <MESSAGE value="test" />
+    <MESSAGE value="coapTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="coapTest" />
   </component>
 </project>

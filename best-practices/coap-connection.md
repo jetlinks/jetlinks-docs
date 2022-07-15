@@ -4,7 +4,7 @@
 ## 创建协议
 
 请参考[创建协议](../advancement-guide/mqtt-connection.md#创建协议)
-
+，CoAp协议基于UDP的需要开放UDP端口
 ## 创建产品
 
 参考[tcp接入设备示例中的创建产品](tcp-connection.md#创建产品),  
