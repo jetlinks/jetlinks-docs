@@ -11,7 +11,7 @@
 master为最新开发分支. 线上使用请根据情况切换到对应版本的分支.
 :::
 
-当前最新稳定版本`1.13-RELEASE`,对应代码分支`1.13`.
+当前最新稳定版本`1.13`,对应代码分支`1.13`.
 
 ## 2.0-RC(计划)
 
@@ -28,9 +28,24 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 9. 重构消息通知,增加变量功能.
 10. 取消设备告警功能,由新的告警中心替代.
 11. 增加透传消息解析功能,协议包中标记支持透传消息,在界面上通过脚本来处理透传消息为平台的消息. [协议例子](https://github.com/jetlinks/transparent-protocol)
+12. 重构脚本引擎,使用新的脚本API:`Scripts`.增加安全性控制(默认禁止访问java类)以及循环执行控制(防止死循环)(Pro).
+13. 平台所有脚本语言支持更换为`js`.
 
+::: warning 更新说明
 
-## 1.20-RELEASE
+此版本与`1.x`版本不兼容.
+
+新增配置: `network.resources`,配置可用网络资源,用于在添加网络组件等常见下进行端口资源选择:
+```yml
+network:
+  resources:
+     - 0.0.0.0:8080-8082/tcp
+     - 127.0.0.1:8080-8082/udp
+```
+
+:::
+
+## 1.20-SNAPSHOT
 
 代码分支: `master`
 
@@ -46,6 +61,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 1. 更新后请先测试后再发布到正式环境.
 2. 原会话管理器`org.jetlinks.core.server.session.DeviceSessionManager` 已由`org.jetlinks.core.device.session.DeviceSessionManager`替代,有使用到的地方请替换之.
 3. 集群管理已经更换,配置集群时需要修改以下配置文件,特别注意: 容器启动注意配置和开放对外暴露的host和端口:`port`, `external-host`,`external-port`以及`rpc-port`,`rpc-external-host`,`rpc-external-port`
+4. 设备在线量统计逻辑变更（含查询接口）, 实现见: `DeviceSessionMeasurementProvider`
 
 ```yml
 jetlinks:
@@ -88,7 +104,7 @@ file:
 :::
 
 
-## 1.13-RELEASE
+## 1.13
 
 发布时间: 2022-06-25
 
