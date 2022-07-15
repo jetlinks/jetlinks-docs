@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="coapTest">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/coap-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/coap-connection.md" afterDir="false" />
-    </list>
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="coapTest" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,13 +60,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/code/jetlinks-docs&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "E:/code/jetlinks-docs",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\code\jetlinks\jetlinks-docs\.vuepress\public" />
@@ -282,7 +280,7 @@
       <workItem from="1623980533073" duration="11000" />
       <workItem from="1656051805054" duration="1362000" />
       <workItem from="1656059183241" duration="2113000" />
-      <workItem from="1657856243990" duration="129000" />
+      <workItem from="1657856243990" duration="1023000" />
     </task>
     <task id="LOCAL-00068" summary="文档优化">
       <created>1589275841346</created>

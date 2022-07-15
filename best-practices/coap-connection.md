@@ -65,7 +65,7 @@ echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap 
 ```shell script
 echo {"deviceId":"coap-test-001","properties":{"temperature":36.5}} | coap post coap://localhost:8009/report-property
 ```
-在设备`运行状态`中可以看到温度属性已发生变化。  1
+在设备`运行状态`中可以看到温度属性已发生变化。 
 
 ![coap-report-property](images/coap-report-property.png)  
 
