@@ -94,13 +94,14 @@ module.exports = {
                 ]
             },
             {
-                title: '协议包开发手册',
+                title: '设备接入协议开发手册',
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children:[
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
-                    ['/protocol/mqtt.md', 'MQTT协议解析']
+                    ['/protocol/mqtt.md', 'MQTT协议解析'],
+                    ['/protocol/faq.md', '常见问题']
                 ]
             },
             {

@@ -58,14 +58,14 @@ mvn archetype:generate `
 
 命令执行成功后,将会在当前目录中创建名为`custom-protocol`的项目
 
-![创建项目](./create-project.gif)
+![创建项目](./img/create-project.gif)
 
 
 ## 使用Idea打开
 
 使用`File`-`open` 打开刚才创建的项目目录
 
-![打开](./open-idea.png)
+![打开](./img/open-idea.png)
 
 
 ## 开始开发

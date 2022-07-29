@@ -1,5 +1,7 @@
 # 启动jetlink-cloud微服务版本
 
+`企业版`支持微服务模式启动JetLinks, 微服务主要将`设备管理`,`认证权限管理`进行了分离.
+
 ## 后端代码启动
 
 ### 获取代码
@@ -53,7 +55,7 @@ $ docker-compose up -d
 ### docker方式启动前端
 如果前端不需要改动可以输入以下命令启动前端，本地[运行前端](http://doc.jetlinks.cn/install-deployment/start-with-source.html)
 ```bash
-$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8800/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.11.0
+$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8800/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.13.0
 ```
 
 

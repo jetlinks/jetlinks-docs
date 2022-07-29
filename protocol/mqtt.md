@@ -3,39 +3,38 @@
 
 本文基于[快速开始](first.md)进行MQTT协议解析开发说明,在开发之前请先阅读之.
 
-## 编解码
 
-1. 创建mqtt编解码类
+## 创建mqtt编解码类
    
 创建`MqttDeviceMessageCodec`并实现`DeviceMessageCodec`接口
 
-![创建类](./create-mqtt-codec.png)
+![创建类](./img/create-mqtt-codec.png)
 
-2. 编写解码逻辑
+## 编写解码逻辑
 
 编辑`decode方法`
 
-![code](./code-mqtt-decode.png)
+![code](./img/code-mqtt-decode.png)
 
-3. 编写编码逻辑
+## 编写编码逻辑
 
 编辑`encode方法`
 
-![code](./code-mqtt-encode.png)
+![code](./img/code-mqtt-encode.png)
 
-4. 将编解码器注册到协议中
+## 将编解码器注册到协议中
 
 编辑类`MyProtocolSupportProvider`
 
-![code](./set-mqtt-codec.png)
+![code](./img/set-mqtt-codec.png)
 
-5. 编写MQTT认证规则
+## 编写MQTT认证规则
    
 通过mqtt直连接入时,需要先对`mqtt`请求进行认证.
 在mqtt客户端发送`CONNECT`报文时,平台会根据`clientId`获取对应的设备实例,
 然后调用此设备的协议包进行认证.认证通过后建立连接.
 
-![code](./mqtt-auth.png)
+![code](./img/mqtt-auth.png)
 
 ```java
 //MQTT 认证
@@ -64,13 +63,13 @@ return device
 
 :::
 
-6. 定义MQTT配置描述
+## 定义MQTT配置描述
    
 在第5步中需要获取设备的配置信息`username`,`password`.
 通过定义mqtt配置描述来告诉平台,使用该协议的产品或者设备需要进行相应的配置.
 在对应的产品或者设备界面才会出现配置项目输入.
 
-![code](./add-mqtt-config-metadata.png)
+![code](./img/add-mqtt-config-metadata.png)
 
 ```java
  //设置配置定义信息
@@ -83,10 +82,39 @@ support.addConfigMetadata(DefaultTransport.MQTT,
 );
 ```
 
-7. 打包并发布到平台
+## 定义topic
+
+::: tip 注意
+在`2.0`版本后,如果是通过`mqtt broker`接入的设备,必须进行此步骤. 
+因为在启动设备接入网关时,会获取协议包定义的topic去从`mqtt broker`订阅数据.
+
+可以通过`{}`来指定`动态topic`,
+如 `/function/{functionId}`,订阅时会自动转换为mqtt的topic`/functoin/+`,
+如果要使用`#`则可以这样定义: `/function/{#functionId}`,订阅时会自动转换为mqtt的topic`/functoin/#`
+
+:::
+
+![mqtt-route](./img/add-mqtt-route.png)
+
+```java
+support.addRoutes(DefaultTransport.MQTT, Arrays.asList(
+        Route.mqtt("/properties/report")
+                .group("属性相关")
+                .description("上报属性")
+                .upstream(true)
+                .build(),
+        Route.mqtt("/function/{functionId}")
+                .group("功能相关")
+                .description("平台下发功能调用指令")
+                .downstream(true)
+                .build()
+));
+```
+
+## 打包并发布到平台
 
 执行`mvn package`打包.
 
-![package](./package-mqtt.png)
+![package](./img/package-mqtt.png)
 
-将打的包上传到平台即可.
+将生成的`jar包`上传到平台即可.
