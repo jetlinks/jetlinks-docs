@@ -161,7 +161,9 @@ EventMessage{
 5. `UpdateTagMessage`更新设备标签.
 6. `DerivedMetadataMessage` 更新设备独立物模型.
 7. `DeviceRegisterMessage` 设备注册消息,通过设置消息头`message.addHeader("deviceName","设备名称");`和
-   `message.addHeader("productId","产品ID")`可实现设备自动注册
+   `message.addHeader("productId","产品ID")`可实现设备自动注册.
+8. 如果配置了状态自管理,在检查子设备状态时,会发送指令`ChildDeviceMessage<DeviceStateCheckMessage>`,
+   网关需要返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`.
 
 消息定义:
 

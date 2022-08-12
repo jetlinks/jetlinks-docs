@@ -14,6 +14,7 @@
 2. 平台下发子设备消息.网关使用协议的编解码器会收到`ChildDeviceMessage`,将其编码为网关设备能识别的消息即可.
 3. 父设备上报子设备数据,解码器将收到的设备报文解码为`ChildDeviceMessage`或者`ChildDeviceMessageReply`. 注意:`ChildDeviceMessage.deviceId`为
    父设备ID,`ChildDeviceMessage.message.deviceId`为子设备ID.
+4. 如果配置了状态自管理,在检查子设备状态时,会发送指令`ChildDeviceMessage<DeviceStateCheckMessage>`,网关需要返回`ChildDeviceMessageReply<DeviceStateCheckMessageReply>`
 
 ::: tip
 可根据[设备消息协议解析SDK](../basics-guide/protocol-support.md).修改协议解析方式.

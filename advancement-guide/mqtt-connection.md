@@ -1,6 +1,6 @@
 # 使用MQTT服务网关接入设备
 
-本文档以MQTTX为例，介绍使用第三方软件以MQTT协议接入物联网平台。MQTTX是一款基于Eclipse Paho，使用Java语言编写的MQTT客户端工具。支持通过Topic订阅和发布消息。
+本文档以MQTTX为例，介绍使用第三方软件以MQTT协议接入物联网平台。
 
 ## 创建协议
 
@@ -368,12 +368,12 @@ MQTTX 推送设备事件消息到平台
 
 ### 调用设备功能
 
-1. MQttX连接上平台
+1. MqttX连接上平台
 
 2.选择设备功能模块,点击执行,向设备发送topic
 ![设备功能模块](../basics-guide/files/device-connection/device-function.png)  
 
-3.在MQttX订阅topic为`/{productId}/{deviceId}/function/invoke/reply`。
+3.在MqttX订阅topic为`/{productId}/{deviceId}/function/invoke/reply`。
 ![设备功能模块](../basics-guide/files/device-connection/mqttx-device-function-replay.png)
 此处使用的报文为：
 ```json

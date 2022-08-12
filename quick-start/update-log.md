@@ -11,21 +11,46 @@
 master为最新开发分支. 线上使用请根据情况切换到对应版本的分支.
 :::
 
-当前最新稳定版本`1.11-RELEASE`,对应代码分支`1.11`.
+当前最新稳定版本`1.13`,对应代码分支`1.13`.
 
 ## 2.0-RC(计划)
 
 代码分支: `2.0`
 
 1. 在`1.20`版本基础上
-2. 增加菜单管理,角色按菜单赋权.角色增加数据权限设置.
-3. 全新的设备接入流程.
-4. 增加端口资源管理.
+2. 全新的前端UI.
+3. 增加菜单管理,角色按菜单赋权,角色增加数据权限设置.
+4. 全新的设备接入流程.
+5. 增加端口资源管理.
+6. 增加物关系功能,支持物与物建立关系并通过关系来动态选择设备进行相关操作.(Pro)
+7. 重构系统,网络组件监控,支持集群.
+8. 重构场景联动功能.
+9. 重构消息通知,增加变量功能.
+10. 取消设备告警功能,由新的告警中心替代.
+11. 增加透传消息解析功能,协议包中标记支持透传消息,在界面上通过脚本来处理透传消息为平台的消息. [协议例子](https://github.com/jetlinks/transparent-protocol)
+12. 重构脚本引擎,使用新的脚本API:`Scripts`.增加安全性控制(默认禁止访问java类)以及循环执行控制(防止死循环)(Pro).
+13. 平台所有脚本语言支持更换为`js`.
+14. 优化集群通信性能,增加`FluxCluster`支持(集群下对`Flux`进行窗口计算等).(Pro)
+15. 增加持久化缓冲工具,数据持久化到本地.用于批量写库,失败重试等操作,减少写入速度不够时的内存占用.(Pro)
+16. 增加断路器`CircuitBreaker`功能,减少由于配置错误或者数据变化导致一些动态逻辑大量错误引起系统崩溃的可能性.(Pro)
 
+::: warning 更新说明
 
-## 1.20-RELEASE
+此版本与`1.x`版本不兼容.
 
-代码分支: `1.20`
+新增配置: `network.resources`,配置可用网络资源,用于在添加网络组件等常见下进行端口资源选择:
+```yml
+network:
+  resources:
+     - 0.0.0.0:8080-8082/tcp
+     - 127.0.0.1:8080-8082/udp
+```
+
+:::
+
+## 1.20-SNAPSHOT
+
+代码分支: `master`
 
 1. 升级`spring-boot 2.5`
 2. 升级`project-reactor 2020.x`
@@ -38,7 +63,9 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 
 1. 更新后请先测试后再发布到正式环境.
 2. 原会话管理器`org.jetlinks.core.server.session.DeviceSessionManager` 已由`org.jetlinks.core.device.session.DeviceSessionManager`替代,有使用到的地方请替换之.
-3. 集群管理已经更换,配置集群时需要修改以下配置文件
+3. 集群管理已经更换,配置集群时需要修改以下配置文件,特别注意: 容器启动注意配置和开放对外暴露的host和端口:`port`, `external-host`,`external-port`以及`rpc-port`,`rpc-external-host`,`rpc-external-port`
+4. 设备在线量统计逻辑变更（含查询接口）, 实现见: `DeviceSessionMeasurementProvider`
+
 ```yml
 jetlinks:
   server-id: ${spring.application.name}:${server.port} #集群节点ID,不同集群节点请设置不同的ID
@@ -69,15 +96,22 @@ hsweb:
         max-age: 1800
 ```
 
+5. 文件上传配置调整,协议包,数据导入等相关文件上传已调整使用新的`FileManager`进行管理,可根据配置文件进行配置
+```yml
+file:
+  manager:
+    storage-base-path: "./data/files"
+    read-buffer-size: 64KB
+```
 
 :::
 
 
-## 1.13-RELEASE
+## 1.13
 
-发布时间: 待定
+发布时间: 2022-06-25
 
-代码分支: `master`
+代码分支: `1.13`
 
 主要优化:
 
@@ -91,7 +125,24 @@ hsweb:
 8. 访问日志增加只能查看自己的日志功能.(Pro)
 9. 修复标签使用object或者array类型时,可能导致无法解析问题.
 10. 完善表字段说明以及单元测试.
+11. 增加统一的文件管理功能`FileManager`,来统一管理相对敏感的文件上传以及访问.
 
+::: warning 升级说明
+
+文件上传配置调整,协议包,数据导入等相关文件上传已调整使用新的`FileManager`进行管理,可根据配置文件进行配置
+```yml
+file:
+  manager:
+    storage-base-path: "./data/files"
+    read-buffer-size: 64KB
+    cluster-key: file-manager # 修改此值并保证整个集群的值一致
+    server-node-id: ${jetlinks.server-id}
+#    cluster-rute:
+        ##  集群ID: 访问地址
+#       "[jetlinks-platform:8844]": "127.0.0.1:8844"
+#       "[jetlinks-platform:8840]": "127.0.0.1:8840"
+```
+:::
 
 ## 1.12-RELEASE
 
