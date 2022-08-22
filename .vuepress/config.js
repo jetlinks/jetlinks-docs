@@ -70,6 +70,7 @@ module.exports = {
                     ['/best-practices/rule-engine-device-avg-temp.md', '通过规则引擎计算1分钟内设备平均温度(PRO)'],
                     ['/best-practices/rule-engine-device-same-group.md', '当房间开门时,打开对应房间当空调(PRO)'],
                     ['/dev-guide/device-firmware', '设备固件更新'],
+                    ['/basics-guide/tenent-application', '1.x租户场景介绍'],
                     ['/advancement-guide/benchmark.md', '压力测试']
                 ]
             },
@@ -151,8 +152,9 @@ module.exports = {
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
-                    ['/big-screen/start/start', '启动'],
-                    ['big-screen/baiscs/open', '快速入门'],
+                    ['/big-screen/start/new-visilization', '新版大屏启动'],
+                    ['/big-screen/start/start', '旧版大屏启动'],
+                    // ['big-screen/baiscs/open', '快速入门'],
                 ]
             },
             {
