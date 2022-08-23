@@ -153,7 +153,7 @@ module.exports = {
                     //['', '介绍'],
                     //['', '快速开始'],
                     ['/big-screen/start/new-visilization', '新版大屏启动'],
-                    ['/big-screen/start/start', '旧版大屏启动'],
+                    ['/big-screen/start/start', '旧版大屏启动']
                     // ['big-screen/baiscs/open', '快速入门'],
                 ]
             },
