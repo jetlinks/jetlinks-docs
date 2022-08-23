@@ -18,11 +18,10 @@ jobs:
         - name: Install 🔧
           run: |
             yarn install
-            npm install vue-template-compiler -g
+            yarn global add vue-template-compiler
             yarn global add vuepress
             yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
-        
         - name: Login Docker Repo
           run: echo "${{ secrets.ALIYUN_DOCKER_REPO_PWD }}" | docker login registry.cn-shenzhen.aliyuncs.com -u ${{ secrets.ALIYUN_DOCKER_REPO_USERNAME }} --password-stdin
         
