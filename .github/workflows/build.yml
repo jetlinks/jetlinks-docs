@@ -19,7 +19,7 @@ jobs:
           run: |
             yarn install
             yarn global add vuepress
-            yarn install vue-template-compiler
+            yarn global add vue-template-compiler
             yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
         
