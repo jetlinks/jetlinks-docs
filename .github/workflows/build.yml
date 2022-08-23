@@ -18,7 +18,7 @@ jobs:
         - name: Install 🔧
           run: |
             yarn install
-            yarn global add vue-template-compiler
+            npm install vue-template-compiler -g
             yarn global add vuepress
             yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
