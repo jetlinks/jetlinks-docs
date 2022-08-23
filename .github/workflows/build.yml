@@ -16,7 +16,7 @@ jobs:
             path: ./node_modules
             key: jetlinks-docs-repository
         - name: Install 🔧
-          run: |
+          run:
             yarn install
             yarn global add vue-template-compiler
             yarn global add vuepress
