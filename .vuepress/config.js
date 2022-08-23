@@ -127,7 +127,7 @@ module.exports = {
                     ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
                     ['/dev-guide/commons-api.md', '平台内部核心接口,类说明'],
                     ['/dev-guide/assets.md', '数据权限控制'],
-                    ['/dev-guide/sso.md', '单点登录'],
+                    ['/dev-guide/sso.md', '单点登录']
                     //['/dev-guide/micro-service', '微服务']
 
                 ]
@@ -141,7 +141,7 @@ module.exports = {
                     //['', '介绍'],
                     //['', '快速开始'],
                     ['/interface-guide/open-api/access', '接入'],
-                    ['/interface-guide/open-api/open-api', 'API列表'],
+                    ['/interface-guide/open-api/open-api', 'API列表']
                 ]
             },
             {
