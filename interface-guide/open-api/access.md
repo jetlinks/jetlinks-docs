@@ -2,9 +2,16 @@
 
 基于数据签名的第三方平台模块.用于提供对外开放接口的认证方式.
 
-::: tip 注意
-本功能仅在企业版中提供. 
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+本功能仅在企业版中提供.
+
+
+</div>
 
 ## 创建第三方平台
 
@@ -12,15 +19,20 @@
 
 点击新建按钮:
 
-![新建客户端](../../best-practices/images/create-openapi.png)
 
 填写对应的内容保存.
 
-::: tip 注意
- `clientId`和`secureKey`需要提供给客户端开发者.
- 用户名和密码是系统统一的用户主体,会自动创建到用户管理中.使用此用户名密码也能登录到系统中.
- 与其他用户相同,可以将用户绑定到机构实现数据权限控制.
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+`clientId`和`secureKey`需要提供给客户端开发者.
+用户名和密码是系统统一的用户主体,会自动创建到用户管理中.使用此用户名密码也能登录到系统中.
+与其他用户相同,可以将用户绑定到机构实现数据权限控制.
+
+</div>
 
 ## 赋权
 
@@ -28,24 +40,34 @@
 
 如果操作栏`赋权`里
 没有任何权限选项，先去`权限管理`赋予权限，`分类`选择`APi接口`。
-![流程](../../best-practices/images/empowerment.png)
-::: tip 注意
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 此赋权操作实际上是对`第三方平台`对应对`用户主体`进行赋权.
-:::
+
+</div>
 
 ## 使用签名的方式
 ### 验证流程
 
-![流程](../../best-practices/images/OpenApiAuthenticationProcess.png)
+![流程](../images/OpenApiAuthenticationProcess.png)
 
-::: tip 说明
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
 1. 图中`Signature`函数为客户端设置的签名方式,支持`MD5`和`Sha256`.
 2. 发起请求的签名信息都需要放到请求头中,而不是请求体.
 3. OpenApi对开发是透明的,开发只需要关心权限控制即可.OpenAPI和后台接口使用的是相同的权限控制API.
-因此开发一个`OpenAPI接口`就是写一个`WebFlux Controller`. [查看使用方式](../../dev-guide/crud.md#web)
+   因此开发一个`OpenAPI接口`就是写一个`WebFlux Controller`. [查看使用方式](../../dev-guide/crud.md#web)
 
-:::
+</div>
 
 ### 签名
 

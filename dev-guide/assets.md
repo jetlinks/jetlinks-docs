@@ -188,7 +188,14 @@ AssetsHolder
     ...
 ```
 
-## 注意
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
 
 平台内对大部分功能都默认开启了数据权限控制,但是部分功能
 如: 设备接入，规则引擎中的脚本等面向开发运维人员的功能,可能会对系统造成安全问题,不建议开放终端用户.
+
+</div>
+

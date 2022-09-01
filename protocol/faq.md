@@ -28,11 +28,17 @@
 </plugin>
 ```
 
-::: tip 提示
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
 请勿将`jetlinks`,`spring`等平台自身的依赖打包在一起.
 
 更多`maven-shade-plugin`功能请查询[相关文档](https://maven.apache.org/plugins/maven-shade-plugin/usage.html)
-:::
+
+</div>
 
 ## 本地开发时如何调试协议包
 
@@ -42,12 +48,16 @@
 
 ![debug](./img/add-debug-protocol.gif)
 
-::: tip 温馨提示
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>温馨提示</span>
+  </p>
 
 在`linux`和`macOS`下可以通过软连接的方式将文件链接到平台项目中,不用复制粘贴导致文件重复.
-如: `ln -s ~/custom-protocol dev/` 
+如: `ln -s ~/custom-protocol dev/`
 
-:::
+</div>
 
 ## 协议包是响应式的,不会写怎么办
 
@@ -73,9 +83,15 @@ private List<DeviceMessage> doDecode(MqttMessage message){
 
 ```
 
-::: tip 温馨提示
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>温馨提示</span>
+  </p>
+
 如果需要深入了解和开发协议以及JetLinks平台,建议学习一下[Project Reactor](https://projectreactor.io/docs/core/release/reference/)框架.
-:::
+
+</div>
 
 ## 如何在收到设备的指令后,给设备进行应答
 
@@ -103,7 +119,11 @@ private List<DeviceMessage> doDecode(MqttMessage message){
  
 ```
 
-::: warning 特别注意
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>特别注意</span>
+  </p>
 
 `DeviceSession.send`是<span style="color:red">响应式操作,需要和整个响应式流组合在一起</span>,否则可能无法发送到设备.
 
@@ -122,7 +142,7 @@ ctx
 .thenReturn(message);
 ```
 
-:::
+</div>
 
 ## 如何在解码时获取设备信息
 

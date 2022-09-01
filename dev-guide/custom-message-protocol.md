@@ -1,12 +1,20 @@
-# 自定义协议开发
+# 自定义消息协议开发
 
 ## 环境准备和开发工具
 
 * JDK：1.8+
 * MAVEN：3.1+ 
-::: warning 注意
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
 maven不要使用全局仓库配置，可能导致依赖无法下载
-:::
+
+</div>
+
 * 开发工具：idea
 
 ##  第一步  通过idea创建maven工程：demo-protocol
@@ -15,30 +23,24 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
 ```xml
     <dependencies>
-    <!-->jetlinks 核心依赖<-->
-        <dependency>
-            <groupId>org.jetlinks</groupId>
-            <artifactId>jetlinks-core</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <!-->jetlinks 协议解析接口包<-->
+        <!-->jetlinks 核心依赖、解析接口包<-->
         <dependency>
             <groupId>org.jetlinks</groupId>
             <artifactId>jetlinks-supports</artifactId>
-            <version>1.1.1</version>
+            <version>1.2.0-SNAPSHOT</version>
         </dependency>
         <!-->lombok，需要idea安装lombok插件，否则去掉<-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.10</version>
+            <version>1.18.24</version>
         </dependency>
         <!-->vertx核心包，可以用来进行网络模拟测试<-->
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-core</artifactId>
-            <version>3.8.3</version>
-            <scope>test</scope>
+            <version>4.3.1</version>
+            <scope>compile</scope>
         </dependency>
         <!-->单元测试包<--> 
         <dependency>
@@ -80,7 +82,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
         <project.build.locales>zh_CN</project.build.locales>
         <java.version>1.8</java.version>
         <project.build.jdk>${java.version}</project.build.jdk>
-        <netty.version>4.1.45.Final</netty.version>
+        <netty.version>4.1.51.Final</netty.version>
     </properties>
 ```
 
@@ -128,7 +130,7 @@ maven不要使用全局仓库配置，可能导致依赖无法下载
 
 ## 第三步 协议开发
 
-* 新建packag：org.jetlinks.demo.protocol 
+* 新建package：org.jetlinks.demo.protocol 
 
 * 创建协议编码解码类：DemoDeviceMessageCodec
 
@@ -298,13 +300,19 @@ public class DemoTcpMessageCodec implements DeviceMessageCodec {
 
 ## 第六步 打成jar包上传到平台，并进行测试
 
-以[TCP服务网关接入设备](../best-practices/tcp-connection.md#使用tcp工具接入)为例。
+以<a href='/Best_practices/Device_access.html#tcp-服务接入'>TCP服务网关接入设备</a>为例。
 
 进行协议上传和 配置，并使用TCP工具进行测试。
 
-::: tip 注意
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 建议在编写协议包时，先用单元测试进行测试。最后再发布到平台进行模拟设备测试。
-:::
+
+</div>
 
 ## 调试(debug)协议
 
@@ -321,6 +329,12 @@ public class DemoTcpMessageCodec implements DeviceMessageCodec {
 ----|-- ....
 ```
 
-::: warning 注意
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 在调试过程中修改代码可以进行热加载,但是重启服务后会失效,需要重新发布协议.
-:::
+
+</div>

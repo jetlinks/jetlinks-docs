@@ -1,11 +1,11 @@
 
 # ReactorQL
 
-JetLinks封装了一套使用SQL来进行实时数据处理的工具包[查看源代码](https://github.com/jetlinks/reactor-ql)。
-通过将SQL翻译为[reactor](https://projectreactor.io/)来进行数据处理。
+JetLinks封装了一套使用SQL来进行实时数据处理的工具包<a target='_blank' href='https://github.com/jetlinks/reactor-ql'>查看源代码</a>。
+通过将SQL翻译为<a target='_blank' href='https://projectreactor.io/'>reactor</a>来进行数据处理。
 规则引擎中的`数据转发`以及可视化规则中的`ReactorQL节点`均使用此工具包实现。
-默认情况下,SQL中的表名就是事件总线中的`topic`,如: `select * from "/device/*/*/message/property/*"`,
-表示订阅`/device/*/*/message/property/*`下的实时消息.
+默认情况下，SQL中的表名就是事件总线中的`topic`。如：`select * from "/device/*/*/message/property/*"`，
+表示订阅`/device/*/*/message/property/*`下的实时消息。
 
 ## 场景
 
@@ -15,11 +15,27 @@ JetLinks封装了一套使用SQL来进行实时数据处理的工具包[查看�
 
 ## SQL例子
 
-::: tip
-聚合处理实时数据时,必须使用`interval`函数或者`_window`函数.
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-当温度大于40度时,将数据转发到下一步.
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+聚合处理实时数据时，必须使用`interval`函数或者`_window`函数。
+
+</div>
+
+当温度大于40度时，将数据转发到下一步。
 
 ```sql
 select 
@@ -50,7 +66,7 @@ union all   -- 实时数据只能使用 union all
 )
 ```
 
-计算每5分钟的温度平均值,当平均温度大于40度时,将数据转发到下一步.
+计算每5分钟的温度平均值，当平均温度大于40度时，将数据转发到下一步。
 
 ```sql
 select
@@ -61,7 +77,7 @@ group by interval('5m')
 having temperature > 40 --having 必须使用别名.
 ```
 
-计算每10条数据为一个窗口,每2条数据滚动的平均值.
+计算每10条数据为一个窗口，每2条数据滚动的平均值。
 
 ```text
 [1,2,3,4,5,6,7,8,9,10]  第一组
@@ -78,7 +94,7 @@ group by _window(10,2)
 having temperature > 40 --having 必须使用别名.
 ```
 
-聚合统计平均值,并且提取聚合结果中的数据.
+聚合统计平均值，并且提取聚合结果中的数据。
 
 ```sql
 select 
@@ -120,19 +136,22 @@ and
   row.elapsed>1000 -- 距离上一行的时间
 ```
 
-::: warning 注意
-SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必须指定`this`或者以表别名开头. 
-如: `this.properties.temperature` ,写成: `properties.temperature`是无法获取到值到.
-:::
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
+SQL中的`this`表示主表当前的数据。如果存在嵌套属性的时候，必须指定`this`或者以表别名开头。
+如: `this.properties.temperature`，写成：`properties.temperature`是无法获取到值的。
+
+</div>
+
 
 ## SQL支持列表
 
 | 函数/表达式          | 用途                       | 示例                                   | 说明                                                        |
 | -------------------- | -------------------------- | -------------------------------------- | ----------------------------------------------------------- |
-| \+                   | 加法运算                   | temp\+10                               | 对应函数: math\.plus\(temp,10\)                             |
-| \-                   | 减法运算                   | temp\-10                               | 对应函数: math\.sub\(temp,10\)                              |
-| \*                   | 乘法运算                   | temp\*10                               | 对应函数: math\.mul\(temp,10\)                              |
-| /                    | 除法运算                   | temp/10                                | 对应函数: math\.divi\(temp,10\)                             |
 | %                    | 取模运算                   | temp%2                                 | 对应函数: math\.mod\(temp,2\)                               |
 | &                    | 位与运算                   | val&3                                  | 对应函数: bit\_and\(val,3\)                                 |
 | \|                   | 位或运算                   | val\|3                                 | 对应函数: bit\_or\(val,3\)                                  |
@@ -198,13 +217,29 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 
 ## 拓展函数
 
-::: tip
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 以下功能只在企业版中支持
-:::
+
+</div>
 
 ### device.properties
 
-获取设备已保存的全部最新属性,(注意: 由于使用es存储设备数据,此数据并不是完全实时的)
+获取设备已保存的全部最新属性。
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
+由于使用es存储设备数据，此数据并不是完全实时的
+
+</div>
 
 ```sql
 select 
@@ -213,9 +248,15 @@ this.properties reports
 from "/device/*/*/message/property/report"
 ```
 
-:::tip
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 `device.properties(this.deviceId,'property1','property2')`还可以通过参数获取指定的属性，如果未设置则获取全部属性。
- :::
+
+</div>
 
  ### device.properties.history
 
@@ -261,9 +302,16 @@ from "/device/*/*/message/property/**" t
 
 ### device.properties.latest
 
-::: tip
-此功能需要开启[设备最新数据存储](../best-practices/start.html#记录设备最新数据到数据库)
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+此功能需要开启<a href='/function-description/storage_policy.html#记录设备最新数据到数据库'>设备最新数据存储</a>
+
+</div>
+
 查询设备最新的数据
 
 ```sql
@@ -293,9 +341,15 @@ select * from device.properties.latest(
 select device.tags(this.deviceId) from "/device/*/*/message/property/report"
  ```
 
- :::tip
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 `device.tags(this.deviceId,'tag1','tag2')`还可以通过参数获取指定的标签，如果未设置则获取全部标签。
- :::
+
+</div>
 
 ### device.selector
 

@@ -1,46 +1,58 @@
 # 响应式
 
-JetLinks使用[Project Reactor](https://github.com/reactor)作为响应式编程框架,从网络层(`webflux`,`vert.x`)到持久层(`r2dbc`,`elastic`)全部
-封装为`非阻塞`,`响应式`调用.
+JetLinks使用<a target='_blank' href='https://github.com/reactor'>Project Reactor</a>作为响应式编程框架，从网络层（`webflux`，`vert.x`）到持久层（`r2dbc`，`elastic`）全部
+封装为`非阻塞`、`响应式`调用。
 
-响应式可以理解为`观察者模式`,通过`订阅`和`发布`数据流中的数据对数据进行处理. 
-`Project Reactor`提供了强大的API,简化多线程和异步编程开发,降低了对数据各种处理方式的复杂度,如果你已经大量使用了`java8 stream api`,使用`reactor`将很容易上手.
+响应式可以理解为`观察者模式`，通过`订阅`和`发布`数据流中的数据对数据进行处理。 
+`Project Reactor`提供了强大的API，简化多线程和异步编程开发，降低了对数据各种处理方式的复杂度。如果你已经大量使用了`java8 stream api`，使用`reactor`将很容易上手。
 
-::: tip 注意
-`响应式`与`传统编程`最大的区别是:
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-`响应式`中的方法调用是在`构造`一个流以及`处理流中数据`的逻辑,当`流`中产生了数据(`发布,订阅`),才会执行构造好的逻辑.
+`响应式`与`传统编程`最大的区别是：
 
-`传统编程`则是直接执行逻辑获取结果.
-:::
+`响应式`中的方法调用是在`构造`一个流以及`处理流中数据`的逻辑。当`流`中产生了数据(`发布、订阅`)，才会执行构造好的逻辑。
+
+`传统编程`则是直接执行逻辑获取结果。
+
+</div>
 
 ## 优点
 
-非阻塞,大大简化多线程异步编程.
-集成`netty`等框架可实现更高的网络并发处理能力.
-API丰富,实现很多复杂的功能只需要几行代码,例如:
+非阻塞，大大简化多线程异步编程。
+集成`netty`等框架可实现更高的网络并发处理能力。
+API丰富，实现很多复杂的功能只需要几行代码。例如：
 
-1. 前端展示实时数据处理进度.
-2. 请求撤销,可获取到连接断开事件.
-3. 定时(`interval`),延迟(`delay`),超时(`timout`),以及细粒度的流量控制(`limitRate`). 
-4. 分组(`groupBy`),聚合(`collect`,`reduce`)操作等
+1. 前端展示实时数据处理进度。
+2. 请求撤销，可获取到连接断开事件。
+3. 定时(`interval`)，延迟(`delay`)，超时(`timout`)，以及细粒度的流量控制(`limitRate`)。 
+4. 分组(`groupBy`)，聚合(`collect`，`reduce`)操作等。
 
 ## 缺点
 
-调试不易,异常栈难跟踪,对开发人员有更高的要求.
+调试不易，异常栈难跟踪，对开发人员有更高的要求。
 
-此问题可以通过优化代码结构来解决,比如: <span style="color:red">避免在响应式操作符中直接业务逻辑</span>,
-正确的做法是<span style='color:green'>将业务逻辑抽离为独立的函数(方法)</span>,然后使用响应式来进行组合.
+此问题可以通过优化代码结构来解决。比如：<span style="color:red">避免在响应式操作符中直接业务逻辑</span>，
+正确的做法是<span style='color:green'>将业务逻辑抽离为独立的函数(方法)</span>，然后使用响应式来进行组合。
 
-::: warning 注意
- 响应式只是一个编程模型,并不能直接提高系统的并发处理能力.
- 通常与netty(`reactor-netty`)等框架配合,从上(`网络`)到下(`持久化`)全套实现`非阻塞`,`响应式`才有意义.
-:::
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
+响应式只是一个编程模型，并不能直接提高系统的并发处理能力。
+通常与netty(`reactor-netty`)等框架配合，从上(`网络`)到下(`持久化`)全套实现`非阻塞`，`响应式`才有意义。
+
+</div>
 
 ## 选择合适的操作符
 
-系统中大量使用到了`reactor`,其核心类只有2个`Flux`(0-n个数据的流),`Mono`(0-1个数据的流). 
-摒弃`传统编程`的思想,熟悉`Flux`,`Mono`操作符(API),就可以很好的使用响应式编程了.
+系统中大量使用到了`reactor`，其核心类只有2个：`Flux`(0-n个数据的流)，`Mono`(0-1个数据的流)。 
+摒弃`传统编程`的思想，熟悉`Flux`、`Mono`操作符(API)，就可以很好的使用响应式编程了。
 
 常用操作符: 
 
@@ -60,12 +72,12 @@ API丰富,实现很多复杂的功能只需要几行代码,例如:
 14. `switchIfEmpty`: 当流为空时,切换为另外一个流.
 15. `as`: 将流作为参数,转为另外一个结果:`flux.as(this::save)`
 
-完整文档请查看[官方文档](https://projectreactor.io/docs/core/release/reference/#which-operator)
+完整文档请查看<a target='_blank' href='https://projectreactor.io/docs/core/release/reference/#which-operator'>官方文档</a>
 
 
 ## 代码格式化
 
-使用`reactor`时,应该注意代码尽量以`.`换行并做好相应到缩进.例如:
+使用`reactor`时，应该注意代码尽量以`.`换行并做好相应到缩进。例如：
 
 ```java
 
@@ -81,7 +93,7 @@ return paramMono
 
 ## lamdba
 
-避免在一个`lambda`中编写大量的逻辑代码,推荐参考`领域模型`,将具体当逻辑放到对应到`实体`或者`领域对象`中.例如:
+避免在一个`lambda`中编写大量的逻辑代码。推荐参考`领域模型`，将具体当逻辑放到对应到`实体`或者`领域对象`中。例如：
 
 ```java
 
@@ -105,7 +117,7 @@ return devicePropertyMono
 
 ## null处理
 
-数据流中到元素不允许为`null`,因此在进行数据转换到时候要注意`null`处理.例如:
+数据流中到元素不允许为`null`，因此在进行数据转换的时候要注意`null`处理。例如：
 
 ```java
 
@@ -116,17 +128,27 @@ return this.findById(id)
 
 
 ```
-在`reactor 3.4`后可以使用以下方式来处理可能存在null的map操作
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+在`reactor 3.4`后可以使用以下方式来处理可能存在null的map操作：
 
 ```java
 return this.findById(id)
            .mapNotNull(UserEntity::getDescription); 
 ```
 
+</div>
+
+
 ## 非阻塞与阻塞
 
-默认情况下,`reactor`的调度器由数据的生产者(`Publisher`)决定,在`WebFlux`中则是`netty`的工作线程,
-为了防止工作线程被阻塞导致服务崩溃,在一个请求的流中,禁止执行存在阻塞(如执行`JDBC`)可能的操作的,如果无法避免阻塞操作,应该指定调度器如:
+默认情况下，`reactor`的调度器由数据的生产者(`Publisher`)决定。在`WebFlux`中则是`netty`的工作线程。
+为了防止工作线程被阻塞导致服务崩溃，在一个请求的流中，禁止执行存在阻塞(如执行`JDBC`)可能的操作的。如果无法避免阻塞操作，应该指定调度器如：
 
 ```java
 paramMono
@@ -136,8 +158,8 @@ paramMono
 
 ## 上下文
 
-在响应式中,大部分情况是禁止使用`ThreadLocal`的(可能造成内存泄漏).因此基于`ThreadLocal`的功能都无法使用,reactor中引入了上下文,在一个流中,可共享此上下文
-,通过上下文进行变量共享以例如:`事务`,`权限`等功能.例如:
+在响应式中，大部分情况是禁止使用`ThreadLocal`的(可能造成内存泄漏)。因此基于`ThreadLocal`的功能都无法使用。reactor中引入了上下文，在一个流中，可共享此上下文
+。通过上下文进行变量共享，例如`事务`,`权限`等功能。例如:
 
 ```java
 
@@ -145,7 +167,10 @@ paramMono
 @GetMapping
 public Mono<UserInfo> getCurrentUser(){
     return Mono.subscriberContext()
-            .map(ctx->userService.findById(ctx.getOrEmpty("userId").orElseThrow(IllegalArgumentException::new));
+            .map(ctx->userService
+                .findById(ctx
+                    .getOrEmpty("userId")
+                    .orElseThrow(IllegalArgumentException::new));
 }
 
 //定义过滤器设置数据到上下文中
@@ -158,7 +183,11 @@ class MyFilter implements WebFilter{
 
 ```
 
-::: warning 注意
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
 
 在开发中应该将多个流组合为一个流,而不是分别处理.例如:
 
@@ -180,14 +209,15 @@ return request
     .then(this.notifySaveSuccess());
 
 ```
-:::
+
+</div>
 
 
 ## FAQ: 我写的操作看上去是正确的,但是没有执行.
 
-有3种可能: `上游流为空`,`多个流未组合在一起`,`在不支持响应式的地方使用了响应式`
+有3种可能：`上游流为空`，`多个流未组合在一起`，`在不支持响应式的地方使用了响应式`
 
-上游流为空:
+### 1. 上游流为空
 
 例:
 ```java{6-7}
@@ -204,9 +234,14 @@ public Mono<Response> handleRequest(Request request){
 
 ```
 
-::: tip 说明
-当`findOldData`返回的流为空时,下游的`flatMap`等需要`操作流中元素的操作符`是不会执行的.
-可以通过`switchIfEmpty`操作符来处理空流的情况. 
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+当`findOldData`返回的流为空时，下游的`flatMap`等需要`操作流中元素的操作符`是不会执行的。
+可以通过`switchIfEmpty`操作符来处理空流的情况。
 例如:
 ```java
  return this
@@ -219,9 +254,10 @@ public Mono<Response> handleRequest(Request request){
 ```
 
 如果`flatMap`和`switchIfEmpty`中的逻辑都没执行,那可能是下面一种情况.
-:::
 
-多个流未组合在一起
+</div>
+
+### 2. 多个流未组合在一起
 
 例:
 
@@ -238,11 +274,16 @@ public Result handleRequest(Request request){
 
 ```
 
-::: tip 注意
-1. <span style="color:red">只要方法返回值是`Mono`或者`Flux`,都不能单独行动.</span>
-2. <span style="color:red">只要方法中调用了任何响应式操作.那这个方法也应该是响应式.(返回Mono或者Flux)</span>
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-因此正确的写法是:
+1. <span style="color:red">只要方法返回值是`Mono`或者`Flux`，都不能单独行动。</span>
+2. <span style="color:red">只要方法中调用了任何响应式操作，那这个方法也应该是响应式。(返回Mono或者Flux)</span>
+
+因此正确的写法是：
 
 ```java
 public Mono<Result> handleRequest(Request request){
@@ -256,9 +297,9 @@ public Mono<Result> handleRequest(Request request){
 }
 ```
 
-:::
+</div>
 
-在不支持响应式的地方使用响应式
+### 3. 在不支持响应式的地方使用响应式
 
 ```java{6-7}
 public Mono<Result> handleRequest(Request request){
@@ -273,10 +314,15 @@ return service
 }
 ```
 
-::: tip 说明
-从`doOnNext`方法的语义以及参数`Consumer<T>`可知,此方法是不支持响应式的（`Consumer<T>只有参数没有返回值`）,因此不能在此方法中使用响应式操作.
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-正确的写法:
+从`doOnNext`方法的语义以及参数`Consumer<T>`可知，此方法是不支持响应式的（`Consumer<T>只有参数没有返回值`）。因此不能在此方法中使用响应式操作。
+
+正确的写法：
 
 ```java
 return service
@@ -288,14 +334,14 @@ return service
          .thenReturn(ok);
 ```
 
-:::
+</div>
 
 ## FAQ: 我想获取流中的元素怎么办
 
-不要试图从流中获取数据出来,而是先思考需要对流中元素做什么,
-需要对流中的数据进行操作时,都应该使用操作符来处理,根据`Flux或者Mono`提供的操作符API进行组合操作.比如:
+不要试图从流中获取数据出来，而是先思考需要对流中元素做什么。
+需要对流中的数据进行操作时，都应该使用操作符来处理，根据`Flux或者Mono`提供的操作符API进行组合操作。比如：
 
-传统:
+传统：
 ```java
 
 public List<Book> getAllBooks(){
@@ -312,7 +358,7 @@ public List<Book> getAllBooks(){
 }
 ```
 
-响应式:
+响应式：
 
 ```java
 public Flux<Book> getAllBooks(){
@@ -325,11 +371,11 @@ return repository
 
 ## FAQ: 我需要在非响应式方法中使用响应式怎么办
 
-如果需要阻塞获取结果,可以使用`flux.block(timeout)`.
+如果需要阻塞获取结果，可以使用`flux.block(timeout)`
 
-如果需要异步获取结果,可以使用`flux.subscribe(data->{ },error->{ })`
+如果需要异步获取结果，可以使用`flux.subscribe(data->{ },error->{ })`
 
-如:
+如：
 
 ```java
 public void handleRequest(Request request){
@@ -352,6 +398,6 @@ public void handleRequest(Request request){
 
 ## 相关资料
 
-1. [reactive-streams](http://www.reactive-streams.org/)
-2. [project-reactor](https://projectreactor.io/)
-3. [使用 Reactor 进行反应式编程](https://www.ibm.com/developerworks/cn/java/j-cn-with-reactor-response-encode/index.html?lnk=hmhm)
+1. <a target='_blank' href='http://www.reactive-streams.org/'>reactive-streams</a>
+2. <a target='_blank' href='https://projectreactor.io/'>project-reactor</a>
+3. <a target='_blank' href='https://www.ibm.com/developerworks/cn/java/j-cn-with-reactor-response-encode/index.html?lnk=hmhm'>使用 Reactor 进行反应式编程</a>

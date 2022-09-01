@@ -21,16 +21,23 @@ cp -r dist docker/
 ### 使用docker部署前端
 1. 构建docker镜像  
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
 ```
 
 2. 运行docker镜像  
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
 ```
-::: tip 注意
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
 环境变量`API_BASE_PATH`为后台API根地址. 由docker容器内进行自动代理. 请根据自己的系统环境配置环境变量: `API_BASE_PATH`
-:::
+
+</div>
 
 ### 使用nginx部署
 
@@ -57,7 +64,7 @@ server {
     }
 
     location ^~/jetlinks/ {
-        proxy_pass http://jetlinks:8848/; #修改此地址为后台服务地址
+        proxy_pass http://jetlinks:8844/; #修改此地址为后台服务地址
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP  $remote_addr;
@@ -89,9 +96,13 @@ mvn clean package -Dmaven.test.skip=true
 ```
 
 2. 使用docker构建镜像  
-::: tip 注意
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 请自行准备docker镜像仓库，此处以registry.cn-shenzhen.aliyuncs.com阿里云私有仓库为例。
-:::
+</div>
 
 ```shell script
 $ cd ./jetlinks-standalone
@@ -142,7 +153,7 @@ services:
     links:
       - elasticsearch:elasticsearch
     ports:
-      - "5602:5601"
+      - "5601:5601"
     depends_on:
       - elasticsearch
   postgres:
@@ -162,7 +173,7 @@ services:
     ports:
       - 9000:80
     environment:
-      - "API_BASE_PATH=http://jetlinks:8848/" #API根路径
+      - "API_BASE_PATH=http://jetlinks:8844/" #API根路径
     volumes:
       - "jetlinks-volume:/usr/share/nginx/html/upload"
     links:
@@ -171,34 +182,57 @@ services:
     image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest
     container_name: jetlinks-ce
     ports:
-      - 8848:8848 # API端口
+      - 8844:8844 # API端口
       - 1883-1890:1883-1890 # 预留
       - 8000-8010:8000-8010 # 预留
     volumes:
       - "jetlinks-volume:/application/static/upload"  # 持久化上传的文件
-      - "jetlinks-protocol-volume:/application/data/protocols"
+      - "jetlinks-protocol-volume:/application/data/protocols" # 临时保存协议目录
     environment:
-     # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
-      - "TZ=Asia/Shanghai"
-      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
-      - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
-      - "spring.r2dbc.username=postgres"
-      - "spring.r2dbc.password=jetlinks"
-      - "spring.redis.host=redis"
-      - "spring.redis.port=6379"
-      - "spring.redis.password=redispassword"#生产环境请配置redis密码
-      # 生产环境下请配置es的密码，或者关闭公网访问
-      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
-#      - "spring.data.elasticsearch.client.reactive.username=admin"
-#      - "spring.data.elasticsearch.client.reactive.password=admin" 
-#      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
-#      - "jetlinks.device.storage.enable-last-data-in-db=true" # 开启记录最新数据到数据库，但是会降低吞吐量
-      - "logging.level.io.r2dbc=warn"
-      - "logging.level.org.springframework.data=warn"
-      - "logging.level.org.springframework=warn"
-      - "logging.level.org.jetlinks=warn"
-      - "logging.level.org.hswebframework=warn"
-      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+        - "TZ=Asia/Shanghai"
+#        - "JAVA_OPTS=-Ddevice.message.trace.enabled=true -Duser.language=zh -Duser.region=CN -Xms2G -Xmx2G -XX:+UseG1GC "  # jvm参数，根据情况调整
+        - "hsweb.file.upload.static-location=http://localhost:8844/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+        - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
+        - "spring.r2dbc.username=postgres"
+        - "spring.r2dbc.password=jetlinks"
+        - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
+#        - "spring.data.elasticsearch.client.reactive.username=admin"
+#        - "spring.data.elasticsearch.client.reactive.password=admin"
+#        - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+#        - "jetlinks.device.storage.enable-last-data-in-db=true" # 开启记录最新数据到数据库，但是会降低吞吐量
+        - "spring.redis.host=redis"
+        - "spring.redis.port=6379"
+        - "spring.redis.password=redispassword"
+        - "spring.redis.serializer=obj"
+        - "logging.level.io.r2dbc=warn"
+        - "logging.level.org.springframework.data=warn"
+        - "logging.level.org.springframework=warn"
+        - "logging.level.org.jetlinks=warn"
+        - "logging.level.org.hswebframework=warn"
+        - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+        - "network.resources[0]=0.0.0.0:8100-8110/tcp"
+        - "network.resources[1]=0.0.0.0:8083-8088/tcp"
+        - "network.resources[2]=0.0.0.0:8200-8210/udp"
+        - "system.config.scopes[0].id=front"
+        - "system.config.scopes[0].name=前端配置"
+        - "system.config.scopes[0].public-access=true"
+        - "system.config.scopes[1].id=amap"
+        - "system.config.scopes[1].name=高德地图配置"
+        - "system.config.scopes[1].public-access=false"
+        - "system.config.scopes[1].properties[0].key=apiKey"
+        - "system.config.scopes[1].properties[0].name=高德地图apiKey"
+        - "system.config.scopes[1].properties[0].default-value=test"
+        - "system.config.scopes[2].id=basis"
+        - "system.config.scopes[2].name=系统设置"
+        - "system.config.scopes[2].public-access=true"
+        - "system.config.scopes[3].id=paths"
+        - "system.config.scopes[3].name=访问路径配置"
+        - "system.config.scopes[3].public-access=true"
+        - "system.config.scopes[3].properties[0].key=base-path"
+        - "system.config.scopes[3].properties[0].name=接口根目录"
+        - "system.config.scopes[3].properties[0].default-value=http://localhost:8844/"
+        - "api.base-path=http://localhost:8844/"
+
     links:
       - redis:redis
       - postgres:postgres
@@ -214,10 +248,15 @@ volumes:
   jetlinks-volume:
   jetlinks-protocol-volume:
 ```
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-::: tip 注意：
 jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步。
-:::
+
+</div>
 
 6.运行docker-compose文件
 
@@ -242,8 +281,13 @@ jar包文件地址: `jetlinks-standalone/target/jetlinks-standalone.jar`
 ```bash
 $ java -jar jetlinks-standalone.jar
 ```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 
-::: tip 注意
 请根据情况调整jvm参数等信息.
-:::
+
+</div>
 

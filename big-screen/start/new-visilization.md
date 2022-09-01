@@ -33,7 +33,7 @@ $ git clone git@github.com:jetlinks/jetlinks-view-pro.git
 ## docker启动
 
 进入`jetlinks-view\docker`目录下修改`docker-compose.yml`内的参数
-![visualiazation/dc.png](visualiazation/dc.png)
+![visualiazation/dc.png](./visualiazation/dc.png)
 
 - 在jetlinksview服务节点下的environment新增以下两条参数
 - 
@@ -62,18 +62,18 @@ npm 6.14 版本过高会打包失败
 :::
 
 在`jetlinks-view`目录下执行以下命令
-```shell
+```
 mvn clean package -Dmaven.test.skip=true
 ```
 
 将打包好的jar上传至服务器后执行以下命令
 
-```shell
+```
 java -jar jetlinks-view-admin.jar
 ```
 
 守护态启动命令：
-```shell
+```
 nohup java -jar jetlinks-view-admin.jar > jetlinks-view.log &
 ```
 
@@ -81,20 +81,20 @@ nohup java -jar jetlinks-view-admin.jar > jetlinks-view.log &
 
 进入`jetlinks-view-ui`目录
 
-```shell
+```
 # 安装依赖npm、yarn二选一
 npm install
 yarn install
 ```
 
 本地启动项目
-```shell
+```
 npm run dev
 yarn dev
 ```
 
 打包项目
-```shell
+```
 npm run build
 yarn build
 ```
@@ -114,7 +114,7 @@ nginx配置文件可以参考`jetlinks-view-ui`目录下的`CICD`下的`env_defa
 - `jetlinks-view`根目录提供了打包后端docker镜像脚本的文件`build-and-push-docker.sh`。
 - `jetlinks-view-ui`目录提供了打包前端docker镜像脚本的文件`build-and-push-docker.sh`。
 
-![visualiazation/shell.png](visualiazation/shell.png)
+![visualiazation/shell.png](./visualiazation/shell.png)
 
 自行打包镜像时需要自己提供镜像仓库地址，同时修改脚本内的`dockerImage`参数。阿里云提供个人版的镜像仓库，可以自行去申请。
 
@@ -153,14 +153,24 @@ nginx配置文件可以参考`jetlinks-view-ui`目录下的`CICD`下的`env_defa
 
 重新启动jetlinks-pro平台。
 
+## 修改jetlinks-view数据库的默认值
+
+将数据库内0.0.0.0:9000替换成本地jetlinks IOT（jetlinks-pro）平台环境地址，然后连接view数据库执行批量更新jetlinks环境语句
+
+```sql
+
+update ink_datasource set source_url=replace(source_url,'192.168.1.123:9000', '0.0.0.0:9000') where source_flag=1;
+
+```
+
 ## 和jetlinks IOT平台集成
 
 - 在权限管理里将id为`device-api-product`，`device-opt-api`，`device-instance`数据进行编辑，修改分类为`API接口`
-![visualiazation/permission-set.png](visualiazation/permission-set.png)
+![visualiazation/permission-set.png](./visualiazation/permission-set.png)
 - 登录jetlinks IOT平台，菜单选择系统设置>第三方平台，新增一个第三方平台
-![visualiazation/open-api-1.png](visualiazation/open-api-1.png)
+![visualiazation/open-api-1.png](./visualiazation/open-api-1.png)
 - 第三方平台赋权（勾选如下所示权限）
-![visualiazation/open-api-2.png](visualiazation/open-api-2.png)
+![visualiazation/open-api-2.png](./visualiazation/open-api-2.png)
 
 - 获取到jetlinks申请的clientId和secureKey后，登录jetlinks-view平台，菜单选择鉴权管理，找到"jetlinksIOT系统OpenAPI鉴权规则"，点击修改填写请求参数配置`X-Client-Id`和`Jetlinks_OpenApi_secureKey`以及请求路径。
 
@@ -174,27 +184,7 @@ nginx配置文件可以参考`jetlinks-view-ui`目录下的`CICD`下的`env_defa
 http://192.168.1.123:9000/jetlinks/api/v1/token
 http://192.168.1.123:8844/api/v1/token
 ```
- 
-- 修改jetlinks-view数据库的默认值
-
-:::warning
-将数据库内给的默认值替换成自行部署的jetlinks IOT（jetlinks-pro）平台环境地址。
-
-根据实际情况下方SQL内的`0.0.0.0:90000`换成自己的`IP`及`端口`，然后连接view数据库执行批量更新jetlinks环境语句
-
-若上一步配置的jetlinks IOT后端地址是前端代理
-:::
-```sql
-update ink_datasource set source_url=replace(source_url,'demo.jetlinks.cn', '0.0.0.0:9000') where source_flag=1;
-
-```
-直接使用jetlinks IOT后端接口
-```sql
-update ink_datasource set source_url=replace(source_url,'demo.jetlinks.cn/jetlinks', '0.0.0.0:8844') where source_flag=1;
-
-```
-
-![visualiazation/open-api-3.png](visualiazation/open-api-3.png)
+![visualiazation/open-api-3.png](./visualiazation/open-api-3.png)
 
 - 点击测试按钮进行校验返回的有`result`参数则说明集成成功。
 ```json

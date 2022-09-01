@@ -1,6 +1,6 @@
 
 # 规则引擎说明
-平台中内置了规则引擎,`设备告警`,`数据转发`,`场景联动`均由规则引擎执行.
+平台中内置了规则引擎,`设备告警`,`场景联动`均由规则引擎执行.
 
 名词说明:
 
@@ -49,14 +49,17 @@ Condition{
 ## 自定义规则节点
 
 1. 实现接口`TaskExecutorProvider`
-2. 注解`@Component`
+2. 在`RuleEngineManagerConfiguration`中配置Bean
 
 ```java
-@Component
 @AllArgsConstructor
-public class SceneRuleTaskExecutorProvider implements TaskExecutorProvider {
+public class SceneTaskExecutorProvider implements TaskExecutorProvider {
+
+    public static final String EXECUTOR = "scene";
 
     private final EventBus eventBus;
+
+    private final SceneFilter filter;
 
     @Override
     public String getExecutor() {
@@ -65,41 +68,170 @@ public class SceneRuleTaskExecutorProvider implements TaskExecutorProvider {
 
     @Override
     public Mono<TaskExecutor> createTask(ExecutionContext context) {
-
-        return Mono.just(new DeviceSceneTaskExecutor(context));
+        return Mono.just(new SceneTaskExecutor(context));
     }
 
-    class DeviceSceneTaskExecutor extends FunctionTaskExecutor {
+    class SceneTaskExecutor extends AbstractTaskExecutor {
 
-        private String id;
+        private SceneRule rule;
 
-        private String name;
+        public SceneTaskExecutor(ExecutionContext context) {
+            super(context);
+            load();
+        }
 
-        public DeviceSceneTaskExecutor(ExecutionContext context) {
-            super("场景联动", context);
-            reload();
+        @Override
+        public String getName() {
+            return context.getJob().getName();
+        }
+
+        @Override
+        protected Disposable doStart() {
+
+            return disposable = init();
+        }
+
+        @Override
+        public void validate() {
+            rule.validate();
         }
 
         @Override
         public void reload() {
-            //从任务配置中获取配置
-            this.id = (String) getContext().getJob().getConfiguration().get("id");
-            this.name = (String) getContext().getJob().getConfiguration().get("name");
+            load();
+            doStart();
+        }
+
+        private void load() {
+            SceneRule sceneRule = FastBeanCopier.copy(context.getJob().getConfiguration(),
+                    new SceneRule());
+            sceneRule.validate();
+            this.rule = sceneRule;
+        }
+
+        private Disposable init() {
+            if (disposable != null) {
+                disposable.dispose();
+            }
+            SqlRequest request = rule.createSql();
+
+            //不是通过SQL来处理数据
+            if (request.isEmpty()) {
+                return context
+                        .getInput()
+                        .accept()
+                        .flatMap(this::handleOutput)
+                        .subscribe();
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("init scene [{}:{}], sql:{}", rule.getId(), rule.getName(), request.toNativeSql());
+            }
+            //数据源
+            ReactorQLContext qlContext = ReactorQLContext
+                    .ofDatasource(table -> {
+                        //来自上游(定时等)
+                        if (table.startsWith("/")) {
+                            //来自事件总线
+                            return this
+                                    .refactorTopic(table)
+                                    .flatMapMany(topics -> eventBus
+                                            .subscribe(
+                                                    Subscription
+                                                            .builder()
+                                                            .justLocal()
+                                                            .topics(topics)
+                                                            .subscriberId("scene:" + rule.getId())
+                                                            .build()))
+                                    .<Map<String, Object>>handle((topicPayload, synchronousSink) -> {
+                                        String topic = topicPayload.getTopic();
+                                        try {
+                                            synchronousSink.next(topicPayload.bodyToJson(true));
+                                        } catch (Throwable err) {
+                                            log.warn("decode payload error {}", topic, err);
+                                        }
+                                    })
+                                    //有效期去重,同一个设备在多个部门的场景下,可能收到2条相同的数据问题
+                                    .as(FluxUtils.distinct(map -> {
+                                        Object id = map.get(PropertyConstants.uid.getKey());
+                                        if (null == id) {
+                                            id = IDGenerator.SNOW_FLAKE_STRING.generate();
+                                        }
+                                        return id;
+                                    }, Duration.ofSeconds(5)));
+                        } else {
+                            return context
+                                    .getInput()
+                                    .accept()
+                                    .flatMap(RuleData::dataToMap);
+                        }
+                    });
+
+            //sql参数
+            for (Object parameter : request.getParameters()) {
+                qlContext.bind(parameter);
+            }
+
+            Flux<Map<String, Object>> source = ReactorQL
+                    .builder()
+                    .sql(request.getSql())
+                    .build()
+                    .start(qlContext)
+                    .map(ReactorQLRecord::asMap);
+
+            //防抖
+            Trigger.GroupShakeLimit shakeLimit = rule.getTrigger().getShakeLimit();
+            if (shakeLimit != null && shakeLimit.isEnabled()) {
+
+                ShakeLimitGrouping<Map<String, Object>> grouping = shakeLimit.createGrouping();
+
+                source = shakeLimit.transfer(
+                        source,
+                        (time, flux) -> grouping
+                                .group(flux)
+                                .flatMap(group -> group.window(time), Integer.MAX_VALUE),
+                        (map, total) -> map.put("_total", total));
+            }
+
+            return source
+                    .flatMap(this::handleOutput)
+                    .subscribe();
+        }
+
+        private Mono<List<String>> refactorTopic(String topic) {
+            //todo 根据权限对topic进行重构
+
+            return Mono.just(Collections.singletonList(topic));
+        }
+
+        private Mono<Void> handleOutput(RuleData data) {
+
+            return data
+                    .dataToMap()
+                    .filterWhen(map -> {
+                        SceneData sceneData = new SceneData();
+                        sceneData.setId(IDGenerator.SNOW_FLAKE_STRING.generate());
+                        sceneData.setRule(rule);
+                        sceneData.setOutput(map);
+
+                        log.info("execute scene {} {} : {}", rule.getId(), rule.getName(), map);
+
+                        return filter
+                                .filter(sceneData)
+                                .defaultIfEmpty(true);
+                    })
+                    .flatMap(map -> context.getOutput().write(data.newData(map)))
+                    .onErrorResume(err -> context.onError(err, data))
+                    .then();
+
+        }
+
+        private Mono<Void> handleOutput(Map<String, Object> data) {
+            return handleOutput(context.newRuleData(data));
         }
 
         @Override
-        protected Publisher<RuleData> apply(RuleData input) {
-            Map<String, Object> data = new HashMap<>();
-            data.put("sceneId", id);
-            data.put("sceneName", name);
-            data.put("executeTime", System.currentTimeMillis());
-
-            input.acceptMap(data::putAll);
-
-            return eventBus
-                .publish(String.join("/", "scene", id), data)
-                //转换新的数据
-                .thenReturn(context.newRuleData(input.newData(data)));
+        public Mono<Void> execute(RuleData ruleData) {
+            return handleOutput(ruleData);
         }
     }
 }
@@ -227,7 +359,12 @@ return ctx.node()
 * .counter().getAndSet(double number)获取最新值后设置新的值,返回:Mono&lt;Double&gt;
 * .counter().setAndGet(double number)设置最新值后返回最新的值,返回:Mono&lt;Double&gt;
 
-::: tip 特别注意
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
 作用域的返回值均是reactor的API ,注意将操作组合成一个流后返回,如:
 ```js
 return ctx
@@ -235,7 +372,8 @@ return ctx
    .set("tmp",val)
    .thenReturn({"success":true})
 ```
-:::
+
+</div>
 
 #### 日志输出和错误处理
 使用以下功能输出日志：
@@ -259,10 +397,16 @@ throw new java.lang.RuntimeException("错误");
 }
 ```
 
-::: tip 说明
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 通过ReactorQL可以订阅设备消息等消息,还可以进行分组聚合计算等操作.
-见: [ReactorQL说明](reactor-ql.md)
-:::
+见: <a href='/dev-guide/reactor-ql.html'>ReactorQL说明</a>
+
+</div>
 
 ### 设备指令
 
@@ -283,9 +427,15 @@ throw new java.lang.RuntimeException("错误");
 }
 ```
 
-::: tip 说明
-设备指令内容见:[平台统一设备消息定义](../best-practices/start.md#平台统一设备消息定义)
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+设备指令内容见:<a href='/function-description/device_message_description.html'>平台统一设备消息定义</a>
+
+</div>
 
 #### 设备选择器说明
 
@@ -351,9 +501,15 @@ throw new java.lang.RuntimeException("错误");
 }
 ```
 
-::: tip 节点输入
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>节点输入</span>
+  </p>
+
 将上游节点输出的结果作为请求内容,可通过函数节点拼接请求内容.
 
+```json5
 {
     "url":"如果为null则使用节点配置中的值",
     "method":"如果为null则使用节点配置中的值",
@@ -362,5 +518,7 @@ throw new java.lang.RuntimeException("错误");
     "queryParameters":{},//拼接到url上的参数
     "payload":{}//post请求时的请求体
 }
+```
 
-:::
+
+</div>

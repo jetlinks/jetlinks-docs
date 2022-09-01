@@ -19,15 +19,27 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 可通过通配符订阅所有设备的指定消息,如:`/device/*/*/online`,
 或者订阅所有消息:`/device/**`.
 
-::: tip
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 使用通配符订阅可能将收到大量的消息,请保证消息的处理速度,否则会影响系统消息吞吐量.
-:::
+
+</div>
 
 ### 设备Topic列表
 
-::: warning
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+
 列表中的topic已省略前缀`/device/{productId}/{deviceId}`,使用时请加上.
-:::
+
+</div>
 
 | topic                                              | 类型                       | 说明                                      |
 | -------------------------------------------------- | -------------------------- | ----------------------------------------- |

@@ -1,14 +1,19 @@
 # 事件驱动
 
-在JetLinks中大量使用到事件驱动来实现功能解耦,主要由`Spring Event`和`事件总线(EventBus)`组成.
+在JetLinks中大量使用到事件驱动来实现功能解耦。主要由`Spring Event`和`事件总线(EventBus)`组成。
 
 ## Spring Event
 
-直接使用`spring-framework`的事件模型,通过`ApplicationEventPublisher`来发送事件，在方法上注解`@EventListener`来监听事件.
+直接使用`spring-framework`的事件模型，通过`ApplicationEventPublisher`来发送事件，在方法上注解`@EventListener`来监听事件。
 
-::: tip 注意
-由于`Spring Event`不支持响应式,平台封装了响应式事件抽象类，可实现接口`AsyncEvent`或者继承`DefaultAsyncEvent`来处理
-响应式操作。监听响应式事件时需要使用`event.async( doSomeThing(event) )`来注册响应式操作. 例如：
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+由于`Spring Event`不支持响应式，平台封装了响应式事件抽象类。可实现接口`AsyncEvent`或者继承`DefaultAsyncEvent`来处理
+响应式操作。监听响应式事件时需要使用`event.async( doSomeThing(event) )`来注册响应式操作。例如：
 
 ```java
 @EventListener
@@ -23,12 +28,13 @@ public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
   return ....;
 }
 ```
-:::
+
+</div>
 
 ### 通用CRUD事件
 
-在实体类上注解`@EnableEntityEvent`以开启对应实体类的事件,或者通过:实现接口`EntityEventListenerCustomizer`并注入到`spring`,
-来实现实体类事件自定义.
+在实体类上注解`@EnableEntityEvent`以开启对应实体类的事件。或者通过实现接口`EntityEventListenerCustomizer`并注入到`spring`,
+来实现实体类事件自定义。
 对应的事件类如下：
 
 + `EntityPrepareCreateEvent` 实体类创建预处理事件,可在这个阶段修改实体类属性值,对应操作`insert`
@@ -44,14 +50,20 @@ public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
 + `EntityCreatedEvent` 实体类创建事件,可用于记录日志等操作,对应操作`insert`
 + `EntityDeletedEvent` 实体类删除事件,可用于记录日志等操作,对应操作`delete`
 
-::: tip 注意
-事件类的泛型为想要监听的实体类,例如: `EntitySavedEvent<DeviceInstanceEntity>`.
-如果想要全部实体,则直接监听`EntitySavedEvent`即可.
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+事件类的泛型为想要监听的实体类。例如: `EntitySavedEvent<DeviceInstanceEntity>`。
+如果想要全部实体，则直接监听`EntitySavedEvent`即可。
+
+</div>
 
 ### 授权相关事件
 
-使用接口`/authorize/login`进行登录时，将会触发相应的实现来实现自定义授权逻辑，如自定义验证码，密码加解密等。
+使用接口`/authorize/login`进行登录时，将会触发相应的实现来实现自定义授权逻辑。如自定义验证码，密码加解密等。
 相关类:`AuthorizationController`
 
 + `AuthorizationDecodeEvent` 认证解密事件，可用于自定义用户名密码加密解密
@@ -75,9 +87,14 @@ public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
 + `TenantMemberBindEvent` 租户成员绑定事件
 + `TenantMemberUnBindEvent` 租户成员解绑事件
 
-::: tip 注意
-资产绑定方式分为手动绑定和自动绑定, 自动绑定是在创建数据,删除数据等操作时执行的.
-手动绑定通常是通过接口进行资产分配时执行的.可以通过以下方式来区分绑定方式:
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+  资产绑定方式分为手动绑定和自动绑定, 自动绑定是在创建数据、删除数据等操作时执行的。
+  手动绑定通常是通过接口进行资产分配时执行的，可以通过以下方式来区分绑定方式。
 
 + `AssetsUtils.doWhenSourceIsAutoBind`
 + `AssetsUtils.doWhenSourceIsManualBind`
@@ -93,7 +110,8 @@ public void handleEvent(AssetsBindEvent event){
 }
 
 ```
-:::
+
+</div>
 
 ### 设备管理相关
 
@@ -104,17 +122,23 @@ public void handleEvent(AssetsBindEvent event){
 
 ## EventBus
 
-由于`Spting Event`不支持更细粒度的订阅,例如: 订阅某一个设备的消息。平台还提供了事件总线来实现粒度更细的事件支持.
+由于`Spting Event`不支持更细粒度的订阅。例如: 订阅某一个设备的消息。平台还提供了事件总线来实现粒度更细的事件支持。
 
 ### Topic
 
-采用树结构来定义topic如:`/device/id/message/type` .
-topic支持路径通配符,如:`/device/**` 或者`/device/*/message/*`.
+采用树结构来定义topic，如：`/device/id/message/type`。
+topic支持路径通配符，如：`/device/**` 或者`/device/*/message/*`。
 
-::: tip
-通配符`**`表示匹配多层路径,`*`表示匹配单层路径. `不支持`前后匹配,如: `/device/id-*/message`.
-发布和订阅均支持通配符,发布时使用通配符时则进行广播.
-:::
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+通配符`**`表示匹配多层路径，`*`表示匹配单层路径。`不支持`前后匹配，如: `/device/id-*/message`。
+发布和订阅均支持通配符，发布时使用通配符时则进行广播。
+
+</div>
 
 ### 使用
 
@@ -146,11 +170,11 @@ public Mono<Void> saveUser(UserEntity entity){
 
 ### 设备消息
  
- [点击查看](../best-practices/start.md#设备消息对应事件总线topic)
+ 详情参照<a href='/function-description/device_message_description.html#设备消息对应事件总线topic'>设备消息对应事件总线topic</a>
 
 ### 设备告警
 
-在配置了设备告警规则,设备发生告警时,会发送消息到消息总线.
+在配置了设备告警规则，设备发生告警时，会发送消息到消息总线。
 
 ```js
 `/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`
@@ -167,7 +191,7 @@ public Mono<Void> saveUser(UserEntity entity){
 
 ### 系统日志
 
-topic格式: `/logging/system/{logger名称,.替换为/}/{level}`.
+topic格式：`/logging/system/{logger名称,.替换为/}/{level}`。
 
 ```js
 `/logging/system/org/jetlinks/pro/TestService/{level}`
