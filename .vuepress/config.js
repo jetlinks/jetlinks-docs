@@ -114,7 +114,7 @@ module.exports = {
             {
                 title: '平台开发手册',
                 collapsable: false, // 可选的, 默认值是 true,
-                sidebarDepth: 1,    // 可选的, 默认值是 1
+                sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
                     ['/dev-guide/start.md', '介绍'],
                     ['/dev-guide/specification', '规范'],
