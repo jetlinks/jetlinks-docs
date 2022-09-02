@@ -196,6 +196,7 @@ module.exports = {
                     ['/protocol/faq.md', '协议开发常见问题'],
                     ['/common-problems/mqtt-connection.md', '使用MQTT接入时的常见问题'],
                     ['/common-problems/tcp-network-components.md', 'TCP网络组件常见问题'],
+                    ['/common-problems/tenant.md', '平台怎样支持"租户"概念问题'],
                     ['/common-problems/FAQ.md', '其他常见问题']
                 ]
             },
