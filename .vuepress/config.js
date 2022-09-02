@@ -10,11 +10,12 @@ module.exports = {
     // },
     themeConfig: {
         nav: [
+            {text: '1.0文档', link: 'http://doc.jetlinks.cn/'},
             {text: '关于', link: 'http://jetlinks.cn/'},
             {text: 'GitHub', link: 'https://github.com/jetlinks-v2/jetlinks-pro'},
             // {text: 'gitee', link: 'https://gitee.com/jetlinks'},
             {text: '提交问题', link: 'https://github.com/jetlinks-v2/jetlinks-pro/issues'},
-            {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'}
+            {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'},
         ],
         sidebar: [
             {
