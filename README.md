@@ -70,7 +70,7 @@ JetLinks所有版本均开放源代码.
 
 JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单独的仓库并定期发布到maven中央仓库.
   
-可在[github](https://github.com/jetlinks)中找到全部代码.
+可在[github](https://github.com/jetlinks-v2)中找到全部代码.
 
 </div>
 
