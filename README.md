@@ -12,7 +12,7 @@
 ,②群(已满)[324606263](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
 ,③群[647954464](https://qm.qq.com/cgi-bin/qm/qr?k=K5m27CkhDn3B_Owr-g6rfiTBC5DKEY59&jump_from=webapi)
 
-在线演示地址: [https://v2.jetlinks.cn](https://v2.jetlinks.cn) 用户名:`test` 密码: `test123456`.
+在线演示地址: [https://v2.jetlinks.cn](https://v2.jetlinks.cn) 用户名:`test` 密码: `test1234`.
 测试用户未开放全部权限,建议本地运行社区版体验或者联系商务试用企业版.
 
 <div class='explanation warning'>
