@@ -11,17 +11,17 @@ jobs:
           with:
             persist-credentials: false
         - name: Cache npm Repository
-          uses: actions/cache@v1
+          uses: actions/cache@v3.0.8
           with:
             path: ./node_modules
             key: jetlinks-docs-repository
         - name: Install 🔧
           run: |
             yarn install
-            yarn global add vuepress
+            yarn add vuepress -D 
+            # yarn global add vuepress@next 
             yarn docs:build
             docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-docs .
-        
         - name: Login Docker Repo
           run: echo "${{ secrets.ALIYUN_DOCKER_REPO_PWD }}" | docker login registry.cn-shenzhen.aliyuncs.com -u ${{ secrets.ALIYUN_DOCKER_REPO_USERNAME }} --password-stdin
         
