@@ -496,7 +496,7 @@ topic: `/{productId}/{deviceId}/firmware/read`
 
 ### 获取固件版本回复
 
-topic: `/{productId}/{deviceId}/firmware/read`
+topic: `/{productId}/{deviceId}/firmware/read/reply`
 
 方向`上行`,设备回复平台读取设备固件版本指令
 
