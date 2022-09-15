@@ -4,9 +4,10 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 是一个开源的企业级物联网基础开发平台，实现了物联网相关以及相关业务开发的众多基础功能,
 能帮助你快速建立物联网相关业务系统。
 
-点击添加官方QQ:①群(已满)[2021514](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
-,②群(已满)[324606263](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
-,③群[647954464](https://qm.qq.com/cgi-bin/qm/qr?k=K5m27CkhDn3B_Owr-g6rfiTBC5DKEY59&jump_from=webapi)
+点击添加官方QQ:[![QQ①群2021514](https://img.shields.io/badge/QQ①群-2021514-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=LGf0OPQqvLGdJIZST3VTcypdVWhdfAOG&jump_from=webapi)
+[![QQ②群324606263](https://img.shields.io/badge/QQ②群-324606263-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=IMas2cH-TNsYxUcY8lRbsXqPnA2sGHYQ&jump_from=webapi)
+[![QQ③群647954464](https://img.shields.io/badge/QQ③群-647954464-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=K5m27CkhDn3B_Owr-g6rfiTBC5DKEY59&jump_from=webapi)
+[![QQ④群780133058](https://img.shields.io/badge/QQ④群-780133058-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=Gj47w9kg7TlV5ceD5Bqew_M_O0PIjh_l&jump_from=webapi)
 
 在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test123456`.
 测试用户未开放全部权限,建议本地运行社区版体验或者联系商务试用企业版.
@@ -110,4 +111,4 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 | GBT/28181视频设备接入        | ⭕      |  ✅ (付费选配模块)          |
 | OPC UA                     | ⭕      |  ✅ (付费选配模块)          |
 | 商业限制                    | 仅用于自有项目<br>禁止售卖源代码.  | <span style='color:green;font-weight:800'>不限项目数量</span> |
-| 定价                         | 免费   |  加QQ群`2021514`联系商务     |
+| 定价                         | 免费   |  加QQ群`780133058`联系商务     |
