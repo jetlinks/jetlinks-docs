@@ -150,7 +150,7 @@ public class SceneTaskExecutorProvider implements TaskExecutorProvider {
                                             log.warn("decode payload error {}", topic, err);
                                         }
                                     })
-                                    //有效期去重,同一个设备在多个部门的场景下,可能收到2条相同的数据问题
+                                    //有效期去重,同一个设备在多组织的场景下,可能收到2条相同的数据问题
                                     .as(FluxUtils.distinct(map -> {
                                         Object id = map.get(PropertyConstants.uid.getKey());
                                         if (null == id) {
