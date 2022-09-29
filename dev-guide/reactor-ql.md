@@ -165,6 +165,14 @@ SQL中的`this`表示主表当前的数据,如果存在嵌套属性的时候,必
 | rows\_to\_array      | 将结果集转为单元素数组     | rows\_to\_array\(idList\)              | 把只有一个属性的结果集中的属性转为集合                      |
 | new\_map             | 创建一个map                | new\_map\('k1',v1,'k2',v2\)            |                                                             |
 | new\_array           | 创建一个集合               | new\_array\(1,2,3,4\)                  |                                                             |
+| device.tag           | 获取设备标签函数            |device.tag(deviceId,'tag1')            |         获取设备标签函数                                     |
+| device.tags           | 获取设备标签函数           |device.tags(deviceId,'tag1','tag2')            |        |
+| device.config        | 获取设备配置               |device.config(deviceId,'tag1')          |											 				|
+| device\.metadata\.func        | 获取设备物模型指定功能信息              | device\.metadata\.func(deviceId,funcId)          |select device.metadata.func('ot-test','f1') pwd from dual											 |   
+| device\.metadata\.property        | 获取设备物模型指定属性信息          | device\.metadata\.property(deviceId,propertyId)        |select device.metadata.property('ot-test','f1') pwd from dual											 | 
+| device\.metadata\.event        | 获取设备物模型指定事件信息             | device\.metadata\.event(deviceId,eventId)          |select device.metadata.event('ot-test','e1') pwd from dual											 | 
+| device\.property\.recent        | 获取设备最新属性             | device\.property\.recent(deviceId,eventId,timestamp)          | select device.property.recent('test-1','temp1',timestamp) recent rom dual | 
+| device\.selector           | 设备选择器函数             | device\.selector(in_group('tenant1','tenant2'))                 |                                                             |
 | math\.ceil           | 向上取整                   | math\.ceil\(val\)                      |                                                             |
 | math\.floor          | 向下取整                   | math\.floor\(val\)                     |                                                             |
 | math\.round          | 四舍五入                   | math\.round\(val\)                     |                                                             |
@@ -295,6 +303,18 @@ select device.tags(this.deviceId) from "/device/*/*/message/property/report"
 
  :::tip
 `device.tags(this.deviceId,'tag1','tag2')`还可以通过参数获取指定的标签，如果未设置则获取全部标签。
+ :::
+ 
+ ### device.property.recent
+ 
+ 获取设备最新属性
+
+ ```sql
+select device.property.recent(deviceId,'temperature',timestamp) recent from "/device/*/*/message/property/report"
+ ```
+
+ :::tip
+`select device.property.recent`还可以通过'from dual'最新属性数据。
  :::
 
 ### device.selector
