@@ -12,10 +12,10 @@ module.exports = {
         nav: [
             {text: '1.0文档', link: 'http://doc.jetlinks.cn/'},
             {text: '关于', link: 'http://jetlinks.cn/'},
-            {text: 'GitHub', link: 'https://github.com/jetlinks-v2/jetlinks-pro'},
-            // {text: 'gitee', link: 'https://gitee.com/jetlinks'},
-            {text: '提交问题', link: 'https://github.com/jetlinks-v2/jetlinks-pro/issues'},
-            {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'},
+            {text: 'GitHub', link: 'https://github.com/jetlinks'},
+             {text: 'gitee', link: 'https://gitee.com/jetlinks'},
+            {text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues'},
+            {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'}
         ],
         sidebar: [
             {
@@ -24,7 +24,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/', '开源物联网平台'],
+                    ['/', '介绍'],
                     // ['/home/Version_upgrade.md', '版本升级说明'],
                     ['/home/update-log.md', '更新记录'],
                 ]

@@ -9,20 +9,20 @@
 
 
 ## 获取源代码
-jetlinks源代码托管在<a href='https://github.com/jetlinks-v2/jetlinks-pro'>GitHub</a>，可直接前往克隆或者下载。  
+jetlinks源代码托管在<a href='https://gitee.com/jetlinks/jetlinks-community'>Gitee</a>，可直接前往克隆或者下载。  
 
-建议使用git clone。  
+建议使用git clone。
 ```bash
 
- git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
+$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-community.git && cd jetlinks-community
 
 ```
 
 ## 启动
-<a href='#获取源代码'>获取源代码</a>成功后，进入dist目录。  
+<a href='#获取源代码'>获取源代码</a>成功后，进入docker/run-all目录。  
 ```bash
 
- cd dist
+ cd docker/run-all
  docker-compose up
 
 ```
