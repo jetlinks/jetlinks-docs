@@ -66,7 +66,7 @@ module.exports = {
                     ['/Northbound_output/Northbound_output8.md', '北向输出'],
                     ['/Rule_engine/Rule engine9.md', '规则引擎'],
                     ['/Video_Center/Video_equipment10.md', '视频中心'],
-                    ['/System_settings/Basic_configuration13.md', '系统设置'],
+                    ['/System_settings/System_settings.md', '系统设置'],
                     ['/Personal_Center/Personal_Center.md', '个人中心'],
                 ]
             },
@@ -110,6 +110,7 @@ module.exports = {
                     ['/Best_practices/Northbound_output.md', '北向输出'],
                     ['/Best_practices/Notification_management.md', '通知管理'],
                     ['/Best_practices/National_standard_cascade.md', '国标级联'],
+                    ['/Best_practices/application_management.md', '应用管理'],
                 ]
             },
             {
