@@ -25,23 +25,14 @@
 1. 进入<a href='https://github.com/jetlinks-v2/jetlinks-pro'>GitHub</a>
 2. Star仓库
    ![star.png](./images/star.png)
-3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`master`为最新的开发分支.其他分支为对应的版本.
-   ![download.png](./images/download.png)
-
-第一步: 先到个人设置中[添加SSH key](https://github.com/settings/keys)
-
-第二步: 拉取代码
+3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`2.0`为最新的开发分支.其他分支为对应的版本.
+   ![download.png](./images/download.jpg)
 
 ```bash
- git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git && git submodule foreach git checkout master
+$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-community.git
+$ cd jetlinks-community
 ```
 
-第三步: 更新代码
-
-JetLinks Pro使用`git多模块`管理,使用此命令更新全部模块.
-```bash
- git pull && git submodule init && git submodule update && git submodule foreach git checkout master && git submodule foreach git pull origin master
-```
 
 ## 配置文件
 
@@ -78,6 +69,11 @@ hsweb:
     upload:
       static-file-path: ./static/upload   # 上传的文件存储路径
       static-location: http://127.0.0.1:${server.port}/upload # 上传文件后,将使用此地址来访问文件,在部署到服务器后需要修改这个地址为服务器的ip.
+network:
+   resources:
+      - 1883-1890
+      - 8800-8810
+      - 5060-5061
 ```
 
 <div class='explanation info'>
@@ -169,7 +165,7 @@ http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改
 
 下载前端代码:
 ```bash
-$ git clone https://github.com/jetlinks/jetlinks-ui-antd.git
+$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
 $ cd jetlinks-ui-antd
 ```
 

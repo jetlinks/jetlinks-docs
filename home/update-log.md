@@ -81,6 +81,7 @@ network:
 18. 新增API开放范围可视化配置.
 19. 新增第三方登录功能.
 20. 优化[基础配置](/System_settings/Basic_configuration13.html#基础配置)。添加背景图、页签、base-path和高德地图API Key的设置.
+21. 新增[应用管理](/System_settings/Basic_configuration13.html#应用管理)功能。支持提供平台API接口服务给第三应用；集成第三方应用到本平台；提供SSO单点登陆；OAuth2认证
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>

@@ -8,7 +8,7 @@
 
 1. 获取源代码  
 ```shell script
-$ git clone https://github.com/jetlinks/jetlinks-ui-antd.git
+$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
 ```
 
 2. 使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
@@ -127,7 +127,7 @@ services:
     #      - "6379:6379"
     volumes:
       - "redis-volume:/data"
-    command: redis-server --appendonly yes --requirepass "redispassword"
+    command: redis-server --appendonly yes --requirepass "JetLinks@redis"
     environment:
       - TZ=Asia/Shanghai
   elasticsearch:
@@ -153,7 +153,7 @@ services:
     links:
       - elasticsearch:elasticsearch
     ports:
-      - "5601:5601"
+      - "5602:5601"
     depends_on:
       - elasticsearch
   postgres:
@@ -168,71 +168,62 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
   ui:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:latest
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
     container_name: jetlinks-ce-ui
     ports:
       - 9000:80
     environment:
-      - "API_BASE_PATH=http://jetlinks:8844/" #API根路径
+      - "API_BASE_PATH=http://jetlinks:8848/" #API根路径
     volumes:
       - "jetlinks-volume:/usr/share/nginx/html/upload"
     links:
       - jetlinks:jetlinks
   jetlinks:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0-SNAPSHOT
     container_name: jetlinks-ce
     ports:
-      - 8844:8844 # API端口
-      - 1883-1890:1883-1890 # 预留
-      - 8000-8010:8000-8010 # 预留
+      - "8848:8848" # API端口
+      - "1883-1890:1883-1890" # 预留
+      - "8800-8810:8800-8810" # 预留
+      - "5060-5061:5060-5061" # 预留
     volumes:
       - "jetlinks-volume:/application/static/upload"  # 持久化上传的文件
-      - "jetlinks-protocol-volume:/application/data/protocols" # 临时保存协议目录
+      - "jetlinks-file-volume:/application/data/files"
+      - "jetlinks-protocol-volume:/application/data/protocols"
     environment:
-        - "TZ=Asia/Shanghai"
-#        - "JAVA_OPTS=-Ddevice.message.trace.enabled=true -Duser.language=zh -Duser.region=CN -Xms2G -Xmx2G -XX:+UseG1GC "  # jvm参数，根据情况调整
-        - "hsweb.file.upload.static-location=http://localhost:8844/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
-        - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
-        - "spring.r2dbc.username=postgres"
-        - "spring.r2dbc.password=jetlinks"
-        - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
+      - "JAVA_OPTS=-Duser.language=zh -XX:+UseG1GC"
+      - "TZ=Asia/Shanghai"
+      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
+      - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
 #        - "spring.data.elasticsearch.client.reactive.username=admin"
 #        - "spring.data.elasticsearch.client.reactive.password=admin"
 #        - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
-#        - "jetlinks.device.storage.enable-last-data-in-db=true" # 开启记录最新数据到数据库，但是会降低吞吐量
-        - "spring.redis.host=redis"
-        - "spring.redis.port=6379"
-        - "spring.redis.password=redispassword"
-        - "spring.redis.serializer=obj"
-        - "logging.level.io.r2dbc=warn"
-        - "logging.level.org.springframework.data=warn"
-        - "logging.level.org.springframework=warn"
-        - "logging.level.org.jetlinks=warn"
-        - "logging.level.org.hswebframework=warn"
-        - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
-        - "network.resources[0]=0.0.0.0:8100-8110/tcp"
-        - "network.resources[1]=0.0.0.0:8083-8088/tcp"
-        - "network.resources[2]=0.0.0.0:8200-8210/udp"
-        - "system.config.scopes[0].id=front"
-        - "system.config.scopes[0].name=前端配置"
-        - "system.config.scopes[0].public-access=true"
-        - "system.config.scopes[1].id=amap"
-        - "system.config.scopes[1].name=高德地图配置"
-        - "system.config.scopes[1].public-access=false"
-        - "system.config.scopes[1].properties[0].key=apiKey"
-        - "system.config.scopes[1].properties[0].name=高德地图apiKey"
-        - "system.config.scopes[1].properties[0].default-value=test"
-        - "system.config.scopes[2].id=basis"
-        - "system.config.scopes[2].name=系统设置"
-        - "system.config.scopes[2].public-access=true"
-        - "system.config.scopes[3].id=paths"
-        - "system.config.scopes[3].name=访问路径配置"
-        - "system.config.scopes[3].public-access=true"
-        - "system.config.scopes[3].properties[0].key=base-path"
-        - "system.config.scopes[3].properties[0].name=接口根目录"
-        - "system.config.scopes[3].properties[0].default-value=http://localhost:8844/"
-        - "api.base-path=http://localhost:8844/"
-
+      - "spring.redis.host=redis"
+      - "spring.redis.port=6379"
+      - "file.manager.storage-base-path=/application/data/files"
+      - "spring.redis.password=JetLinks@redis"
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=warn"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+      - "network.resources[0]=0.0.0.0:8800-8810/tcp"
+      - "network.resources[1]=0.0.0.0:1883-1890"
+      - "hsweb.cors.enable=true"
+      - "hsweb.cors.configs[0].path=/**"
+      - "hsweb.cors.configs[0].allowed-credentials=true"
+      - "hsweb.cors.configs[0].allowed-headers=*"
+      - "hsweb.cors.configs[0].allowed-origins=*"
+      - "hsweb.cors.configs[0].allowed-methods[0]=GET"
+      - "hsweb.cors.configs[0].allowed-methods[1]=POST"
+      - "hsweb.cors.configs[0].allowed-methods[2]=PUT"
+      - "hsweb.cors.configs[0].allowed-methods[3]=PATCH"
+      - "hsweb.cors.configs[0].allowed-methods[4]=DELETE"
+      - "hsweb.cors.configs[0].allowed-methods[5]=OPTIONS"
     links:
       - redis:redis
       - postgres:postgres
@@ -246,6 +237,7 @@ volumes:
   redis-volume:
   elasticsearch-volume:
   jetlinks-volume:
+  jetlinks-file-volume:
   jetlinks-protocol-volume:
 ```
 <div class='explanation primary'>

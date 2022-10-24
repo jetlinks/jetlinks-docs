@@ -1,10 +1,8 @@
 <div class='text-color font-size-14'>
 
-# 开源物联网平台
+# JetLinks 开源物联网平台
 
 <div class='divider'></div>
-
-## 概述
 
 **JetLinks物联网平台** 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发, 是一个开源的企业级物联网基础开发平台，实现了物联网相关以及相关业务开发的众多基础功能, 能帮助你快速建立物联网相关业务系统。
 
@@ -71,7 +69,7 @@ JetLinks所有版本均开放源代码.
 
 JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单独的仓库并定期发布到maven中央仓库.
 
-可在[github](https://github.com/jetlinks-v2)中找到全部代码.
+可在[gitee](https://gitee.com/jetlinks)中找到全部代码.
 
 </div>
 
@@ -80,20 +78,22 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 | 开放源代码                   | ✅      | ✅                         |
 | 设备管理,设备接入            | ✅      | ✅                         |
 | 多消息协议支持               | ✅      |  ✅                         |
-| 规则引擎-设备告警            | ✅      |  ✅                         |
-| 规则引擎-数据转发            | ✅      |  ✅                         |
+| 告警中心            | ✅      |  ✅                         |
+| 规则引擎-场景联动            | ✅      |  ✅                         |
 | 系统监控,数据统计            | ✅      |  ✅                         |
 | 邮件消息通知                 | ✅      |  ✅                         |
 | 微信企业消息                 | ✅      | ✅                         |
 | 钉钉消息通知                 | ✅      | ✅                         |
-| MQTT(TLS)                    | ✅      |  ✅                         |
-| TCP(TLS)                     | ✅      | ✅                         |
+| 语音通知                 | ✅      | ✅                         |
+| 短信通知                 | ✅      | ✅                         |
+| WebHook                 | ✅      | ✅                         |
+| MQTT、TCP、HTTP(TLS)                    | ✅      |  ✅                         |
 | UDP,CoAP(DTLS)                   | ⭕      |  ✅                         |
-| Http,WebSocket(TLS)          | ⭕      |  ✅                         |
+| WebSocket(TLS)          | ⭕      |  ✅                         |
 | 转发设备数据到RabbitMQ,Kafka | ⭕      |  ✅                         |
 | Geo地理位置支持              | ⭕      |  ✅                         |
 | 规则引擎-可视化设计器        | ⭕      |  ✅                         |
-| OpenAPI,OAuth2认证           | ⭕      | ✅                         |
+| 应用管理(API 服务、SSO单点登陆)           | ⭕      | ✅                         |
 | 数据权限控制                 | ⭕      |  ✅                         |
 | 集群支持                     | ⭕      |  ✅                         |
 | QQ群技术支持                 | ⭕      |  ✅                         |
