@@ -136,6 +136,17 @@
         </tbody>
       </table>
 
+##### 后续步骤
+1.进入**设备实例信息**页面，填写阿里云桥接入配置，建立平台设备与与阿里云设备的映射关系。
+![](./img/115.png)
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  设备所属产品与阿里云平台产品映射后，平台产品所属设备的实例信息页面将新增阿里云桥接入配置。
+</div>
+
 #### 编辑 
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
