@@ -3,6 +3,17 @@
 北向输出功能用于将平台的**设备**以及**设备上报数据**，通过可视化配置的方式，**北向**输出给其他系统。</br>
 
 ## DuerOS
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -83,6 +94,17 @@
 
 
 ## 阿里云
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>

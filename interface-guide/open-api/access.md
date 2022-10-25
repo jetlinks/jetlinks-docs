@@ -2,14 +2,13 @@
 
 基于数据签名的第三方平台模块.用于提供对外开放接口的认证方式.
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
 
-本功能仅在企业版中提供.
-
+本功能仅在企业版中提供。
 
 </div>
 

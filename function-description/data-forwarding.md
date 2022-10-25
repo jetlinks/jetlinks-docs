@@ -1,22 +1,24 @@
 
 # 数据转发第三方平台
 
-> 平台提供了四种数据转发的方式，`开放OpenApi`、`在线订阅websocket数据`、`规则引擎转发`及`MQTT推送`
+> 平台提供了四种数据转发的方式，`应用管理-API服务`、`在线订阅websocket数据`、`规则引擎转发`及`MQTT推送`
 
 
-## 使用第三方平台调用OpenApi
+## 使用第三方平台调用API服务
+
 
 > 基于数据签名的第三方平台模块，用于提供对外开放接口的认证方式。
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
 
 本功能仅在企业版中提供。
 
 </div>
+
 
 ### 创建应用
 
@@ -57,7 +59,7 @@
 
 1. 图中`Signature`函数为客户端设置的签名方式,支持`MD5`和`Sha256`。
 2. 发起请求的签名信息都需要放到请求头中,而不是请求体。
-3. OpenApi对开发是透明的，开发只需要关心权限控制即可。
+3.API接口对开发是透明的，开发只需要关心权限控制即可。
 
 </div>
 
@@ -586,6 +588,17 @@ messaging:
 </div>
 
 ## 规则引擎转发
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 
 ### 四种转发方式
 

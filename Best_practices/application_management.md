@@ -1,8 +1,22 @@
 # 应用管理
+
+
+
+
 应用管理将多个应用系统的登录简化为一次登录，实现多处访问、集中管控的业务场景。
 
-## 名称解释
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
 </div>
+
+## 名称解释
 
 <table class='table'>
         <thead>

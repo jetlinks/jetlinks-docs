@@ -2,6 +2,18 @@
 将平台的设备数据北向输出到其他平台。
 
 ## DuerOS
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
+
 本文以实现通过小度音响语音控制Jetlinks上的空调设备为例。
 
 #### 前置条件
@@ -105,6 +117,18 @@
 5.**登录**小度音响APP，对小度音响说：发现设备。小度音响将会通过配置的Jetlinks第三方账号拉取该账号下的设备信息。获取设备后即可以进行语音控制。
 
 ## 阿里云物联网平台
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
+
 #### 前置条件 
 1.已经创建好阿里云账号，并已开通阿里云物联网平台服务。
 2.阿里云物联网平台已经创建好需要与Jetlinks物联网平台进行映射的摄像头产品、设备。

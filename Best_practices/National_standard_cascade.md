@@ -1,4 +1,18 @@
 
+
+# 国标级联
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
+
 本文以将Jetlinks物联网平台中的视频类设备通过级联的方式推送到LiveGBS平台作为示例。
 
 #### 操作步骤

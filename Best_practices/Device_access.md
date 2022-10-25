@@ -532,8 +532,20 @@ ii. 上报成功后，在**设备-运行状态**页面可以查看到。
 #### 指令下发
 由于http是短链接,无法直接下发指令,可以在`消息拦截器中`或者`编码时`通过将消息设置到`device.setConfig`中,在收到 http请求拉取消息时，通过`device.getSelfConfig`获取配置,并返回。
 
-## 使用CoAp服务接入
+## 使用CoAP服务接入
 本文档使用[coap-cli](https://www.npmjs.com/package/coap-cli)模拟设备接入平台。
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
+
 ### 系统配置
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>
 ![](./img/253.png)
@@ -566,6 +578,19 @@ echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"
 ![](./img/265.png)
 
 ## 使用UDP接入
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
+
 ### 系统配置
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建UDP网络组件。</br>
 ![](./img/253.png)

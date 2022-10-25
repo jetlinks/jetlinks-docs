@@ -1,8 +1,20 @@
 
 # 视频设备
+
 ## 视频设备
 
 视频设备是对系统内所有视频类设备的统一接入与管理。支持GB/T28181和固定地址2种方式的接入。</br>
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
 
 #### 新增
 ##### 操作步骤
@@ -102,6 +114,17 @@
 
 分屏展示对摄像头监控画面进行播放，支持单屏，四分屏，九分屏，和全屏，对于可以旋转的摄像头也可以通过右边的操作按钮调整摄像头方向。</br>
 
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 查看
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -117,6 +140,17 @@
 ## 国标级联
 
 该功能通过GB/T28181的方式将Jetlinks平台的设备推送给上级平台。</br>
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
 
 #### 新增
 ##### 操作步骤

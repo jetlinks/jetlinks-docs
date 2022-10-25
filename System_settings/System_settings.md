@@ -97,6 +97,17 @@
 ![](./img/157.png)
 
 #### 分配资产
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.点击顶部**系统管理**，在左侧导航栏，选择**组织管理**，进入列表页。</br>
@@ -291,6 +302,17 @@
 ## 应用管理
 支持提供平台API接口服务给第三应用；集成第三方应用到本平台；提供SSO单点登陆；OAuth2认证
 
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -404,6 +426,18 @@
 
 ## API配置
 统一配置系统内对外输出的API服务，API配置将在为第三方平台赋权时引用。
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.点击顶部**系统管理**，在左侧导航栏，选择**API配置**，进入详情页。</br>

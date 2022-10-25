@@ -4,18 +4,17 @@
 
 前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
 
-master为最新开发分支. 线上使用请根据情况切换到对应版本的分支.
-
+更新记录与开发计划对应的版本为企业版。
 
 </div>
 
-当前最新稳定版本`2.0`,对应代码分支`master`.
+当前最新稳定版本`2.0`,对应代码分支`master`。
 
 ## 2.0-RC
 

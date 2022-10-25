@@ -22,7 +22,7 @@
 
 ## 下载源代码
 
-1. 进入<a href='https://github.com/jetlinks-v2/jetlinks-pro'>GitHub</a>
+1. 进入<a href='https://gitee.com/jetlinks/jetlinks-community'>Gitee</a>
 2. Star仓库
    ![star.png](./images/star.png)
 3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`2.0`为最新的开发分支.其他分支为对应的版本.
@@ -128,18 +128,6 @@ Idea请先安装`lombok`插件.
 如果依赖无法下载,请确定`maven`配置正确,请勿在settings.xml中配置全局仓库私服.
 
 </div>
-
-## 使用内嵌ElasticSearch
-
-在硬件条件较差时，可以使用内嵌的ElasticSearch，不用单独安装。
-
-修改配置文件即可
-
-```yml
-elasticsearch:
-  embedded:
-    enabled: true # 为true时使用内嵌的elasticsearch
-```
 
 ## 启动前端
 

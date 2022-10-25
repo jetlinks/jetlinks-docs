@@ -532,6 +532,16 @@ CoAP服务参数说明
 ## 流媒体服务
 管理系统内用于视频流播放的流媒体服务配置。
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -598,6 +608,18 @@ CoAP服务参数说明
 
 ## Modbus通道配置
 管理Modbus通道以及通道下的点位数据。
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -650,14 +672,14 @@ CoAP服务参数说明
 
 #### 数据点启用禁用
 ##### 操作步骤
-1.**登录**Jetlinks物联网平台。</br>
+1.**登录**JetLinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>通道配置>Modbus**，进入列表页。</br>
 3.点击页面右侧具体点位数据的**启用禁用**按钮，然后点击**确定**。
 ![](./img/88.png)
 
 #### 数据点删除
 ##### 操作步骤
-1.**登录**Jetlinks物联网平台。</br>
+1.**登录**JetLinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>通道配置>Modbus**，进入列表页。</br>
 3.点击页面右侧具体点位数据的**删除**按钮，然后点击**确定**。
 ![](./img/89.png)
@@ -671,10 +693,21 @@ CoAP服务参数说明
 
 
 ## 远程升级
-远程升级及空中下载技术，通过Jetlinks物联网平台的远程升级功能，可对分布在各地的IoT设备进行远程升级。
+远程升级及空中下载技术，通过JetLinks物联网平台的远程升级功能，可对分布在各地的IoT设备进行远程升级。
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 #### 新增
 ##### 操作步骤
-1.**登录**Jetlinks物联网平台。</br>
+1.**登录**JetLinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>远程升级**，进入列表页。</br>
 3.点击**新增**按钮，在弹框页填写相关信息，然后点击**确定**。
 ![](./img/90.png)
