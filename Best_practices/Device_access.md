@@ -10,7 +10,7 @@
 1.**登录**Jetlinks物联网平台，进入**协议管理**菜单，上传协议。</br>
 ![](./img/61.png)
 
-2.进入**网络组件**菜单，配置**MQTT服务**类型的网络协议。</br>
+2.进入**网络组件**菜单，配置**MQTT服务**类型的网络组件。</br>
 ![](./img/203.png)
 
 3.进入**设备接入网关**菜单，配置接入方式为**MQTT直连**的网关。</br>
@@ -313,13 +313,13 @@ docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8
 ### 系统配置
 #### 操作步骤
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建MQTT客户端网络组件。</br>
-![](./img/253.png)
+![](./img/mqttbrokerwl.png)
 2.进入**协议管理**菜单，上传协议包。</br>
 ![](./img/254.png)
 3.进入**设备接入网关**，创建MQTT Broker类型的接入网关。</br>
-![](./img/255.png)
+![](./img/mqttbrokerwg.png)
 4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为MQTT Broker类型的设备接入网关。</br>
-![](./img/256.png)
+![](./img/mqttbrokerjr.png)
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择MQTT Broker类型的产品。</br>
 6.使用MQTTX连接EMQ
 ![](./img/257.png)
@@ -355,13 +355,13 @@ clientId 和用户名密码符合emq规则即可,这时的认证是通过emq,而
 
 ###  系统配置
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建TCP服务网络组件。</br>
-![](./img/253.png)
+![](./img/tcpwl.png)
 2.进入**协议管理**菜单，上传协议包。</br>
 ![](./img/254.png)
 3.进入**设备接入网关**，创建TCP透传接入类型的接入网关。</br>
-![](./img/255.png)
+![](./img/tcpwg.png)
 4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为TCP透传接入类型的设备接入网关。</br>
-![](./img/256.png)
+![](./img/tcpjr.png)
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择TCP透传接入类型的产品。</br>
 
 ### TCP工具接入
@@ -494,13 +494,13 @@ ii. 上报成功后，在**设备-运行状态**页面可以查看到。
 ## HTTP接入
 ### 系统配置
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>
-![](./img/253.png)
+![](./img/httpwl.png)
 2.进入**协议管理**菜单，上传协议包。</br>
 ![](./img/254.png)
 3.进入**设备接入网关**，创建HTTP推送接入类型的接入网关。</br>
-![](./img/255.png)
+![](./img/httpwg.png)
 4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为HTTP推送类型的设备接入网关。</br>
-![](./img/256.png)
+![](./img/httpjr.png)
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择HTTP推送接入类型的产品。</br>
 
 ### 推送消息
@@ -547,15 +547,15 @@ ii. 上报成功后，在**设备-运行状态**页面可以查看到。
 
 
 ### 系统配置
-1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>
-![](./img/253.png)
+1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建CoAP服务网络组件。</br>
+![](./img/coapwl.png)
 2.进入**协议管理**菜单，上传协议包。</br>
 ![](./img/254.png)
-3.进入**设备接入网关**，创建HTTP推送接入类型的接入网关。</br>
-![](./img/255.png)
-4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为HTTP推送类型的设备接入网关。并在物模型tab中创建好事件。事件配置请参考[配置物模型](../Device_access/Configuration_model3.4.md)。</br>
-![](./img/256.png)
-5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择HTTP推送接入类型的产品。</br>
+3.进入**设备接入网关**，创建CoAP接入类型的接入网关。</br>
+![](./img/coapwg.png)
+4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为CoAP接入类型的设备接入网关。</br>
+![](./img/coapjr.png)
+5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择CoAP接入类型的产品。</br>
 
 ### 使用coap-cli模拟客户端接入
 1.下载并安装`coap-cli`。  
@@ -593,13 +593,13 @@ echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"
 
 ### 系统配置
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建UDP网络组件。</br>
-![](./img/253.png)
+![](./img/udpwl.png)
 2.进入**协议管理**菜单，上传协议包。</br>
 ![](./img/254.png)
 3.进入**设备接入网关**，创建UDP接入类型的接入网关。</br>
-![](./img/255.png)
+![](./img/udpwg.png)
 4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为UDP接入类型的设备接入网关。</br>
-![](./img/256.png)
+![](./img/udpjr.png)
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择UDP接入类型的产品。</br>
 
 ### 使用UDP模拟工具接入
