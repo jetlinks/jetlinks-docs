@@ -31,7 +31,7 @@ master为最新开发分支. 线上使用请根据情况切换到对应版本的
 12. 重构脚本引擎,使用新的脚本API:`Scripts`.增加安全性控制(默认禁止访问java类)以及循环执行控制(防止死循环)(Pro).
 13. 平台所有脚本语言支持更换为`js`.
 14. 优化集群通信性能,增加`FluxCluster`支持(集群下对`Flux`进行窗口计算等).(Pro)
-15. 增加持久化缓冲工具,数据持久化到本地.用于批量写库,失败重试等操作,减少写入速度不够时的内存占用.(Pro)
+15. 增加持久化缓冲工具,数据持久化到本地.用于批量写库,失败重试等操作,减少写入速度不够时的内存占用.
 16. 增加断路器`CircuitBreaker`功能,减少由于配置错误或者数据变化导致一些动态逻辑大量错误引起系统崩溃的可能性.(Pro)
 
 ::: warning 更新说明
@@ -58,13 +58,13 @@ network:
 4. 新的集群管理方案.
 5. 重写设备会话管理策略`DeviceSessionManager`.
 6. 优化配置逻辑.
+7. 增加持久化缓冲工具,将数据持久化到本地磁盘来减少内存压力,大大提升设备数据写入可靠性.
    
 ::: warning 升级说明
 
 1. 更新后请先测试后再发布到正式环境.
 2. 原会话管理器`org.jetlinks.core.server.session.DeviceSessionManager` 已由`org.jetlinks.core.device.session.DeviceSessionManager`替代,有使用到的地方请替换之.
 3. 集群管理已经更换,配置集群时需要修改以下配置文件,特别注意: 容器启动注意配置和开放对外暴露的host和端口:`port`, `external-host`,`external-port`以及`rpc-port`,`rpc-external-host`,`rpc-external-port`
-4. 设备在线量统计逻辑变更（含查询接口）, 实现见: `DeviceSessionMeasurementProvider`
 
 ```yml
 jetlinks:
@@ -81,8 +81,8 @@ jetlinks:
   #    seeds:  #集群种子节点,集群时,配置为集群节点的 external-host:external-port
   #      - 127.0.0.1:18844
 ```
-
-4. 跨域设置,spring 5.3后不支持设置`credentials`为`true`时指定`origins`通配符了.
+4. 设备在线量统计逻辑变更（含查询接口）, 实现见: `DeviceSessionMeasurementProvider`
+5. 跨域设置,spring 5.3后不支持设置`credentials`为`true`时指定`origins`通配符了.
 ```yml
 hsweb:
   cors:
@@ -96,7 +96,7 @@ hsweb:
         max-age: 1800
 ```
 
-5. 文件上传配置调整,协议包,数据导入等相关文件上传已调整使用新的`FileManager`进行管理,可根据配置文件进行配置
+6. 文件上传配置调整,协议包,数据导入等相关文件上传已调整使用新的`FileManager`进行管理,可根据配置文件进行配置
 ```yml
 file:
   manager:

@@ -35,8 +35,8 @@
 
 
 ### 网关设备
-          子设备上线消息: /{productId}/{deviceId}/child/{childDeviceId}/connected
-          子设备下线消息: /{productId}/{deviceId}/child/{childDeviceId}/disconnect
+          子设备上线消息: /{productId}/{deviceId}/child/{childDeviceId}/online
+          子设备下线消息: /{productId}/{deviceId}/child/{childDeviceId}/offline
           读取子设备属性回复: /{productId}/{deviceId}/child/{childDeviceId}/properties/read/reply
           修改子设备属性回复: /{productId}/{deviceId}/child/{childDeviceId}/properties/write/reply
           调用子设备功能回复: /{productId}/{deviceId}/child/{childDeviceId}/function/invoke/reply
@@ -496,7 +496,7 @@ topic: `/{productId}/{deviceId}/firmware/read`
 
 ### 获取固件版本回复
 
-topic: `/{productId}/{deviceId}/firmware/read`
+topic: `/{productId}/{deviceId}/firmware/read/reply`
 
 方向`上行`,设备回复平台读取设备固件版本指令
 
