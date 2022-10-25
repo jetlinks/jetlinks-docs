@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="持续优化">
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/subscribe-reply-read-properties.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advancement-guide/images/third-mqtt/report-property.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/advancement-guide/images/third-mqtt/subscribe-reply-read-properties.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/faq.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/first.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/add-debug-protocol.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/add-mqtt-config-metadata.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/add-mqtt-route.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/code-mqtt-decode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/code-mqtt-encode.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/create-mqtt-codec.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/create-project.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/debug-protocol-file.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/decode-flow.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/encode-flow.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/mqtt-auth.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/open-idea.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/package-mqtt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/img/set-mqtt-codec.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/mqtt.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/protocol/start.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vuepress/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-config.png" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-config.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-subscribe.png" beforeDir="false" afterPath="$PROJECT_DIR$/.vuepress/public/advancement-guide/images/third-mqtt/mqttfx-subscribe.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advancement-guide/images/third-mqtt/mqttfx-config.png" beforeDir="false" afterPath="$PROJECT_DIR$/advancement-guide/images/third-mqtt/mqttfx-config.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advancement-guide/mqtt-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/advancement-guide/mqtt-connection.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" beforeDir="false" afterPath="$PROJECT_DIR$/advancement-guide/third-mqtt.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/basics-guide/data-forwarding.md" beforeDir="false" afterPath="$PROJECT_DIR$/basics-guide/data-forwarding.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/device-gateway-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/device-gateway-connection.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/best-practices/start.md" beforeDir="false" afterPath="$PROJECT_DIR$/best-practices/start.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/big-screen/baiscs/open.md" beforeDir="false" afterPath="$PROJECT_DIR$/big-screen/baiscs/open.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev-guide/reactor.md" beforeDir="false" afterPath="$PROJECT_DIR$/dev-guide/reactor.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install-deployment/jetlinks-cloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/install-deployment/jetlinks-cloud.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install-deployment/start-with-source.md" beforeDir="false" afterPath="$PROJECT_DIR$/install-deployment/start-with-source.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quick-start/update-log.md" beforeDir="false" afterPath="$PROJECT_DIR$/quick-start/update-log.md" afterDir="false" />
-    </list>
+    <list default="true" id="7a3b6529-a96f-4d42-83e6-680379527b3a" name="Default Changelist" comment="持续优化" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -332,7 +292,7 @@
       <workItem from="1623749725591" duration="3282000" />
       <workItem from="1623980533073" duration="11000" />
       <workItem from="1655948059506" duration="752000" />
-      <workItem from="1660270806957" duration="306000" />
+      <workItem from="1660270806957" duration="424000" />
     </task>
     <task id="LOCAL-00066" summary="优化文档">
       <created>1588752714979</created>
