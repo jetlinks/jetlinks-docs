@@ -10,7 +10,7 @@ module.exports = {
     // },
     themeConfig: {
         nav: [
-            {text: '1.0文档', link: 'http://doc.jetlinks.cn/'},
+            {text: '1.0文档', link: 'https://doc.v1.jetlinks.cn/'},
             {text: '关于', link: 'http://jetlinks.cn/'},
             {text: 'GitHub', link: 'https://github.com/jetlinks'},
              {text: 'gitee', link: 'https://gitee.com/jetlinks'},
