@@ -1,8 +1,15 @@
 # 协议包开发快速开始
 
-::: warning 说明
-请先安装和配置`java8`和`maven3`,能正常执行`mvn`命令即可,本文不做单独介绍. 
-:::
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+请先安装和配置`java8`和`maven3`,能正常执行`mvn`命令即可,本文不做单独介绍.
+
+</div>
 
 ## 创建Maven项目
 
@@ -49,12 +56,19 @@ mvn archetype:generate `
 -DinteractiveMode="false"
 ```
 
-::: tip 温馨提示
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 
 可根据需要修改第二个命令中的 `-DgroupId=com.domain`
 以及`-DartifactId=custom-protocol`
 
-:::
+</div>
+
 
 命令执行成功后,将会在当前目录中创建名为`custom-protocol`的项目
 
