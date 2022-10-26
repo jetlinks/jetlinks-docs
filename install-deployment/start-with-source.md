@@ -166,21 +166,21 @@ $ cd jetlinks-ui-antd
  */
 export default {
   dev: {
-    '/jetlinks': {
+    '/api': {
       target: '后台地址',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
   },
   test: {
-    '/jetlinks': {
+    '/api': {
       target: '后台地址',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
     },
   },
   pre: {
-    '/jetlinks': {
+    '/api': {
       target: '后台地址',
       changeOrigin: true,
       pathRewrite: { '^/api': '' },
