@@ -189,11 +189,21 @@ export default {
 };
 ```
 
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+为了更好的体验，建议使用yarn安装前端依赖包
+
+</div>
+
 启动:
 ```bash
 $ cd jetlinks-ui-antd
-$ npm install
-$ npm start
+$ yarn
+$ yarn start:dev
 ```
 
 启动成功后,访问: http://localhost:9000 即可.
