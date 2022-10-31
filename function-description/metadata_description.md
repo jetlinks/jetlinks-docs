@@ -427,4 +427,4 @@
 </div>
 
 ## 物模型的权限
-物模型可根据协议包配置的特性（`MetadataFeature`）控制增删改以及设备派生的权限。详情见<a href='/dev-guide/protocol-support.html#配置基本信息'>协议开发说明</a>
+物模型可根据协议包配置的特性（`MetadataFeature`）控制增删改以及设备派生的权限。详情见<a href='/protocol/first.html#配置基本信息'>协议开发说明</a>

@@ -1,6 +1,6 @@
 # JetLinks 演示协议
 
-设备协议已经确定并且无法修改协议的时候,建议使用[自定义协议接入](../dev-guide/protocol-support.md)
+设备协议已经确定并且无法修改协议的时候,建议使用[自定义协议接入](../protocol/first.md)
 
 <a target='_blank' href='https://github.com/jetlinks/demo-protocol'>查看源码</a>
 

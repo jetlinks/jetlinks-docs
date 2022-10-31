@@ -1,7 +1,7 @@
 # JetLinks 官方协议
 
 除了使用自定义协议以外,jetlinks提供了默认的协议支持.
-设备可以使用此协议接入平台. 设备协议已经确定并且无法修改协议的时候,建议使用[自定义协议接入](../dev-guide/protocol-support.md)
+设备可以使用此协议接入平台. 设备协议已经确定并且无法修改协议的时候,建议使用[自定义协议接入](../protocol/first.md)
 
 <a target='_blank' href='https://github.com/jetlinks/jetlinks-official-protocol'>查看源码</a>
 

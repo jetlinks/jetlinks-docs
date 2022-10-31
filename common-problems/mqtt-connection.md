@@ -53,4 +53,4 @@ MQTT客户端认证信息错误(用户名密码错误).
 原因：设备网关选择了认证协议，但对应协议没有实现认证接口。  
 解决方案：  
     1. 取消认证协议。  
-    2. 在协议中实现Authenticator接口，[推荐查看认证器](/dev-guide/protocol-support.html#认证器)。  
+    2. 在协议中实现Authenticator接口，[推荐查看认证器](/protocol/first.html#认证器)。  
