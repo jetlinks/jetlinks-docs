@@ -1,6 +1,6 @@
-# 第三方平台使用
+# API服务
 
-基于数据签名的第三方平台模块.用于提供对外开放接口的认证方式.
+基于数据签名的API服务。用于提供对外开放接口的认证方式.
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -12,14 +12,15 @@
 
 </div>
 
-## 创建第三方平台
+## 创建API服务
 
-进入平台:[系统设置]-[第三方平台]
+进入平台:[系统设置]-[应用管理]
 
 点击新建按钮:
 
+选择第三方应用下的API服务
 
-填写对应的内容保存.
+填写对应的内容保存。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -28,27 +29,16 @@
   </p>
 
 `clientId`和`secureKey`需要提供给客户端开发者.
-用户名和密码是系统统一的用户主体,会自动创建到用户管理中.使用此用户名密码也能登录到系统中.
-与其他用户相同,可以将用户绑定到机构实现数据权限控制.
+系统默认会将clientId和secureKey当做用户名和密码创建一个系统用户，使用此用户名密码也能登录到系统中。
+与其他用户相同,可以将用户绑定到组织实现数据权限控制.
 
 </div>
 
 ## 赋权
 
-点击操作列中的赋权按钮对第三方平台进行赋权.大部分情况下只需要勾选: `设备操作API`和`设备数据API`权限即可.
+点击操作列中的赋权按钮对API服务应用进行赋权。大部分情况下只需要勾选: `设备操作API`和`设备数据API`权限即可.
 
-如果操作栏`赋权`里
-没有任何权限选项，先去`权限管理`赋予权限，`分类`选择`APi接口`。
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-此赋权操作实际上是对`第三方平台`对应对`用户主体`进行赋权.
-
-</div>
+如果操作栏`赋权`里 没有任何权限选项，先去`API配置中`配置API接口。
 
 ## 使用签名的方式
 ### 验证流程
@@ -61,10 +51,10 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-1. 图中`Signature`函数为客户端设置的签名方式,支持`MD5`和`Sha256`.
-2. 发起请求的签名信息都需要放到请求头中,而不是请求体.
-3. OpenApi对开发是透明的,开发只需要关心权限控制即可.OpenAPI和后台接口使用的是相同的权限控制API.
-   因此开发一个`OpenAPI接口`就是写一个`WebFlux Controller`. [查看使用方式](../../dev-guide/crud.md#web)
+1. 图中`Signature`函数为客户端设置的签名方式,默认为`MD5`。
+2. 发起请求的签名信息都需要放到请求头中,而不是请求体。
+3. API对开发是透明的,开发只需要关心权限控制即可。
+   因此开发一个`API接口`就是写一个`WebFlux Controller`. [查看使用方式](../../dev-guide/crud.md#web)
 
 </div>
 
@@ -191,13 +181,6 @@ X-Access-Token: 3bcddb719b01da679b88d07acde2516
     "code": "success"
 }
 ```
-    
-## Demo 
-
-Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。  
-Demo中使用签名的方式接入。  
-
-**[前往下载Demo](https://github.com/jetlinks/jetlinks-openapi-demo)**。
 
 ## OAuth2.0
 
@@ -243,3 +226,12 @@ POST /device/instance/_query?access_token=access_token
  
 {}
 ```
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+在企业版中已经集成了在线文档支持,打开`http://[ip]:[JetLinks后台端口]/doc.html`即可查看全部接口信息。<br />
+如在demo环境中： <a href="http://demo.jetlinks.cn:8844/doc.html">http://demo.jetlinks.cn:8844/doc.html</a>
+</div>

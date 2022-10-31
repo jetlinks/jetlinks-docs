@@ -373,7 +373,7 @@ left join (
 5. tag('tag1Key','tag1Value','tag2Key','tag2Value') 按指定的标签获取
 6. state('online') 按指定的状态获取
 7. in_tenant('租户ID') 在指定租户中的设备
-8. org('机构ID') 在指定机构中
+8. org('组织ID') 在指定组织中
 
 ### mqtt.client.publish
 

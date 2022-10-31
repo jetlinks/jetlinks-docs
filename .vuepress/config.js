@@ -172,15 +172,14 @@ module.exports = {
                 ]
             },
             {
-                title: '第三方平台',   // 必要的
+                title: '应用管理',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
                     //['', '介绍'],
                     //['', '快速开始'],
-                    ['/interface-guide/open-api/access', '接入'],
-                    ['/interface-guide/open-api/open-api', 'API列表'],
+                    ['/interface-guide/application/api-server.md', 'API服务']
                 ]
             },
             {
