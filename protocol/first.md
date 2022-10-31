@@ -137,7 +137,7 @@ public interface Authenticator {
 
    Authenticator mqttAuthenticator =  (request, device) -> {
             MqttAuthenticationRequest mqttRequest = ((MqttAuthenticationRequest) request);
-            return device.getConfigs("username", "password") //获取设备的配置信息,由配置元数据定义,在设备型号中进行配置.
+            return device.getConfigs("username", "password") //获取设备的配置信息,由配置元数据定义,在产品中进行配置.
                     .flatMap(values -> {
                         String username = values.getValue("username").map(Value::asString).orElse(null);
                         String password = values.getValue("password").map(Value::asString).orElse(null);

@@ -209,7 +209,7 @@ module.exports = {
             //             //['', '介绍'],
             //             //['', '快速开始'],
             //                 ['/interface-guide/authentication','权限设置'],
-            //                 ['/interface-guide/device/device-product','设备型号'],
+            //                 ['/interface-guide/device/device-product','产品'],
             // 	['/interface-guide/device/device-instance','设备实例'],
             //                 ['','网络组件'],
             //                 ['','设备接入'],

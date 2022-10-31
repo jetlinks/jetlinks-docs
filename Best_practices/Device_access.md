@@ -404,7 +404,7 @@ TCP协议以二进制的数据包传输数据，此处使用Packet Sender工具�
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为设备型号中配置的TCP认证配置。  
+AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为产品中配置的TCP认证配置。  
 </div>
 iii. 在测试类中执行如下代码生成事件上报所需的十六进制字符串： 
 
