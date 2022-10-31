@@ -148,6 +148,7 @@ module.exports = {
                     // ['/dev-guide/websocket-subs.md', '使用websocket订阅平台消息'],
                     // ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
                     ['/dev-guide/commons-api.md', '平台内部核心类及接口说明'],
+                    ['/dev-guide/cluster.md', '集群管理'],
                     ['/dev-guide/sort-link.md', '短连接接入平台'],
                     ['/dev-guide/poll-device-data.md', '平台从第三方或者设备主动拉取数据'],
                     ['/dev-guide/assets.md', '数据权限控制'],
