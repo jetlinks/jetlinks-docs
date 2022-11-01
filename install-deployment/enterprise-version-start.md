@@ -12,12 +12,12 @@
 
 ## 获取代码
 
-第一步: 先到个人设置中[添加SSH key](https://gitee.com/profile/sshkeys)
+第一步: 先到个人设置中[添加SSH key](https://github.com/settings/keys)
 
 第二步: 拉取代码
 
 ```bash
- $ git clone -b master --recurse-submodules git@gitee.com:jetlinks-v2/jetlinks-pro.git && git submodule foreach git checkout master
+ $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git && git submodule foreach git checkout master
 ```
 
 第三步: 更新代码
@@ -53,10 +53,10 @@ $ git pull && git submodule init && git submodule update && git submodule foreac
 
 
 ```bash
-$  git remote add gitee "git@gitee.com:/jetlinks-v2/{扩展模块仓库名称}.git"
-$  git submodule foreach 'git remote add gitee "git@gitee.com:/jetlinks-v2/{扩展模块仓库名称}.git"'
-$  git push gitee master
-$  git submodule foreach git push gitee master 
+$  git remote add github "git@github.com:/jetlinks-v2/{扩展模块仓库名称}.git"
+$  git submodule foreach 'git remote add github "git@github.com:/jetlinks-v2/{扩展模块仓库名称}.git"'
+$  git push github master
+$  git submodule foreach git push github master 
 ```
 
 # 初始化启动

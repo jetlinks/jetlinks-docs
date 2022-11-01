@@ -52,7 +52,8 @@ module.exports = {
                     ['/install-deployment/deployment.md', '部署到服务器'],
                     ['/install-deployment/cluster.md', '集群部署'],
                     ['/install-deployment/performance.md', '性能优化'],
-                    ['/install-deployment/enterprise-version-start.md', '企业版源码启动']
+                    ['/install-deployment/enterprise-version-start.md', '企业版源码启动'],
+                    ['/install-deployment/enterprise-version-storehouse.md', '企业版代码仓库说明']
                 ]
             },
             {

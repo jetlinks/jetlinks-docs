@@ -488,7 +488,7 @@ springdoc:
         - /device-instance/**
         - /device-product/**
         - /protocol/**
-        - /api/v1/geo/object/**
+        - /api/geo/object/**
     - group: 规则引擎相关接口
       packages-to-scan: org.jetlinks.pro.rule.engine.web
       paths-to-exclude: /api/**

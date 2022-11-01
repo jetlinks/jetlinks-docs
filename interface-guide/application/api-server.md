@@ -28,8 +28,8 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-`clientId`和`secureKey`需要提供给客户端开发者.
-系统默认会将clientId和secureKey当做用户名和密码创建一个系统用户，使用此用户名密码也能登录到系统中。
+`appId`和`secureKey`需要提供给客户端开发者.
+系统默认会将appId和secureKey当做用户名和密码创建一个系统用户，使用此用户名密码也能登录到系统中。
 与其他用户相同,可以将用户绑定到组织实现数据权限控制.
 
 </div>
@@ -64,9 +64,9 @@
 
 例:
 
-ClientId为`testId`,
-SecureKey为:`testSecure`.
-客户端请求接口: `/api/v1/device/dev0001/log/_query`,参数为`pageSize=20&pageIndex=0`,签名方式为`md5`.
+appId为`testId`,
+secureKey为:`testSecure`.<br />
+客户端请求接口: `/device-instance/dev0001/logs`,参数为`pageSize=20&pageIndex=0`,签名方式为`md5`.
 
 1. 将参数key按ascii排序得到: pageIndex=0&pageSize=20
 2. 使用拼接时间戳以及密钥得到: pageIndex=0&pageSize=201574993804802testSecure
@@ -113,15 +113,15 @@ if(sign.equalsIgnoreCase(signHeader)){
 
 ## 使用token的方式
 
-通过请求接口`/api/v1/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
+通过请求接口`/token`来获取`X-Access-Token`，之后可以使用此token来发起api请求。
 
 ### 申请token
-客户端请求接口`/api/v1/token`  
+客户端请求接口`/token`  
     请求方式： POST  
 
 ```text
 
-POST /api/v1/token
+POST /token
 X-Sign: 932bbe8a39ae03f568f73a507d87afac
 X-Timestamp: 1587719082698 
 X-Client-Id: kF**********HRZ  
@@ -143,7 +143,7 @@ Content-Type: application/json
 ### 使用token发起请求 
 此处以获取设备test001详情为例。  
 ```text
-GET /api/v1/device/test001/_detail  
+GET /device-instance/test001/detail  
 X-Access-Token: 3bcddb719b01da679b88d07acde2516  
 ```
 响应结果：
@@ -187,14 +187,14 @@ X-Access-Token: 3bcddb719b01da679b88d07acde2516
 平台也支持通过OAuth2.0进行认证,支持: `authorization_code`和`client_credentials`以及`refresh_token`.
 
 + 授权地址: http://{domain}/#/user/login
-+ client_id: 第三方平台中配置的clientId
-+ ClientSecret: 第三方平台中配置的secureKey
-+ Token地址: http://{domain}/jetlinks/oauth2/token
++ client_id: 第三方平台中配置的appId
++ clientSecret: 第三方平台中配置的secureKey
++ Token地址: http://{domain}/api/oauth2/token
 
 例如:
 ```js
-POST /jetlinks/oauth2/token
-Content-Type: application/json
+POST /api/oauth2/token
+Content-Type: "application/json"
 
 {
     "grant_type": "client_credentials", //固定client_credentials

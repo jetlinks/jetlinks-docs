@@ -181,8 +181,8 @@ update ink_datasource set source_url=replace(source_url,'192.168.1.123:9000', '0
 第二种则是直接请求jetlinks IOT后端接口
 
 ```yaml
-http://192.168.1.123:9000/jetlinks/api/v1/token
-http://192.168.1.123:8844/api/v1/token
+http://192.168.1.123:9000/api/token
+http://192.168.1.123:8844/token
 ```
 ![visualiazation/open-api-3.png](./visualiazation/open-api-3.png)
 
