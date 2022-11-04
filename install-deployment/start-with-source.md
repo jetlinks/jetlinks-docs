@@ -15,7 +15,7 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-如果你是linux或者macOS系统,或者是windows10. 推荐<a href='./ide-docker-start.md'>使用docker安装所需环境</a>
+如果你是linux或者macOS系统,或者是windows10. 推荐<a href='./ide-docker-start.html'>使用docker安装所需环境</a>
 项目启动后会自动创建表结构,但是数据库需要手动创建。
 
 </div>

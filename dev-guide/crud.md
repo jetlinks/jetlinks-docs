@@ -111,7 +111,7 @@ hsweb和jetlinks都使用`注解式`来声明web映射，方式与`spring-mvc`�
 
 ## 动态查询
 
-平台的Controller和Service均支持动态查询。查询参数说明<a href='/interface-guide/query-param.md'>请看这里</a>。
+平台的Controller和Service均支持动态查询。查询参数说明<a href='/interface-guide/query-param.html'>请看这里</a>。
 
 ## 权限控制
 
