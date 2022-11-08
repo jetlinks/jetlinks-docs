@@ -45,8 +45,6 @@ spring:
   redis:
     host: 127.0.0.1 # redis配置
     port: 6379
-    command: redis-server --appendonly yes --requirepass "redispassword"
-    serializer: obj # 设置fst时,redis key使用string序列化,value使用 fst序列化.
   r2dbc:
     url: r2dbc:postgresql://127.0.0.1:5432/jetlinks  # 数据库postgresql数据库配置
     #url: r2dbc:mysql://127.0.0.1:3306/jetlinks # 支持切换到mysql数据库
@@ -61,9 +59,6 @@ elasticsearch:
     data-path: ./data/elasticsearch
     port: 9200
     host: 0.0.0.0
-  client:
-    host: 127.0.0.1   # elasticsearch
-    port: 9200
 hsweb:
   file:
     upload:

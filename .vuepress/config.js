@@ -142,7 +142,7 @@ module.exports = {
                     //['/dev-guide/utils', '常用API及工具类'],
                     // ['/dev-guide/protocol-support.md', '协议开发说明'],
                     ['/dev-guide/jetlinks-protocol-support.md', 'JetLinks 官方协议'],
-                    ['/dev-guide/jetlinks-protocol-demo.md', 'JetLinks 演示协议'],
+                    // ['/dev-guide/jetlinks-protocol-demo.md', 'JetLinks 演示协议'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
