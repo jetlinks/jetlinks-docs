@@ -117,15 +117,15 @@
           </tr>
           <tr>
             <td>读取子设备属性回复</td>
-            <td>/{productId}/{deviceId}/child/{childDeviceId}/properties/read/reply</td>
+            <td>/{productId}/{deviceId}/child-reply/{childDeviceId}/properties/read/reply</td>
           </tr>
           <tr>
             <td>修改子设备属性回复</td>
-            <td>/{productId}/{deviceId}/child/{childDeviceId}/properties/write/reply</td>
+            <td>/{productId}/{deviceId}/child-reply/{childDeviceId}/properties/write/reply</td>
           </tr>
           <tr>
             <td>调用子设备功能回复</td>
-            <td>/{productId}/{deviceId}/child/{childDeviceId}/function/invoke/reply</td>
+            <td>/{productId}/{deviceId}/child-reply/{childDeviceId}/function/invoke/reply</td>
           </tr>
           <tr>
             <td>上报子设备事件</td>
