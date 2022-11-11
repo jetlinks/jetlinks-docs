@@ -335,9 +335,11 @@ public interface DeviceMessageDecoder {
 ## 上下文
 
 ### 编码上下文类结构
-
+具体参考源码：<a href='https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/codec/MessageEncodeContext.java' target='_blank'>MessageEncodeContext</a>。
+  
+伪代码示例如下：
 ```java
-class MessageEncodeContext{
+public interface MessageEncodeContext{
     //获取当前设备操作接口,可通过此接口获取对应设备的配置等信息
     DeviceOperator getDevice();
     //平台下发的指令,具体请查看平台统一设备消息定义
@@ -352,9 +354,12 @@ class MessageEncodeContext{
 ```
 
 ### 解码上下文类结构
+具体参考源码：<a href='https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/codec/MessageDecodeContext.java' target='_blank'>MessageDecodeContext</a>。
+
+伪代码示例如下：
 
 ```java
-class class MessageDecodeContext{
+public interface MessageDecodeContext{
     //获取当前设备操作接口,可通过此接口获取对应设备的配置等信息
     DeviceOperator getDevice();
 
@@ -380,9 +385,13 @@ class class MessageDecodeContext{
 ### EncodedMessage
 从网络组件中接收到的消息,不同的网络组件消息类型不同。
 公共方法:
+  
+具体参考源码：<a href='https://github.com/jetlinks/jetlinks-core/blob/master/src/main/java/org/jetlinks/core/message/codec/EncodedMessage.java' target='_blank'>EncodedMessage</a>。
+
+伪代码示例如下：
 
 ```java
-class EncodedMessage{
+public interface EncodedMessage{
     //获取原始报文
     ByteBuf getPayload();
     //报文转为字符串
