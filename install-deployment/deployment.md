@@ -63,8 +63,8 @@ server {
         index  index.html;
     }
 
-    location ^~/jetlinks/ {
-        proxy_pass http://jetlinks:8844/; #修改此地址为后台服务地址
+    location ^~/api/ {
+        proxy_pass http://api:8844/; #修改此地址为后台服务地址
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP  $remote_addr;
