@@ -174,17 +174,17 @@ module.exports = {
                     ['/media-guide/media-base-config.md', '配置摄像头示例'],
                 ]
             },
-            {
-                title: '应用管理',   // 必要的
-                //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
-                collapsable: false, // 可选的, 默认值是 true,
-                sidebarDepth: 2,    // 可选的, 默认值是 1
-                children: [
-                    //['', '介绍'],
-                    //['', '快速开始'],
-                    ['/interface-guide/application/api-server.md', 'API服务']
-                ]
-            },
+            // {
+            //     title: '应用管理',   // 必要的
+            //     //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径
+            //     collapsable: false, // 可选的, 默认值是 true,
+            //     sidebarDepth: 2,    // 可选的, 默认值是 1
+            //     children: [
+            //         //['', '介绍'],
+            //         //['', '快速开始'],
+            //         ['/interface-guide/application/api-server.md', 'API服务']
+            //     ]
+            // },
             {
                 title: '常见问题',   // 必要的
                 //      path: '/basics-guide/course',      // 可选的, 应该是一个绝对路径

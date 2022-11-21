@@ -239,6 +239,17 @@ POST /device-instance/_query?access_token=access_token
 {}
 ```
 
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+在企业版中已经集成了在线文档支持,打开`http://[ip]:[JetLinks后台端口]/doc.html`即可查看全部接口信息。<br />
+如在demo环境中： <a href="http://demo.jetlinks.cn:8844/doc.html">http://demo.jetlinks.cn:8844/doc.html</a>
+</div>
+
+
 ## 使用Websocket订阅实时设备消息
 
 > 在`1.1`版本后提供websocket方式订阅平台消息的功能。
