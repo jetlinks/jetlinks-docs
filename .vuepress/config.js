@@ -158,6 +158,7 @@ module.exports = {
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
+                    ['/dev-guide/code-guide.md', '协议包核心类API'],
                     //['/dev-guide/micro-service', '微服务']
 
                 ]
