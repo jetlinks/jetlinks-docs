@@ -6,7 +6,7 @@
    实体变更后如何触发自己的业务流程？</a>
 2. <a target='_self' href='/dev-guide/code-guide.html#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
    如何获取消息总线内的数据？</a>
-3. <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%89%E3%80%81%E4%B8%8B%E5%8F%91%E6%8C%87%E4%BB%A4%E6%8B%A6%E6%88%AA%E5%BC%82%E5%B8%B8'>
+3. <a target='_self' href=''>
    如何添加自定义存储策略？</a>
 4. <a target='_self' href='/dev-guide/code-guide.html#%E5%9B%9B%E3%80%81%E4%B8%BB%E5%8A%A8%E4%BB%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0%E3%80%81%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE'>
    主动从设备获取属性、事件如何操作？</a>
@@ -16,6 +16,8 @@
    设备数据推送到消息中间件 </a>
 7. <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%83%E3%80%81%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0%E8%AF%B7%E6%B1%82jetlinks%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3'>
    第三方平台请求JetLinks服务接口</a>
+8. <a target='_self' href=''>
+   自定义SQL条件构造器</a>
 
 [//]: # (8. <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%89%E3%80%81%E4%B8%8B%E5%8F%91%E6%8C%87%E4%BB%A4%E6%8B%A6%E6%88%AA%E5%BC%82%E5%B8%B8'>)
 
