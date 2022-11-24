@@ -123,7 +123,7 @@ module.exports = {
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
                     ['/protocol/mqtt.md', 'MQTT协议解析'],
-                    ['/protocol/faq.md', '常见问题']
+                    ['/protocol/faq.md', '常见问题'],
                 ]
             },
             {
@@ -131,7 +131,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/dev-guide/start.md', '介绍'],
+                    // ['/dev-guide/start.md', '介绍'],
                     ['/dev-guide/specification', '规范'],
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
@@ -158,8 +158,9 @@ module.exports = {
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
+                    // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
-
+8
                 ]
             },
             {
