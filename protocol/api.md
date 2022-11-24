@@ -11,13 +11,13 @@
 1. <a href='#ProtocolSupportProvider'>ProtocolSupportProvider</a>
 2. <a href='#ProtocolSupport'>ProtocolSupport</a>
 3. <a href='#CompositeProtocolSupport'>CompositeProtocolSupport</a>
-4. <a href='#ServiceContext'>ServiceContext</a>
-5. <a href='#ConfigMetadata'>ConfigMetadata</a>
-6. <a href='#DeviceMetadataCodec'>DeviceMetadataCodec</a>
-7. <a href='#DeviceMetadata'>DeviceMetadata</a>
-8. <a href='#Transport'>Transport</a>
-9. <a href='#Feature'>Feature</a>
-10. <a href='#Route'>Route</a>
+4. <a href='#ConfigMetadata'>ConfigMetadata</a>
+5. <a href='#DeviceMetadataCodec'>DeviceMetadataCodec</a>
+6. <a href='#DeviceMetadata'>DeviceMetadata</a>
+7. <a href='#Transport'>Transport</a>
+8. <a href='#Feature'>Feature</a>
+9. <a href='#Route'>Route</a>
+10. <a href='#ServiceContext'>ServiceContext</a>
 
 ### 解码器类列表
 
@@ -45,7 +45,7 @@
 1. <a href='#DeviceRegistry'>DeviceRegistry</a>
 2. <a href='#DeviceOperator'>DeviceOperator</a>
 
-<br>
+<br xmlns="http://www.w3.org/1999/html">
 
 <a id='ProtocolSupportProvider'>ProtocolSupportProvider</a>
 
@@ -53,8 +53,20 @@
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p> <li>整个协议包的入口，用于创建协议支持。</li>
+  </p> 
+    <li>整个协议包的入口，用于创建协议支持。</li>
 </div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+    
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        ...
+    }
+}
+
+```
 
 | 核心方法                                                     | 返回值                                                       | 描述         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------ |
@@ -68,8 +80,27 @@
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-    </p> <li>消息协议支持接口，通过实现此接口来自定义消息协议，默认实现类：<a id='CompositeProtocolSupport'>CompositeProtocolSupport</a></li>
+    <li>消息协议支持接口，通过实现此接口来自定义消息协议。</li>
+    <p>默认实现类：<a id='CompositeProtocolSupport'>CompositeProtocolSupport</a></p>
 </div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+    
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        //声明协议支持
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("jetlinks.v3.0");
+        support.setName("JetLinks V3.0");
+        support.setDescription("JetLinks Protocol Version 3.0");
+        
+        ...
+        return Mono.just(support);
+    }
+}
+
+```
 
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -85,34 +116,34 @@
 
 <br>
 
-<a id='ServiceContext'>ServiceContext</a>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p> <li>服务上下文，用于从服务中获取其他服务(如获取spring容器中的bean)，配置等操作</li>
-</div>
-
-| 核心方法                                                     | 返回值                                                | 描述                                                        |
-| ------------------------------------------------------------ | ----------------------------------------------------- | ----------------------------------------------------------- |
-| getConfig( ConfigKey`<String> `key ) <br>key - 配置的key     | Optional`<Value>` <br/>Returns : 是否存在对应的数据值 | 根据配置的ConfigKey获取服务(如获取spring容器中的bean)或配置 |
-| getConfig( String key )                                      | Optional`<Value>`                                     | 根据key获取服务(如获取spring容器中的bean)或配置             |
-| getService( Class`<T>` service ) <br/>service - 服务的类类型 | `<T>` Optional`<T> `<br/>Returns : 是否存在该服务     | 根据类类型获取服务                                          |
-| getService( String service )                                 | `<T>` Optional`<T>`                                   | 根据服务名获取服务                                          |
-| getServices( Class`<T>` service ) <br/>service - 服务的类类型 | `<T>` List`<T>` <br/>Returns : 多个指定类类型的服务集 | 根据类类型获取多个服务                                      |
-| getServices( String service )                                | `<T>` List`<T>`                                       | 根据服务名获取多个服务                                      |
-
-<br>
-
 <a id='DeviceMetadataCodec'>DeviceMetadataCodec</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p> <li>ReadThingPropertyMessageReply：读取设备属性消息回复, 方向 : 设备->平台 在设备接收到ReadPropertyMessage消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果</li>
+  </p>
+    <li>物模型编解码器,用于将物模型与字符串进行互相转换</li>
+    <p>协议包内添加物模型解码器支持，默认实现类：JetLinksDeviceMetadataCodec</p>
 </div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+    
+
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("jetlinks.v3.0");
+        support.setName("JetLinks V3.0");
+        support.setDescription("JetLinks Protocol Version 3.0");
+        //声明使用JetLinks默认物模型编解码器
+        support.setMetadataCodec(new JetLinksDeviceMetadataCodec());
+        return Mono.just(support);
+    }
+}
+
+```
 
 | 核心方法                                        | 返回值                                       | 描述                 |
 | ----------------------------------------------- | -------------------------------------------- | -------------------- |
@@ -128,8 +159,38 @@
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p> <li>配置信息定义</li>
+  </p> 
+    <li>配置信息定义，用于定义配置信息。</li>
+    <p>在ProtocolSupportProvider内添加支持后，可以在产品、设备页面展示配置项</p>
 </div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+
+    private static final DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
+            "MQTT认证配置"
+            , "MQTT认证时需要的配置,mqtt用户名,密码算法:\n" +
+            "username=secureId|timestamp\n" +
+            "password=md5(secureId|timestamp|secureKey)\n" +
+            "\n" +
+            "timestamp为时间戳,与服务时间不能相差5分钟")
+            .add("secureId", "secureId", "密钥ID", new StringType())
+            .add("secureKey", "secureKey", "密钥KEY", new PasswordType());
+    
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("jetlinks.v3.0");
+        support.setName("JetLinks V3.0");
+        support.setDescription("JetLinks Protocol Version 3.0");
+        support.setMetadataCodec(new JetLinksDeviceMetadataCodec());
+        //对指定通信协议添加动态配置项支持
+        support.addConfigMetadata(DefaultTransport.MQTT, mqttConfig);
+        return Mono.just(support);
+    }
+}
+
+```
 
 | 核心方法                                        | 返回值                                | 描述                                                         |
 | ----------------------------------------------- | ------------------------------------- | ------------------------------------------------------------ |
@@ -144,8 +205,39 @@
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p> <li>设备物模型定义</li>
+  </p> 
+    <li>设备物模型定义</li>
+    <p>JetLinks设备物模型定义默认实现：JetLinksDeviceMetadata</p>
 </div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+
+    private static final DeviceMetadata mqttConfig = new DefaultConfigMetadata(
+            "MQTT认证配置"
+            , "MQTT认证时需要的配置,mqtt用户名,密码算法:\n" +
+            "username=secureId|timestamp\n" +
+            "password=md5(secureId|timestamp|secureKey)\n" +
+            "\n" +
+            "timestamp为时间戳,与服务时间不能相差5分钟")
+            .add("secureId", "secureId", "密钥ID", new StringType())
+            .add("secureKey", "secureKey", "密钥KEY", new PasswordType());
+    
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("jetlinks.v3.0");
+        support.setName("JetLinks V3.0");
+        support.setDescription("JetLinks Protocol Version 3.0");
+        support.setMetadataCodec(new JetLinksDeviceMetadataCodec());
+        support.addConfigMetadata(DefaultTransport.MQTT, mqttConfig);
+        //添加默认物模型信息
+        support.addDefaultMetadata(DefaultTransport.MQTT,new JetLinksDeviceMetadata("temperature","温度"));
+        return Mono.just(support);
+    }
+}
+
+```
 
 | 核心方法        | 返回值                   | 描述             |
 | --------------- | ------------------------ | ---------------- |
@@ -318,6 +410,47 @@
 | 方法      | 返回值            | 描述                                                         |
 | --------- | ----------------- | ------------------------------------------------------------ |
 | builder() | MqttRoute.Builder | 用于构建MqttRoute.Builder(内部接口，用于定义该接口独有的属性) |
+
+<br>
+
+<a id='ServiceContext'>ServiceContext</a>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p> <li>服务上下文，用于从服务中获取其他服务(如获取spring容器中的bean)，配置等操作</li>
+</div>
+
+```java
+public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
+    
+    @Override
+    public Mono<CompositeProtocolSupport> create(ServiceContext context) {
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("jetlinks.v3.0");
+        support.setName("JetLinks V3.0");
+        support.setDescription("JetLinks Protocol Version 3.0");
+        return Mono
+                .zip(
+                        Mono.justOrEmpty(context.getService(DecodedClientMessageHandler.class)),
+                        Mono.justOrEmpty(context.getService(DeviceSessionManager.class)),
+                        Mono.justOrEmpty(context.getService(Vertx.class))
+                )
+                .map(tp3 -> new TcpClientMessageSupport(tp3.getT1(), tp3.getT2(), tp3.getT3()))
+    }
+}
+
+```
+
+| 核心方法                                                     | 返回值                                                | 描述                                                        |
+| ------------------------------------------------------------ | ----------------------------------------------------- | ----------------------------------------------------------- |
+| getConfig( ConfigKey`<String> `key ) <br>key - 配置的key     | Optional`<Value>` <br/>Returns : 是否存在对应的数据值 | 根据配置的ConfigKey获取服务(如获取spring容器中的bean)或配置 |
+| getConfig( String key )                                      | Optional`<Value>`                                     | 根据key获取服务(如获取spring容器中的bean)或配置             |
+| getService( Class`<T>` service ) <br/>service - 服务的类类型 | `<T>` Optional`<T> `<br/>Returns : 是否存在该服务     | 根据类类型获取服务                                          |
+| getService( String service )                                 | `<T>` Optional`<T>`                                   | 根据服务名获取服务                                          |
+| getServices( Class`<T>` service ) <br/>service - 服务的类类型 | `<T>` List`<T>` <br/>Returns : 多个指定类类型的服务集 | 根据类类型获取多个服务                                      |
+| getServices( String service )                                | `<T>` List`<T>`                                       | 根据服务名获取多个服务                                      |
 
 <br>
 
@@ -1226,8 +1359,8 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
   <li>DeviceOperator：设备操作接口,用于发送指令到设备messageSender()以及获取配置等相关信息</li>
-  <li>Thing的子接口</li>
-  <li>DefaultDeviceOperator 是它的默认实现类</li>
+  <li>继承Thing接口</li>
+  <li>DefaultDeviceOperator是它的默认实现类</li>
 </div>
 
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
