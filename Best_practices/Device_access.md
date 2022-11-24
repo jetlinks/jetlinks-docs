@@ -8,6 +8,9 @@
 ### 系统配置
 #### 操作步骤
 1.**登录**Jetlinks物联网平台，进入**协议管理**菜单，上传协议。</br>
+
+<a target='_blank' href='https://github.com/jetlinks/jetlinks-official-protocol'>获取协议包源码</a>
+
 ![](./img/61.png)
 
 2.进入**网络组件**菜单，配置**MQTT服务**类型的网络组件。</br>
@@ -17,20 +20,52 @@
 &emsp;（1）选择MQTT服务类型的网络</br>
 ![](./img/204.png)
 &emsp;（2）选择所需的协议包</br>
-![](./img/205.png)
+![](./img/protocol-select.png)
 &emsp;（3）填写设备接入网关名称</br>
-![](./img/206.png)
+![](./img/gateway-create.png)
 
-4.创建产品，并进入**设备接入**tab，选择所需的设备接入网关，然后**启用**产品。
-![](./img/207.png)
+4.创建产品，并进入**设备接入**tab，选择所需的设备接入网关然后**启用**产品。
+![](./img/product-access.png)
 
-5.创建设备，选择对应的所属产品，然后**启用**设备。
-![](./img/208.png)
+5.在**设备接入**tab页面中填写官方协议包认证信息；然后**启用**产品。
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+不同协议包在设备接入界面所需要填写的方式不同。官方协议包，需要填写设备认证所需要的的账号密码
+
+</div>
+
+`填写账号为：admin   密码为：admin`
+
+
+![](./img/auth-info.png)
+
+
+
+6.创建设备，选择对应的所属产品，然后**启用**设备。
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+需要先启用产品，才能基于产品创建设备
+
+</div>
+
+![](./img/create-device.png)
 
 ### 使用MQTTX模拟设备连接到平台
 1.打开MQTTX软件，点击新建连接创建一个连接，设置**连接参数**。
 ![](./img/209.png)
-![](./img/212.png)
+![](./img/mqtt-accept.png)
+
+### 连接参数说明
 
 <table class='table'>
         <thead>
@@ -50,11 +85,11 @@
           </tr>
           <tr>
             <td>服务器地址</td>
-            <td>连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写产品-设备接入页面显示的连接地址。</td>
+            <td>连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写产品-设备接入页-连接信息显示的连接地址。</td>
           </tr>
          <tr>
             <td>端口</td>
-            <td>连接端口。本地连接直接填写1889，如为远程连接，请填写产品-设备接入页显示端口。</td>
+            <td>请填写产品-设备接入页-连接信息显示的端口。</td>
           </tr>
           <tr>
             <td>用户名</td>
@@ -68,45 +103,63 @@
       </table>
 </div>
 
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
- username和password
-  <a href="http://doc.jetlinks.cn/basics-guide/mqtt-auth-generator.html">自动生成器</a>
+
+使用JetLinks官方协议包接入设备，用户名和密码需要经过加密规则处理。<br />
+可使用账号密码<a href="http://doc.jetlinks.cn/basics-guide/mqtt-auth-generator.html">自动生成器</a>获取
+
 </div>
 
 ![](./img/211.png)
 
 2.点击**连接**按钮，平台中设备状态变为**在线**。
-![](./img/213.png)
+![](./img/mqtt-device-info.png)
 
-### 设备消息
-设备连接上平台，并进行一些基本的事件收发、属性读取操作。
 
-#### 设备上下线
-单击 MqttX 中**Connect**进行连接,连接成功后，设备状态将变为在线。
-![](./img/258.png)
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-平台端需要将设备先启用，否则将导致连接失败。
+
+如您在点击连接后遇到MQTTX提示异常信息或设备未上线等问题。可在设备详情-设备诊断页中，诊断设备未上线原因
+
 </div>
 
-点击该设备的查看→日志管理，在设备日志模块可以看到设备上线日志</br>
-单击 MqttX 中**Disconnect**断开连接,平台中设备状态变为离线。
-![](./img/259.png)
+![](./img/mqtt-device-diagnosis.png)
 
+
+### 设备数据上下行
+设备连接上平台后，可进行一些基本的事件上报、属性读取等操作。
+
+
+### 物模型创建
+
+在产品详情-物模型tab页中分别创建属性、事件、功能三种物模型
+
+**创建属性**
+
+![](./img/device-property-temperature.png)
+
+**创建功能**
+
+![](./img/device-function-palyVoice.png)
+
+**创建事件**
+
+![](./img/device-event-alarmFire.png)
 
 #### 读取设备属性
 1.**登录**Jetlinks物联网平台，点击设备**查看**按钮，进入**运行状态**tab页。</br>
-2.点击设备运行状态中某个属性的**刷新**按钮。
-![](./img/260.png)
-MQTTX会收到平台下发的订阅
-![](./img/261.png)
+2.点击设备运行状态中某个属性的**获取属性值**按钮。
+![](./img/property-read.png)
+MQTTX会收到平台下发指令消息
+![](./img/mqttx-property-read.png)
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -115,9 +168,33 @@ MQTTX会收到平台下发的订阅
 复制好订阅该topic收到的消息中的messageId。此messageId将作为回复与平台设备属性的凭据之一。
 </div>
 
-3.设备（MQTTX）回复平台设备属性值
-输入一个回复平台属性值消息Topic(这里的为`/{productId}/{deviceId}/properties/read/reply`)和要发送的消息内容， 单击**Publish**，向平台推送该消息。
-![](./img/262.png)
+3.回复平台设备读取消息
+<br />
+topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlinks-protocol-support.html#读取设备属性)
+<br />
+消息内容格式如下
+
+```json
+
+{
+  "timestamp": "当前时间戳",
+  "deviceId": "deviceId",
+  "messageId": "messageId",
+  "properties":{
+    "temperature": 35.6
+  },
+  "success": true
+}
+
+```
+
+点击**消息发送按你**，向平台推送该消息。
+![](./img/mqttx-property-read-reply.png)
+
+
+
+**回复参数说明**
+
 <table class='table'>
         <thead>
             <tr>
@@ -136,7 +213,7 @@ MQTTX会收到平台下发的订阅
           </tr>
           <tr>
             <td>timestamp</td>
-            <td>当前时间戳</td>
+            <td>当前时间戳，可不填写，默认为消息回复时间</td>
           </tr>
           <tr>
             <td>success</td>
@@ -149,19 +226,11 @@ MQTTX会收到平台下发的订阅
         </tbody>
       </table>
 
-该文档所使用的回复内容
 
-```json
-{
- "timestamp":1601196762389,
- "messageId":"第一次平台订阅设备,MQTTX所收到的messageId值",
- "properties":{"temperature":"50"},
- "deviceId":"test001",
- "success":true
-}
-```
-4.平台收到MqttX推送的属性值。</br>
-5.读取设备属性回复的日志。</br>
+4.平台收到MqttX推送的属性值后，将会实时展示到运行状态中。</br>
+
+
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-jinggao explanation-icon'></span>
@@ -171,14 +240,19 @@ MQTTX会收到平台下发的订阅
 </div>
 
 #### 设备事件上报
-MQTTX 推送设备事件消息到平台。<br>
-1.在MQTTX上，订阅topic`/{productId}/{deviceId}/event/{eventId}`。</br>
+MQTTX 推送设备事件消息到平台。<br />
+
+1.在MQTTX上，填写事件上报topic。topic格式参考[JetLinks官方协议-设备事件上报](/dev-guide/jetlinks-protocol-support.html#设备事件上报) 。</br>
 2.输入事件上报Topic和要发送的事件内容，单击**Publish**按钮，向平台推送该事件消息。
-![](./img/263.png)
+![](./img/mqttx-event-report.png)
+
+**设备事件上报数据**
+
 ```json
 {
  "timestamp":1627960319,
  "messageId":"1422143789942595584",
+ "event": "alarm_id",
  "data":{"a_name":"未来科技城",
   "b_name":"C2 栋",
   "l_name":"12-05-2012"}
@@ -195,7 +269,7 @@ MQTTX 推送设备事件消息到平台。<br>
         <tbody>
           <tr>
             <td>timestamp</td>
-            <td>毫秒时间戳</td>
+            <td>当前时间戳</td>
           </tr>
           <tr>
             <td>messageId </td>
@@ -208,56 +282,22 @@ MQTTX 推送设备事件消息到平台。<br>
         </tbody>
       </table>
 
-3.进入**设备-日志管理**查看设备上报事件日志。</br>
-4.进入**设备-运行状态**tab页，查看事件信息。
-![](./img/265.png)
+上报成功后，在**设备-运行状态**tab页，可查看事件具体信息。
+![](./img/device-event-list.png)
 
-#### 地理位置上报
-1.物模型中添加地理位置。通过属性定义添加地理位置类型属性。
-![](./img/264.png)
-2.使用mqttX连接到平台，设备上线后推送地理位置消息到平台， 此处使用topic为`/{productId}/{deviceId}/properties/report`。
-![](./img/266.png)
-此处使用的报文为：  
-```json
-{
- "timestamp":1601196762389,
- "messageId":"ddddd",
- "properties":{
-  "geoPoint": "102.321,36.523"
- }
-}
-```
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-上报geo地理位置类型数据有三种格式。 </br>一是字符串以逗号分隔，如：`"102.321,36.523"`;  </br>
-二是数组类型，如:`[102.321,36.523]`;   </br>
-三是map类型，如：`{"lat":102.321,"lon":36.523}`。  </br>
-</div>
-
-3.上报成功后将在设备的运行状态中显示，也可查看上报历史消息。
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-物模型中的标签也可创建geo类型，但不可通过标签上报地理位置信息，只能通过属性上报。
-地理位置标签将主要运用在地图查询中。
-</div>
 
 #### 调用设备功能
-1.MqttX连接上平台</br>
-2.在**设备-设备功能**tab页，选择设备功能模块,点击执行,向设备发送topic。
-![](./img/267.png)
-3.在MqttX订阅topic为`/{productId}/{deviceId}/function/invoke/reply`。
-![](./img/268.png)
+1.在**设备-设备功能**tab页，选择设备功能模块,点击执行,向设备发送功能调用指令。
+![](./img/device-function-invoke.png)
+3.填写设备功能回复topic和报文。格式参考[JetLinks官方协议-调用设备功能](/dev-guide/jetlinks-protocol-support.html#调用设备功能)
+![](./img/mqttx-function-invoke-reply.png)
+
+**设备功能回复报文**
 
 ```json
 {
  "timestamp":1601196762389,
- "messageId":"1422497215780651008",
+ "messageId":"1422497215780651008", 
  "output":"success",
  "success":true
 }
@@ -288,8 +328,8 @@ MQTTX 推送设备事件消息到平台。<br>
           </tr>
         </tbody>
       </table>
-      
-4.设备功能调用成功,在**设备-设备功能**tab页返回调用结果。
+
+设备功能调用成功后在**设备-设备功能**tab页显示调用回复结果。
 
 ## MQTT Broker接入
 在某些场景,设备不是直接接入平台,而是通过第三方MQTT服务,如:`emqx`.
@@ -365,7 +405,7 @@ clientId 和用户名密码符合emq规则即可,这时的认证是通过emq,而
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择TCP透传接入类型的产品。</br>
 
 ### TCP工具接入
-1.下载并安装[Packet Sender](https://packetsender.com/download#show)。  
+1.下载并安装[Packet Sender](https://packetsender.com/download#show)。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -377,9 +417,9 @@ TCP协议以二进制的数据包传输数据，此处使用Packet Sender工具�
 </div>
 
 2.生成所需的十六进制字符串。  
-    i. 检出[协议代码](https://github.com/jetlinks/demo-protocol.git)  
-    ii. 执行测试包org.jetlinks.demo.protocol.tcp下DemoTcpMessageTest的test方法生成设备认证所需的十六进制字符串  
-    代码如下：  
+i. 检出[协议代码](https://github.com/jetlinks/demo-protocol.git)  
+ii. 执行测试包org.jetlinks.demo.protocol.tcp下DemoTcpMessageTest的test方法生成设备认证所需的十六进制字符串  
+代码如下：
 ```java
     @Test
     void test() {
@@ -487,7 +527,7 @@ i. 设置基本信息
 ![](./img/274.png)
 关闭这个新的已连接页面即可断开设备与平台的连接,平台中设备状态变为离线,同时在设备日志模块可以看到设备离线日志。</br>
 5.模拟设备上报事件</br>
- i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。
+i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。
 ![](./img/275.png)
 ii. 上报成功后，在**设备-运行状态**页面可以查看到。
 
@@ -558,11 +598,11 @@ ii. 上报成功后，在**设备-运行状态**页面可以查看到。
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择CoAP接入类型的产品。</br>
 
 ### 使用coap-cli模拟客户端接入
-1.下载并安装`coap-cli`。  
+1.下载并安装`coap-cli`。
 ```shell script
 npm install coap-cli -g
 ```
- 
+
 2.模拟设备设备属性上报
 
 ```shell script
@@ -603,7 +643,7 @@ echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"
 5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择UDP接入类型的产品。</br>
 
 ### 使用UDP模拟工具接入
-1.下载并安装`SocketTool4`。  
+1.下载并安装`SocketTool4`。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
