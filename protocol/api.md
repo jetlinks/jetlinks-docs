@@ -1,46 +1,49 @@
-<center>协议包核心类API文档</center>
-===========
+# 协议包核心类API文档
 
-
-### 1、概述
+## 1、概述
 
 本文档主要提供协议包开发涉及的核心类、接口及方法进行说明。
 
-### 2、核心类及方法
+## 2、核心类及方法
 
-#### 入口类列表
+### 入口类列表
+
 1. <a href='#ProtocolSupportProvider'>ProtocolSupportProvider</a>
-1. <a href='#ProtocolSupport'>ProtocolSupport</a>
-1. <a href='#CompositeProtocolSupport'>CompositeProtocolSupport</a>
-1. <a href='#ServiceContext'>ServiceContext</a>
-1. <a href='#ConfigMetadata'>ConfigMetadata</a>
-1. <a href='#DeviceMetadataCodec'>DeviceMetadataCodec</a>
-1. <a href='#DeviceMetadata'>DeviceMetadata</a>
-1. <a href='#Transport'>Transport</a>
-1. <a href='#Feature'>Feature</a>
-1. <a href='#Route'>Route</a>
+2. <a href='#ProtocolSupport'>ProtocolSupport</a>
+3. <a href='#CompositeProtocolSupport'>CompositeProtocolSupport</a>
+4. <a href='#ServiceContext'>ServiceContext</a>
+5. <a href='#ConfigMetadata'>ConfigMetadata</a>
+6. <a href='#DeviceMetadataCodec'>DeviceMetadataCodec</a>
+7. <a href='#DeviceMetadata'>DeviceMetadata</a>
+8. <a href='#Transport'>Transport</a>
+9. <a href='#Feature'>Feature</a>
+10. <a href='#Route'>Route</a>
 
-#### **解码器类列表**
+### 解码器类列表
+
 1. <a href='#DeviceMessageCodec'>DeviceMessageCodec</a>
-1. <a href='#DeviceMessageEncoder'>DeviceMessageEncoder</a>
-1. <a href='#DeviceMessageDecoder'>DeviceMessageDecoder</a>
-1. <a href='#MessageCodecContext'>MessageCodecContext</a>
-1. <a href='#MessageDecodeContext'>MessageDecodeContext</a>
-1. <a href='#MessageEncodeContext'>MessageEncodeContext</a>
+2. <a href='#DeviceMessageEncoder'>DeviceMessageEncoder</a>
+3. <a href='#DeviceMessageDecoder'>DeviceMessageDecoder</a>
+4. <a href='#MessageCodecContext'>MessageCodecContext</a>
+5. <a href='#MessageDecodeContext'>MessageDecodeContext</a>
+6. <a href='#MessageEncodeContext'>MessageEncodeContext</a>
 
-#### 消息类列表
+### 消息类列表
+
 1. <a href='#Message'>Message</a>
-1. <a href='#DeviceMessage'>DeviceMessage</a>
-1. <a href='#EncodedMessage'>EncodedMessage</a>
+2. <a href='#DeviceMessage'>DeviceMessage</a>
+3. <a href='#EncodedMessage'>EncodedMessage</a>
 
-#### 认证类列表
+### 认证类列表
+
 1. <a href='#Authenticator'>Authenticator</a>
-1. <a href='#AuthenticationRequest'>AuthenticationRequest</a>
-1. <a href='#AuthenticationResponse'>AuthenticationResponse</a>
+2. <a href='#AuthenticationRequest'>AuthenticationRequest</a>
+3. <a href='#AuthenticationResponse'>AuthenticationResponse</a>
 
-#### 设备操作相关列表
+### 设备操作相关列表
+
 1. <a href='#DeviceRegistry'>DeviceRegistry</a>
-1. <a href='#DeviceOperator'>DeviceOperator</a>
+2. <a href='#DeviceOperator'>DeviceOperator</a>
 
 <br>
 
@@ -65,9 +68,8 @@
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-    </p> <li>消息协议支持接口，通过实现此接口来自定义消息协议，此接口有自带的实现<a id='CompositeProtocolSupport'>CompositeProtocolSupport</a></li>
+    </p> <li>消息协议支持接口，通过实现此接口来自定义消息协议，默认实现类：<a id='CompositeProtocolSupport'>CompositeProtocolSupport</a></li>
 </div>
-
 
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -112,7 +114,6 @@
   </p> <li>ReadThingPropertyMessageReply：读取设备属性消息回复, 方向 : 设备->平台 在设备接收到ReadPropertyMessage消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果</li>
 </div>
 
-
 | 核心方法                                        | 返回值                                       | 描述                 |
 | ----------------------------------------------- | -------------------------------------------- | -------------------- |
 | decode( String source ) <br>source – 数据       | Mono`<DeviceMetadata> `<br/>Returns : 物模型 | 将数据解码为物模型   |
@@ -130,8 +131,6 @@
   </p> <li>配置信息定义</li>
 </div>
 
-
-
 | 核心方法                                        | 返回值                                | 描述                                                         |
 | ----------------------------------------------- | ------------------------------------- | ------------------------------------------------------------ |
 | getProperties()                                 | List`<ConfigPropertyMetadata>`        | 返回配置属性信息                                             |
@@ -147,7 +146,6 @@
     <span class='explanation-title font-weight'>说明</span>
   </p> <li>设备物模型定义</li>
 </div>
-
 
 | 核心方法        | 返回值                   | 描述             |
 | --------------- | ------------------------ | ---------------- |
@@ -167,7 +165,6 @@
     <span class='explanation-title font-weight'>说明</span>
   </p> <li>传输协议定义，如: TCP、MQTT等，通常使用枚举来定义</li>
 </div>
-
 
 | 核心方法                                                     | 返回值                                                | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------------------------------- | ------------------------------------------------------------ |
@@ -212,7 +209,6 @@
     <span class='explanation-title font-weight'>说明</span>
   </p> <li>特性接口，一般使用枚举实现。用于定义协议或者设备支持的某些特性</li>
 </div>
-
 
 | 核心方法                     | 返回值                                                  | 描述                                     |
 | ---------------------------- | ------------------------------------------------------- | ---------------------------------------- |
@@ -281,8 +277,6 @@
 | getAddress()     | String | 获取地址 |
 | getDescription() | String | 获取说明 |
 | getExample()     | String | 获取示例 |
-
-
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -353,10 +347,6 @@
   </p> <li>设备消息编码器，用于将消息对象编码为对应消息协议的消息</li>
 </div>
 
-
-
-
-
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | encode( @Nonnull MessageEncodeContext context ) context – 消息编码上下文 | Publisher`<? extends EncodedMessage> `Returns : 设备能读取的编码消息 | 编码，将消息进行编码，用于发送到设备端，平台在发送指令给设备时，会调用协议包中设置的此方法，将平台消息DeviceMessage转为设备能理解的消息EncodedMessage |
@@ -373,7 +363,6 @@
   </p> <li>设备消息解码器，用于将收到设备上传的消息解码为可读的消息</li>
 </div>
 
-
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | decode( @Nonnull MessageDecodeContext  context ) context – 消息解码上下文 | Publisher`<? extends Message>` Returns : 平台可识别的消息，根据设备上传的报文通过协议包进行解码之后会转换成平台消息 | 在服务器收到设备或者网络组件中发来的消息时，会调用协议包中的此方法来进行解码， 将数据EncodedMessage转为平台的统一消息DeviceMessage |
@@ -389,7 +378,6 @@
     <span class='explanation-title font-weight'>说明</span>
   </p> <li>消息编解码上下文</li>
 </div>
-
 
 | 核心方法                                       | 返回值                                       | 描述                                                         |
 | ---------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
@@ -410,7 +398,6 @@
   </p> <li>设备上报原始消息接口</li>
 </div>
 
-
 | 核心方法     | 返回值                                | 描述                                                         |
 | ------------ | ------------------------------------- | ------------------------------------------------------------ |
 | getMessage() | EncodedMessage<br> Returns : 原始消息 | 获取设备上报的原始消息，根据通信协议的不同,消息类型也不同， 在使用时可能需要转换为对应的消息类型 |
@@ -426,7 +413,6 @@
     <span class='explanation-title font-weight'>说明</span>
   </p> <li>消息编码上下文，用于平台向设备发送指令并使用协议包进行编码时，可以从上下文中获取一些参数。 通常此接口可强制转换为ToDeviceMessageContext</li>
 </div>
-
 
 | 核心方法                                                     | 返回值                                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------------ |
@@ -449,9 +435,6 @@
   <li>子接口：BroadcastMessage、ThingMessage</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型             | 描述                                                         |
 | ------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
 | getMessageType()                                             | MessageType            | 获取消息类型                                                 |
@@ -461,8 +444,6 @@
 | addHeader(String header, Object value) <br/> Params: <br/>header – header <br/>value – value | Message                | 添加一个header，返回this                                     |
 | addHeaderIfAbsent(String header, Object value) Params: header – header Object value – | Message                | 添加header,如果header已存在则放弃，返回this                  |
 | removeHeader(String header) <br/>Params: <br/>header – header | ` Message`             | 删除一个header                                               |
-
-
 
 <br>
 
@@ -477,9 +458,6 @@
   </p>
   <li>MessageType 枚举类</li>
 </div>
-
-
-
 
 | 枚举值                      | 描述                 |
 | --------------------------- | -------------------- |
@@ -517,8 +495,6 @@
 | STATE\_CHECK\_REPLY         | 状态检查回复         |
 | UNKNOWN                     | 未知消息             |
 
-
-
 <br>
 
 
@@ -533,15 +509,10 @@
   <li>HeaderKey 顶层接口</li>
 </div>
 
-
-
-
 | 核心方法          | 返回值类型 | 描述                      |
 | ----------------- | ---------- | ------------------------- |
 | getKey()          | String     | 获取key值                 |
 | getDefaultValue() | T          | 获取传入泛型类型得value值 |
-
-
 
 <br>
 
@@ -558,9 +529,6 @@
   <li>DefaultBroadcastMessage 是它的默认实现类：</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型       | 描述                      |
 | ------------------------------------------------------------ | ---------------- | ------------------------- |
 | getAddress()                                                 | String           | 获取地址                  |
@@ -568,8 +536,6 @@
 | address(String address) <BR/>Params: <BR/>address：地址      | BroadcastMessage | 添加地址                  |
 | message(Message message) <BR/>Params:<BR/> message：消息信息 | BroadcastMessage | 设置默认实现类的message值 |
 | getMessageType()                                             | MessageType      | 获取消息类型              |
-
-
 
 <br>
 
@@ -586,14 +552,9 @@
   <li>子接口：DeviceMessageReply</li>
 </div>
 
-
-
-
 | 核心方法      | 返回值类型 | 描述       |
 | ------------- | ---------- | ---------- |
 | getDeviceId() | String     | 获取设备ID |
-
-
 
 <br>
 
@@ -610,14 +571,9 @@
   <li>DeviceMessage, ThingMessageReply的子接口之一</li>
 </div>
 
-
-
-
 | 核心方法                  | 返回值类型         |            |
 | ------------------------- | ------------------ | ---------- |
 | deviceId(String deviceId) | DeviceMessageReply | 设置设备ID |
-
-
 
 <br>
 
@@ -634,16 +590,11 @@
   <li>RepayableThingMessage的子接口之一</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
 | getProperties()                                              | `List<String>`                | 要读取的属性列表,协议包可根据实际情况处理此参数, 有的设备可能不支持读取指定的属性,则直接读取全部属性返回即可 |
 | addProperties(`List<String>` properties) Params: <BR/>`List<String>` properties-属性集合 | `ReadThingPropertyMessage<T>` | 添加属性列表                                                 |
 | forThing(ThingType thingType, String deviceId) <br/>Params：<BR/> ThingType thingType-物类型String deviceId-设备ID | DefaultReadPropertyMessage    | 设置DefaultReadPropertyMessage类的ThingId和ThingType         |
-
-
 
 <br>
 
@@ -659,15 +610,10 @@
   <li>ThingType 物类型定义,通常使用枚举实现此接口</li>
 </div>
 
-
-
-
 | 核心方法  | 返回值类型 | 描述     |
 | --------- | ---------- | -------- |
 | getId()   | String     | 类型ID   |
 | getName() | String     | 类型名称 |
-
-
 
 <br>
 
@@ -684,15 +630,10 @@
    <li>ThingMessageReply, PropertyMessage的子接口</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型                    | 描述                         |
 | ------------------------------------------------------------ | ----------------------------- | ---------------------------- |
 | success(`Map<String, Object>` properties) <BR/>Params: <BR/>properties – 属性值 | ReadThingPropertyMessageReply | 设置成功并设置返回属性值     |
 | success(`List<ThingProperty>` properties) Params:<BR/> properties – 属性值 | ReadThingPropertyMessageReply | 设置成功并设置返回完整属性值 |
-
-
 
 <br>
 
@@ -743,16 +684,12 @@
    <li>ThingMessage的子接口</li>
 </div>
 
-
-
 | 核心方法                                            | 返回值类型        | 描述                       |
 | --------------------------------------------------- | ----------------- | -------------------------- |
 | getEvent()                                          | String            | 事件标识                   |
 | getData()                                           | Object            | 事件数据，与物模型类型对应 |
 | event(String event) <BR/>Params:<BR/> event – event | ThingEventMessage | 设置事件                   |
 | data(Object data) <BR/>Params:<BR/> data – data     | ThingEventMessage | 设置事件数据               |
-
-
 
 <br>
 
@@ -770,9 +707,6 @@
    <li>DefaultFunctionInvokeMessage、FunctionInvokeMessage 是CommonDeviceMessage的两个实现类</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型                 | 描述                 |
 | ------------------------------------------------------------ | -------------------------- | -------------------- |
 | getFunctionId()                                              | String                     | 获取functionId       |
@@ -781,8 +715,6 @@
 | functionId(String id) </br>Params: </br>id – functionId      | ThingFunctionInvokeMessage | 设置functionId       |
 | getInput(String name)</br> Params:</br> name– 功能参数名称   | `Optional<Object>`         | 根据名称获取功能参数 |
 | getInput(int index) </br>Params: </br>index– 索引            | ` Optional<Object>`        | 根据索引获取功能参数 |
-
-
 
 <br>
 
@@ -801,16 +733,11 @@
    <li>DefaultFunctionInvokeMessageReply、FunctionInvokeMessageReply 是 CommonDeviceMessageReply 的两个实现类</li>
 </div>
 
-
-
-
 | 核心方法                                                | 返回值类型                 | 描述                                    |
 | ------------------------------------------------------- | -------------------------- | --------------------------------------- |
 | getFunctionId()                                         | String                     | 获取functionId,对应物模型ID             |
 | getOutput()                                             | Object                     | 功能调用响应结果,根据物模型的不同而不同 |
 | output(Object output) <br/>Params: <br/>output – output | ThingFunctionInvokeMessage | 设置功能的输出值                        |
-
-
 
 <br>
 
@@ -827,8 +754,6 @@
    <li>Message的子接口</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型   | 描述             |
 | ------------------------------------------------------------ | ------------ | ---------------- |
 | getThingType()                                               | String       | 物类型           |
@@ -836,8 +761,6 @@
 | messageId(String messageId) </br>Params:</br> messageId – messageId | ThingMessage | 设置messageId    |
 | thingId(String thingType, String thingId)</br> Params:</br> thingType – 物类型 thingId – 物ID | ThingMessage | 设置物类型和ID   |
 | timestamp(long timestamp) </br>Params:</br> timestamp – 时间戳 | ThingMessage | 设置物消息时间戳 |
-
-
 
 <br>
 
@@ -854,9 +777,6 @@
    <li>ThingMessage的子接口</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型        | 描述                     |
 | ------------------------------------------------------------ | ----------------- | ------------------------ |
 | isSuccess()                                                  | boolean           | 是否成功                 |
@@ -868,8 +788,6 @@
 | code(@NotNull String code)                                   | ThingMessageReply | 设置业务码               |
 | message(@NotNull String message)                             | ThingMessageReply | 设置消息                 |
 | from(@NotNull Message message) </br>Params：</br> message-消息 | ThingMessageReply | 据另外的消息填充对应属性 |
-
-
 
 <br>
 
@@ -887,15 +805,10 @@
    <li>DefaultReportPropertyMessage、ReportPropertyMessage 是它的两个实现类</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型                 | 描述                         |
 | ------------------------------------------------------------ | -------------------------- | ---------------------------- |
 | success(`Map<String, Object>` properties) <br/>Params: <br/>properties – 属性值 | ThingReportPropertyMessage | 设置成功并设置返回属性值     |
 | success(`List<ThingProperty>` properties) <br/>Params: <br/>properties – 属性值 | ThingReportPropertyMessage | 设置成功并设置返回完整属性值 |
-
-
 
 <br>
 
@@ -913,15 +826,10 @@
    <li>DefaultUpdateTingTagsMessage、UpdateTagMessage 是 CommonThingMessage 的两个实现类</li>
 </div>
 
-
-
-
 | 核心方法                         | 返回值类型            | 描述         |
 | -------------------------------- | --------------------- | ------------ |
 | getTags()                        | `Map<String, Object>` | 获取标签信息 |
 | tags(`Map<String, Object>` tags) | UpdateTingTagsMessage | 更新标签信息 |
-
-
 
 <br>
 
@@ -939,15 +847,10 @@
    <li>DefaultWritePropertyMessage、WritePropertyMessage 是CommonThingMessage 的两个实现类</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型            | 描述                                                         |
 | ------------------------------------------------------------ | --------------------- | ------------------------------------------------------------ |
 | getProperties()                                              | `Map<String, Object>` | 要读取的属性列表,协议包可根据实际情况处理此参数, 有的设备可能不支持读取指定的属性,则直接读取全部属性返回即可 |
 | addProperty(String key, Object value)<br/> Params：<br/> key-key<br/> value-value | void                  | 添加属性                                                     |
-
-
 
 <br>
 
@@ -965,14 +868,10 @@
    <li>DefaultWritePropertyMessageReply、WritePropertyMessageReply 是它的两个实现类</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型                     | 描述                         |
 | ------------------------------------------------------------ | ------------------------------ | ---------------------------- |
 | success(`Map<String, Object>` properties) <br/>Params:<br/> properties – 属性值 | WriteThingPropertyMessageReply | 设置成功并设置返回属性值     |
 | success(`List<ThingProperty>` properties) <br/>Params:<br/> properties – 属性值 | WriteThingPropertyMessageReply | 设置成功并设置返回完整属性值 |
-
-
 
 <br>
 
@@ -989,13 +888,9 @@
    <li>RepayableDeviceMessage：支持回复的消息</li>
 </div>
 
-
-
 | 核心方法      | 返回值类型 | 描述         |
 | ------------- | ---------- | ------------ |
 | getDeviceId() | String     | 获取设备ID值 |
-
-
 
 <br>
 
@@ -1012,15 +907,10 @@
    <li>子接口：CoapMessage、RepayableDeviceMessage</li>
 </div>
 
-
-
-
 | 核心方法                     | 方法返回值         | 描述         |
 | ---------------------------- | ------------------ | ------------ |
 | getPayload()                 | ByteBuf            | 获取原始报文 |
 | @Deprecated getPayloadType() | MessagePayloadType | 报文信息类型 |
-
-
 
 <br>
 
@@ -1037,16 +927,11 @@
    <li>EncodedMessage的子接口</li>
 </div>
 
-
-
-
 | 核心方法     | 返回值类型     | 描述       |
 | ------------ | -------------- | ---------- |
 | getPath()    | String         | 获取path   |
 | getCode()    | CoAP.Code      | 获取code   |
 | getOptions() | `List<Option>` | 获取option |
-
-
 
 <br>
 
@@ -1064,14 +949,9 @@
   <li>DefaultCoapResponseMessage 是他的默认实现类</li>
 </div>
 
-
-
-
 | 核心方法  | 返回值类型        | 描述       |
 | --------- | ----------------- | ---------- |
 | getCode() | CoAP.ResponseCode | 获取响应码 |
-
-
 
 <br>
 
@@ -1089,9 +969,6 @@
   <li>SimpleHttpRequestMessage 是他的实现类</li>
 </div>
 
-
-
-
 | 核心方法             | 返回值类型            | 描述             |
 | -------------------- | --------------------- | ---------------- |
 | getPath()            | String                | 获取消息体的path |
@@ -1100,8 +977,6 @@
 | getContentType()     | MediaType             | 获取请求类型     |
 | getHeaders()         | `List<Header>`        | 获取请求头信息   |
 | getQueryParameters() | `Map<String, String>` | 获取查询参数     |
-
-
 
 <br>
 
@@ -1119,16 +994,11 @@
   <li>SimpleHttpResponseMessage 是他的实现类</li>
 </div>
 
-
-
-
 | 核心方法         | 返回值类型     | 描述         |
 | ---------------- | -------------- | ------------ |
 | getStatus()      | int            | 获取响应状态 |
 | getContentType() | MediaType      | 获取响应类型 |
 | getHeaders()     | `List<Header>` | 获取响应头   |
-
-
 
 <br>
 
@@ -1146,16 +1016,11 @@
   <li>SimpleMqttMessage 是它的实现类</li>
 </div>
 
-
-
-
 | 核心方法       | 返回值类型 | 描述         |
 | -------------- | ---------- | ------------ |
 | getTopic()     | String     | 获取topic    |
 | getClientId()  | String     | 获取客户端id |
 | getMessageId() | int        | 获取信息id   |
-
-
 
 <br>
 
@@ -1173,15 +1038,10 @@
   <li>ProxyMqttPublishingMessage 是它的实现类</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型            | 描述                                             |
 | ------------------------------------------------------------ | --------------------- | ------------------------------------------------ |
 | acknowledge()                                                | void                  | 在QoS1,和QoS2时,此方法可能会被调用               |
 | of(MqttMessage message, Runnable doOnAcknowledge) <br/>Params: <br/> message – 原始消息 <br/> doOnAcknowledge – 应答回调 | MqttPublishingMessage | 根据另外一个MqttMessage创建MqttPublishingMessage |
-
-
 
 <br>
 
@@ -1199,14 +1059,9 @@
   <li>DefaultWebSocketMessage 是他的实现类</li>
 </div>
 
-
-
-
 | 核心方法  | 返回值类型 | 描述          |
 | --------- | ---------- | ------------- |
 | getType() | Type       | Websocket消息 |
-
-
 
 <br>
 
@@ -1223,17 +1078,12 @@
     <li>类型值的枚举</li>
 </div>
 
-
-
-
 | 枚举值 | 描述   |
 | ------ | ------ |
 | TEXT   | 文本   |
 | BINARY | 二进制 |
 | PING   | ping   |
 | PONG   | pong   |
-
-
 
 <br>
 
@@ -1251,14 +1101,9 @@
   <li>WebSocketSessionMessageWrapper是它的实现类</li>
 </div>
 
-
-
-
 | 核心方法              | 返回值类型       | 描述        |
 | --------------------- | ---------------- | ----------- |
 | getWebSocketSession() | WebSocketSession | 获取session |
-
-
 
 <br>
 
@@ -1274,15 +1119,10 @@
   <li>Authenticator：认证器,用于设备连接的时候进行认证</li>
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
 | authenticate(AuthenticationRequest request,DeviceOperator device) <br/> Params: <br/>request – 认证请求 <br/>device – 设备 | `Mono<AuthenticationResponse>` | 对指定对设备进行认证                                         |
 | authenticate(@Nonnull AuthenticationRequest request, @Nonnull DeviceRegistry registry) <br/>Params:<br/> request – 认证请求<br/> registry – 设备注册中心 | `Mono<AuthenticationResponse>` | 在网络连接建立的时候,可能无法获取设备的标识(如:http,websocket等),则会调用此方法来进行认证. 注意: 认证通过后,需要设置设备ID.AuthenticationResponse.success(String) |
-
-
 
 <br>
 
@@ -1299,14 +1139,9 @@
   <li>MqttAuthenticationRequest 是它的默认实现类</li>
 </div>
 
-
-
-
 | 核心方法       | 返回值类型 | 描述         |
 | -------------- | ---------- | ------------ |
 | getTransport() | Transport  | 返回协议类型 |
-
-
 
 <br>
 
@@ -1322,16 +1157,11 @@
   <li>AuthenticationResponse(类)：封装了认证响应信息</li>
 </div>
 
-
-
-
 | 核心方法                        | 放回置类型             | 描述               |
 | ------------------------------- | ---------------------- | ------------------ |
 | success()                       | AuthenticationResponse | 封装成功的响应信息 |
 | success(String deviceId)        | AuthenticationResponse | 封装成功的响应信息 |
 | error(int code, String message) | AuthenticationResponse | 封装失败的响应信息 |
-
-
 
 <br>
 
@@ -1351,8 +1181,6 @@
 .flatMap(conf-> doSomeThing(...))</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
 | getDevice(String deviceId) <br/>Params:<br/> deviceId – 设备ID<br/> Returns: <br/>设备操作接口 | `Mono<DeviceOperator>`        | 获取设备操作接口.如果设备未注册或者注册已失效(缓存丢失).则回返回Mono.empty(), 可以通过Mono.switchIfEmpty(Mono)来处理设备不存在的情况.如: registry .getDevice(deviceId) .switchIfEmpty(Mono.error(()->new DeviceNotFoundException(....))) |
@@ -1364,8 +1192,6 @@
 | unregisterDevice(String deviceId) <br/>Params: <br/>deviceId – 设备ID <br/>Returns: <br/>void | `Mono<Void>`                  | 注销设备,注销后将无法通过getDevice(String)获取到设备信息, 此操作将触发org.jetlinks.core.ProtocolSupport.onDeviceUnRegister(DeviceOperator) |
 | unregisterProduct(String productId)<br/> Params:<br/> productId – 产品ID <br/>Returns:<br/> void | `Mono<Void>`                  | 注销产品,注销后将无法通过getProduct(String) 获取到产品信息 此操作只会注销未设置版本的产品. 此操作将触发org.jetlinks.core.ProtocolSupport.onProductUnRegister(DeviceProductOperator） |
 | unregisterProduct(String productId, String version) <br/>Params:<br/> productId – 产品ID <br/>version – 版本号 | `Mono<Void>`                  | 注销指定版本的产品,注销后将无法通过getProduct(String, String) 获取到产品信息 此操作将触发org.jetlinks.core.ProtocolSupport.onProductUnRegister(DeviceProductOperator) |
-
-
 
 <br>
 
@@ -1383,15 +1209,10 @@
   <li>DefaultDeviceProductOperator 是它的默认实现类</li>
 </div>
 
-
-
-
 | 核心方法      | 返回值类型              | 描述                 |
 | ------------- | ----------------------- | -------------------- |
 | getProtocol() | `Mono<ProtocolSupport>` | 获取支持协议         |
 | getDevices()  | `Flux<DeviceOperator>`  | 获取产品下的所有设备 |
-
-
 
 <br>
 
@@ -1408,9 +1229,6 @@
   <li>Thing的子接口</li>
   <li>DefaultDeviceOperator 是它的默认实现类</li>
 </div>
-
-
-
 
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
