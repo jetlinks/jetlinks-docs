@@ -7,7 +7,7 @@
 2. <a target='_self' href='/dev-guide/code-guide.html#%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
    如何获取消息总线内的数据？</a>
 3. <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%89%E3%80%81%E4%B8%8B%E5%8F%91%E6%8C%87%E4%BB%A4%E6%8B%A6%E6%88%AA%E5%BC%82%E5%B8%B8'>
-   发送消息异常拦截并做自定义的业务逻辑实现？</a>
+   如何添加自定义存储策略？</a>
 4. <a target='_self' href='/dev-guide/code-guide.html#%E5%9B%9B%E3%80%81%E4%B8%BB%E5%8A%A8%E4%BB%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0%E3%80%81%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE'>
    主动从设备获取属性、事件如何操作？</a>
 5. <a target='_self' href='/dev-guide/code-guide.html#%E4%BA%94%E3%80%81%E7%9F%AD%E8%BF%9E%E6%8E%A5%E3%80%81%E4%BD%8E%E5%8A%9F%E8%80%97%E7%B1%BB%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E5%B9%B3%E5%8F%B0'>
@@ -175,7 +175,7 @@
 说明您的需求。
 </div>
 
-### 三、下发指令拦截异常
+### 三、添加自定义存储策略
 
 #### 应用场景
 
