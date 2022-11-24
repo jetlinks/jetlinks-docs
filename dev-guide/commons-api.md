@@ -2,9 +2,15 @@
 
 平台内部主要通过事件驱动实现解耦，本文列举核心的类以及接口，具体实现细节以及逻辑请查看对应类的代码。
 
-::: tip
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 可以利用Idea `double shift`来搜索对应的类和接口.
-:::
+
+</div>
 
 ## 设备操作底层类,接口
 

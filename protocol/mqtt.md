@@ -56,12 +56,19 @@ return device
 });
 ```
 
-::: tip 温馨提示
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
 
 图中的`device.getConfigs`表示: 先从设备中获取配置,如果不存在则从产品中获取.
 如果只从设备中获取可以使用`device.getSelfConfigs`
 
-:::
+</div>
 
 ## 定义MQTT配置描述
    
@@ -84,15 +91,23 @@ support.addConfigMetadata(DefaultTransport.MQTT,
 
 ## 定义topic
 
-::: tip 注意
-在`2.0`版本后,如果是通过`mqtt broker`接入的设备,必须进行此步骤. 
+
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+在`2.0`版本后,如果是通过`mqtt broker`接入的设备,必须进行此步骤.
 因为在启动设备接入网关时,会获取协议包定义的topic去从`mqtt broker`订阅数据.
 
 可以通过`{}`来指定`动态topic`,
 如 `/function/{functionId}`,订阅时会自动转换为mqtt的topic`/functoin/+`,
 如果要使用`#`则可以这样定义: `/function/{#functionId}`,订阅时会自动转换为mqtt的topic`/functoin/#`
 
-:::
+</div>
 
 ![mqtt-route](./img/add-mqtt-route.png)
 

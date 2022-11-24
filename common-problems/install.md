@@ -1,10 +1,10 @@
-# 安装,启动常见问题
+# 安装启动常见问题
 
 ## 使用docker启动UI后无法访问系统或者提示服务器内部错误
 
 可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。  
 ```shell script
-$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd
+$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
 ```
 需要将`API_BASE_PATH`修改为后台服务ip地址+端口。    
 
@@ -22,7 +22,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。
 ```yaml
   ui:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.1.1-RELEASE
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
     container_name: jetlinks-ce-ui
     ports:
       - 9000:80
@@ -71,16 +71,30 @@ easyorm:
 ## 协议发布失败或出现不支持的协议：xxx
 
 大部分原因是后台配置的文件上传路径错误。
-修改配置/jetlinks-standalone/src/main/resources/application.yml：  
+修改[系统配置](/System_settings/Basic_configuration13.html#基础配置)中的base-path，或者修改系统配置。
 ```yaml
-  file:
-    upload:
-      static-file-path: ./static/upload
-      static-location: http://localhost:${server.port}/upload
+system:
+  config:
+    scopes:
+      - id: paths
+        name: 访问路径配置
+        public-access: true
+        properties:
+          - key: base-path
+            name: 接口根路径
+            default-value: http://localhost:9000/api
 ```
-::: tip 注意:
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 localhost应为部署平台服务的ip地址
-::: 
+
+</div>
+
 若为docker启动的平台，则修改/docker/run-all/docker-compose.yml文件下的环境变量：  
 ```yaml
 jetlinks:
@@ -89,5 +103,5 @@ jetlinks:
       - "jetlinks-volume:/static/upload"  # 持久化上传的文件
     environment:
      # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
-      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
+      - "system.config.scopes[3].properties[0].default-value=http://localhost:8844/"  #上传的静态文件访问根地址,为ui的地址.
 ```

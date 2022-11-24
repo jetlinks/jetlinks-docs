@@ -8,7 +8,7 @@
 
 1. 获取源代码  
 ```shell script
-$ git clone https://github.com/jetlinks/jetlinks-ui-antd.git
+$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
 ```
 
 2. 使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
@@ -21,16 +21,23 @@ cp -r dist docker/
 ### 使用docker部署前端
 1. 构建docker镜像  
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
 ```
 
 2. 运行docker镜像  
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:1.10.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
 ```
-::: tip 注意
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
 环境变量`API_BASE_PATH`为后台API根地址. 由docker容器内进行自动代理. 请根据自己的系统环境配置环境变量: `API_BASE_PATH`
-:::
+
+</div>
 
 ### 使用nginx部署
 
@@ -56,8 +63,8 @@ server {
         index  index.html;
     }
 
-    location ^~/jetlinks/ {
-        proxy_pass http://jetlinks:8848/; #修改此地址为后台服务地址
+    location ^~/api/ {
+        proxy_pass http://api:8844/; #修改此地址为后台服务地址
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP  $remote_addr;
@@ -89,9 +96,13 @@ mvn clean package -Dmaven.test.skip=true
 ```
 
 2. 使用docker构建镜像  
-::: tip 注意
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 请自行准备docker镜像仓库，此处以registry.cn-shenzhen.aliyuncs.com阿里云私有仓库为例。
-:::
+</div>
 
 ```shell script
 $ cd ./jetlinks-standalone
@@ -116,7 +127,7 @@ services:
     #      - "6379:6379"
     volumes:
       - "redis-volume:/data"
-    command: redis-server --appendonly yes --requirepass "redispassword"
+    command: redis-server --appendonly yes --requirepass "JetLinks@redis"
     environment:
       - TZ=Asia/Shanghai
   elasticsearch:
@@ -157,7 +168,7 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
   ui:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-antd:latest
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
     container_name: jetlinks-ce-ui
     ports:
       - 9000:80
@@ -168,37 +179,51 @@ services:
     links:
       - jetlinks:jetlinks
   jetlinks:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0-SNAPSHOT
     container_name: jetlinks-ce
     ports:
-      - 8848:8848 # API端口
-      - 1883-1890:1883-1890 # 预留
-      - 8000-8010:8000-8010 # 预留
+      - "8848:8848" # API端口
+      - "1883-1890:1883-1890" # 预留
+      - "8800-8810:8800-8810" # 预留
+      - "5060-5061:5060-5061" # 预留
     volumes:
       - "jetlinks-volume:/application/static/upload"  # 持久化上传的文件
+      - "jetlinks-file-volume:/application/data/files"
       - "jetlinks-protocol-volume:/application/data/protocols"
     environment:
-     # - "JAVA_OPTS=-Xms4g -Xmx18g -XX:+UseG1GC"
+      - "JAVA_OPTS=-Duser.language=zh -XX:+UseG1GC"
       - "TZ=Asia/Shanghai"
       - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
       - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
       - "spring.r2dbc.username=postgres"
       - "spring.r2dbc.password=jetlinks"
+      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
+#        - "spring.data.elasticsearch.client.reactive.username=admin"
+#        - "spring.data.elasticsearch.client.reactive.password=admin"
+#        - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
       - "spring.redis.host=redis"
       - "spring.redis.port=6379"
-      - "spring.redis.password=redispassword"#生产环境请配置redis密码
-      # 生产环境下请配置es的密码，或者关闭公网访问
-      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
-#      - "spring.data.elasticsearch.client.reactive.username=admin"
-#      - "spring.data.elasticsearch.client.reactive.password=admin" 
-#      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
-#      - "jetlinks.device.storage.enable-last-data-in-db=true" # 开启记录最新数据到数据库，但是会降低吞吐量
+      - "file.manager.storage-base-path=/application/data/files"
+      - "spring.redis.password=JetLinks@redis"
       - "logging.level.io.r2dbc=warn"
       - "logging.level.org.springframework.data=warn"
       - "logging.level.org.springframework=warn"
       - "logging.level.org.jetlinks=warn"
       - "logging.level.org.hswebframework=warn"
       - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+      - "network.resources[0]=0.0.0.0:8800-8810/tcp"
+      - "network.resources[1]=0.0.0.0:1883-1890"
+      - "hsweb.cors.enable=true"
+      - "hsweb.cors.configs[0].path=/**"
+      - "hsweb.cors.configs[0].allowed-credentials=true"
+      - "hsweb.cors.configs[0].allowed-headers=*"
+      - "hsweb.cors.configs[0].allowed-origins=*"
+      - "hsweb.cors.configs[0].allowed-methods[0]=GET"
+      - "hsweb.cors.configs[0].allowed-methods[1]=POST"
+      - "hsweb.cors.configs[0].allowed-methods[2]=PUT"
+      - "hsweb.cors.configs[0].allowed-methods[3]=PATCH"
+      - "hsweb.cors.configs[0].allowed-methods[4]=DELETE"
+      - "hsweb.cors.configs[0].allowed-methods[5]=OPTIONS"
     links:
       - redis:redis
       - postgres:postgres
@@ -212,12 +237,18 @@ volumes:
   redis-volume:
   elasticsearch-volume:
   jetlinks-volume:
+  jetlinks-file-volume:
   jetlinks-protocol-volume:
 ```
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
-::: tip 注意：
 jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步。
-:::
+
+</div>
 
 6.运行docker-compose文件
 
@@ -242,8 +273,13 @@ jar包文件地址: `jetlinks-standalone/target/jetlinks-standalone.jar`
 ```bash
 $ java -jar jetlinks-standalone.jar
 ```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 
-::: tip 注意
 请根据情况调整jvm参数等信息.
-:::
+
+</div>
 

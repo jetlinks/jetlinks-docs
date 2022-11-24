@@ -100,15 +100,9 @@ show global variables like '%ssl%';
 
 ---
 
-## 项目启动时发现admin用户没有完整的权限
-* 登录http://demo.jetlinks.cn/ 账密：联系jetlinks方人员
-* 系统设置→权限管理 →导出
-* 回到自己部署的项目：系统设置→权限管理 →导入
-* 用户管理→赋权→勾上需要的权限
-* 退出重新登录
 
 ## 项目启动发现某些资源访问404
-根据https://github.com/jetlinks/jetlinks-pro下
+根据https://github.com/jetlinks-v2/jetlinks-pro下
 的操作步骤一步一步拉取代码<br/>
 不要跳过更新代码！！！<br/>
 更改的代码也不要提交到jetlinks的代码仓库，请自行建立代码托管仓库！！！
@@ -125,76 +119,15 @@ show global variables like '%ssl%';
 ## 设备无法连接上jetlinks平台
 * 网络组件host建议填入0.0.0.0
 * 端口：查看docker-compose.yml里的预留端口 默认预留的8100-8110端口 填入预留的端口，如需更多端口请自定义后重启项目即可
-* 微服务版：在micro-service目录下的docker-compose.yml里的iot组件内添加自定义ports
-* 修改后重启网络组件
 * 仍然不能接入，查看云服务器：如阿里云，检查安全组内是否开放了预留端口
 * 再尝试使用emqx socket_tool等工具连接
 
 ---
-## 微服务版本在启动micro-service时提示无法连接127.0.0.1:6379/5432等端口
-
-修改micro-service内的docker-compose.yml<br/>
-查看给启动失败的component添加environment参数
-
-  添加下面的参数信息，ip换成自己的服务器公网ip <br/>
-```yaml
-"spring.redis.host=192.168.22.65"
-"elasticsearch.client.host=192.168.22.65"
-"spring.r2dbc.url=r2dbc:postgresql://192.168.22.65:5432/jetlinks"
-```
-
-## 微服务版本如何添加组件模块？
-以OPC-UA为例，
-https://github.com/jetlinks/jetlinks-opc-ua
-下的操作说明拉取opc-ua模块，单机版按照文档指示操作。<br/>
-微服务版本在jetlinks-parent内加入
-```yaml
-<modules>
-    <module>expands-components/jetlinks-opc-ua</module>
-</modules>
-```
-在`iot-service`模块内加入
-```yaml
-<dependency>
-    <groupId>org.jetlinks.pro</groupId>
-    <artifactId>jetlinks-opc-ua</artifactId>
-    <version>${project.version}</version>
-    <!--${project.version}替换成iot-service内引用的版本 -->
-</dependency>
-```
-在`api-gateway-service`模块内的`application.yml`文件内找到`iot-service`组件<br/>
-在`predicates`字段后添加`/opc/**`路由<br/>
-其他模块类似,具体路由路径查看引入项目内的web目录下的controller方法上注解的`@RequestMapping`标识。
-
-## 上传的协议包在发布的时候提示无法加载协议
-![摄像头网关截图](./images/cannot_load_protocal.png)
-修改docker-compose.yml里面的
-```yaml
-hsweb.file.upload.static-location
-改成能访问的公网ip，后缀目录请勿变化
-```
----
-## 大屏项目启动后访问的ip地址仍为127.0.0.1
-docker-compose.yml里面的jetlinks镜像下 environment参数内添加
-```yaml
-api.urls.big-screen-path=http://公网ip:9002/
-```
 
 ----
 
-## 调试邮件发送报No appropriate protocol (protocol is disabled or cipher suites are inappropriate)
-配置以下参数
-```yaml
- mail.smtp.starttls.enable：true
- mail.smtp.auth：true
- mail.smtp.socketFactory.class：javax.net.ssl.SSLSocketFactory
- mail.smtp.socketFactory.port：465
- mail.smtp.port：465
- mail.smtp.ssl.protocols：TLSv1.2
-```
-
 ## 视频网关如何配置？
-[视频网关配置](../media-guide/media-base-config.md)
+[视频网关配置](../media-guide/media_access_process.md)
 
 ## 关于集群下的mqtt客户端组件无法共享订阅问题？
 1. 集群下的服务器要分配不同的server-id
