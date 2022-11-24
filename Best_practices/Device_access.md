@@ -188,7 +188,7 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
 
 ```
 
-点击**消息发送按你**，向平台推送该消息。
+点击**消息发送按钮**，向平台推送该消息。
 ![](./img/mqttx-property-read-reply.png)
 
 

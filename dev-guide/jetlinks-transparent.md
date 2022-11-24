@@ -27,10 +27,11 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-解析设备透传到平台的消息，需要定义函数为`function decode(context){xxx}`
+解析设备透传到平台的消息，需要在产品或设备详情-数据解析tab页中的脚本输入框中定义函数为`function decode(context){xxx}`
 
 </div>
 
+![](./images/product-data-parser.png)
 
 
 **context API说明**
@@ -147,9 +148,12 @@ function decode(context) {
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-编码平台指令下发消息，需要定义函数为`function encode(context){xxx}`
+编码平台指令下发消息，需要在产品或设备详情-数据解析tab页中的脚本输入框中定义函数为`function encode(context){xxx}`
 
 </div>
+
+![](./images/product-data-parser2.png)
+
 
 
 **context API说明**
