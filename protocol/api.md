@@ -557,692 +557,394 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 <br>
 
-<a id='Message'>Message</a>
+<a id='Message' style='text-decoration:none;cursor:default'>Message</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>Message：设备消息</li>
-  <li>子接口：BroadcastMessage、ThingMessage</li>
+  Message：消息的顶层接口，device是他的子接口之一
 </div>
 
-| 核心方法                                                     | 返回值类型             | 描述                                                         |
-| ------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
-| getMessageType()                                             | MessageType            | 获取消息类型                                                 |
-| getMessageId()                                               | String                 | 消息的唯一标识,用于在请求响应模式下对请求和响应进行关联. 注意: 此消息ID为全系统唯一. 但是在很多情况下,设备可能不支持此类型的消息ID, 此时需要在协议包中做好映射关系,比如使用:java.util.concurrent.ConcurrentHashMap进行消息绑定. 还可以使用工具类:org.jetlinks.core.message.codec.context.CodecContext来进行此操作. |
-| getTimestamp()                                               | long                   | 毫秒时间戳                                                   |
-| getHeaders()                                                 | ` Map<String, Object>` | 消息头,用于自定义一些消息行为, 默认的一些消息头请看:Headers，返回headers或者null |
-| addHeader(String header, Object value) <br/> Params: <br/>header – header <br/>value – value | Message                | 添加一个header，返回this                                     |
-| addHeaderIfAbsent(String header, Object value) Params: header – header Object value – | Message                | 添加header,如果header已存在则放弃，返回this                  |
-| removeHeader(String header) <br/>Params: <br/>header – header | ` Message`             | 删除一个header                                               |
-
-<br>
-
-
-
-**MessageType**
-
+<a id='DeviceMessage' style='text-decoration:none;cursor:default'>DeviceMessage</a>
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>MessageType 枚举类</li>
+  DeviceMessage：设备消息
 </div>
 
-| 枚举值                      | 描述                 |
-| --------------------------- | -------------------- |
-| REPORT\_PROPERTY            | 上报设备属性         |
-| READ\_PROPERTY              | 下行读属性           |
-| READ\_PROPERTY              | 下行写属性           |
-| READ\_PROPERTY\_REPLY       | 上行读属性回复       |
-| WRITE\_PROPERTY\_REPLY      | 上行写属性回复       |
-| INVOKE\_FUNCTION            | 下行调用功能         |
-| INVOKE\_FUNCTION\_REPLY     | 上行调用功能回复     |
-| EVENT                       | 事件消息             |
-| ~BROADCAST~                 | 广播,暂未支持        |
-| ONLINE                      | 设备上线             |
-| OFFLINE                     | 设备离线             |
-| REGISTER                    | 注册                 |
-| UN\_REGISTER                | 注销                 |
-| DISCONNECT                  | 平台主动断开连接     |
-| DISCONNECT\_REPLY           | 断开回复             |
-| DERIVED\_METADATA           | 派生属性             |
-| CHILD                       | 下行子设备消息       |
-| CHILD\_REPLY                | 上行子设备消息回复   |
-| READ\_FIRMWARE              | 读取设备固件信息     |
-| READ\_FIRMWARE\_REPLY       | 读取设备固件信息回复 |
-| REPORT\_FIRMWARE            | 上报设备固件信息     |
-| REQUEST\_FIRMWARE           | 设备拉取固件信息     |
-| REQUEST\_FIRMWARE\_REPLY    | 设备拉取固件信息响应 |
-| UPGRADE\_FIRMWARE           | 更新设备固件         |
-| UPGRADE\_FIRMWARE\_REPLY    | 更新设备固件信息回复 |
-| UPGRADE\_FIRMWARE\_PROGRESS | 上报固件更新进度     |
-| DIRECT                      | 透传消息             |
-| UPDATE\_TAG                 | 更新标签             |
-| LOG                         | 日志                 |
-| ACKNOWLEDGE                 | 应答指令             |
-| STATE\_CHECK                | 状态检查             |
-| STATE\_CHECK\_REPLY         | 状态检查回复         |
-| UNKNOWN                     | 未知消息             |
+核心方法说明：
 
-<br>
+|方法|类型|描述|
+|----|-----|----|
+|   getDeviceId()        |  String      |   获取设备ID     |
+<br/>
 
-
-
-**HeaderKey**
-
+<a id='CommonDeviceMessage' style='text-decoration:none;cursor:default'>CommonDeviceMessage</a>
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>HeaderKey 顶层接口</li>
+  CommonDeviceMessage：通用设备消息，实现deviceMessage接口
 </div>
 
-| 核心方法          | 返回值类型 | 描述                      |
-| ----------------- | ---------- | ------------------------- |
-| getKey()          | String     | 获取key值                 |
-| getDefaultValue() | T          | 获取传入泛型类型得value值 |
+核心参数说明：
+
+|参数|类型|描述| 是否必填|
+|----|-----|----|-----|
+|   messageId        |  String      |   消息ID，是设备与平台的通信凭证     | 是  |
+|   deviceId        |  String      |   设备ID     | 是  |
+|   timestamp        |  long      |   毫秒时间戳    | 否  |
+
+<br/>
+
+```java
+CommonDeviceMessage的主要实现类说明：
+    1、 ChildDeviceMessage：子设备消息
+    2、 ChildDeviceMessageReply：子设备消息回复
+    3、 DerivedMetadataMessage：派生物模型消息
+    4、 DeviceOnlineMessage：上线消息
+    5、 DeviceOfflineMessage：离线消息
+    6、 DeviceRegisterMessage 设备注册消息
+    7、 DirectDeviceMessage：透传消息
+    8、 EventMessage：事件消息
+    9、 FunctionInvokeMessage：功能调用消息
+    10、FunctionInvokeMessageReply：功能调用消息得回复
+    11、ReadPropertyMessage：读取属性消息
+    12、ReadPropertyMessageReply：读取属性消息的回复
+    13、ReportPropertyMessage：上报属性消息
+    14、UpdateTagMessage：
+    15、WritePropertyMessage：修改属性消息
+    16、WritePropertyMessageReply：修改属性消息的回复
+```
+
 
 <br>
-
-
-
-**BroadcastMessage**
-
+ChildDeviceMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>BroadcastMessage：广播消息</li>
-  <li>DefaultBroadcastMessage 是它的默认实现类：</li>
+  ChildDeviceMessage：子设备消息，发往子设备的消息,通常是通过网关设备接入平台的设备。<br/>方向：平台->设备
 </div>
 
-| 核心方法                                                     | 返回值类型       | 描述                      |
-| ------------------------------------------------------------ | ---------------- | ------------------------- |
-| getAddress()                                                 | String           | 获取地址                  |
-| getMessage()                                                 | Message          | 获取消息                  |
-| address(String address) <BR/>Params: <BR/>address：地址      | BroadcastMessage | 添加地址                  |
-| message(Message message) <BR/>Params:<BR/> message：消息信息 | BroadcastMessage | 设置默认实现类的message值 |
-| getMessageType()                                             | MessageType      | 获取消息类型              |
+核心参数说明：
+
+|参数|类型|描述|
+|----|-----|----|
+|  childDeviceId        |  String      |   子设备ID     |是|
+|  childDeviceMessage   | Message      |   消息数据     |否|
 
 <br>
 
-
-
-<a id='DeviceMessage'>DeviceMessage</a>
-
+ChildDeviceMessageReply
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>DeviceMessage：设备消息</li>
-  <li>子接口：DeviceMessageReply</li>
+  ChildDeviceMessageReply：子设备消息的回复，设备对发往子设备消息的回复消息。<br/>方向：设备->平台
 </div>
 
-| 核心方法      | 返回值类型 | 描述       |
-| ------------- | ---------- | ---------- |
-| getDeviceId() | String     | 获取设备ID |
+核心参数说明：
+
+|参数|类型|描述|
+|----|-----|----|
+|  childDeviceId        |  String      |   子设备ID     |是|
+|  childDeviceMessage   | Message      |   消息数据     |否|
 
 <br>
 
-
-
-**DeviceMessageReply**
-
+DerivedMetadataMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>DeviceMessageReply：设备消息回复</li>
-  <li>DeviceMessage, ThingMessageReply的子接口之一</li>
+  DerivedMetadataMessage：派生物模型上报。<br/>方向：设备->平台
 </div>
 
-| 核心方法                  | 返回值类型         |            |
-| ------------------------- | ------------------ | ---------- |
-| deviceId(String deviceId) | DeviceMessageReply | 设置设备ID |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|  metadata        |  String      |   物模型json字符     |  否|
+|  all   | boolean      |   是否是全量数据     |否|
 
 <br>
 
-
-
-**ReadThingPropertyMessage**
-
+DeviceOnlineMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ReadThingPropertyMessage：读取设备属性消息，方向: 平台->设备,下发指令后,设备需要回复指令ReadPropertyMessageReply</li>
-  <li>RepayableThingMessage的子接口之一</li>
+  DeviceOnlineMessage：设备上线消息。<br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型                    | 描述                                                         |
-| ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
-| getProperties()                                              | `List<String>`                | 要读取的属性列表,协议包可根据实际情况处理此参数, 有的设备可能不支持读取指定的属性,则直接读取全部属性返回即可 |
-| addProperties(`List<String>` properties) Params: <BR/>`List<String>` properties-属性集合 | `ReadThingPropertyMessage<T>` | 添加属性列表                                                 |
-| forThing(ThingType thingType, String deviceId) <br/>Params：<BR/> ThingType thingType-物类型String deviceId-设备ID | DefaultReadPropertyMessage    | 设置DefaultReadPropertyMessage类的ThingId和ThingType         |
-
+核心方法说明：
+```java
+//返回枚举值，表示设备上线消息
+public MessageType getMessageType() {
+//枚举值含义：返回一个DeviceOfflineMessage对象
+  //ONLINE(DeviceOnlineMessage::new),
+    return MessageType.ONLINE;
+}
+```
 <br>
 
-
-
-**ThingType**
-
+DeviceOfflineMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingType 物类型定义,通常使用枚举实现此接口</li>
+  DeviceOfflineMessage：设备离线消息。<br/>方向：设备->平台
 </div>
 
-| 核心方法  | 返回值类型 | 描述     |
-| --------- | ---------- | -------- |
-| getId()   | String     | 类型ID   |
-| getName() | String     | 类型名称 |
+核心方法说明：
+```java
+//返回枚举值，表示设备离线消息
+public MessageType getMessageType() {
+  //枚举值含义：返回一个DeviceOfflineMessage对象
+  //OFFLINE(DeviceOfflineMessage::new),
+    return MessageType.OFFLINE;
+}
+
+```
 
 <br>
 
-
-
-**ReadThingPropertyMessageReply**
-
+DeviceRegisterMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ReadThingPropertyMessageReply：读取设备属性消息回复, 方向: 设备->平台 在设备接收到ReadPropertyMessage消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果.</li>
-   <li>ThingMessageReply, PropertyMessage的子接口</li>
+  DeviceRegisterMessage：设备注册消息,通常用于子设备连接,并自动与父设备进行绑定
 </div>
-
-| 核心方法                                                     | 返回值类型                    | 描述                         |
-| ------------------------------------------------------------ | ----------------------------- | ---------------------------- |
-| success(`Map<String, Object>` properties) <BR/>Params: <BR/>properties – 属性值 | ReadThingPropertyMessageReply | 设置成功并设置返回属性值     |
-| success(`List<ThingProperty>` properties) Params:<BR/> properties – 属性值 | ReadThingPropertyMessageReply | 设置成功并设置返回完整属性值 |
-
 <br>
 
 
-
-**RepayableDeviceMessage**
-
+DirectDeviceMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>RepayableDeviceMessage：支持回复的消息</li>
-   <li>DeviceMessage, RepayableThingMessage的子接口</li>
+  DirectDeviceMessage：透传设备消息。将报文传入mqtt payload中
+ <br/>方向：设备->平台
 </div>
 
+核心参数说明：
 
-
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|  payload        |  byte[]      |   存放上报数据     |   否|
 <br>
 
-
-
-**RepayableThingMessage**
-
+EventMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>RepayableThingMessage：支持回复的消息</li>
-   <li>ThingMessage的子接口</li>
+  EventMessage：事件消息。
+ <br/>方向：设备->平台
 </div>
 
+核心参数说明：
 
-
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    event        |  String       |   事件标识   |   是    |
+|    data       | Object        | 存放上报的数据 |   否    |
 <br>
 
-
-
-**ThingEventMessage**
-
+FunctionInvokeMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingEventMessage：物事件消息</li>
-   <li>ThingMessage的子接口</li>
+  FunctionInvokeMessage：平台功能调用消息。下发的json参数数据会议list集合的形式封装在inputs中
+ <br/>方向：平台->设备
 </div>
 
-| 核心方法                                            | 返回值类型        | 描述                       |
-| --------------------------------------------------- | ----------------- | -------------------------- |
-| getEvent()                                          | String            | 事件标识                   |
-| getData()                                           | Object            | 事件数据，与物模型类型对应 |
-| event(String event) <BR/>Params:<BR/> event – event | ThingEventMessage | 设置事件                   |
-| data(Object data) <BR/>Params:<BR/> data – data     | ThingEventMessage | 设置事件数据               |
+核心参数说明：
 
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    functionId        |  String       |   事件标识   |   是    |
+|    inputs       | `List<FunctionParameter>`        | 存放下发的数据 |   否    |
+```java
+//FunctionParameter类
+public class FunctionParameter implements Serializable {
+    private static final long serialVersionUID = -6849794470754667710L;
+
+    @NonNull
+    private String name;
+
+    private Object value;
+
+	}
+```
 <br>
-
-
-
-**ThingFunctionInvokeMessage**
-
+FunctionInvokeMessageReply
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingFunctionInvokeMessage：物功能调用消息</li>
-   <li>RepayableThingMessage的子接口、CommonDeviceMessage的父接口</li>
-   <li>DefaultFunctionInvokeMessage、FunctionInvokeMessage 是CommonDeviceMessage的两个实现类</li>
+  FunctionInvokeMessageReply：平台功能调用消息的回复。上报的参数数据以list集合的形式封装在output中
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型                 | 描述                 |
-| ------------------------------------------------------------ | -------------------------- | -------------------- |
-| getFunctionId()                                              | String                     | 获取functionId       |
-| getInputs()                                                  | `List<FunctionParameter>`  | 获取功能参数         |
-| addInput(FunctionParameter parameter) </br>Params:</br> parameter– 功能参数 | ThingFunctionInvokeMessage | 添加功能参数         |
-| functionId(String id) </br>Params: </br>id – functionId      | ThingFunctionInvokeMessage | 设置functionId       |
-| getInput(String name)</br> Params:</br> name– 功能参数名称   | `Optional<Object>`         | 根据名称获取功能参数 |
-| getInput(int index) </br>Params: </br>index– 索引            | ` Optional<Object>`        | 根据索引获取功能参数 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    functionId        |  String       |   事件标识   |   是    |
+|    output       | Object       | 存放上报的数据 |   否    |
 
 <br>
 
-
-
-**ThingFunctionInvokeMessageReply**
-
+ReadPropertyMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingFunctionInvokeMessageReply：物功能调用回复,用于对物模型功能调用进行响应</li>
-   <li>RepayableThingMessage的子接口、CommonDeviceMessage的父接口</li>
-   <li>ThingMessageReply的子接口、CommonDeviceMessageReply 的父接口</li>
-   <li>DefaultFunctionInvokeMessageReply、FunctionInvokeMessageReply 是 CommonDeviceMessageReply 的两个实现类</li>
+  ReadPropertyMessage：读取设备消息。下发指令后,设备需要回复指令ReadPropertyMessageReply,且getMessageId()值需要相同
+ <br/>方向：平台->设备
 </div>
 
-| 核心方法                                                | 返回值类型                 | 描述                                    |
-| ------------------------------------------------------- | -------------------------- | --------------------------------------- |
-| getFunctionId()                                         | String                     | 获取functionId,对应物模型ID             |
-| getOutput()                                             | Object                     | 功能调用响应结果,根据物模型的不同而不同 |
-| output(Object output) <br/>Params: <br/>output – output | ThingFunctionInvokeMessage | 设置功能的输出值                        |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `List<String>`       |   属性值   |   是   |
 
 <br>
 
-
-
-**ThingMessage**
-
+ReadPropertyMessageReply
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingMessage：物消息</li>
-   <li>Message的子接口</li>
+  ReadPropertyMessageReply：在设备接收到ReadPropertyMessage消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果.
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型   | 描述             |
-| ------------------------------------------------------------ | ------------ | ---------------- |
-| getThingType()                                               | String       | 物类型           |
-| getThingId()                                                 | String       | 物ID             |
-| messageId(String messageId) </br>Params:</br> messageId – messageId | ThingMessage | 设置messageId    |
-| thingId(String thingType, String thingId)</br> Params:</br> thingType – 物类型 thingId – 物ID | ThingMessage | 设置物类型和ID   |
-| timestamp(long timestamp) </br>Params:</br> timestamp – 时间戳 | ThingMessage | 设置物消息时间戳 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `Map<String, Object>`       |   属性值   |   是   |
 
 <br>
 
-
-
-**ThingMessageReply**
-
+ReportPropertyMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingMessageReply：物消息回复</li>
-   <li>ThingMessage的子接口</li>
+  ReportPropertyMessage：上报设备属性,通常由设备定时上报.
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型        | 描述                     |
-| ------------------------------------------------------------ | ----------------- | ------------------------ |
-| isSuccess()                                                  | boolean           | 是否成功                 |
-| getCode()                                                    | String            | 业务码,具体由设备定义    |
-| getMessage()                                                 | String            | 错误消息                 |
-| error(ErrorCode errorCode)                                   | ThingMessageReply | 设置失败                 |
-| success()                                                    | ThingMessage      | 设置物消息时间戳         |
-| success(boolean success)                                     | ThingMessageReply | 设置成功                 |
-| code(@NotNull String code)                                   | ThingMessageReply | 设置业务码               |
-| message(@NotNull String message)                             | ThingMessageReply | 设置消息                 |
-| from(@NotNull Message message) </br>Params：</br> message-消息 | ThingMessageReply | 据另外的消息填充对应属性 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `Map<String, Object>`       |   属性值信息,key为物模型中的属性ID,value为物模型对应的类型值.注意: value如果是结构体(对象类型),请勿传入在协议包中自定义的对象,应该转为Map传入.   |   否   |
 
 <br>
 
-
-
-**ThingReportPropertyMessage**
-
+ReportPropertyMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>ThingReportPropertyMessage：上报设备属性,通常由设备定时上报,方向: 设备->平台</li>
-   <li>ThingMessage, PropertyMessage 的子接口</li>
-   <li>DefaultReportPropertyMessage、ReportPropertyMessage 是它的两个实现类</li>
+  ReportPropertyMessage：上报设备属性,通常由设备定时上报.
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型                 | 描述                         |
-| ------------------------------------------------------------ | -------------------------- | ---------------------------- |
-| success(`Map<String, Object>` properties) <br/>Params: <br/>properties – 属性值 | ThingReportPropertyMessage | 设置成功并设置返回属性值     |
-| success(`List<ThingProperty>` properties) <br/>Params: <br/>properties – 属性值 | ThingReportPropertyMessage | 设置成功并设置返回完整属性值 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `Map<String, Object>`       |   属性值信息,key为物模型中的属性ID,value为物模型对应的类型值.注意: value如果是结构体(对象类型),请勿传入在协议包中自定义的对象,应该转为Map传入.   |   是   |
 
 <br>
 
-
-
-**UpdateTingTagsMessage**
-
+UpdateTagMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>UpdateTingTagsMessage：更新物标签消息</li>
-   <li>ThingMessage的子接口、CommonThingMessage 的父接口</li>
-   <li>DefaultUpdateTingTagsMessage、UpdateTagMessage 是 CommonThingMessage 的两个实现类</li>
+  UpdateTagMessage：上报设备属性,通常由设备定时上报.
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                         | 返回值类型            | 描述         |
-| -------------------------------- | --------------------- | ------------ |
-| getTags()                        | `Map<String, Object>` | 获取标签信息 |
-| tags(`Map<String, Object>` tags) | UpdateTingTagsMessage | 更新标签信息 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    tags        |  `Map<String, Object>`       |  标签信息   |   是   |
 
 <br>
 
-
-
-**WriteThingPropertyMessage**
-
+WritePropertyMessage
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>WriteThingPropertyMessage：读取设备属性消息, 方向: 平台->设备 下发指令后,设备需要回复指令 ReadPropertyMessageReply</li>
-   <li>RepayableThingMessage 的子接口、CommonThingMessage 的父接口</li>
-   <li>DefaultWritePropertyMessage、WritePropertyMessage 是CommonThingMessage 的两个实现类</li>
+  WritePropertyMessage：修改属性指令,方向: 平台->设备
+用于修改设备属性,下发指令后,设备需要回复WritePropertyMessageReply
+ <br/>方向：平台->设备
 </div>
 
-| 核心方法                                                     | 返回值类型            | 描述                                                         |
-| ------------------------------------------------------------ | --------------------- | ------------------------------------------------------------ |
-| getProperties()                                              | `Map<String, Object>` | 要读取的属性列表,协议包可根据实际情况处理此参数, 有的设备可能不支持读取指定的属性,则直接读取全部属性返回即可 |
-| addProperty(String key, Object value)<br/> Params：<br/> key-key<br/> value-value | void                  | 添加属性                                                     |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `Map<String, Object>`       |  要修改的属性，key 为物模型中对应的属性ID,value为属性值，`Map<String, Object>` properties = new LinkedHashMap<>()  |   是   |
 
 <br>
 
-
-
-**WriteThingPropertyMessageReply**
-
+WritePropertyMessageReply
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>WriteThingPropertyMessageReply：读取设备属性消息回复, 方向: 设备->平台 在设备接收到 ReadPropertyMessage 消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果</li>
-   <li>ThingMessageReply, PropertyMessage的子接口、CommonThingMessageReply 的父接口</li>
-   <li>DefaultWritePropertyMessageReply、WritePropertyMessageReply 是它的两个实现类</li>
+  WritePropertyMessageReply：修改属性指令回复
+设备收到修改属性指令后作出相应的逻辑处理，给平台回复WritePropertyMessageReply消息
+ <br/>方向：设备->平台
 </div>
 
-| 核心方法                                                     | 返回值类型                     | 描述                         |
-| ------------------------------------------------------------ | ------------------------------ | ---------------------------- |
-| success(`Map<String, Object>` properties) <br/>Params:<br/> properties – 属性值 | WriteThingPropertyMessageReply | 设置成功并设置返回属性值     |
-| success(`List<ThingProperty>` properties) <br/>Params:<br/> properties – 属性值 | WriteThingPropertyMessageReply | 设置成功并设置返回完整属性值 |
+核心参数说明：
+
+|参数|类型|描述|是否必填|
+|----|-----|----|------|
+|    properties        |  `Map<String, Object>`       |  回复的属性,key为物模型中的属性ID,value为物模型对应的类型值.注意: value如果是结构体(对象类型),请勿传入在协议包中自定义的对象,应该转为Map传入. |   是   |
 
 <br>
 
 
 
-**DeviceMessageReply**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>DeviceMessageReply：设备消息回复</li>
-   <li>RepayableDeviceMessage：支持回复的消息</li>
-</div>
-
-| 核心方法      | 返回值类型 | 描述         |
-| ------------- | ---------- | ------------ |
-| getDeviceId() | String     | 获取设备ID值 |
-
-<br>
-
-
-
-<a id='EncodedMessage'>EncodedMessage</a>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>EncodedMessage：已编码的消息,通常为来自设备或者发向设备的原始报文</li>
-   <li>子接口：CoapMessage、RepayableDeviceMessage</li>
-</div>
-
-| 核心方法                     | 方法返回值         | 描述         |
-| ---------------------------- | ------------------ | ------------ |
-| getPayload()                 | ByteBuf            | 获取原始报文 |
-| @Deprecated getPayloadType() | MessagePayloadType | 报文信息类型 |
-
-<br>
-
-
-
-**CoapMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>CoapMessage：Coap协议消息</li>
-   <li>EncodedMessage的子接口</li>
-</div>
-
-| 核心方法     | 返回值类型     | 描述       |
-| ------------ | -------------- | ---------- |
-| getPath()    | String         | 获取path   |
-| getCode()    | CoAP.Code      | 获取code   |
-| getOptions() | `List<Option>` | 获取option |
-
-<br>
-
-
-
-**CoapResponseMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>CoapResponseMessage：Coap协议响应消息</li>
-   <li>EncodedMessage的子接口</li>
-  <li>DefaultCoapResponseMessage 是他的默认实现类</li>
-</div>
-
-| 核心方法  | 返回值类型        | 描述       |
-| --------- | ----------------- | ---------- |
-| getCode() | CoAP.ResponseCode | 获取响应码 |
-
-<br>
-
-
-
-**HttpRequestMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>HttpRequestMessage：Http协议请求信息</li>
-   <li>EncodedMessage 的子接口</li>
-  <li>SimpleHttpRequestMessage 是他的实现类</li>
-</div>
-
-| 核心方法             | 返回值类型            | 描述             |
-| -------------------- | --------------------- | ---------------- |
-| getPath()            | String                | 获取消息体的path |
-| getUrl()             | String                | 获取消息体的Url  |
-| getMethod()          | HttpMethod            | 获取请求方法     |
-| getContentType()     | MediaType             | 获取请求类型     |
-| getHeaders()         | `List<Header>`        | 获取请求头信息   |
-| getQueryParameters() | `Map<String, String>` | 获取查询参数     |
-
-<br>
-
-
-
-**HttpResponseMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>HttpResponseMessage：Http响应信息</li>
-   <li>EncodedMessage 的子接口</li>
-  <li>SimpleHttpResponseMessage 是他的实现类</li>
-</div>
-
-| 核心方法         | 返回值类型     | 描述         |
-| ---------------- | -------------- | ------------ |
-| getStatus()      | int            | 获取响应状态 |
-| getContentType() | MediaType      | 获取响应类型 |
-| getHeaders()     | `List<Header>` | 获取响应头   |
-
-<br>
-
-
-
-**MqttMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>MqttMessage：Mqtt信息</li>
-   <li>EncodedMessage 的子接口</li>
-  <li>SimpleMqttMessage 是它的实现类</li>
-</div>
-
-| 核心方法       | 返回值类型 | 描述         |
-| -------------- | ---------- | ------------ |
-| getTopic()     | String     | 获取topic    |
-| getClientId()  | String     | 获取客户端id |
-| getMessageId() | int        | 获取信息id   |
-
-<br>
-
-
-
-**MqttPublishingMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>MqttPublishingMessage：Mqtt信息推送</li>
-   <li>MqttMessage 的子接口</li>
-  <li>ProxyMqttPublishingMessage 是它的实现类</li>
-</div>
-
-| 核心方法                                                     | 返回值类型            | 描述                                             |
-| ------------------------------------------------------------ | --------------------- | ------------------------------------------------ |
-| acknowledge()                                                | void                  | 在QoS1,和QoS2时,此方法可能会被调用               |
-| of(MqttMessage message, Runnable doOnAcknowledge) <br/>Params: <br/> message – 原始消息 <br/> doOnAcknowledge – 应答回调 | MqttPublishingMessage | 根据另外一个MqttMessage创建MqttPublishingMessage |
-
-<br>
-
-
-
-**WebSocketMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>WebSocketMessage</li>
-   <li>EncodedMessage 的子接口</li>
-  <li>DefaultWebSocketMessage 是他的实现类</li>
-</div>
-
-| 核心方法  | 返回值类型 | 描述          |
-| --------- | ---------- | ------------- |
-| getType() | Type       | Websocket消息 |
-
-<br>
-
-
-
-**Type**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-
-  </p>
-    <li>类型值的枚举</li>
-</div>
-
-| 枚举值 | 描述   |
-| ------ | ------ |
-| TEXT   | 文本   |
-| BINARY | 二进制 |
-| PING   | ping   |
-| PONG   | pong   |
-
-<br>
-
-
-
-**WebSocketSessionMessage**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>WebSocketSessionMessage</li>
-   <li>WebSocketMessage 的子接口</li>
-  <li>WebSocketSessionMessageWrapper是它的实现类</li>
-</div>
-
-| 核心方法              | 返回值类型       | 描述        |
-| --------------------- | ---------------- | ----------- |
-| getWebSocketSession() | WebSocketSession | 获取session |
-
-<br>
-
-
-
-<a id='Authenticator'>Authenticator</a>
+<a id='Authenticator' style='text-decoration:none;cursor:default'>Authenticator</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1251,6 +953,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>
   <li>Authenticator：认证器,用于设备连接的时候进行认证</li>
 </div>
+
 
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
@@ -1261,7 +964,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='AuthenticationRequest'>AuthenticationRequest</a>
+<a id='AuthenticationRequest' style='text-decoration:none;cursor:default'>AuthenticationRequest</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1272,6 +975,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>MqttAuthenticationRequest 是它的默认实现类</li>
 </div>
 
+
 | 核心方法       | 返回值类型 | 描述         |
 | -------------- | ---------- | ------------ |
 | getTransport() | Transport  | 返回协议类型 |
@@ -1280,7 +984,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='AuthenticationResponse'>AuthenticationResponse</a>
+<a id='AuthenticationResponse' style='text-decoration:none;cursor:default'>AuthenticationResponse</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1289,6 +993,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>
   <li>AuthenticationResponse(类)：封装了认证响应信息</li>
 </div>
+
 
 | 核心方法                        | 放回置类型             | 描述               |
 | ------------------------------- | ---------------------- | ------------------ |
@@ -1300,7 +1005,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='DeviceRegistry'>DeviceRegistry</a>
+<a id='DeviceRegistry' style='text-decoration:none;cursor:default'>DeviceRegistry</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1313,6 +1018,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 .flatMap(device->device.getSelfConfig("my-config"))  
 .flatMap(conf-> doSomeThing(...))</li>
 </div>
+
 
 | 核心方法                                                     | 返回值类型                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
@@ -1342,6 +1048,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>DefaultDeviceProductOperator 是它的默认实现类</li>
 </div>
 
+
 | 核心方法      | 返回值类型              | 描述                 |
 | ------------- | ----------------------- | -------------------- |
 | getProtocol() | `Mono<ProtocolSupport>` | 获取支持协议         |
@@ -1351,7 +1058,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='DeviceOperator'>DeviceOperator</a>
+<a id='DeviceOperator' style='text-decoration:none;cursor:default'>DeviceOperator</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1362,6 +1069,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>继承Thing接口</li>
   <li>DefaultDeviceOperator是它的默认实现类</li>
 </div>
+
 
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
@@ -1382,3 +1090,4 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 | getProtocol()                                                | `Mono<ProtocolSupport>`        | 获取此设备使用的协议支持                                     |
 | messageSender()                                              | DeviceMessageSender            | 消息发送器, 用于发送消息给设备                               |
 | getProduct()                                                 | `Mono<DeviceProductOperator>`  | 获取设备对应的产品操作接口                                   |
+
