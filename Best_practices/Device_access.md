@@ -39,7 +39,7 @@
 
 </div>
 
-`填写账号为：admin   密码为：admin`
+`在设备接入tab页的MQTT认证配置项中填写  secureId为：admin    secureKey为：admin。`
 
 
 ![](./img/auth-info.png)
@@ -76,7 +76,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>名称</td>
+            <td>Name</td>
             <td>输入您的自定义名称。</td>
           </tr>
           <tr>
@@ -84,19 +84,19 @@
             <td> 设备Id。必须与系统中设备的ID填写一致。</td>
           </tr>
           <tr>
-            <td>服务器地址</td>
+            <td>Host</td>
             <td>连接域名。本地连接可直接填写 `127.0.0.1`,如为远程连接，请填写产品-设备接入页-连接信息显示的连接地址。</td>
           </tr>
          <tr>
-            <td>端口</td>
+            <td>Port</td>
             <td>请填写产品-设备接入页-连接信息显示的端口。</td>
           </tr>
           <tr>
-            <td>用户名</td>
+            <td>Username</td>
             <td>填写接入账号</td>
           </tr>
          <tr>
-            <td>密码</td>
+            <td>Password</td>
             <td>填写接入密码</td>
           </tr>
         </tbody>
@@ -177,9 +177,8 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
 ```json
 
 {
-  "timestamp": "当前时间戳",
-  "deviceId": "deviceId",
-  "messageId": "messageId",
+  "deviceId": "设备Id",
+  "messageId": "平台下发报文中的messageId",
   "properties":{
     "temperature": 35.6
   },
@@ -187,10 +186,6 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
 }
 
 ```
-
-点击**消息发送按钮**，向平台推送该消息。
-![](./img/mqttx-property-read-reply.png)
-
 
 
 **回复参数说明**
@@ -205,15 +200,11 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
         <tbody>
           <tr>
             <td>messageId</td>
-            <td>平台所下发的messageId值</td>
+            <td>平台下发报文中的messageId</td>
           </tr>
           <tr>
             <td>deviceId </td>
             <td>设备ID</td>
-          </tr>
-          <tr>
-            <td>timestamp</td>
-            <td>当前时间戳，可不填写，默认为消息回复时间</td>
           </tr>
           <tr>
             <td>success</td>
@@ -225,6 +216,11 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
           </tr>
         </tbody>
       </table>
+
+
+点击**消息发送按钮**，向平台推送该消息。
+![](./img/mqttx-property-read-reply.png)
+
 
 
 4.平台收到MqttX推送的属性值后，将会实时展示到运行状态中。</br>
@@ -250,12 +246,10 @@ MQTTX 推送设备事件消息到平台。<br />
 
 ```json
 {
- "timestamp":1627960319,
- "messageId":"1422143789942595584",
- "event": "alarm_id",
- "data":{"a_name":"未来科技城",
-  "b_name":"C2 栋",
-  "l_name":"12-05-2012"}
+ "data":{
+   "addr":"未来科技城 C2 栋",
+  "time":"12-05-2012"
+ }
 }
 ```
 
@@ -268,16 +262,8 @@ MQTTX 推送设备事件消息到平台。<br />
         </thead>
         <tbody>
           <tr>
-            <td>timestamp</td>
-            <td>当前时间戳</td>
-          </tr>
-          <tr>
-            <td>messageId </td>
-            <td>随机消息ID</td>
-          </tr>
-          <tr>
             <td>data</td>
-            <td>上报数据，类型与物模型事件中定义的类型一致</td>
+            <td>对象类型的报文数据</td>
           </tr>
         </tbody>
       </table>
@@ -296,9 +282,8 @@ MQTTX 推送设备事件消息到平台。<br />
 
 ```json
 {
- "timestamp":1601196762389,
- "messageId":"1422497215780651008", 
- "output":"success",
+ "messageId":"平台下发报文中的messageId", 
+ "output":true,
  "success":true
 }
 ```
@@ -311,16 +296,12 @@ MQTTX 推送设备事件消息到平台。<br />
         </thead>
         <tbody>
           <tr>
-            <td>timestamp</td>
-            <td>毫秒时间戳</td>
-          </tr>
-          <tr>
             <td>messageId </td>
-            <td>与设备下发中的messageId相同</td>
+            <td>平台下发报文中的messageId</td>
           </tr>
           <tr>
             <td>output</td>
-            <td>返回执行结果,具体类型与物模型中功能输出类型一致</td>
+            <td>返回的对象类型执行结果</td>
           </tr>
            <tr>
             <td>success</td>
@@ -390,146 +371,255 @@ clientId 和用户名密码符合emq规则即可,这时的认证是通过emq,而
 通过此方法接入对于设备端除了认证方式、上下线逻辑不同,其他消息格式以及topic都是与使用MQTT服务网关接入设备一致的。
 
 
-## TCP 服务接入
-本文档使用[Packet Sender](https://packetsender.com/download#show)工具模拟tcp客户端接入平台。
+[comment]: <> (## TCP 服务接入)
 
-###  系统配置
-1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建TCP服务网络组件。</br>
-![](./img/tcpwl.png)
-2.进入**协议管理**菜单，上传协议包。</br>
-![](./img/254.png)
-3.进入**设备接入网关**，创建TCP透传接入类型的接入网关。</br>
-![](./img/tcpwg.png)
-4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为TCP透传接入类型的设备接入网关。</br>
-![](./img/tcpjr.png)
-5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择TCP透传接入类型的产品。</br>
+[comment]: <> (本文档使用[Packet Sender]&#40;https://packetsender.com/download#show&#41;工具模拟tcp客户端接入平台。)
 
-### TCP工具接入
-1.下载并安装[Packet Sender](https://packetsender.com/download#show)。
+[comment]: <> (###  系统配置)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-TCP协议以二进制的数据包传输数据，此处使用Packet Sender工具将发送的消息先转成十六进制，
-再通过该工具自动转换成二进制发送到平台。
-</div>
+[comment]: <> (1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建TCP服务网络组件。</br>)
 
-2.生成所需的十六进制字符串。  
-i. 检出[协议代码](https://github.com/jetlinks/demo-protocol.git)  
-ii. 执行测试包org.jetlinks.demo.protocol.tcp下DemoTcpMessageTest的test方法生成设备认证所需的十六进制字符串  
-代码如下：
-```java
-    @Test
-    void test() {
-        DemoTcpMessage message = DemoTcpMessage.of(MessageType.AUTH_REQ, AuthRequest.of(1000, "admin"));
+[comment]: <> (![]&#40;./img/tcpwl.png&#41;)
 
-        byte[] data = message.toBytes();
-        System.out.println(Hex.encodeHexString(data));
+[comment]: <> (2.进入**协议管理**菜单，上传协议包。</br>)
 
-        DemoTcpMessage decode = DemoTcpMessage.of(data);
+[comment]: <> (![]&#40;./img/254.png&#41;)
 
-        System.out.println(decode);
+[comment]: <> (3.进入**设备接入网关**，创建TCP透传接入类型的接入网关。</br>)
 
-        Assertions.assertEquals(message.getType(), decode.getType());
-        Assertions.assertArrayEquals(message.getData().toBytes(), decode.getData().toBytes());
-    }
+[comment]: <> (![]&#40;./img/tcpwg.png&#41;)
+
+[comment]: <> (4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为TCP透传接入类型的设备接入网关。</br>)
+
+[comment]: <> (![]&#40;./img/tcpjr.png&#41;)
+
+[comment]: <> (5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择TCP透传接入类型的产品。</br>)
+
+[comment]: <> (### TCP工具接入)
+
+[comment]: <> (1.下载并安装[Packet Sender]&#40;https://packetsender.com/download#show&#41;。)
+
+[comment]: <> (<div class='explanation primary'>)
+
+[comment]: <> (  <p class='explanation-title-warp'>)
+
+[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
+
+[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
+
+[comment]: <> (  </p>)
+
+[comment]: <> (TCP协议以二进制的数据包传输数据，此处使用Packet Sender工具将发送的消息先转成十六进制，)
+
+[comment]: <> (再通过该工具自动转换成二进制发送到平台。)
+
+[comment]: <> (</div>)
+
+[comment]: <> (2.生成所需的十六进制字符串。  )
+
+[comment]: <> (i. 检出[协议代码]&#40;https://github.com/jetlinks/demo-protocol.git&#41;  )
+
+[comment]: <> (ii. 执行测试包org.jetlinks.demo.protocol.tcp下DemoTcpMessageTest的test方法生成设备认证所需的十六进制字符串  )
+
+[comment]: <> (代码如下：)
+
+[comment]: <> (```java)
+
+[comment]: <> (    @Test)
+
+[comment]: <> (    void test&#40;&#41; {)
+
+[comment]: <> (        DemoTcpMessage message = DemoTcpMessage.of&#40;MessageType.AUTH_REQ, AuthRequest.of&#40;1000, "admin"&#41;&#41;;)
+
+[comment]: <> (        byte[] data = message.toBytes&#40;&#41;;)
+
+[comment]: <> (        System.out.println&#40;Hex.encodeHexString&#40;data&#41;&#41;;)
+
+[comment]: <> (        DemoTcpMessage decode = DemoTcpMessage.of&#40;data&#41;;)
+
+[comment]: <> (        System.out.println&#40;decode&#41;;)
+
+[comment]: <> (        Assertions.assertEquals&#40;message.getType&#40;&#41;, decode.getType&#40;&#41;&#41;;)
+
+[comment]: <> (        Assertions.assertArrayEquals&#40;message.getData&#40;&#41;.toBytes&#40;&#41;, decode.getData&#40;&#41;.toBytes&#40;&#41;&#41;;)
+
+[comment]: <> (    })
    
-```
-结果：`000d000000e80300000000000061646d696e`
+[comment]: <> (```)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-AuthRequest.of(deviceId,key) 第一个参数为设备id，第二参数为产品中配置的TCP认证配置。  
-</div>
-iii. 在测试类中执行如下代码生成事件上报所需的十六进制字符串： 
+[comment]: <> (结果：`000d000000e80300000000000061646d696e`)
 
-```java
-    @Test
-    void encodeEvent() {
-        DemoTcpMessage demoTcpMessage = DemoTcpMessage.of(MessageType.FIRE_ALARM,
-                FireAlarm.builder()
-                        .point(ThreadLocalRandom.current().nextInt())
-                        .lat(36.5F)
-                        .lnt(122.3F)
-                        .deviceId(1000)
-                        .build());
-        byte[] data = demoTcpMessage.toBytes();
-        System.out.println(demoTcpMessage);
-        System.out.println(Hex.encodeHexString(data));
-    }
-```  
-结果：`0614000000e8030000000000009a99f4420000124222b7c94c`
+[comment]: <> (<div class='explanation primary'>)
 
-3.设置参数
-i. 设置基本信息
-![](./img/269.png)
+[comment]: <> (  <p class='explanation-title-warp'>)
 
-<table class='table'>
-        <thead>
-            <tr>
-              <td>参数</td>
-              <td>说明</td>
-            </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Name</td>
-            <td>输入您的自定义名称。</td>
-          </tr>
-          <tr>
-            <td>ASCII </td>
-            <td>ASCII码，输入下方十六进制字符串后会自动生成。</td>
-          </tr>
-          <tr>
-            <td>HEX</td>
-            <td>十六进制。</td>
-          </tr>
-           <tr>
-            <td>Address</td>
-            <td>TCP服务地址。</td>
-          </tr>
-           <tr>
-            <td>Port</td>
-            <td>TCP服务端口。</td>
-          </tr>
-          <tr>
-            <td>Persistent TCP</td>
-            <td>勾选之后可保持长连接。</td>
-          </tr>
-        </tbody>
-      </table>
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-设置参数时，请确保参数值中或参数值的前后均没有空格。
-</div>
+[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
 
-模式选择TCP。
-![](./img/270.png)
-**分别保存上线参数以及事件上报参数**。</br>
-设备上线：
-![](./img/271.png)
-事件上报：
-![](./img/272.png)
+[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
 
-4.模拟设备上下线</br>
-单击packetsender工具上`Send`按钮发起请求。
-![](./img/273.png)
-平台中设备状态变为上线即为连接成功,在设备日志模块可以看到设备上线日志。</br>
-勾选`Persistent TCP`packetsender上请求成功后会打开一个新的已连接页面。
-![](./img/274.png)
-关闭这个新的已连接页面即可断开设备与平台的连接,平台中设备状态变为离线,同时在设备日志模块可以看到设备离线日志。</br>
-5.模拟设备上报事件</br>
-i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。
-![](./img/275.png)
-ii. 上报成功后，在**设备-运行状态**页面可以查看到。
+[comment]: <> (  </p>)
+
+[comment]: <> (AuthRequest.of&#40;deviceId,key&#41; 第一个参数为设备id，第二参数为产品中配置的TCP认证配置。  )
+
+[comment]: <> (</div>)
+
+[comment]: <> (iii. 在测试类中执行如下代码生成事件上报所需的十六进制字符串： )
+
+[comment]: <> (```java)
+
+[comment]: <> (    @Test)
+
+[comment]: <> (    void encodeEvent&#40;&#41; {)
+
+[comment]: <> (        DemoTcpMessage demoTcpMessage = DemoTcpMessage.of&#40;MessageType.FIRE_ALARM,)
+
+[comment]: <> (                FireAlarm.builder&#40;&#41;)
+
+[comment]: <> (                        .point&#40;ThreadLocalRandom.current&#40;&#41;.nextInt&#40;&#41;&#41;)
+
+[comment]: <> (                        .lat&#40;36.5F&#41;)
+
+[comment]: <> (                        .lnt&#40;122.3F&#41;)
+
+[comment]: <> (                        .deviceId&#40;1000&#41;)
+
+[comment]: <> (                        .build&#40;&#41;&#41;;)
+
+[comment]: <> (        byte[] data = demoTcpMessage.toBytes&#40;&#41;;)
+
+[comment]: <> (        System.out.println&#40;demoTcpMessage&#41;;)
+
+[comment]: <> (        System.out.println&#40;Hex.encodeHexString&#40;data&#41;&#41;;)
+
+[comment]: <> (    })
+
+[comment]: <> (```  )
+
+[comment]: <> (结果：`0614000000e8030000000000009a99f4420000124222b7c94c`)
+
+[comment]: <> (3.设置参数)
+
+[comment]: <> (i. 设置基本信息)
+
+[comment]: <> (![]&#40;./img/269.png&#41;)
+
+[comment]: <> (<table class='table'>)
+
+[comment]: <> (        <thead>)
+
+[comment]: <> (            <tr>)
+
+[comment]: <> (              <td>参数</td>)
+
+[comment]: <> (              <td>说明</td>)
+
+[comment]: <> (            </tr>)
+
+[comment]: <> (        </thead>)
+
+[comment]: <> (        <tbody>)
+
+[comment]: <> (          <tr>)
+
+[comment]: <> (            <td>Name</td>)
+
+[comment]: <> (            <td>输入您的自定义名称。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (          <tr>)
+
+[comment]: <> (            <td>ASCII </td>)
+
+[comment]: <> (            <td>ASCII码，输入下方十六进制字符串后会自动生成。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (          <tr>)
+
+[comment]: <> (            <td>HEX</td>)
+
+[comment]: <> (            <td>十六进制。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (           <tr>)
+
+[comment]: <> (            <td>Address</td>)
+
+[comment]: <> (            <td>TCP服务地址。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (           <tr>)
+
+[comment]: <> (            <td>Port</td>)
+
+[comment]: <> (            <td>TCP服务端口。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (          <tr>)
+
+[comment]: <> (            <td>Persistent TCP</td>)
+
+[comment]: <> (            <td>勾选之后可保持长连接。</td>)
+
+[comment]: <> (          </tr>)
+
+[comment]: <> (        </tbody>)
+
+[comment]: <> (      </table>)
+
+[comment]: <> (<div class='explanation primary'>)
+
+[comment]: <> (  <p class='explanation-title-warp'>)
+
+[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
+
+[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
+
+[comment]: <> (  </p>)
+
+[comment]: <> (设置参数时，请确保参数值中或参数值的前后均没有空格。)
+
+[comment]: <> (</div>)
+
+[comment]: <> (模式选择TCP。)
+
+[comment]: <> (![]&#40;./img/270.png&#41;)
+
+[comment]: <> (**分别保存上线参数以及事件上报参数**。</br>)
+
+[comment]: <> (设备上线：)
+
+[comment]: <> (![]&#40;./img/271.png&#41;)
+
+[comment]: <> (事件上报：)
+
+[comment]: <> (![]&#40;./img/272.png&#41;)
+
+[comment]: <> (4.模拟设备上下线</br>)
+
+[comment]: <> (单击packetsender工具上`Send`按钮发起请求。)
+
+[comment]: <> (![]&#40;./img/273.png&#41;)
+
+[comment]: <> (平台中设备状态变为上线即为连接成功,在设备日志模块可以看到设备上线日志。</br>)
+
+[comment]: <> (勾选`Persistent TCP`packetsender上请求成功后会打开一个新的已连接页面。)
+
+[comment]: <> (![]&#40;./img/274.png&#41;)
+
+[comment]: <> (关闭这个新的已连接页面即可断开设备与平台的连接,平台中设备状态变为离线,同时在设备日志模块可以看到设备离线日志。</br>)
+
+[comment]: <> (5.模拟设备上报事件</br>)
+
+[comment]: <> (i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。)
+
+[comment]: <> (![]&#40;./img/275.png&#41;)
+
+[comment]: <> (ii. 上报成功后，在**设备-运行状态**页面可以查看到。)
 
 ## HTTP接入
 ### 系统配置
