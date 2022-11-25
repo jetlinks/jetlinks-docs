@@ -57,11 +57,9 @@
     自定义协议包的入口，用于创建协议支持。
 </div>
 
-
-
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
-    
+
     @Override
     public Mono<? extends ProtocolSupport> create(ServiceContext context) {
         ...
@@ -69,9 +67,9 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 }
 ```
 
-| 核心方法                         | 参数                                                         | 返回值                                                       | 说明         |
-| -------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------ |
-| `create(ServiceContext context)` | context – 服务上下文，用于从上下文中获取其他服务(如获取spring容器中的bean)、配置等操作 | `Mono<? extends ProtocolSupport>`<br>`ProtocolSupport` 接口的实现类 ( 消息协议支持接口，通过实现此接口来自定义消息协议 ) | 创建协议支持 |
+| 核心方法                         | 参数                                                         | 返回值                                                       | 说明                                                                           |
+| -------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |----------------------------------------------------------------------------------------------------------------------------|
+| `create(ServiceContext context)` | context – 服务上下文，用于从上下文中获取其他服务(如获取spring容器中的bean)、配置等操作 | `Mono<? extends ProtocolSupport>`<br>`ProtocolSupport` 接口的实现类 ( 消息协议支持接口，通过实现此接口来自定义消息协议 ) | 创建协议支持                                                                       |
 
 <br>
 
@@ -84,10 +82,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    </p>
     消息协议支持接口，通过实现此接口来自定义消息协议。
 </div>
-
-
-</div>
-
 
 | 核心方法                                                     | 参数                                                         | 返回值                                                       | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -113,8 +107,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 | `onChildBind( DeviceOperator gateway, Flux<DeviceOperator>child )` | gateway – 网关 <br/>child – 子设备流                         | `Mono<Void>`                                                 | 触发手动绑定子设备到网关设备                                 |
 | `onChildUnbind( DeviceOperator gateway, Flux<DeviceOperator> child )` | gateway – 网关 <br/>child – 子设备流                         | `Mono<Void>`                                                 | 触发手动解除绑定子设备到网关设备                             |
 
-
-
 <br>
 
 
@@ -131,7 +123,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
-    
+
     @Override
     public Mono<? extends ProtocolSupport> create(ServiceContext context) {
         CompositeProtocolSupport support = new CompositeProtocolSupport();
@@ -140,9 +132,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     }
 }
 ```
-
-
-
 
 | 核心方法                                                     | 参数                                                         | 返回值 | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------ | ------------------------------------------------------------ |
@@ -166,11 +155,9 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     协议包内添加物模型解码器支持，默认实现类：<a style='text-decoration:none;cursor:default;'>JetLinksDeviceMetadataCodec</a>
 </div>
 
-
-
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
-    
+
 
     @Override
     public Mono<? extends ProtocolSupport> create(ServiceContext context) {
@@ -205,9 +192,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     在ProtocolSupportProvider内添加支持后，可以在产品、设备页面展示配置项
 </div>
 
-
-
-
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
 
@@ -220,7 +204,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
             "timestamp为时间戳,与服务时间不能相差5分钟")
             .add("secureId", "secureId", "密钥ID", new StringType())
             .add("secureKey", "secureKey", "密钥KEY", new PasswordType());
-    
+
     @Override
     public Mono<? extends ProtocolSupport> create(ServiceContext context) {
         CompositeProtocolSupport support = new CompositeProtocolSupport();
@@ -254,9 +238,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     JetLinks设备物模型定义默认实现：<a style='text-decoration:none;cursor:default;'>JetLinksDeviceMetadata</a>
 </div>
 
-
-
-
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
 
@@ -269,7 +250,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
             "timestamp为时间戳,与服务时间不能相差5分钟")
             .add("secureId", "secureId", "密钥ID", new StringType())
             .add("secureKey", "secureKey", "密钥KEY", new PasswordType());
-    
+
     @Override
     public Mono<? extends ProtocolSupport> create(ServiceContext context) {
         CompositeProtocolSupport support = new CompositeProtocolSupport();
@@ -280,7 +261,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
         support.addConfigMetadata(DefaultTransport.MQTT, mqttConfig);
         ...
         //添加默认物模型信息
-        support.addDefaultMetadata(DefaultTransport.MQTT,new JetLinksDeviceMetadata("temperature","温度"));
+        support.addDefaultMetadata(DefaultTransport.MQTT, new JetLinksDeviceMetadata("temperature", "温度"));
         return Mono.just(support);
     }
 }
@@ -305,9 +286,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p> 传输协议定义，如: TCP、MQTT等，通常使用枚举来定义
 </div>
 
-
-
-
 | 核心方法                        | 参数                     | 返回值                                              | 说明                                                         |
 | ------------------------------- | ------------------------ | --------------------------------------------------- | ------------------------------------------------------------ |
 | `isSame(Transport transport)  ` | transport – 要比较的协议 | `boolean`  <br/>Returns : 是否为同一个协议          | 比较与传入的协议是否为同一个协议                             |
@@ -324,9 +302,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     <span class='explanation-title font-weight'>说明</span>
   </p> Transport接口在平台有默认的实现类DefaultTransport，该类为一个枚举类，内部定义的枚举对象如下
 </div>
-
-
-
 
 | 枚举对象       | 说明                      |
 | -------------- | ------------------------- |
@@ -353,9 +328,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     <span class='explanation-title font-weight'>说明</span>
   </p>特性接口，一般使用枚举实现。用于定义协议或者设备支持的某些特性
 </div>
-
-
-
 
 | 核心方法                       | 参数                           | 返回值                                                    | 说明                                     |
 | ------------------------------ | ------------------------------ | --------------------------------------------------------- | ---------------------------------------- |
@@ -435,8 +407,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 | `getDescription()` | 无   | String | 获取说明 |
 | `getExample()`     | 无   | String | 获取示例 |
 
-
-
 <br>
 
 
@@ -485,12 +455,9 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>服务上下文，用于从服务中获取其他服务(如获取spring容器中的bean)，配置等操作
 </div>
 
-
-
-
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
-    
+
     @Override
     public Mono<CompositeProtocolSupport> create(ServiceContext context) {
         CompositeProtocolSupport support = new CompositeProtocolSupport();
@@ -529,9 +496,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>设备消息转换器，用于对不同协议的消息进行转换
 </div>
 
-
-
-
 | 核心方法                | 返回值                                    | 描述               |
 | ----------------------- | ----------------------------------------- | ------------------ |
 | `getSupportTransport()` | `Transport`                               | 返回支持的传输协议 |
@@ -548,9 +512,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>设备消息编码器，用于将消息对象编码为对应消息协议的消息
 </div>
 
-
-
-
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | encode( @Nonnull MessageEncodeContext context ) context – 消息编码上下文 | Publisher`<? extends EncodedMessage> `Returns : 设备能读取的编码消息 | 编码，将消息进行编码，用于发送到设备端，平台在发送指令给设备时，会调用协议包中设置的此方法，将平台消息DeviceMessage转为设备能理解的消息EncodedMessage |
@@ -565,9 +526,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
     <span class='explanation-title font-weight'>说明</span>
   </p>设备消息解码器，用于将收到设备上传的消息解码为可读的消息
 </div>
-
-
-
 
 | 核心方法                                                     | 返回值                                                       | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -584,9 +542,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>消息编解码上下文
 </div>
 
-
-
-
 | 核心方法                                       | 返回值                                       | 描述                                                         |
 | ---------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------ |
 | getDevice()                                    | DeviceOperator <br>Returns : 设备操作        | 获取当前上下文中到设备操作接口，在tcp，http等场景下，此接口可能返回null |
@@ -602,11 +557,8 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>设备上报原始消息接口
+  </p> <li>设备上报原始消息接口</li>
 </div>
-
-
-
 
 | 核心方法     | 返回值                                | 描述                                                         |
 | ------------ | ------------------------------------- | ------------------------------------------------------------ |
@@ -614,17 +566,15 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 <br>
 
-<a id='MessageEncodeContext' style='text-decoration:none;cursor:default'>MessageEncodeContext</a>
+<a id='MessageEncodeContext'>MessageEncodeContext</a>
+
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>消息编码上下文，用于平台向设备发送指令并使用协议包进行编码时，可以从上下文中获取一些参数。 通常此接口可强制转换为ToDeviceMessageContext
+  </p> <li>消息编码上下文，用于平台向设备发送指令并使用协议包进行编码时，可以从上下文中获取一些参数。 通常此接口可强制转换为ToDeviceMessageContext</li>
 </div>
-
-
-
 
 | 核心方法                                                     | 返回值                                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------------------- | ------------------------------------------------------------ |
@@ -646,9 +596,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>Message：设备消息</li>
   <li>子接口：BroadcastMessage、ThingMessage</li>
 </div>
-
-
-
 
 | 核心方法                                                     | 返回值类型             | 描述                                                         |
 | ------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------ |
@@ -673,8 +620,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>
   <li>MessageType 枚举类</li>
 </div>
-
-
 
 | 枚举值                      | 描述                 |
 | --------------------------- | -------------------- |
@@ -726,8 +671,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>HeaderKey 顶层接口</li>
 </div>
 
-
-
 | 核心方法          | 返回值类型 | 描述                      |
 | ----------------- | ---------- | ------------------------- |
 | getKey()          | String     | 获取key值                 |
@@ -747,8 +690,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>BroadcastMessage：广播消息</li>
   <li>DefaultBroadcastMessage 是它的默认实现类：</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型       | 描述                      |
 | ------------------------------------------------------------ | ---------------- | ------------------------- |
@@ -773,8 +714,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>子接口：DeviceMessageReply</li>
 </div>
 
-
-
 | 核心方法      | 返回值类型 | 描述       |
 | ------------- | ---------- | ---------- |
 | getDeviceId() | String     | 获取设备ID |
@@ -794,8 +733,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>DeviceMessage, ThingMessageReply的子接口之一</li>
 </div>
 
-
-
 | 核心方法                  | 返回值类型         |            |
 | ------------------------- | ------------------ | ---------- |
 | deviceId(String deviceId) | DeviceMessageReply | 设置设备ID |
@@ -814,8 +751,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ReadThingPropertyMessage：读取设备属性消息，方向: 平台->设备,下发指令后,设备需要回复指令ReadPropertyMessageReply</li>
   <li>RepayableThingMessage的子接口之一</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
@@ -837,8 +772,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ThingType 物类型定义,通常使用枚举实现此接口</li>
 </div>
 
-
-
 | 核心方法  | 返回值类型 | 描述     |
 | --------- | ---------- | -------- |
 | getId()   | String     | 类型ID   |
@@ -858,8 +791,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ReadThingPropertyMessageReply：读取设备属性消息回复, 方向: 设备->平台 在设备接收到ReadPropertyMessage消息后,使用此消息进行回复,回复后,指令发起方将收到响应结果.</li>
    <li>ThingMessageReply, PropertyMessage的子接口</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型                    | 描述                         |
 | ------------------------------------------------------------ | ----------------------------- | ---------------------------- |
@@ -883,8 +814,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-
-
 <br>
 
 
@@ -902,8 +831,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-
-
 <br>
 
 
@@ -918,8 +845,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ThingEventMessage：物事件消息</li>
    <li>ThingMessage的子接口</li>
 </div>
-
-
 
 | 核心方法                                            | 返回值类型        | 描述                       |
 | --------------------------------------------------- | ----------------- | -------------------------- |
@@ -943,8 +868,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>RepayableThingMessage的子接口、CommonDeviceMessage的父接口</li>
    <li>DefaultFunctionInvokeMessage、FunctionInvokeMessage 是CommonDeviceMessage的两个实现类</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型                 | 描述                 |
 | ------------------------------------------------------------ | -------------------------- | -------------------- |
@@ -972,8 +895,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>DefaultFunctionInvokeMessageReply、FunctionInvokeMessageReply 是 CommonDeviceMessageReply 的两个实现类</li>
 </div>
 
-
-
 | 核心方法                                                | 返回值类型                 | 描述                                    |
 | ------------------------------------------------------- | -------------------------- | --------------------------------------- |
 | getFunctionId()                                         | String                     | 获取functionId,对应物模型ID             |
@@ -994,8 +915,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ThingMessage：物消息</li>
    <li>Message的子接口</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型   | 描述             |
 | ------------------------------------------------------------ | ------------ | ---------------- |
@@ -1019,8 +938,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ThingMessageReply：物消息回复</li>
    <li>ThingMessage的子接口</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型        | 描述                     |
 | ------------------------------------------------------------ | ----------------- | ------------------------ |
@@ -1050,8 +967,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>DefaultReportPropertyMessage、ReportPropertyMessage 是它的两个实现类</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型                 | 描述                         |
 | ------------------------------------------------------------ | -------------------------- | ---------------------------- |
 | success(`Map<String, Object>` properties) <br/>Params: <br/>properties – 属性值 | ThingReportPropertyMessage | 设置成功并设置返回属性值     |
@@ -1072,8 +987,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>ThingMessage的子接口、CommonThingMessage 的父接口</li>
    <li>DefaultUpdateTingTagsMessage、UpdateTagMessage 是 CommonThingMessage 的两个实现类</li>
 </div>
-
-
 
 | 核心方法                         | 返回值类型            | 描述         |
 | -------------------------------- | --------------------- | ------------ |
@@ -1096,8 +1009,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>DefaultWritePropertyMessage、WritePropertyMessage 是CommonThingMessage 的两个实现类</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型            | 描述                                                         |
 | ------------------------------------------------------------ | --------------------- | ------------------------------------------------------------ |
 | getProperties()                                              | `Map<String, Object>` | 要读取的属性列表,协议包可根据实际情况处理此参数, 有的设备可能不支持读取指定的属性,则直接读取全部属性返回即可 |
@@ -1119,8 +1030,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>DefaultWritePropertyMessageReply、WritePropertyMessageReply 是它的两个实现类</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型                     | 描述                         |
 | ------------------------------------------------------------ | ------------------------------ | ---------------------------- |
 | success(`Map<String, Object>` properties) <br/>Params:<br/> properties – 属性值 | WriteThingPropertyMessageReply | 设置成功并设置返回属性值     |
@@ -1141,8 +1050,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>RepayableDeviceMessage：支持回复的消息</li>
 </div>
 
-
-
 | 核心方法      | 返回值类型 | 描述         |
 | ------------- | ---------- | ------------ |
 | getDeviceId() | String     | 获取设备ID值 |
@@ -1161,8 +1068,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>EncodedMessage：已编码的消息,通常为来自设备或者发向设备的原始报文</li>
    <li>子接口：CoapMessage、RepayableDeviceMessage</li>
 </div>
-
-
 
 | 核心方法                     | 方法返回值         | 描述         |
 | ---------------------------- | ------------------ | ------------ |
@@ -1183,8 +1088,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>CoapMessage：Coap协议消息</li>
    <li>EncodedMessage的子接口</li>
 </div>
-
-
 
 | 核心方法     | 返回值类型     | 描述       |
 | ------------ | -------------- | ---------- |
@@ -1208,8 +1111,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>DefaultCoapResponseMessage 是他的默认实现类</li>
 </div>
 
-
-
 | 核心方法  | 返回值类型        | 描述       |
 | --------- | ----------------- | ---------- |
 | getCode() | CoAP.ResponseCode | 获取响应码 |
@@ -1229,8 +1130,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>EncodedMessage 的子接口</li>
   <li>SimpleHttpRequestMessage 是他的实现类</li>
 </div>
-
-
 
 | 核心方法             | 返回值类型            | 描述             |
 | -------------------- | --------------------- | ---------------- |
@@ -1257,8 +1156,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>SimpleHttpResponseMessage 是他的实现类</li>
 </div>
 
-
-
 | 核心方法         | 返回值类型     | 描述         |
 | ---------------- | -------------- | ------------ |
 | getStatus()      | int            | 获取响应状态 |
@@ -1280,8 +1177,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>EncodedMessage 的子接口</li>
   <li>SimpleMqttMessage 是它的实现类</li>
 </div>
-
-
 
 | 核心方法       | 返回值类型 | 描述         |
 | -------------- | ---------- | ------------ |
@@ -1305,8 +1200,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>ProxyMqttPublishingMessage 是它的实现类</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型            | 描述                                             |
 | ------------------------------------------------------------ | --------------------- | ------------------------------------------------ |
 | acknowledge()                                                | void                  | 在QoS1,和QoS2时,此方法可能会被调用               |
@@ -1327,8 +1220,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
    <li>EncodedMessage 的子接口</li>
   <li>DefaultWebSocketMessage 是他的实现类</li>
 </div>
-
-
 
 | 核心方法  | 返回值类型 | 描述          |
 | --------- | ---------- | ------------- |
@@ -1374,8 +1265,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>WebSocketSessionMessageWrapper是它的实现类</li>
 </div>
 
-
-
 | 核心方法              | 返回值类型       | 描述        |
 | --------------------- | ---------------- | ----------- |
 | getWebSocketSession() | WebSocketSession | 获取session |
@@ -1394,8 +1283,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>Authenticator：认证器,用于设备连接的时候进行认证</li>
 </div>
 
-
-
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
 | authenticate(AuthenticationRequest request,DeviceOperator device) <br/> Params: <br/>request – 认证请求 <br/>device – 设备 | `Mono<AuthenticationResponse>` | 对指定对设备进行认证                                         |
@@ -1405,7 +1292,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='AuthenticationRequest' style='text-decoration:none;cursor:default'>AuthenticationRequest</a>
+<a id='AuthenticationRequest'>AuthenticationRequest</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1416,8 +1303,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>MqttAuthenticationRequest 是它的默认实现类</li>
 </div>
 
-
-
 | 核心方法       | 返回值类型 | 描述         |
 | -------------- | ---------- | ------------ |
 | getTransport() | Transport  | 返回协议类型 |
@@ -1426,7 +1311,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='AuthenticationResponse' style='text-decoration:none;cursor:default'>AuthenticationResponse</a>
+<a id='AuthenticationResponse'>AuthenticationResponse</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1435,8 +1320,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   </p>
   <li>AuthenticationResponse(类)：封装了认证响应信息</li>
 </div>
-
-
 
 | 核心方法                        | 放回置类型             | 描述               |
 | ------------------------------- | ---------------------- | ------------------ |
@@ -1448,7 +1331,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='DeviceRegistry' style='text-decoration:none;cursor:default'>DeviceRegistry</a>
+<a id='DeviceRegistry'>DeviceRegistry</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1461,8 +1344,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 .flatMap(device->device.getSelfConfig("my-config"))  
 .flatMap(conf-> doSomeThing(...))</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型                    | 描述                                                         |
 | ------------------------------------------------------------ | ----------------------------- | ------------------------------------------------------------ |
@@ -1492,8 +1373,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>DefaultDeviceProductOperator 是它的默认实现类</li>
 </div>
 
-
-
 | 核心方法      | 返回值类型              | 描述                 |
 | ------------- | ----------------------- | -------------------- |
 | getProtocol() | `Mono<ProtocolSupport>` | 获取支持协议         |
@@ -1503,7 +1382,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 
 
 
-<a id='DeviceOperator' style='text-decoration:none;cursor:default'>DeviceOperator</a>
+<a id='DeviceOperator'>DeviceOperator</a>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -1514,8 +1393,6 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
   <li>继承Thing接口</li>
   <li>DefaultDeviceOperator是它的默认实现类</li>
 </div>
-
-
 
 | 核心方法                                                     | 返回值类型                     | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------ | ------------------------------------------------------------ |
