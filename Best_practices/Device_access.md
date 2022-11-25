@@ -153,15 +153,15 @@
 
 在产品详情-物模型tab页中分别创建属性、事件、功能三种物模型
 
-**创建属性**
+**创建属性** 属性ID: `temperature`
 
 ![](./img/device-property-temperature.png)
 
-**创建功能**
+**创建功能**  功能ID: `playVoice`
 
 ![](./img/device-function-palyVoice.png)
 
-**创建事件**
+**创建事件** 事件ID: `alarm_fire`
 
 ![](./img/device-event-alarmFire.png)
 
@@ -335,51 +335,125 @@ MQTTX 推送设备事件消息到平台。<br />
 本文使用docker搭建
 
 ```shell script
-docker run --name emq -p 18083:18083 -p 1883:1883 -p 8084:8084 -p 8883:8883 -p 8083:8083 -d registry.cn-hangzhou.aliyuncs.com/synbop/emqttd:2.3.6
+docker run -d --name emqx -p 18083:18083 -p 1883:1883 emqx/emqx:latest
 ```
 ### 访问EMQ Dashboard
 
 在浏览器中输入 http://127.0.0.1:18083 ,默认账号密码为用户名：admin 密码：public。
-![](./img/252.png)
+![](./img/emq-monitor.png)
 
 ### 系统配置
 #### 操作步骤
 1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建MQTT客户端网络组件。</br>
-![](./img/mqttbrokerwl.png)
+
+`如EMQX服务在本机电脑启用，MQTT客户端网络组件填写参数参考下图填写即可`
+
+![](./img/mqtt-client-network.png)
+
+
+**网络组件填写参数说明**
+
+| 参数        | 说明   |  
+| --------   | -----:  | 
+| 远程地址      | emqx启动所在服务的IP地址，emq本机启动的可填写127.0.0.1   |   
+| 远程端口        |   emqx启动的服务端口   |  
+| clientId        |    连接到emqx的客户端Id    | 
+| 用户名        |    连接到emqx时需要的用户名    | 
+| 密码        |    连接到emqx时需要的密码    | 
+| 最大消息长度        |    单次收发消息的最大长度,单位:字节;    | 
+
 2.进入**协议管理**菜单，上传协议包。</br>
+
+<a target='_blank' href='https://github.com/jetlinks/jetlinks-official-protocol'>获取协议包源码</a>
+
 ![](./img/254.png)
 3.进入**设备接入网关**，创建MQTT Broker类型的接入网关。</br>
 ![](./img/mqttbrokerwg.png)
+
+
+网关创建完成后，可在emqx客户端中的“Subscriptions”菜单中看到订阅列表
+![](./img/emqx-sub-list.png)
+
+
 4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为MQTT Broker类型的设备接入网关。</br>
-![](./img/mqttbrokerjr.png)
-5.[创建设备](../Device_access/Create_Device3.2.md)，所属产品选择MQTT Broker类型的产品。</br>
-6.使用MQTTX连接EMQ
-![](./img/257.png)
-<div class='explanation primary'>
+![](./img/product-select-mqtt-broker-gateway.png)
+
+5 创建物模型
+
+在产品详情-物模型tab页中创建温度属性物模型，属性ID:`temperature`
+
+![](./img/device-property-temperature.png)
+
+
+
+5.[创建设备](../Device_access/Create_Device3.2.md)，选择第4步中创建的产品。</br>
+
+
+<div class='explanation warning'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
   </p>
-clientId 和用户名密码符合emq规则即可,这时的认证是通过emq,而不是平台。
+
+需要先启用产品，才能基于产品创建设备
+
 </div>
 
-### 设备上下线
+### 使用MQTTX模拟设备与平台进行交互
 
-平台收到任意设备消息后则认为设备上线,或者推送: `/{productId}/{deviceId}/online`.
+**下载并安装MQTTX**。  可前往[官网下载](https://mqttx.app/)安装
 
-设备下线推送topic: `/{productId}/{deviceId}/offline`.
+1.打开MQTTX软件，点击新建连接创建一个连接
+![](./img/209.png)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-{productId}请替换为平台中的产品ID,{deviceId}请替换为平台中的设备ID。
-</div>
+2.设置**连接参数**。连接到EMQX
 
-### 数据上下行
+`如EMQX服务在本机电脑启用，连接参数参数参考下图填写即可`
 
-通过此方法接入对于设备端除了认证方式、上下线逻辑不同,其他消息格式以及topic都是与使用MQTT服务网关接入设备一致的。
+![](./img/mqttx-connect-to-emqx.png)
+
+**连接参数说明**
+
+| 参数        | 说明   |  
+| --------   | -----:  | 
+| Name      | 自定义名称   |   
+| Client ID        |  注册到EMQX的客户端Id。可自定义填写任意字符串   |  
+| Host        |    填写启动EMQX服务的IP地址    | 
+| Port        |    EMQX启动的服务端口    | 
+
+
+
+### 物模型属性上报
+
+推送物模型属性消息到EMQX。实现平台设备上线与消息接收
+
+
+![](./img/mqttx-push-msg-to-emqx.png)
+
+推送设备上报属性topic格式和报文参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlinks-protocol-support.html#读取设备属性)
+
+`topic:/产品Id/设备Id/properties/report`
+
+```json
+{
+    "properties":{"temperature":36.8}
+}
+```
+
+进入平台设备详情界面，此时设备以变成在线状态，且收到了刚刚的温度属性消息
+
+![](./img/mqtt-client-device-dashboard.png)
+
+### 物模型属性读取回复
+
+1.在MQTTX中点击订阅添加按钮
+![](./img/mqttx-add-sub.png)
+
+2.添加订阅设备读取属性topic：`/+/+/properties/read`。格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlinks-protocol-support.html#读取设备属性)
+
+![](./img/mqttx-add-sub2.png)
+
+后续操作参考[读取设备属性](/Best_practices/Device_access.html#读取设备属性)
 
 
 [comment]: <> (## TCP 服务接入)
