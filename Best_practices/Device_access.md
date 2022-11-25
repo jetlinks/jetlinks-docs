@@ -117,6 +117,17 @@
 
 ![](./img/211.png)
 
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+经过加密规则处理的账号密码超过5分钟后将不在可用，需重新生成
+
+</div>
+
+
 2.点击**连接**按钮，平台中设备状态变为**在线**。
 ![](./img/mqtt-device-info.png)
 
