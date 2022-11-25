@@ -218,7 +218,7 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
       </table>
 
 
-点击**消息发送按钮**，向平台推送该消息。
+点击**消息发送按钮图标**，向平台推送该消息。
 ![](./img/mqttx-property-read-reply.png)
 
 
@@ -239,7 +239,7 @@ topic格式参考：[JetLinks官方协议-读取设备属性](/dev-guide/jetlink
 MQTTX 推送设备事件消息到平台。<br />
 
 1.在MQTTX上，填写事件上报topic。topic格式参考[JetLinks官方协议-设备事件上报](/dev-guide/jetlinks-protocol-support.html#设备事件上报) 。</br>
-2.输入事件上报Topic和要发送的事件内容，单击**Publish**按钮，向平台推送该事件消息。
+2.输入事件上报Topic和要发送的事件内容，点击"发送"按钮图标，向平台推送该事件消息。
 ![](./img/mqttx-event-report.png)
 
 **设备事件上报数据**
