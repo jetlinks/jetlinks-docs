@@ -603,7 +603,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 <br/>
 
 ```java
-class CommonDeviceMessage的主要实现类说明：
+CommonDeviceMessage的主要实现类说明:
     1、 ChildDeviceMessage：子设备消息
     2、 ChildDeviceMessageReply：子设备消息回复
     3、 DerivedMetadataMessage：派生物模型消息
