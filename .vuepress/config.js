@@ -158,6 +158,7 @@ module.exports = {
                     ['/dev-guide/subscribe-device-message.md', '从事件总线中订阅消息'],
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
+                    ['/dev-guide/api.md', '协议包核心类API']
                     //['/dev-guide/micro-service', '微服务']
 
                 ]
