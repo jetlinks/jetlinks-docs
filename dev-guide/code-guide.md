@@ -603,68 +603,61 @@ springdoc:
 ### 使用消息总线
 
 #### 应用场景
+EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系，
+当事件发布时，平台的其他模块，例如：产品/设备、规则引擎、设备告警等模块都可以同时订阅到该事件，能够有效地降低消息发布者和订阅者之间的耦合度。
+
+
+
+#### 核心接口说明
+核心接口org.jetlinks.core.event.EventBus
+
+| 方法名 | 返回值                  | 参数值                                      | 说明  |
+|------- |----------------------|------------------------------------------|------------|
+|subscribe() | Flux\<TopicPayload\> | `Subscription subscription`              |从事件总线中订阅事件|
+|publish() | Mono\<Long\>         | `String topic, Publisher<T> event`       |推送消息流到事件总线 |
+
+
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
+ <li>订阅事件实例 </li>
 
 ```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+
+    public static Subscription of(String subscriber, String topic, Feature... features) {
+        return Subscription
+            .builder()
+            //订阅者标识  
+            .subscriberId(subscriber)
+            //订阅主题   
+            .topics(topic)
+            //订阅特性   
+            .features(features)
+            .build();
+    }
+        
+    public Flux<Message> subscribe(SubscribeRequest request) {
+        return eventBus
+            .subscribe(Subscription.of(
+            "notifications-publisher",
+            "/notifications/user/" + request.getAuthentication().getUser().getId() + "/*/*",
+            Subscription.Feature.local, Subscription.Feature.broker
+            ))
+            .map(msg -> Message.success(request.getId(), msg.getTopic(), msg.bodyToJson(true)));
+    }
 ```
 
-#### 核心类说明
+ <li>核心参数Subscription </li>
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
+| 字段名         | 类型                   | 是否必填 | 说明                    |
+|-------------|----------------------|------|-----------------------|
+| subscriber | String | 是    | 订阅者标识                 |
+| topics   | String[]        | 是    | 订阅主题 |
+| features   | Feature[]        | 是    | 订阅特性 |
+| priority   | priority        | 否    | 优先级,值越小优先级越高,优先级高的订阅者会先收到消息 |
 </div>
 
 <div class='explanation info'>
@@ -672,9 +665,121 @@ springdoc:
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
+
+通配符`**`表示匹配多层路径，`*`表示匹配单层路径。`不支持`前后匹配，如: `/device/id-*/message`。
+发布和订阅均支持通配符，发布时使用通配符时则进行广播。
+
+</div>
+
+#### 常见问题
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+  <li>哪些模块可以从事件总线中订阅事件</li>
+
+  | 模块名   |   类名            | Topic              | 订阅标识                    |
+|-------|--------------------|--------------------|-------------------------|
+  | 流媒体服务 | ZLMMediaServer | /_sys/zlm/notify/* | ZLMedia-server-notify |
+  | 网络组件  | ClusterNetworkManager | /_sys/network/* /* | network-config-manager   |
+  | 规则引擎  | RuleEngineSubscriptionProvider | /rule-engine/**    | rule-engine   |
+  | 消息通知  | NotificationsPublishProvider | /notifications/user/**    | notifications-publisher   |
+  | 设备实例  | DeviceMessageSubscriptionProvider | /device/* /*/**    | network-config-manager   |
+  | 告警规则  | AlarmProvider | /alarm/**/record     | alarm   |
+</div>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+ <li>如何实现共享订阅</li>
+会根据传入的订阅特性判断是否为共享订阅，若是共享订阅则会先存到缓存中，后续再依次处理缓存中的共享订阅，在处理的过程中会
+判断订阅消息是否是同一个订阅者的，若是同一个订阅者则只处理最早的那条订阅消息。
+
+```java
+private <T> Mono<Long> doPublish(String topic,
+                                     T arg,
+                                     Function4<String, T, List<SubscriptionInfo>, ContextView, Mono<Void>> handler,
+                                     Predicate<SubscriptionInfo> predicate) {
+
+        //共享订阅,只有一个订阅者能收到
+        Map<String, List<SubscriptionInfo>> sharedMap = SHARED.get();
+        //去重
+        Set<Object> distinct = DISTINCT_HANDLERS.get();
+        //订阅者信息
+        Set<SubscriptionInfo> readyToPub = PUB_HANDLERS.get();
+        Mono<Long> task;
+        try {
+            //从订阅表中查找topic
+            root.findTopic(topic, predicate, sharedMap, distinct, readyToPub,
+                           (_predicate, _sharedMap, _distinct, _readyToPub, subs) -> {
+                               Set<SubscriptionInfo> subscriptions = subs.getSubscribers();
+                               if (subscriptions.isEmpty()) {
+                                   return;
+                               }
+
+                               for (SubscriptionInfo sub : subscriptions) {
+                                   if (!_predicate.test(sub) || !_distinct.add(sub.handler)) {
+                                       continue;
+                                   }
+                                   //共享订阅时,添加到缓存,最后再处理
+                                   if (sub.hasFeature(Subscription.Feature.shared)) {
+                                       _sharedMap
+                                           .computeIfAbsent(sub.subscriber, ignore -> new ArrayList<>(8))
+                                           .add(sub);
+                                       continue;
+                                   }
+                                   _readyToPub.add(sub);
+                               }
+                           },
+                           (_predicate, _sharedMap, _distinct, _readyToPub) -> {
+                               if (_sharedMap.isEmpty()) {
+                                   return;
+                               }
+                               //处理共享订阅
+                               for (List<SubscriptionInfo> value : _sharedMap.values()) {
+                                   if (value.isEmpty()) {
+                                       continue;
+                                   }
+                                   SubscriptionInfo first = value.get(0);
+                                   //只有一个订阅消息，则直接存入
+                                   if (value.size() == 1) {
+                                       _readyToPub.add(first);
+                                       //有多个相同订阅者的订阅消息，则存入最先订阅的消息
+                                   } else if (first.hasFeature(Subscription.Feature.sharedOldest)) {
+                                       value.sort(SubscriptionInfo.comparatorByTime);
+                                       _readyToPub.add(value.get(0));
+                                       //其他情况则在订阅消息中随机取一个存入
+                                   } else {
+                                       _readyToPub.add(value.get(ThreadLocalRandom.current().nextInt(0, value.size())));
+                                   }
+                               }
+                           });
+
+            if (readyToPub.isEmpty()) {
+                return Reactors.ALWAYS_ZERO_LONG;
+            }
+
+            int size = readyToPub.size();
+            List<SubscriptionInfo> pub = new ArrayList<>(readyToPub);
+            //排序
+            pub.sort(SubscriptionInfo.comparatorPriority);
+
+            task = Mono
+                .deferContextual(ctx -> handler.apply(topic, arg, pub, ctx))
+                .then(Mono.just((long) size));
+
+        } finally {
+            sharedMap.clear();
+            distinct.clear();
+            readyToPub.clear();
+        }
+        return task;
+    }
+```
 </div>
 
 ### 添加自定义存储策略
@@ -1202,6 +1307,7 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 
 *对开发过程中出现的问题进行总结*
 
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -1246,4 +1352,3 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 <a>提交工单</a>
 说明您的需求。
 </div>
-
