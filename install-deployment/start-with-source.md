@@ -7,7 +7,7 @@
 1. JDK 1.8.0_2xx (需要小版本号大于200) <a href='https://adoptopenjdk.net/releases.html?variant=openjdk8&jvmVariant=hotspot'>下载jdk</a>
 2. Redis 5.x
 3. PostgreSQL 11 或者 mysql 5.7 +
-4. ElasticSearch 6.8 + <a href='https://www.elastic.co/cn/downloads/elasticsearch'>下载</a> ,也可以直接<a href='#内嵌elasticsearch启动'>使用内嵌ElasticSearch</a>.
+4. ElasticSearch 6.8-7.x <a href='https://www.elastic.co/cn/downloads/elasticsearch'>下载</a>。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
