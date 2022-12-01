@@ -65,6 +65,7 @@
 
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
    
+
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
 
@@ -199,7 +200,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
+[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
 
 8. 代码拉取完毕后`reimport`
 
@@ -229,6 +230,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 ```
 - jetlinks-pro添加子模块依赖
   
+
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
 ```xml
 <dependency>
@@ -294,7 +296,7 @@ $ git push gitee master
   <p>Q：配置完SSH Key如果仍提示需要输入git@github.com‘s password，且尝试了所有密码均提示:Permission denied, please try again。</p>
   <p>A：Github官网给出的说法是：防火墙拒绝完全允许SSH连接。如果不能使用带有凭据缓存的HTTPS克隆，可以尝试使用通过HTTPS端口建立的SSH连接进行克隆。
 大多数防火墙规则应该允许这样做，但是代理服务器可能会干扰。可以参照下方步骤解决该问题。</p>
-  
+
 </div>
 
 1. 要测试是否可以通过 HTTPS 端口使用 SSH，请运行以下 SSH 命令。
@@ -1170,12 +1172,12 @@ Subscribe方法：
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
- ```
+```
 
 Subscribe注解：
  ```java
 @Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
-```
+ ```
 
 ### 添加自定义存储策略
 
@@ -1567,7 +1569,7 @@ message.addHeader(Headers.keepOnlineTimeoutSeconds, 600);
 
   <li>短连接下发指令平台会抛出设备离线的异常信息。</li>
 
-[//]: # (  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>)
+[//]: # "  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>"
 
 </div>
 
@@ -1682,18 +1684,154 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
+  </p><li>设备相关数据需要对接到其他平台或者自己的业务系统，此时需要将数据推送到消息中间件</li>
 </div>
 
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+
+
+  
+
+<br>
+
+**推送方式**
+
+1.通过规则引擎推送
+
+![推送](https://doc.v1.jetlinks.cn/assets/img/rule-engine.f80dc366.png)
+
+配置实时订阅平台设备数据
+
+![实时订阅平台设备数据](https://doc.v1.jetlinks.cn/assets/img/1.98782b51.jpg)
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<li>函数的配置需要取决于下游节点接收参数是什么？ 下游节点即与函数连接的下一个node节点。 举例：在转发方式内，函数的下游节点是订阅MQTT和写入Kafka。中间连接函数节点配置下游节点接受的参数信息来完成数据的转发。</li><br>
+</div>
+
+
+
+
+<br>
+
+
+
+下游节点接收参数
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<li>规则引擎内没有推送到rabbitmq的下游节点，此处只举例MQTT与kafka</li><br>
+</div>
+
+
+
+
+<br>
+
+
+
+**MQTT**
+
+选择服务端，服务端需要在网络组件内配置<code>MQTT客户端</code>
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<li>配置客户端的原因是：此处平台创建一个MQTT客户端将上游reactorQL订阅到平台消息总线内的实时数据通过客户端推送给EMQ服务，由EMQ来做数据分发，达到数据转发的目的。此时其他MQTT客户端订阅平台推送时填写的<code>{topic}</code>即可收到消息</li><br>
+</div>
+
+
+<img src="https://doc.v1.jetlinks.cn/assets/img/2.9841ecd9.png" alt="实时订阅平台设备数据" class="medium-zoom-image" />
+
+可接收的参数为上图红框圈出内容，`topic`,`qos`,`retain`参数可以在mqtt推送配置页面进行配置，而`payload`则必须由`函数(function)`节点配置。
+
+<img src="https://doc.v1.jetlinks.cn/assets/img/3.13033db4.png" alt="实时订阅平台设备数据" class="medium-zoom-image"  />
+
+
+
+<br><br>
+
+
+
+**写入Kafka**
+
+订阅实时数据同上，函数配置同MQTT订阅一致
+
+<img src="https://doc.v1.jetlinks.cn/assets/img/kafka-1.0f9eeebd.png" alt="实时订阅平台设备数据" class="medium-zoom-image"  />
+
+
+
+<br><br>
+
+
+
+2.通过开启配置文件的kafka和rabbitmq推送
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+    <li>producer和consumer的配置不能同时开启，否则会出现重复写入时序库内</li>
+</div>
+
+
+```yaml
+device:
+  message:
+    writer:
+      time-series:
+        enabled: true #直接写出设备消息数据到elasticsearch
+      kafka:
+        enabled: false # 推送设备消息到kafka
+        consumer: true # 从kafka订阅消息并写入到时序数据库
+        topic-name: device.message
+
+      rabbitmq:
+        enabled: false # 推送设备消息到/rabbitMO
+        consumer: true # 从rabbitMQ订阅消息并写入到时序数据库
+        thread-size: 4 # 消费线程数
+        auto-ack: true # 自定应答,为true可能导致数据丢失，但是性能最高
+        topic-name: device.message # exchange名称
 ```
+
+
+
+<br>
+
+
+
+3.使用MQTT订阅平台内的消息
+
+配置文件新增：
+
+```yaml
+messaging:
+  mqtt:
+    enabled: true #开启mqtt支持
+    port: 11883 # 端口
+    host: 0.0.0.0 #绑定网卡
+```
+
+订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](https://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](https://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<li>1.6版本后支持分组订阅：同一个用户订阅相同的topic，只有其中一个订阅者收到消息，在topic前增加<code>$shared</code>即可，如： <code>$shared/device/+/+/#</code></li><br>
+</div>
+
+
+
 
 #### 核心类说明
 
