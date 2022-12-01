@@ -926,7 +926,7 @@ public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  产品注册事件
+  产品发布事件
 </div>
 
 ```java
@@ -958,7 +958,7 @@ public Mono<Integer> deploy(String id) {
 }
 ```
 ```java
-//监听产品激活
+//监听产品发布
 @EventListener
 public void handlerEvent(DeviceProductDeployEvent event) {
     event.async(
@@ -976,6 +976,7 @@ private Mono<Void> doRegisterMetadata(String productId, String metadataString) {
 |`decode(String source)` | `Mono<DeviceMetadata>`| String source-物模型数据|将数据解码为物模型|
 |`registerMetadata(@Nonnull String productId,@Nonnull DeviceMetadata metadata)` | `Mono<Void>`| @NonnullString productId-产品ID<br/>,@Nonnull DeviceMetadata metadata-物模型数据|将数据解码为物模型|
 |`getStoreStrategy(String productId)` | `Mono<DeviceDataStoragePolicy>`| String productId-产品ID<br/>|通过产品ID 获取存储策略|
+
 ### 使用消息总线
 
 #### 应用场景
