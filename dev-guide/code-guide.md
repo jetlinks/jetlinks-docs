@@ -876,18 +876,16 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 发布事件:
 ```java
       public Mono<Void> shutdown(NetworkType type, String NetworkId) {
-          return this
-           //停止网络组件   
-          .doShutdown(type.getId(), NetworkId)
+          return
            //将停止网络组件事件推送到消息总线   
-          .then(eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId))
+           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
           .then();
           }
 ```
 
 订阅事件：
 ```java
-      //使用subscribe方法
+      //使用Subscribe方法
       public void doSubscribe() {
         eventBus
             //调用subscribe方法
@@ -923,37 +921,18 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
   </p>
 
 
-在使用Subscribe注解订阅事件时，传入参数分别为订阅topic、订阅者标识和订阅特性，后两者为选填，若不填订阅者标识默认值为本方法名，订阅特性默认值为local。
+在使用Subscribe注解订阅事件时，传入参数分别为订阅topic、订阅者标识和订阅特性，后两者为选填，若不填订阅者标识默认值为本方法名，订阅特性默认值为local，
+并且支持填写多个订阅特性。
 
 
 
 </div>
 
-[//]: # (订阅者消息Subscription说明)
-
-[//]: # ()
-[//]: # (| 字段名         | 类型                   | 是否必填 | 说明                    |)
-
-[//]: # (|-------------|----------------------|------|-----------------------|)
-
-[//]: # (| subscriber | String | 是    | 订阅者标识                 |)
-
-[//]: # (| topics   | String[]        | 是    | 订阅主题 |)
-
-[//]: # (| features   | Feature[]        | 是    | 订阅特性 |)
-
-[//]: # (| priority   | priority        | 否    | 优先级,值越小优先级越高,优先级高的订阅者会先收到消息 |)
-
-
-
-
-
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
+    <span class='explanation-title font-weight'>问题1</span>
   </p>
 
 <li>topic中通配符*和**的区别</li>
@@ -965,17 +944,53 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 </div>
 
-
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
+    <span class='explanation-title font-weight'>问题2</span>
   </p>
 
  <li>如何实现共享订阅</li>
 
-会根据传入的订阅特性字段判断是否为共享订阅，若是共享订阅则会先存到缓存中，后续再依次处理缓存中的共享订阅，在处理的过程中会
+会根据传入的订阅特性字段判断是否为shared共享订阅，若是共享订阅则会先存到缓存中，后续再依次处理缓存中的共享订阅，在处理的过程中会
 判断订阅消息是否是同一个订阅者的，若是同一个订阅者则只处理最早的那条订阅消息。
+
+</div>
+
+#### 共享订阅实例
+使用Subscribe方法：
+```java
+      public void doSubscribe() {
+        eventBus
+            //调用subscribe方法
+            .subscribe(Subscription
+            //构建订阅者消息
+            .builder()
+            //订阅者标识
+            .subscriberId("network-config-manager")
+            //订阅topic
+            .topics("/_sys/network/*/shutdown")
+            //订阅特性为shared
+            .justShared()
+            .build())
+         //拿到消息总线中的数据进行后续处理
+        .flatMap(payload -> {
+            ...
+        })
+        .subscribe();
+      }
+```
+使用Subscribe注解：
+```java
+      
+    //订阅特性为shared
+    @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
+    public Mono<Void> doStart(String id) {
+            return this
+            .findById(id)
+            .flatMap(this::doStart);
+    }
+```
 
 订阅特性字段Feature说明
 
@@ -984,7 +999,8 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 | shared | 共享订阅 |
 | local | 订阅本地消息     |
 | broker | 订阅代理消息     |
-</div>
+
+
 
 ### 添加自定义存储策略
 
