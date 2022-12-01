@@ -955,61 +955,81 @@ springdoc:
 ### 使用消息总线
 
 #### 应用场景
-
 EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系，
 当事件发布时，平台的其他模块，例如：产品/设备、规则引擎、设备告警等模块都可以同时订阅到该事件，能够有效地降低消息发布者和订阅者之间的耦合度。
 
-#### 核心接口说明
 
+
+#### 核心接口说明
 核心接口org.jetlinks.core.event.EventBus
 
-| 方法名 | 返回值                  | 参数值                                      | 说明  |
-|------- |----------------------|------------------------------------------|------------|
-|subscribe() | Flux\<TopicPayload\> | `Subscription subscription`              |从事件总线中订阅事件|
-|publish() | Mono\<Long\>         | `String topic, Publisher<T> event`       |推送消息流到事件总线 |
+| 方法名                                                                                                     | 返回值                  | 说明                         |
+|---------------------------------------------------------------------------------------------------------|----------------------|----------------------------|
+| subscribe(Subscription subscription)                                                                    | Flux\<TopicPayload\> | 从事件总线中订阅事件                 |
+| subscribe(Subscription subscription, Function\<TopicPayload, Mono\<Void\>\> handler)                    | Disposable           | 从事件总线中订阅事件并指定handler来处理事件  |
+| subscribe(Subscription subscription, Decoder\<T\> decoder)                                              | \<T\> Flux\<T\>      | 从事件总线中订阅事件并按照指定的解码器进行数据转换  |
+| subscribe(Subscription subscription, Class\<T\> type)                                                   | \<T\> Flux\<T\>  | 订阅主题并将事件数据转换为指定的类型  |
+| publish(String topic, Publisher\<T\> event)                                                             | \<T\> Mono\<Long\>   | 推送消息流到事件总线                 |
+| publish(String topic, Publisher\<T\> event, T event)                                                    | \<T\> Mono\<Long\>   | 推送单个数据到事件总线中并指定编码器用于将事件数据进行序列化                |
+| publish(String topic, Encoder\<T\> encoder, Publisher\<\? extends T\> eventStream)                      | \<T\> Mono\<Long\>   | 推送消息流到事件总线并指定编码器用于进行事件序列化  |
+| publish(String topic, Encoder\<T\> encoder, Publisher\<\? extends T\> eventStream, Scheduler scheduler) | \<T\> Mono\<Long\>   | 推送消息流到事件总线并指定编码器和调度器用于进行事件序列化 |
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
- <li>订阅事件实例 </li>
 
-```java
+#### 消息总线对应topic说明
 
-    public static Subscription of(String subscriber, String topic, Feature... features) {
-        return Subscription
-            .builder()
-            //订阅者标识  
-            .subscriberId(subscriber)
-            //订阅主题   
-            .topics(topic)
-            //订阅特性   
-            .features(features)
-            .build();
-    }
-        
-    public Flux<Message> subscribe(SubscribeRequest request) {
-        return eventBus
-            .subscribe(Subscription.of(
-            "notifications-publisher",
-            "/notifications/user/" + request.getAuthentication().getUser().getId() + "/*/*",
-            Subscription.Feature.local, Subscription.Feature.broker
-            ))
-            .map(msg -> Message.success(request.getId(), msg.getTopic(), msg.bodyToJson(true)));
-    }
-```
+| Topic                                            | 说明       |
+|--------------------------------------------------|----------|
+| /_sys/network/{typeId}/reload                    | 重启网络组件   |
+| /_sys/network/{typeId}/shutdown                  | 停止网络组件   |
+| /_sys/network/{typeId}/destroy                   | 删除网络组件   |
+| /_sys/media-gateway/{gatewayId}/sync-channel     | 视频网关同步   |
+| /_sys/media-gateway/start                        | 视频网关启动   |
+| /_sys/media-gateway/stop                         | 视频网关停止   |
+| /_sys/collector-conf                             | 采集器配置    |
+| /_sys/collector-remove                           | 采集器删除    |
+| /_sys/collector-point                            | 采集器点位    |
+| /_sys/collector-channel                          | 采集器通道    |
+| /_sys/collector-channel-remove                   | 删除采集器通道  |
+| /sys-event/{operationType}/{operationId}/{level} | 系统事件     |
+| /logging/system/{logName}/{logLevel}             | 系统日志     |
+| /_sys/notifier/reload                            | 消息通知重启   |
+| /_sys/registry-product/{productID}/register      | 产品注册     |
+| /_sys/registry-product/{productID}/unregister    | 产品注销     |
+| /_sys/registry-product/{productID}/metadata      | 产品物模型    |
+| /_sys/user-dimension-changed/{userId}            | 用户维度变更   |
+| /_sys/metadata-mapping-changed                   | 物模型变更    |
+| /_sys/metadata-mapping-deleted                   | 物模型删除    |
+| /debug/device/{deviceId}/trace                   | 设备诊断     |
+| /_sys/notify-channel/register                    | 注册消息通道   |
+| /_sys/notify-channel/unregister                  | 注销消息通道   |
+| /_sys/alarm/config/deleted                       | 告警配置删除   |
+| /_sys/alarm/config/created                       | 告警配置创建   |
+| /_sys/alarm/config/saved                         | 告警配置保存   |
+| /_sys/alarm/config/modified                      | 告警配置修改   |
+| /_sys/device-alarm-config/save                   | 设备告警保存   |
+| /_sys/device-alarm-config/bind                   | 设备告警绑定   |
+| /_sys/device-alarm-config/unbind                 | 设备告警解绑   |
+| /_sys/thing-connector/started                    | 启动连接器    |
+| /_sys/thing-connector/stopped                    | 停止连接器    |
+| /_sys/thing-connector/deleted                    | 删除连接器    |
 
- <li>核心参数Subscription </li>
+##### typeId字段说明
 
-| 字段名         | 类型                   | 是否必填 | 说明                    |
-|-------------|----------------------|------|-----------------------|
-| subscriber | String | 是    | 订阅者标识                 |
-| topics   | String[]        | 是    | 订阅主题 |
-| features   | Feature[]        | 是    | 订阅特性 |
-| priority   | priority        | 否    | 优先级,值越小优先级越高,优先级高的订阅者会先收到消息 |
+| 网络组件类型标识          | 说明           |
+|-------------------|--------------|
+| TCP_CLIENT        | TCP客户端       |
+| TCP_SERVER        | TCP服务        |
+| MQTT_CLIENT       | MQTT客户端      |
+| MQTT_SERVER       | MQTT服务       |
+| HTTP_CLIENT       | HTTP客户端      |
+| HTTP_SERVER       | HTTP服务       |
+| WEB_SOCKET_CLIENT | WebSocket客户端 |
+| WEB_SOCKET_SERVER | WebSocket服务  |
+| COAP_CLIENT       | CoAP客户端      |
+| COAP_SERVER       | CoAP服务       |
+| UDP               | UDP          | 
 
-</div>
+设备消息对应事件总线详情参照<a href='/function-description/device_message_description.html#总线topic'>设备消息对应事件总线topic</a>
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -1017,123 +1037,147 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     <span class='explanation-title font-weight'>提示</span>
   </p>
 
-通配符`**`表示匹配多层路径，`*`表示匹配单层路径。`不支持`前后匹配，如: `/device/id-*/message`。
-发布和订阅均支持通配符，发布时使用通配符时则进行广播。
+<li>可用通配符*替换topic中的参数，发布和订阅均支持通配符，例如：</li>
+
+`/_sys/network/MQTT_SERVER/shutdown`，表示停止类型为MQTT服务的网络组件，<br/>
+`/_sys/network/*/shutdown`，表示停止所有类型的网络组件，可订阅该topic
+
+<li>通配符通配符*表示匹配单层路径，**表示匹配多层路径，例如：</li>
+
+`/device/product001/*/online`，表示订阅产品product001下所有设备的上线消息 <br/>
+`/device/product001/**`，表示订阅产品product001下所有设备的所有消息 <br/>
+
 
 </div>
 
-#### 常见问题
+#### 发布/订阅事件实例 
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
-  </p>
-  <li>哪些模块可以从事件总线中订阅事件</li>
 
-| 模块名   |   类名            | Topic              | 订阅标识                    |
-|-------|--------------------|--------------------|-------------------------|
-| 流媒体服务 | ZLMMediaServer | /_sys/zlm/notify/* | ZLMedia-server-notify |
-| 网络组件  | ClusterNetworkManager | /_sys/network/* /* | network-config-manager   |
-| 规则引擎  | RuleEngineSubscriptionProvider | /rule-engine/**    | rule-engine   |
-| 消息通知  | NotificationsPublishProvider | /notifications/user/**    | notifications-publisher   |
-| 设备实例  | DeviceMessageSubscriptionProvider | /device/* /*/**    | network-config-manager   |
-| 告警规则  | AlarmProvider | /alarm/**/record     | alarm   |
-
-</div>
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
-  </p>
- <li>如何实现共享订阅</li>
-会根据传入的订阅特性判断是否为共享订阅，若是共享订阅则会先存到缓存中，后续再依次处理缓存中的共享订阅，在处理的过程中会
-判断订阅消息是否是同一个订阅者的，若是同一个订阅者则只处理最早的那条订阅消息。
-
+发布事件:
 ```java
-private <T> Mono<Long> doPublish(String topic,
-                                     T arg,
-                                     Function4<String, T, List<SubscriptionInfo>, ContextView, Mono<Void>> handler,
-                                     Predicate<SubscriptionInfo> predicate) {
+      public Mono<Void> shutdown(NetworkType type, String NetworkId) {
+          return
+           //将停止网络组件事件推送到消息总线   
+           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
+          .then();
+          }
+```
 
-        //共享订阅,只有一个订阅者能收到
-        Map<String, List<SubscriptionInfo>> sharedMap = SHARED.get();
-        //去重
-        Set<Object> distinct = DISTINCT_HANDLERS.get();
-        //订阅者信息
-        Set<SubscriptionInfo> readyToPub = PUB_HANDLERS.get();
-        Mono<Long> task;
-        try {
-            //从订阅表中查找topic
-            root.findTopic(topic, predicate, sharedMap, distinct, readyToPub,
-                           (_predicate, _sharedMap, _distinct, _readyToPub, subs) -> {
-                               Set<SubscriptionInfo> subscriptions = subs.getSubscribers();
-                               if (subscriptions.isEmpty()) {
-                                   return;
-                               }
+订阅事件：
+```java
+      //使用Subscribe方法
+      public void doSubscribe() {
+        eventBus
+            //调用subscribe方法
+            .subscribe(Subscription
+            //构建订阅者消息
+            .builder()
+            //订阅者标识
+            .subscriberId("network-config-manager")
+            //订阅topic
+            .topics("/_sys/network/*/shutdown")
+            //订阅特性,有三类特性
+            .justBroker()
+            .build())
+         //拿到消息总线中的数据进行后续处理
+        .flatMap(payload -> {
+            ...
+        })
+        .subscribe();
+      }
 
-                               for (SubscriptionInfo sub : subscriptions) {
-                                   if (!_predicate.test(sub) || !_distinct.add(sub.handler)) {
-                                       continue;
-                                   }
-                                   //共享订阅时,添加到缓存,最后再处理
-                                   if (sub.hasFeature(Subscription.Feature.shared)) {
-                                       _sharedMap
-                                           .computeIfAbsent(sub.subscriber, ignore -> new ArrayList<>(8))
-                                           .add(sub);
-                                       continue;
-                                   }
-                                   _readyToPub.add(sub);
-                               }
-                           },
-                           (_predicate, _sharedMap, _distinct, _readyToPub) -> {
-                               if (_sharedMap.isEmpty()) {
-                                   return;
-                               }
-                               //处理共享订阅
-                               for (List<SubscriptionInfo> value : _sharedMap.values()) {
-                                   if (value.isEmpty()) {
-                                       continue;
-                                   }
-                                   SubscriptionInfo first = value.get(0);
-                                   //只有一个订阅消息，则直接存入
-                                   if (value.size() == 1) {
-                                       _readyToPub.add(first);
-                                       //有多个相同订阅者的订阅消息，则存入最先订阅的消息
-                                   } else if (first.hasFeature(Subscription.Feature.sharedOldest)) {
-                                       value.sort(SubscriptionInfo.comparatorByTime);
-                                       _readyToPub.add(value.get(0));
-                                       //其他情况则在订阅消息中随机取一个存入
-                                   } else {
-                                       _readyToPub.add(value.get(ThreadLocalRandom.current().nextInt(0, value.size())));
-                                   }
-                               }
-                           });
-
-            if (readyToPub.isEmpty()) {
-                return Reactors.ALWAYS_ZERO_LONG;
-            }
-
-            int size = readyToPub.size();
-            List<SubscriptionInfo> pub = new ArrayList<>(readyToPub);
-            //排序
-            pub.sort(SubscriptionInfo.comparatorPriority);
-
-            task = Mono
-                .deferContextual(ctx -> handler.apply(topic, arg, pub, ctx))
-                .then(Mono.just((long) size));
-
-        } finally {
-            sharedMap.clear();
-            distinct.clear();
-            readyToPub.clear();
-        }
-        return task;
+    //使用Subscribe注解
+    @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
+    public Mono<Void> doStart(String id) {
+            return this
+            .findById(id)
+            .flatMap(this::doStart);
     }
 ```
 
+
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+
+ <li>如何实现共享订阅</li>
+
+会根据传入的订阅特性字段判断是否为shared共享订阅，若是共享订阅则会先存到缓存中，后续再依次处理缓存中的共享订阅，在处理的过程中会
+判断订阅消息是否是同一个订阅者的，若是同一个订阅者则只处理最早的那条订阅消息。
+
 </div>
+
+#### 共享订阅实例
+使用Subscribe方法：
+```java
+      public void doSubscribe() {
+        eventBus
+            //调用subscribe方法
+            .subscribe(Subscription
+            //构建订阅者消息
+            .builder()
+            //订阅者标识
+            .subscriberId("network-config-manager")
+            //订阅topic
+            .topics("/_sys/network/*/shutdown")
+            //订阅特性为shared
+            .shared()
+            .build())
+         //拿到消息总线中的数据进行后续处理
+        .flatMap(payload -> {
+            ...
+        })
+        .subscribe();
+      }
+```
+使用Subscribe注解：
+```java
+      
+    //订阅特性为shared
+    @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
+    public Mono<Void> doStart(String id) {
+            return this
+            .findById(id)
+            .flatMap(this::doStart);
+    }
+```
+
+订阅特性字段Feature说明
+
+| 标识         | 说明         |
+|------------|------------|
+| shared | 共享订阅 |
+| local| 订阅本地消息     |
+| broker | 订阅代理消息     |
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+
+在使用Subscribe注解订阅事件时，传入参数分别为订阅topic、订阅者标识和订阅特性，后两者为选填，若不填订阅者标识默认值为本方法名，订阅特性默认值为local，
+当订阅特性为shared时就只能填写这一个特性，当订阅特性中没有shared时，local和broker可同时填写。<br/>
+
+</div>
+
+#### 多订阅特性实例
+
+Subscribe方法：
+```java
+eventBus
+        .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
+ ```
+
+Subscribe注解：
+ ```java
+@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+```
 
 ### 添加自定义存储策略
 
@@ -1215,24 +1259,181 @@ private <T> Mono<Long> doPublish(String topic,
 
 #### 应用场景
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
+1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
+2、通过实现自定义协议的DeviceMessageSenderInterceptor.afterSent来拦截消息发送,替换掉默认处理方式.在这里使用WebClient或者Vertx请求第三方或者设备。<br/>
+3、请求后解析数据为对应的消息,调用DecodedClientMessageHandler.handleMessage(device,message)完成默认消息处理之后,返回消息。<br/>
 
-</div>
 
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
-```
 
-#### 核心类说明
+#### 例子一,通过http到第三方平台获取数据
+##### 第一步 定义消息编码解码器
+
+~~~java
+public class HttpMessageCodec implements DeviceMessageCodec {
+    
+    // 定义一个通用的响应，用于收到请求后响应
+    private static final SimpleHttpResponseMessage response = SimpleHttpResponseMessage
+            .builder()
+            .payload(Unpooled.wrappedBuffer("{success:true}".getBytes()))
+            .contentType(MediaType.APPLICATION_JSON)
+            .status(200)
+            .build();
+    
+    @Override
+    public Transport getSupportTransport() {
+        return DefaultTransport.HTTP;
+    }
+    
+    @Nonnull
+    @Override
+    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context){
+        // 这里用于别的平台请求/通知jetlinks的请求处理
+        // 把消息转换为http消息
+         HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
+        String url = message.getUrl();
+        // 这里通常需要判断是不是自己需要的请求，如果不是直接返回/响应，防止非法请求
+        if (!url.endsWith("/eventRcv")) {
+            return message.response(response).then(Mono.empty());
+        }
+        // 获取具体消息类型
+        ByteBuf payload = message.getPayload();
+        String string = payload.toString(StandardCharsets.UTF_8);
+        // 通常来说，云平台通知的定义为事件消息（也可以定义成别的消息）
+        EventMessage eventMessage = new EventMessage();
+        eventMessage.setEvent("test");
+        eventMessage.setDeviceId(string);
+        eventMessage.setData(string);
+        eventMessage.setMessageId(String.valueOf(System.currentTimeMillis()));
+        eventMessage.setTimestamp(System.currentTimeMillis());
+        return message.response(response).thenMany(Flux.just(eventMessage));
+    }
+    
+    
+    @Nonnull
+    @Override
+    public Publisher<? extends EncodedMessage> encode(@Nonnull MessageEncodeContext context) {
+        // 对接其他云平台，命令发起不在这里处理，所以这里返回空就可以了
+        return Mono.empty();
+    }
+    
+}
+~~~
+
+##### 第二步 定义一个消息拦截器
+
+~~~java
+@Slf4j
+@AllArgsConstructor
+@Getter
+@Setter
+public class HttpMessageSenderInterceptor implements DeviceMessageSenderInterceptor{
+    // 通过构造器注入一个编码消息处理器，用于消息的持久化
+	private DecodedClientMessageHandler handler;
+    
+    private static final WebClient webclient=WebClient.builder().build();
+   /**
+     * 在消息发送后触发.
+     *
+     * @param device  设备操作接口
+     * @param message 源消息
+     * @param reply   回复的消息
+     * @param <R>     回复的消息类型
+     * @return 新的回复结果
+     */
+    public <R extends DeviceMessage> Flux<R> afterSent(DeviceOperator device, DeviceMessage message, Flux<R> reply) {
+        return Flux.from(
+            // 从配置中获取url等各种请求所需参数
+            device.getConfigs("url")
+                        .flatMap(values->{
+                            String url=values.getValue("url").map(Value::asString).orElse(null);
+                            // 通常发起请求都是通过方法调用
+                            FunctionInvokeMessage invokeMessage = (FunctionInvokeMessage) message;
+                            // 从命令发起的上下文中获取消息体
+        				  List<FunctionParameter> inputs = invokeMessage.getInputs();
+                            Map< String, Object> body=iputs
+                                .stream()
+                                .collect(Collectors
+                                         .toMap(FunctionParameter::getName, 			FunctionParameter::getValue));
+                            return webclient  // 构造WebClient
+                            	.post()  // 指定请求类型
+                            	.uri(url) // 请求路径
+                            	.bodyValue(body) // 请求参数
+                           		.retrieve() // 发起请求
+                           		.bodyToMono(String.class) // 响应参数
+                           		.flatMap(s -> {
+                                    // 响应参数包装为功能回复参数
+                               		FunctionInvokeMessageReply reply1 = new FunctionInvokeMessageReply();
+                               		reply1.setSuccess(true);
+                               		reply1.setMessage(s);
+                               		reply1.setDeviceId(message.getDeviceId());
+                               		reply1.setMessageId(message.getMessageId());
+                               		reply1.setTimestamp(System.currentTimeMillis());
+                               		reply1.setOutput(s);
+                               		reply1.setFunctionId(((FunctionInvokeMessage) message).getFunctionId());
+                               return Mono.just(reply1)
+                                       .map(deviceMessage->(R)deviceMessage);
+                           })
+                           // 消息持久化
+                           .flatMap(msg->handler.handleMessage(device,msg)
+                                   .thenReturn(msg));
+                        })
+                );
+    }
+}
+~~~
+
+##### 第三步 定义一个设备状态检测器
+
+~~~java
+/**
+* 这个接口会在进入设备详情页面和刷新设备状态时调用
+*/
+@Slf4j
+public class HttpDeviceStateChecker implements DeviceStateChecker {
+    @Override
+    public @NotNull Mono<Byte> checkState(@NotNull DeviceOperator device) {
+        // 如果第三方平台有提供设备状态查询接口，则调用接口确定设备状态，否则设置为设备在线，方便发起功能或者属性查询
+        return Mono.just(DeviceState.online);
+    }
+}
+~~~
+
+##### 第四步 定义协议处理器
+
+~~~java
+public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
+    
+        private static final DefaultConfigMetadata httpRequest = new DefaultConfigMetadata(
+            "Http请求配置"
+            , "")
+            .add("url", "url", " http请求地址", new StringType());
+    
+    @Override
+    public Mono<? extends ProtocolSupport> create(ServiceContext serviceContext){
+        CompositeProtocolSupport support = new CompositeProtocolSupport();
+        support.setId("http-demo-v1");
+        support.setName("http调用第三方接口DEMO");
+        support.setDescription("http调用第三方接口DEMO");
+        support.setMetadataCodec(new JetLinksDeviceMetadataCodec());
+        // 设置一个编解码入口
+        HttpMessageCodec codec = new HttpMessageCodec();
+        support.addMessageCodecSupport(DefaultTransport.HTTP, () -> Mono.just(codec));
+        // 添加配置项定义
+        support.addConfigMetadata(DefaultTransport.HTTP, httpRequest);
+        HttpDeviceStateChecker httpDeviceStateChecker = new HttpDeviceStateChecker();
+        // 设置设备状态检查接口
+        support.setDeviceStateChecker(httpDeviceStateChecker);
+        // 设置HTTP消息拦截器，用于发送HTTP消息
+        serviceContext.getService(DecodedClientMessageHandler.class)
+                .ifPresent(handler -> support.addMessageSenderInterceptor(new HttpMessageSenderInterceptor(handler)));
+        return Mono.just(support);
+    }
+}
+~~~
+
+#### 例子二,通过tcp主动从设备拉取数据
 
 | 类名 | 方法名 | 返回值 | 说明 |
 |----------------| -------------------------- |--------|---------------------------|-------------------|
