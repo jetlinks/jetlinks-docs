@@ -698,86 +698,112 @@ springdoc:
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
   <p><li>如果不会写响应式，建议最好独立项目不要与JetLinks混合使用非响应式，可能会导致项目出现阻塞。</li></p>
-
+jetlinks
 </div>
 
 ### 监听实体变化做业务
 
 #### 应用场景
 
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
+  Spring Event是观察者模式的一种实现，由事件（ApplicationEvent)、监听器(ApplicationListener)和事件发布操作三个部分组成，使用事件机制可以解耦、方便功能拓展和调整。
 </div>
-
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
-```
-
-#### 核心类说明
-
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
+ 由于Spring Event不支持响应式,平台封装了响应式事件抽象类，
+可实现接口AsyncEvent或者继承DefaultAsyncEvent来处理 响应式操作。
+监听响应式事件时需要使用event.async( doSomeThing(event) )来注册响应式操作. 
+例如：
 </div>
 
+
+```java
+@EventListener
+public void handleEvent(EntitySavedEvent<DeviceInstanceEntity>  event){
+
+event.async( this.sendNotify(event.getEntity()) );
+}
+
+public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
+
+  return ....;
+}
+
+```
+#### 核心接口说明
+
+核心接口org.hswebframework.web.event.AsyncEvent
+
+| 方法名 | 返回值 | 参数值 | 说明  |
+|------- |--------|----------|------------|
+|`getAsync()` | 无 | 无|异步|
+|`async(Publisher<?> publisher)` | 无 | `Publisher<?> publisher`|注册一个异步任务|
+|`first(Publisher<?> publisher)` | 无 | `Publisher<?> publisher`|注册一个优先级高的任务 |
+|`publish(ApplicationEventPublisher eventPublisher)` | `Mono<Void>` | `ApplicationEventPublisher eventPublisher`|推送事件到 ApplicationEventPublisher |
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  产品注册事件
+</div>
+
+```java
+//产品事件类
+public class DeviceProductDeployEvent extends DefaultAsyncEvent {
+  ...
+}
+```
+```java
+org.jetlinks.community.device.service.LocalDeviceProductService的deploy方法
+//注册产品并发布注册相关事件
+public Mono<Integer> deploy(String id) {
+    return findById(Mono.just(id))
+        //获取产品相关信息，进行注册和动态更新接口信息
+        .flatMap(product -> registry
+            .register(product.toProductInfo())
+            .then(
+                createUpdate()
+                    .set(DeviceProductEntity::getState, DeviceProductState.registered.getValue())
+                    .where(DeviceProductEntity::getId, id)
+                    .execute()
+            )
+            //将产品信息copy到DeviceProductDeployEvent事件实体类中，然后进行发布
+            .flatMap(i -> FastBeanCopier
+                .copy(product, new DeviceProductDeployEvent())
+                .publish(eventPublisher)
+                .thenReturn(i))
+        );
+}
+```
+```java
+//监听产品激活
+@EventListener
+public void handlerEvent(DeviceProductDeployEvent event) {
+    event.async(
+        this.doRegisterMetadata(event.getId(), event.getMetadata())
+    );
+}
+private Mono<Void> doRegisterMetadata(String productId, String metadataString) {
+    return codec
+        .decode(metadataString)
+        .flatMap(metadata -> dataService.registerMetadata(productId, metadata));
+}
+```
+| 方法名 | 返回值 | 参数值 | 说明  |
+|------- |--------|----------|------------|
+|`decode(String source)` | `Mono<DeviceMetadata>`| String source-物模型数据|将数据解码为物模型|
+|`registerMetadata(@Nonnull String productId,@Nonnull DeviceMetadata metadata)` | `Mono<Void>`| @NonnullString productId-产品ID<br/>,@Nonnull DeviceMetadata metadata-物模型数据|将数据解码为物模型|
+|`getStoreStrategy(String productId)` | `Mono<DeviceDataStoragePolicy>`| String productId-产品ID<br/>|通过产品ID 获取存储策略|
 ### 使用消息总线
 
 #### 应用场景
