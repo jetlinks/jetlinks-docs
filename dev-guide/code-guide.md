@@ -2,6 +2,8 @@
 
 ## 常见开发问题
 
+- <a target='_self' href='/dev-guide/code-guide.html#%E6%BA%90%E7%A0%81%E6%8B%89%E5%8F%96%E5%8F%8A%E5%AD%90%E6%A8%A1%E5%9D%97%E6%9B%B4%E6%96%B0%E6%8C%87%E5%8D%97'>
+   如何拉取源码及更新子模块？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
@@ -24,6 +26,182 @@
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
+
+### 源码拉取及子模块更新指南
+
+#### 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+  <p>1. 该指南提供首次拉取代码的用户配置SSH Key操作步骤，以及拉取代码后如何更新子模块的代码。</p>
+  <p>2. 将更新后的代码提交到自己的仓库内。</p>
+  <p>3. 如何更新源仓库代码并同步至自己的仓库内。</p>
+
+</div>
+
+```java
+//此处将具体代码实现放入
+//1.对关键部分代码进行步骤梳理及注释说明
+//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+```
+
+#### 操作步骤
+
+##### 配置SSH Key
+
+1. 在电脑的空闲磁盘上创建目录，并且安装Git客户端程序。
+
+安装Git客户端程序不在此处进行详述，可自行百度搜索安装Git。
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+  <p>目录名称应以英文命名，不要使用中文进行命名！</p>
+  <p>使用中文命名可能会导致文件上传时，查找中文目录名称转义失败，抛出无法加载协议的异常。</p>
+
+</div>
+
+
+2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
+   
+![选择settings](./images/code-guide-0-1.png)
+![选择ssh keys](./images/code-guide-0-2.png)
+
+3. 创建SSH key
+![create ssh keys](./images/code-guide-0-3.png)
+
+在第一步新建的目录内，右键空白处弹出菜单`git bash here`，在弹出的shell控制台内执行下方命令：
+
+该命令需要修改邮箱地址为您自己的邮箱地址。
+```shell
+$ ssh-keygen -t ed25519 -C "your_email@example.com"
+```
+
+示例如下:
+```shell
+$ ssh-keygen -t ed25519 -C "445990772@qq.com"
+Generating public/private ed25519 key pair.
+#回车
+Enter file in which to save the key (/c/Users/LJ/.ssh/id_ed25519): 
+#回车 
+Enter passphrase (empty for no passphrase):
+#回车
+Enter same passphrase again:
+# 提示生成了公钥和身份信息
+Your identification has been saved in id_ed25519
+Your public key has been saved in id_ed25519.pub
+The key fingerprint is:
+SHA256:IBctEwVoRajdZLE29buxRlpxPDW5E4z453215tgUqcTQIrUrs 445990772@qq.com
+The key's randomart image is:
++--[ED25519 256]--+
+|     =O*+o.+.=o. |
+|    +.==.o+o+.*. |
+|   +o+Oo..o.+. + |
+|  . .=.=  .+ .+  |
+|      E S =    . |
+|         + +     |
+|        . +      |
+|         .       |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+
+```
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>注意: 如果您使用的遗留系统不支持 Ed25519算法，请使用:</p>
+
+```shell
+
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+```
+
+</div>
+
+
+4. 将生成的ssh key添加至github内。
+
+创建完成后使用下方命令复制公钥内容，
+
+```shell
+$ clip < ~/.ssh/id_ed25519.pub
+
+```
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>如果clip命令不起作用，您可以找到隐藏的.ssh 文件夹，隐藏的.ssh 文件夹一般在<b class='explanation-title font-weight'>C:\Users\{设备名称}</b>目录下，
+找到该目录下的<b class='explanation-title font-weight'>.pub</b>文件，复制该内容粘贴至github</p>
+
+</div>
+
+![create ssh keys2](./images/code-guide-0-4.png)
+
+#### 常见问题
+
+*对开发过程中出现的问题进行总结*
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+  <p>Q:配置完SSH Key如果仍提示需要输入git@github.com‘s password，且尝试了所有密码均提示:Permission denied, please try again。</p>
+  <p>产品禁用后，设备无法再接入。但不影响已经接入的设备。</p>
+
+</div>
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
+  </p>
+
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+
+</div>
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+</div>
 
 ### 在JetLinks上构建自己的业务功能
 
@@ -603,20 +781,18 @@ springdoc:
 ### 使用消息总线
 
 #### 应用场景
+
 EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系，
 当事件发布时，平台的其他模块，例如：产品/设备、规则引擎、设备告警等模块都可以同时订阅到该事件，能够有效地降低消息发布者和订阅者之间的耦合度。
 
-
-
 #### 核心接口说明
+
 核心接口org.jetlinks.core.event.EventBus
 
 | 方法名 | 返回值                  | 参数值                                      | 说明  |
 |------- |----------------------|------------------------------------------|------------|
 |subscribe() | Flux\<TopicPayload\> | `Subscription subscription`              |从事件总线中订阅事件|
 |publish() | Mono\<Long\>         | `String topic, Publisher<T> event`       |推送消息流到事件总线 |
-
-
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -658,6 +834,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 | topics   | String[]        | 是    | 订阅主题 |
 | features   | Feature[]        | 是    | 订阅特性 |
 | priority   | priority        | 否    | 优先级,值越小优先级越高,优先级高的订阅者会先收到消息 |
+
 </div>
 
 <div class='explanation info'>
@@ -680,14 +857,15 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
   </p>
   <li>哪些模块可以从事件总线中订阅事件</li>
 
-  | 模块名   |   类名            | Topic              | 订阅标识                    |
+| 模块名   |   类名            | Topic              | 订阅标识                    |
 |-------|--------------------|--------------------|-------------------------|
-  | 流媒体服务 | ZLMMediaServer | /_sys/zlm/notify/* | ZLMedia-server-notify |
-  | 网络组件  | ClusterNetworkManager | /_sys/network/* /* | network-config-manager   |
-  | 规则引擎  | RuleEngineSubscriptionProvider | /rule-engine/**    | rule-engine   |
-  | 消息通知  | NotificationsPublishProvider | /notifications/user/**    | notifications-publisher   |
-  | 设备实例  | DeviceMessageSubscriptionProvider | /device/* /*/**    | network-config-manager   |
-  | 告警规则  | AlarmProvider | /alarm/**/record     | alarm   |
+| 流媒体服务 | ZLMMediaServer | /_sys/zlm/notify/* | ZLMedia-server-notify |
+| 网络组件  | ClusterNetworkManager | /_sys/network/* /* | network-config-manager   |
+| 规则引擎  | RuleEngineSubscriptionProvider | /rule-engine/**    | rule-engine   |
+| 消息通知  | NotificationsPublishProvider | /notifications/user/**    | notifications-publisher   |
+| 设备实例  | DeviceMessageSubscriptionProvider | /device/* /*/**    | network-config-manager   |
+| 告警规则  | AlarmProvider | /alarm/**/record     | alarm   |
+
 </div>
 
 <div class='explanation warning'>
@@ -780,6 +958,7 @@ private <T> Mono<Long> doPublish(String topic,
         return task;
     }
 ```
+
 </div>
 
 ### 添加自定义存储策略
@@ -957,11 +1136,11 @@ private <T> Mono<Long> doPublish(String topic,
 
 在自定义协议包解码出消息时，可通过在消息中添加头`keepOnline`来进行设置。如:
 
-```java
+```javascript
 //设置让会话强制在线
-message.addHeader(Headers.keepOnline,true);
+message.addHeader(Headers.keepOnline, true);
 //设置超时时间（可选,默认10分钟），如果超过这个时间没有收到任何消息则认为离线。
-        message.addHeader(Headers.keepOnlineTimeoutSeconds,600);
+message.addHeader(Headers.keepOnlineTimeoutSeconds, 600);
 
 ```
 
@@ -971,7 +1150,7 @@ message.addHeader(Headers.keepOnline,true);
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <li>MQTT接入时添加到任意消息即可。TCP接入时添加到<b class="error explanation-title">DeviceOnlineMessage</b>即可。</li>
+  <li>MQTT接入时添加到任意消息即可。TCP接入时添加到<b class='explanation-title font-weight'>DeviceOnlineMessage</b>即可。</li>
   <li>如果服务重启，将不会保持在线状态！</li>
 
 </div>
@@ -1026,10 +1205,12 @@ message.addHeader(Headers.keepOnline,true);
   </p>
 
 <p>在进行消息下发时，因为会话是强制保持在线的，所以消息会直接通过session下发，但是此时设备可能已经断开了连接,
-将会抛出异常<b class="error explanation-title">DeviceOperationException(ErrorCode.CLIENT_OFFLINE)</b>。</p>
+将会抛出异常<b class='explanation-title font-weight'>DeviceOperationException(ErrorCode.CLIENT_OFFLINE)</b>。</p>
 <p>此时可以在发送消息后拦截异常将消息缓存起来，等待下次设备连接上来后再下发指令。</p>
 
-一、在自定义协议包中使用消息拦截器拦截异常
+</div>
+
+1. 在自定义协议包中使用消息拦截器拦截异常
 
 ```java
 public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider {
@@ -1068,7 +1249,7 @@ public class JetLinksProtocolSupportProvider implements ProtocolSupportProvider 
 }
 ```
 
-二、获取缓存的消息
+2. 获取缓存的消息
 
 平台收到设备上报数据后进行解码时,可以先获取是否有缓存到消息,然后发送到设备.
 
@@ -1109,8 +1290,6 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
     }
 }
 ```
-
-</div>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
