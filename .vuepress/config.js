@@ -123,7 +123,8 @@ module.exports = {
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
                     ['/protocol/mqtt.md', 'MQTT协议解析'],
-                    ['/protocol/faq.md', '常见问题'],
+                    ['/protocol/api.md', '协议开发API'],
+                    ['/protocol/faq.md', '常见问题']
                 ]
             },
             {
@@ -131,7 +132,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    // ['/dev-guide/start.md', '介绍'],
+                    ['/dev-guide/start.md', '介绍'],
                     ['/dev-guide/specification', '规范'],
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
@@ -151,16 +152,15 @@ module.exports = {
                     // ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
                     ['/dev-guide/commons-api.md', '平台内部核心类及接口说明'],
                     ['/dev-guide/cluster.md', '集群管理'],
-                    // ['/dev-guide/sort-link.md', '短连接接入平台'],
-                    // ['/dev-guide/poll-device-data.md', '平台从第三方或者设备主动拉取数据'],
+                    ['/dev-guide/sort-link.md', '短连接接入平台'],
+                    ['/dev-guide/poll-device-data.md', '平台从第三方或者设备主动拉取数据'],
                     ['/dev-guide/assets.md', '数据权限控制'],
-                    // ['/dev-guide/subscribe-device-message.md', '从事件总线中订阅消息'],
+                    ['/dev-guide/subscribe-device-message.md', '从事件总线中订阅消息'],
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
                     // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
-8
                 ]
             },
             {
