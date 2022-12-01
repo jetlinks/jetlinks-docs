@@ -863,9 +863,15 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     <span class='explanation-title font-weight'>提示</span>
   </p>
 
-可用通配符`*`替换topic中的参数，发布和订阅均支持通配符，例如：<br/>
+<li>可用通配符*替换topic中的参数，发布和订阅均支持通配符，例如：</li>
+
 `/_sys/network/MQTT_SERVER/shutdown`，表示停止类型为MQTT服务的网络组件，<br/>
 `/_sys/network/*/shutdown`，表示停止所有类型的网络组件，可订阅该topic
+
+<li>通配符通配符*表示匹配单层路径，**表示匹配多层路径，例如：</li>
+
+`/device/product001/*/online`，表示订阅产品product001下所有设备的上线消息 <br/>
+`/device/product001/**`，表示订阅产品product001下所有设备的所有消息 <br/>
 
 
 </div>
@@ -914,40 +920,14 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
             .flatMap(this::doStart);
     }
 ```
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
 
 
-在使用Subscribe注解订阅事件时，传入参数分别为订阅topic、订阅者标识和订阅特性，后两者为选填，若不填订阅者标识默认值为本方法名，订阅特性默认值为local，
-并且支持填写多个订阅特性。
-
-
-
-</div>
 
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-<li>topic中通配符*和**的区别</li>
-
- 通配符通配符*表示匹配单层路径,**表示匹配多层路径,例如：
-
- `/device/product001/*/online`，代表订阅产品product001下所有设备的上线消息 <br/>
- `/device/product001/**`，代表订阅产品product001下所有设备的所有消息 <br/>
-
-</div>
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
+    <span class='explanation-title font-weight'>问题</span>
   </p>
 
  <li>如何实现共享订阅</li>
@@ -971,7 +951,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
             //订阅topic
             .topics("/_sys/network/*/shutdown")
             //订阅特性为shared
-            .justShared()
+            .shared()
             .build())
          //拿到消息总线中的数据进行后续处理
         .flatMap(payload -> {
@@ -997,10 +977,33 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 | 标识         | 说明         |
 |------------|------------|
 | shared | 共享订阅 |
-| local | 订阅本地消息     |
+| local| 订阅本地消息     |
 | broker | 订阅代理消息     |
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
 
+
+在使用Subscribe注解订阅事件时，传入参数分别为订阅topic、订阅者标识和订阅特性，后两者为选填，若不填订阅者标识默认值为本方法名，订阅特性默认值为local，
+当订阅特性为shared时就只能填写这一个特性，当订阅特性中没有shared时，local和broker可同时填写。<br/>
+
+</div>
+
+#### 多订阅特性实例
+
+Subscribe方法：
+```java
+eventBus
+        .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
+ ```
+
+Subscribe注解：
+ ```java
+@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+```
 
 ### 添加自定义存储策略
 
