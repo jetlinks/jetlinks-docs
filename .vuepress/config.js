@@ -160,7 +160,6 @@ module.exports = {
                     ['/dev-guide/code-guide.md', '开发常见问题'],
                     // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
-8
                 ]
             },
             {
