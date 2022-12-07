@@ -1684,10 +1684,8 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>设备相关数据需要对接到其他平台或者自己的业务系统，此时需要将数据推送到消息中间件，目前支持的方式有规则引擎转发以及编程式实现
+  </p>设备相关数据需要对接到其他平台或者自己的业务系统，此时需要将数据推送到消息中间件，目前支持的方式有规则引擎推送以及编程式实现
 </div>
-
-
 
 
 
@@ -1782,7 +1780,7 @@ Kafka存在集群配置，只需要在broker地址填入多个服务器地址并
 
 
 
-<br><br>
+<br>
 
 
 
@@ -1809,45 +1807,55 @@ device:
   message:
     writer:
       time-series:
-        enabled: true #直接写出设备消息数据到elasticsearch
-        
+        enabled: true #直接写出设备消息数据到elasticsearch        
       kafka:
-        enabled: false # 推送设备消息到kafka
-        consumer: true # 从kafka订阅消息并写入到时序数据库
+        enabled: true # 推送设备消息到kafka
+        consumer: true # 设置为true会从kafka订阅消息并写入到时序数据库
         topic-name: device.message
+        
+spring:
+  kafka: # 开启了device.message.writer.kafka.enabled=true时生效
+    consumer: #消費者相关配置
+      client-id: ${spring.application.name}-consumer:${server.port}
+      group-id: ${spring.application.name}
+      max-poll-records: 1000
+    producer: #生产者相关配置
+      client-id: ${spring.application.name}-producer:${server.port}
+      acks: 1
+      retries: 3 #重试次数
+    bootstrap-servers: [ "127.0.0.1:9092" ] #如果配置多个ip则为Kafka集群
 ```
 
-
-
 ```java
-//实现KafkaProducer接口重写send方法，编写业务代码
-@Override
-    public Mono<Void> send(Publisher<Message> publisher) {
-        if (sender == null) {
-            return Mono.error(new IllegalStateException("kafka sender is shutdown"));
+//Kafka生产者使用
+@Data
+public class UseProducer(){
+	//此处演示为 使用注入的方式取得在application.yml中配置的kafka相关配置信息
+    @Autowired
+    private KafkaProperties kafkaProperties ;
+    
+    //创建并初始化生产者
+    private KafkaProducer producer = new ReactorKafkaProducer(properties);
+    
+    /**
+    * 此处从事件总线org.jetlinks.core.event.EventBus中订阅消息并执行注解的方法,
+	* 事件总线的输出数据可以作为方法参数,如果类型不一致会自动转换。
+	* 也可以通过方法参数直接获取事件总线的原始数据:org.jetlinks.core.event.TopicPayload
+	* 也可以自定义消息来源之后推送到kafka
+    **/
+    @Subscribe(topics = "/device/**", id = "device-message-kafka-writer")
+    public Mono<Void> writeDeviceMessageToTs(TopicPayload payload) {
+		
+        ByteBuf topic = Unpooled.wrappedBuffer(payload.getTopic().getBytes());
+        DeviceMessage message = payload.decode(DeviceMessage.class);
+        ByteBuf messageBuf = Unpooled.wrappedBuffer(JSON.toJSONBytes(message.toJson()));
+        if (!type.match(message.getMessageType())) {
+            return Mono.empty();
         }
-        return sender
-            .send(Flux.from(publisher)
-             //msg为具体的传过来的消息,此处做具体业务
-            .map(msg -> SenderRecord.create(msg.getTopic(), null, null, msg.keyToNio(), msg.payloadToNio(), msg)))
-            .flatMap(result -> {
-                if (null != result.exception()) {
-                    return Mono.error(result.exception());
-                }
-                //日志相关处理
-                if (log.isDebugEnabled()) {
-                    RecordMetadata metadata = result.recordMetadata();
-                    log.debug("Kafka Message {} sent successfully, topic-partition={}-{} offset={} timestamp={}",
-                              result.correlationMetadata(),
-                              metadata.topic(),
-                              metadata.partition(),
-                              metadata.offset(),
-                              metadata.timestamp());
-                }
-                return Mono.empty();
-            })
-            .then();
+        producer.sendAsync(SimpleMessage.of(topicName, topic, messageBuf));
+        return Mono.empty();
     }
+}
 ```
 
 
@@ -1855,8 +1863,6 @@ device:
 <br>
 
 
-
-核心类说明
 
 **ReactorKafkaProducer**
 
@@ -1864,69 +1870,61 @@ device:
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>该类实现了KafkaProducer接口
+  </p>
+    kafka生产者，该类实现了KafkaProducer接口，重写了send和sendAsync方法
 </div>
 
-| 方法                                 | 参数               | 返回值       | 说明                           |
-| ------------------------------------ | ------------------ | ------------ | ------------------------------ |
-| `init()`                             | 无                 | void         | 初始化方法，用于初始发送器参数 |
-| `send(Publisher<Message> publisher)` | publisher - 消息流 | `Mono<Void>` | 发送消息，可以写入自己的业务   |
+| 方法                                 | 参数                     | 返回值       | 说明     |
+| ------------------------------------ | ------------------------ | ------------ | -------- |
+| `send(Publisher<Message> publisher)` | publisher - 消息流       | `Mono<Void>` | 推送消息 |
+| `sendAsync(Message message)`         | message - 需要推送的消息 | 无           | 推送消息 |
 
 
 
 <br>
 
 
-
-**KafkaProducerTaskExecutorProvider**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    kafka生产者提供器
-</div>
-
-| 方法                    | 参数                             | 返回值       | 说明                      |
-| ----------------------- | -------------------------------- | ------------ | ------------------------- |
-| `apply(RuleData input)` | input - 规则引擎中上游节点的数据 | `Disposable` | 规则引擎中写入Kafka的实现 |
-
-
-
-<br>
-
-
-
-**KafkaConsumerTaskExecutorProvider**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    kafka消费者提供器，存在静态内部类<code>KafkaConsumerTaskExecutor</code>继承<code>AbstractTaskExecutor</code>并实现其中的<code>doStart</code>方法
-</div>
-
-| 方法        | 参数 | 返回值       | 说明                      |
-| ----------- | ---- | ------------ | ------------------------- |
-| `doStart()` | 无   | `Disposable` | 规则引擎中订阅Kafka的实现 |
 
 ```java
-@Override
-        protected Disposable doStart() {
-            return KafkaDataSourceProvider
-                .create("rule", config.createProperties(String.join(":", "rule-engine", context
-                    .getJob()
-                    .getInstanceId(), context.getJob().getNodeId())))
-                .createConsumer(config.parseTopic())
-                .flatMapMany(consumer -> consumer
-                    .subscribe()
-                    .flatMap(this::handleMessage)
-                    .doOnCancel(consumer::shutdown))
-                .subscribe();
-        }
+//Kafka消费者使用
+@Data
+public class UseConsumer(){
+    //此处演示为 使用注入的方式取得在application.yml中配置的kafka相关配置信息
+    @Autowired
+    private KafkaProperties kafkaProperties ;
+    
+    //创建并初始化消费者,topicName为配置中的topic-name
+    private KafkaConsumer consumer = new ReactorKafkaConsumer(Collections.singleton(topicName), properties);
+    
+    public void use(){
+        //开始订阅
+    	consumer.subscribe()
+           //定义消息如何处理
+          .flatMap(msg->doSomething(msg))
+          .subscribe();
+    }
+}
 ```
+
+
+
+<br>
+
+
+
+**ReactorKafkaConsumer**
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    kafka消费者，该类实现了KafkaConsumer接口，定义其中的subscribe方法去如何订阅消息
+</div>
+
+| 方法        | 参数 | 返回值 | 说明                                                         |
+| ----------- | ---- | ------ | ------------------------------------------------------------ |
+| `doStart()` | 无   | 无     | 实现自KafkaConsumer接口，内部调用doStart方法进行处理，返回订阅的消息 |
 
 
 
@@ -1942,30 +1940,67 @@ device:
     writer:
       time-series:
         enabled: true #直接写出设备消息数据到elasticsearch
-
       rabbitmq:
-        enabled: false # 推送设备消息到rabbitMq
-        consumer: true # 从rabbitMQ订阅消息并写入到时序数据库
+        enabled: true # 推送设备消息到rabbitMq
+        consumer: true # 设置为true则从rabbitMQ订阅消息并写入到时序数据库
         thread-size: 4 # 消费线程数
         auto-ack: true # 自动应答,为true可能导致数据丢失，但性能最高
         topic-name: device.message # exchange名称
+      
+spring:
+  rabbitmq: # 开启了device.message.writer.rabbitmq.enabled=true时生效
+    host: localhost
+    port: 5672
+    username: admin
+    password: jetlinks
 ```
-
-使用示例
 
 ```java
-//此处编写示例
+//rabbitMQ生产者的使用示例
+@Data
+public class UseProducer{
+    
+    //此处演示为 使用注入的方式取得在application.yml中配置的rabbitmq相关配置信息
+    @Autowired
+    private RabbitProperties rabbitProperties ;
+    
+    //生产者
+    private RabbitMQProducer producer ;
+    
+    @PostConstruct
+    public void init(){
+        //根据配置创建连接工厂
+        ConnectionFactory connectionFactory = RabbitUtils.createConnectionFactory(rabbitProperties);
+        //指定使用异步方式
+        connectionFactory.useNio();
+        
+        //初始化生产者
+        producer = new ReactorRabbitMQProducer(connectionFactory).init();
+    }
+    
+    /**
+    * 此处从事件总线org.jetlinks.core.event.EventBus中订阅消息并执行注解的方法,
+	* 事件总线的输出数据可以作为方法参数,如果类型不一致会自动转换。
+	* 也可以通过方法参数直接获取事件总线的原始数据:org.jetlinks.core.event.TopicPayload
+	* 也可以自定义消息来源之后推送到rabbitmq
+    **/
+    @Subscribe(topics = "/device/**", id = "device-message-rabbitmq-writer")
+    public Mono<Void> writeDeviceMessageToTs(TopicPayload payload) {
+		
+        //获取设备消息
+        DeviceMessage message = payload.decode(DeviceMessage.class);
 
+        if (!type.match(message.getMessageType())) {
+            return Mono.empty();
+        }
+        ByteBuf messageBuf = Unpooled.wrappedBuffer(JSON.toJSONBytes(message.toJson()));
+        return producer
+            //推送消息
+            .publish(SimpleAmqpMessage.of(topicName, producerRouteKey, null, messageBuf))
+            .subscribeOn(Schedulers.boundedElastic());
+    }
+}
 ```
-
-核心类说明
-
-**ReactorRabbitMQConsumer**
-
-| 方法          | 参数 | 返回值       | 说明         |
-| ------------- | ---- | ------------ | ------------ |
-| `initAsync()` | 无   | `Mono<Void>` | 初始化       |
-| `start()`     | 无   | 无           | 开始消费消息 |
 
 
 
@@ -1975,44 +2010,93 @@ device:
 
 **ReactorRabbitMQProducer**
 
-| 方法                           | 参数                     | 返回值                    | 说明         |
-| ------------------------------ | ------------------------ | ------------------------- | ------------ |
-| `init()`                       | 无                       | `ReactorRabbitMQProducer` | 初始化       |
-| `publish(AmqpMessage message)` | message - 需要发送的消息 | `Mono<Void>`              | 开始推送消息 |
-
-
-
-3.使用MQTT订阅平台内的消息
-
-配置文件新增：
-
-```yaml
-messaging:
-  mqtt:
-    enabled: true #开启mqtt支持
-    port: 11883 # 端口
-    host: 0.0.0.0 #绑定网卡
-```
-
-订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](http://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
   </p>
-1.6版本后支持分组订阅：同一个用户订阅相同的topic，只有其中一个订阅者收到消息，在topic前增加<code>$shared</code>即可，如： <code>$shared/device/+/+/#</code><br>
+   实现了RabbitMQProducer接口，定义其中的publish方法如何去推送消息
 </div>
 
+| 方法                                                | 参数                               | 返回值       | 说明     |
+| --------------------------------------------------- | ---------------------------------- | ------------ | -------- |
+| `publish(Publisher<AmqpMessage> amqpMessageStream)` | amqpMessageStream - rabbitMQ消息流 | `Mono<Void>` | 推送消息 |
+| `publish(AmqpMessage message)`                      | message - rabbitMQ消息             | `Mono<Void>` | 推送消息 |
 
 
 
+<br>
 
-#### 核心类说明
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+
+```java
+//rabbitMQ消费者的使用示例
+@Data
+public class UseConsumer{
+    
+    //此处演示为 使用注入的方式取得在application.yml中配置的rabbitmq相关配置信息
+    @Autowired
+    private RabbitProperties rabbitProperties ;
+    
+    //生产者
+    private RabbitMQConsumer consumer;
+    
+    @PostConstruct
+    public void init(){
+        //根据配置创建连接工厂
+        ConnectionFactory connectionFactory = RabbitUtils.createConnectionFactory(rabbitProperties);
+        //指定使用异步方式
+        connectionFactory.useNio();
+        
+        //初始化消费者
+        this.consumer = new ReactorRabbitMQConsumer(topicName, true, connectionFactory)
+             .consumerGroup(group)
+             .consumerRouteKey(consumerRouteKey)
+             .consumerThread(threadSize)
+             .autoAck(autoAck)
+             .init();
+    }
+    
+    public void use(){
+        if(this.consumer == null){
+            return ;
+        }
+        //开始订阅
+        this.consumer.subscribe()
+            //将订阅到的消息进行自定义处理
+            .flatMap(msg->doSomething(msg))
+            .subscribe();
+    }
+}
+```
+
+
+
+<br>
+
+
+
+核心类说明
+
+**ReactorRabbitMQConsumer**
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   实现了RabbitMQConsumer接口，定义其中的subscribe方法去如何订阅消息
+</div>
+
+| 方法          | 参数 | 返回值          | 说明                                                         |
+| ------------- | ---- | --------------- | ------------------------------------------------------------ |
+| `subscribe()` | 无   | `Flux<Message>` | 实现自RabbitMQConsumer接口，内部调用doStart方法进行处理，之后会返回订阅到的消息 |
+
+
+
+<br>
+
+
 
 #### 常见问题
 
@@ -2062,6 +2146,49 @@ messaging:
 说明您的需求。
 </div>
 
+
+<br>
+
+
+
+### 使用MQTT订阅平台相关消息
+
+#### 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+     可以使用MQTT来订阅设备,规则引擎,设备告警等相关消息
+    </div>
+
+配置文件新增：
+
+```yaml
+messaging:
+  mqtt:
+    enabled: true #开启mqtt支持
+    port: 11883 # 端口
+    host: 0.0.0.0 #绑定网卡
+```
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+1.6版本后支持分组订阅：同一个用户订阅相同的topic，只有其中一个订阅者收到消息，在topic前增加<code>$shared</code>即可，如： <code>$shared/device/+/+/#</code><br>
+</div>
+
+订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](http://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
+
+
+
+<br>
+
+
+
 ### 第三方平台请求JetLinks服务接口
 
 #### 应用场景
@@ -2071,11 +2198,11 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+     <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
+
 
 ```java
 //此处将具体代码实现放入
