@@ -123,7 +123,11 @@ module.exports = {
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
                     ['/protocol/mqtt.md', 'MQTT协议解析'],
+<<<<<<< HEAD
                     ['/protocol/api.md', '协议开发API'],
+=======
+                    // ['/protocol/api.md', '核心类API说明'],
+>>>>>>> a67d538f460b0fc27a42a2294068f76aaceb1fad
                     ['/protocol/faq.md', '常见问题']
                 ]
             },
@@ -143,7 +147,7 @@ module.exports = {
                     //['/dev-guide/utils', '常用API及工具类'],
                     // ['/dev-guide/protocol-support.md', '协议开发说明'],
                     ['/dev-guide/jetlinks-protocol-support.md', 'JetLinks 官方协议'],
-                    // ['/dev-guide/jetlinks-protocol-demo.md', 'JetLinks 演示协议'],
+                    ['/dev-guide/jetlinks-transparent.md', '透传协议说明'],
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
