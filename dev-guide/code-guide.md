@@ -8,8 +8,8 @@
   中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
-- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8'>
-   关于平台存储的说明</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E6%97%B6%E5%BA%8F%E5%AD%98%E5%82%A8%E7%9A%84%E8%AF%B4%E6%98%8E'>
+   关于平台时序存储的说明</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
    实体变更后如何触发自己的业务流程？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
@@ -875,7 +875,7 @@ springdoc:
 
 </div>
 
-### 关于平台存储
+### 关于平台时序存储的说明
 
 #### 使用场景
 
@@ -886,27 +886,46 @@ springdoc:
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+  <p>平台设备实时数据存储在<span class='explanation-title font-weight'>产品接入选择的存储策略内</span>。</p>
 
 </div>
 
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
-```
 
 #### 核心类说明
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| 类名 | 说明                                                                 |
+|----------------|--------------------------------------------------------------------|
+| `DeviceDataRepository` | 设备数据仓库,用户存储和查询设备相关历史数据,默认实现`ThingsBridgingDeviceDataService`       |
+| `ThingsDataRepository` | 物数据仓库,用于保存和查询物模型相关数据: 属性,事件,以及日志,默认实现`DefaultThingsDataRepository` |
+| `ThingsDataRepositoryStrategy` | 物数据仓库存储策略,实现此接口来自定义存储策略，具体存储策略实现类见下表1.                             |
+| `ThingsRegistry` | 物注册中心,统一管理物的基础信息以及配置等信息, 具体实现类见下表2.                                |
+
+- 表1.
+
+| 类名 | 说明                                                                      |
+|----------------|-------------------------------------------------------------------------|
+|`CacheSaveOperationsStrategy` | 缓存操作存储基类 ,所有的存储操作均经过该类，主要是使用cache减少存储操作对象的创建                            |
+|`AbstractThingDataRepositoryStrategy` | 物数据存储策略抽象基类，继承`CacheSaveOperationsStrategy`。下列类均继承该类，该类默认封装了数据库的操作对象信息。 |
+|`CassandraColumnModeStrategy` | Cassandra-列式存储                                                          |
+|`CassandraRowModeStrategy` | Cassandra-行式存储                                                          |
+|`ClickhouseColumnModeStrategy` | ClickHouse-列式存储                                                         |
+|`ClickhouseRowModeStrategy` | ClickHouse-行式存储                                                         |
+|`ElasticSearchColumnModeStrategy` | ElasticSearch-列式存储                                                      |
+|`ElasticSearchRowModeStrategy` | ElasticSearch-行式存储                                                      |
+|`InfluxdbColumnModeStrategy` | Influxdb-列式存储                                                           |
+|`InfluxdbRowModeStrategy` | Influxdb-行式存储                                                           |
+|`NoneThingsDataRepositoryStrategy` | 不存储，顾名思义，所有设备数据不进行持久化。                                                  |
+|`TDengineColumnModeStrategy` | TDEngine-列式存储                                                           |
+|`TDengineRowModeStrategy` | TDEngine-行式存储                                                           |
+
+- 表2.
+
+| 类名 | 说明                                               |
+|----------------|--------------------------------------------------|
+|`AutoRegisterThingsRegistry` | 自动注册物信息类，在spring组件初始化之后将该实体放置缓存内。                |
+|`DefaultThingsRegistry` | 统一的物注册中心默认实现，主要是获取物模板（产品）、物（设备）信息以及注册物和物模版等相关操作。 |
 
 #### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -914,44 +933,12 @@ springdoc:
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+  <li>Q：以上存储策略均不符合自己的业务场景？</li>
+  <li>A：自己实现存储策略。<a target='_self' class='explanation-title font-weight' href='/dev-guide/code-guide.html#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5'>
+  自定义存储策略</a></li>
 
 </div>
 
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
 
 ### 监听实体变化做业务
 
@@ -2396,7 +2383,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 #### 核心类及接口
 
-##### `AbstractThingDataRepositoryStrategy`
+`AbstractThingDataRepositoryStrategy`
 
 | 方法名                                                                                             | 参数  | 返回值 | 说明                   |
 |-------------------------------------------------------------------------------------------------|-----|--------|----------------------|
@@ -2408,59 +2395,11 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 | 参数  | 参数含义                                                                  |
 |-----|-----------------------------------------------------------------------|
-|OperationsContext| ------                                                                |
+|OperationsContext| 存储操作上下文                                                  |
 |thingType| 物类型：通常情况下是`device`,详见`ThingsBridgingDeviceDataService`类约定查询时序库给定的默认值。 |
 |templateId| 物模板id:通常情况下是产品id                                                      |
 |thingId| 物id：通常情况下是设备id                                                        |
 
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
 
 ### 主动从第三方平台、设备获取数据
 
