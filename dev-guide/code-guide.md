@@ -508,7 +508,6 @@ User git
 
 
 ```text
-
 [INFO] Reactor Summary:
 [INFO] 
 [INFO] jetlinks-parent .................................... SUCCESS [  1.346 s]
@@ -596,6 +595,67 @@ Process finished with exit code 0
 
 </div>
 
+#### 常见问题
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：如何将自定义的接口加入swagger扫描并在API配置中显示出来？</p>
+<p>A：在平台的<a>application.yml</a>文件内swagger下声明该项目扫描路径。</p></div>
+
+
+
+
+```yaml
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  group-configs:
+    - group: 设备接入相关接口
+      packages-to-scan:
+        - org.jetlinks.pro.network.manager.web
+        - org.jetlinks.pro.device.web
+      paths-to-match:
+        - /gateway/**
+        - /network/**
+        - /protocol/**
+    - group: 系统管理相关接口
+      packages-to-scan:
+        - org.jetlinks.pro.auth
+        - org.hswebframework.web.system.authorization.defaults.webflux
+        - org.hswebframework.web.file
+        - org.hswebframework.web.authorization.basic.web
+        - org.jetlinks.pro.openapi.manager.web
+        - org.jetlinks.pro.logging.controller
+        - org.jetlinks.pro.tenant.web
+    - group: 自定义接口
+      packages-to-scan:
+        - com.example.mydemo.web
+```
+
+效果图：
+![效果图](./images/code-guide-1-7.png)
+
+
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+
+
+  <p>Q：自定义的接口不想被平台鉴权拦截？</p>
+  <p>A：在类上或者方法上声明<span class="explanation-title font-weight">@Authorize(ignore = true)</span>。</p>
+  <p>类上注解表明该类所有方法均不受鉴权拦截，方法上则仅限当前被注解的方法不受鉴权拦截。</p>
+
+</div>
+
+
+
 
 #### 2、如何使用hsweb4编写自己的业务增删改查逻辑代码
 1.添加简单的Controller类、Service、Entity等
@@ -604,7 +664,10 @@ Process finished with exit code 0
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
 
-2.controller层：TestController类
+
+
+2.controller层：`org.example.mydemo.web.CustomController`
+
   ```java
   package com.example.mydemo.web;
   import com.example.mydemo.entity.TestEntity;
@@ -622,15 +685,16 @@ Process finished with exit code 0
   import org.springframework.web.bind.annotation.RestController;
   import reactor.core.publisher.Flux;
 
-@Getter
 @RestController
+@RequestMapping("/demo")
+@Getter
 @AllArgsConstructor
-@RequestMapping("/test")
-@Resource(id = "test", name = "自定义接口")
+@Resource(id = "demo", name = "自定义接口")
 @Tag(name = "自定义接口")
-public class TestController implements ReactiveServiceCrudController<TestEntity, String> {
+@Authorize(ignore = true)
+public class CustomController implements ReactiveServiceCrudController<CustomEntity, String> {
 
-    private final TestService service;
+    private final CustomService customService;
 
     @GetMapping
     @QueryAction
@@ -641,23 +705,26 @@ public class TestController implements ReactiveServiceCrudController<TestEntity,
 
 }
   ```
-3.Service层 ：TestService 类
-  ```java
-   package com.example.mydemo.service;
+3.Service层 ：`org.example.mydemo.service.CustomService`
 
-   import com.example.mydemo.entity.TestEntity;
-   import org.hswebframework.web.crud.service.GenericReactiveCrudService;
-   import org.springframework.stereotype.Service;
+  ```java
+package org.example.mydemo.service;
+
+import org.example.mydemo.entity.CustomEntity;
+import org.hswebframework.web.crud.service.GenericReactiveCrudService;
+import org.springframework.stereotype.Service;
 
  @Service
- public class TestService extends GenericReactiveCrudService<TestEntity, String> {
-
+ public class CustomService extends GenericReactiveCrudService<CustomEntity,String> {
  }
   ```
-4. entity层 ：TestEntity类
-  ```java
-   package com.example.mydemo.entity;
+4. entity层 ：`org.example.mydemo.entity.CustomEntity`
 
+```java
+package org.example.mydemo.entity;
+
+
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -668,17 +735,18 @@ import org.hswebframework.web.api.crud.entity.RecordCreationEntity;
 import org.hswebframework.web.api.crud.entity.RecordModifierEntity;
 import org.hswebframework.web.crud.generator.Generators;
 
-import javax.persistence.Column;
-import javax.persistence.Index;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Map;
 
-@Table(name = "dev_my_demo_test", indexes = {
-        @Index(name = "idx_demo_device_id_index", columnList = "type,device_id")
+
+@Table(name = "dev_my_demo_CustomEntity", indexes = {
+        @Index(name = "idx_device_id_type", columnList = "device_id,type")
 })
 @Comment("自定义表")
-@Getter
 @Setter
-public class TestEntity extends GenericEntity<String> implements RecordCreationEntity, RecordModifierEntity {
+@Getter
+public class CustomEntity extends GenericEntity<String> implements
+        RecordCreationEntity, RecordModifierEntity {
 
     @Column(name = "device_id")
     @Comment("设备id")
@@ -731,66 +799,219 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
             , accessMode = Schema.AccessMode.READ_ONLY
     )
     private String modifierName;
+
 }
 
+```
 
-  ```
-5. 在jetlinks-pro的启动类上加入自定义项目的扫描路径
+
+
+5. 在`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`上加入自定义项目的扫描路径
+
+   代码：
 ```java
-代码：
-@SpringBootApplication(scanBasePackages = {"org.jetlinks.community","org.example.mydemo"},exclude = {
-    DataSourceAutoConfiguration.class,
-    ElasticsearchRestClientAutoConfiguration.class
+//新增需要Spring扫描的包
+@SpringBootApplication(scanBasePackages = {"org.jetlinks.pro", "org.example.mydemo"}, exclude = {
+        DataSourceAutoConfiguration.class,
+        KafkaAutoConfiguration.class,
+        RabbitAutoConfiguration.class,
+        ElasticsearchRestClientAutoConfiguration.class,
+        ElasticsearchDataAutoConfiguration.class,
+        MongoReactiveAutoConfiguration.class,
 })
 @EnableCaching
-@EnableEasyormRepository({"org.jetlinks.community.**.entity","org.example.mydemo.entity.**"})
+//新增实体扫描包
+@EnableEasyormRepository({"org.jetlinks.pro.**.entity","org.example.mydemo.entity.**"})
 @EnableAopAuthorize
 @EnableAccessLogger
-@Slf4j
+public class JetLinksApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(JetLinksApplication.class, args);
+    }
+    @Component
+    @Slf4j
+    public static class AdminAllAccess {
+        @EventListener
+        public void handleAuthEvent(AuthorizingHandleBeforeEvent e) {
+            if (e.getContext().getAuthentication().getUser().getUsername().equals("admin")) {
+                e.setAllow(true);
+            }
+        }
+        @EventListener
+        public void handleAccessLogger(AccessLoggerAfterEvent event) {
+            log.info("{}=>{} {}-{}", event.getLogger().getIp(), event.getLogger().getUrl(), event.getLogger().getDescribe(), event.getLogger().getAction());
+        }
+    }
+}
+
 ```
 6. 核心类说明
 
 | 类名                            | 说明                                              |
 |-------------------------------|-------------------------------------------------|
-| `ReactiveServiceCrudController<E, K>` | 实体CRUD操作的抽象接口，该接口继承了CRUD相关操作的接口，这些接口内封装了默认的实现方法 |
+| `ReactiveServiceCrudController<E, K>` | 实体CRUD操作的抽象接口，该接口继承了CRUD相关操作的接口，这些接口内封装了默认的实现方法,`<E> `实体类类型 ` <K> `主键类型 |
 | `GenericEntity<PK>`             | 实体类需要继承该类，需要声明实体id数据类型                          |
 | `GenericReactiveCrudService<TestEntity, String>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
 
-###### 核心接口说明
-###### service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
-###### `<E>` 实体类类型 `<K>` 主键类型
+核心接口说明
+
+`<E>` 实体类类型 `<K>` 主键类型
+
+service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 | 方法名 | 返回值 | 参数值 | 说明  |
 |------- |--------|----------|------------|
 |`getRepository()` |`ReactiveRepository<E, K>`|无|`响应式实体操作仓库`|
 
-###### 核心方法（响应式参数）
+核心方法（响应式参数）
+
 | 方法名                                                       | 返回值             | 参数值                                                       | 说明             |
 | ------------------------------------------------------------ | ------------------ | ------------------------------------------------------------ | ---------------- |
 | `findById(Mono<K> publisher)`                                | `Mono<E>`          | `Mono<K> publisher` publisher-ID流                           | 根据ID集合流查询 |
 | `findById(Flux<K> publisher)`                                | `Flux<E>`          | `Flux<K> publisher ` publisher-ID流                          | 根据ID集合流查询 |
 | `save(Publisher<E> entityPublisher)`                         | `Mono<SaveResult>` | `Publisher<E> entityPublisher` publisher-数据实体流          | 异步保存数据     |
 | `updateById(K id, Mono<E> entityPublisher)`                  | `Mono<Integer>`    | K id-ID值 `Mono<E>` entityPublisher-更新数据流               | 异步保存数据     |
-| `insertBatch(Publisher<? extends Collection<E>> entityPublisher)` | `Mono<Integer>`    | `Publisher<? extends Collection<E>>` entityPublisher -保存数据的集合流 | 异步批量保存数据 |
-| `insert(Publisher<E> entityPublisher)`                       | `Mono<Integer>`    | `Publisher<E>` entityPublisher-保存数据的流                  | 异步保存数据     |
-| !`count(Mono<? extends QueryParamEntity> queryParamMono)`    | `Mono<Integer>`    | `Mono<? extends QueryParamEntity>` queryParamMono-查询参数流 | 查询记录数       |
+| `insertBatch(Publisher<? extends Collection<E>> entityPublisher)` | `Mono<Integer>`    | `Publisher<? extends Collection<E>>` entityPublisher -保存数据集合流 | 异步批量保存数据 |
+| `insert(Publisher<E> entityPublisher)`                       | `Mono<Integer>`    | `Publisher<E>` entityPublisher-保存数据流                    | 异步保存数据     |
+| `count(Mono<? extends QueryParamEntity> queryParamMono)`     | `Mono<Integer>`    | `Mono<? extends QueryParamEntity>` queryParamMono-查询参数流 | 查询记录数       |
 
-###### 核心方法（非响应式参数）
+核心方法（非响应式参数）
 
-| 方法名                                        | 返回值                 | 参数值                                       | 说明                                                         |
-| --------------------------------------------- | ---------------------- | -------------------------------------------- | ------------------------------------------------------------ |
-| `createQuery()`                               | `ReactiveQuery<E>`     | 无                                           | 创建一个DSL的动态查询接口,可使用DSL方式进行链式调用来构造动态查询条件 |
-| `createUpdate()`                              | `ReactiveUpdate<E>`    | 无                                           | 创建一个DSL动态更新接口,可使用DSL方式进行链式调用来构造动态更新条件 |
-| `createDelete()`                              | `ReactiveDelete`       | 无                                           | 创建一个DSL动态删除接口,可使用DSL方式进行链式调用来构造动态删除条件 |
-| `findById(K id)`                              | `Mono<E>`              | K id-id值                                    | 根据ID查询                                                   |
-| `findById(Collection<K> publisher)`           | `Flux<E>`              | `Collection<K>` publisher-ID集合             | 根据ID集合查询                                               |
-| `save(E data)`                                | `Mono<SaveResult>`     | E data-要保存的数据                          | 保存单个数据,如果数据不存在则新增,存在则修改                 |
-| `save(Collection<E> collection)`              | `Mono<SaveResult>`     | `Collection<E>` collection-要保存的数据集合  | 保存多个数据,如果数据不存在则新增,存在则修改                 |
-| `updateById(K id, E data)`                    | `Mono<Integer>`        | K id-ID值<br/>, E data-更新的数据            | 保存多个数据,如果数据不存在则新增,存在则修改                 |
-| `insert(E data)`                              | `Mono<Integer>`        | E data-新增数据<br/>, E data-更新的数据      | 根据数据流新增数据                                           |
-| `deleteById(K id)`                            | `Mono<Integer>`        | K id-Id<br/>                                 | 根据ID删除数据                                               |
-| `queryPager(QueryParamEntity queryParamMono)` | `Mono<PagerResult<E>>` | QueryParamEntity queryParamMono-查询参数实体 | 分页查询获取数据                                             |
-| `count(QueryParamEntity queryParam)`          | `Mono<PagerResult<E>>` | QueryParamEntity queryParam-查询参数实体     | 获取数据记录数                                               |
+1、动态DSL接口相关
+
+| 方法名           | 返回值              | 参数值 | 说明                                                         |
+| ---------------- | ------------------- | ------ | ------------------------------------------------------------ |
+| `createQuery()`  | `ReactiveQuery<E>`  | 无     | 创建一个DSL的动态查询接口,可使用DSL方式进行链式调用来构造动态查询条件 |
+| `createUpdate()` | `ReactiveUpdate<E>` | 无     | 创建一个DSL动态更新接口,可使用DSL方式进行链式调用来构造动态更新条件 |
+| `createDelete()` | `ReactiveDelete`    | 无     | 创建一个DSL动态删除接口,可使用DSL方式进行链式调用来构造动态删除条件 |
+
+2、其他简单方法
+
+| 方法名                                        | 返回值                 | 参数值                                       | 说明                                         |
+| --------------------------------------------- | ---------------------- | -------------------------------------------- | -------------------------------------------- |
+| `findById(K id)`                              | `Mono<E>`              | K id-id值                                    | 根据ID查询                                   |
+| `findById(Collection<K> publisher)`           | `Flux<E>`              | `Collection<K>` publisher-ID集合             | 根据ID集合查询                               |
+| `save(E data)`                                | `Mono<SaveResult>`     | E data-要保存的数据                          | 保存单个数据,如果数据不存在则新增,存在则修改 |
+| `save(Collection<E> collection)`              | `Mono<SaveResult>`     | `Collection<E>` collection-要保存的数据集合  | 保存多个数据,如果数据不存在则新增,存在则修改 |
+| `updateById(K id, E data)`                    | `Mono<Integer>`        | K id-ID值<br/>, E data-更新的数据            | 保存多个数据,如果数据不存在则新增,存在则修改 |
+| `insert(E data)`                              | `Mono<Integer>`        | E data-新增数据<br/>, E data-更新的数据      | 根据数据流新增数据                           |
+| `deleteById(K id)`                            | `Mono<Integer>`        | K id-Id-ID值<br/>                            | 根据ID删除数据                               |
+| `queryPager(QueryParamEntity queryParamMono)` | `Mono<PagerResult<E>>` | QueryParamEntity queryParamMono-查询参数实体 | 分页查询获取数据                             |
+| `count(QueryParamEntity queryParam)`          | `Mono<PagerResult<E>>` | QueryParamEntity queryParam-查询参数实体     | 获取数据记录数                               |
+
+
+
+#### DSL语法相关
+
+1、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
+
+| 方法名                                                       | 返回值              | 参数值                                                       | 说明                                                         |
+| ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `execute()`                                                  | `Mono<Integer>`     | 无                                                           | 执行更新                                                     |
+| `onExecute(BiFunction<ReactiveUpdate<E>, Mono<Integer>, Mono<Integer>> consumer)` | `ReactiveUpdate<E>` | `BiFunction<ReactiveUpdate<E>,</br>Mono<Integer>,<br/>Mono<Integer>> consumer-函数式接口参数)` | 执行结果处理器<br/>`ReactiveUpdate<E>`-实体数据<br/>`Mono<Integer>`-更新执行器<br/> `Mono<Integer>`-新的执行器 |
+
+
+
+2、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
+
+| 方法名                                                       | 返回值           | 参数                                                         |                                                              |
+| ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `execute()`                                                  | `Mono<Integer>`  | 无                                                           | 执行异步删除,返回被删除的数据条数                            |
+| `onExecute(BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper)` | `ReactiveDelete` | `BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper-函数式接口参数` | 执行结果处理器<br/>ReactiveDelete-当前动态删除接口<br/>`Mono<Integer>`-删除执行器<br/>`Mono<Integer>`-新的执行器 |
+
+
+
+3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
+
+| 方法名       | 返回值          | 参数值 | 说明                                                        |
+| ------------ | --------------- | ------ | ----------------------------------------------------------- |
+| `fetch()`    | `Flux<T>`       | 无     | 执行查询并获取返回数据流,如果未查询到结果将返回Flux.empty() |
+| `count()`    | `Mono<Integer>` | 无     | 执行count查询,并返回count查询结果.                          |
+| `fetchOne()` | `Mono<T>`       | 无     | 执行查询并返回单个数据，T表示实体类                         |
+
+4、相关代码示例
+
+`org.example.mydemo.web.CustomController`
+
+```java
+/**
+     * 根据自定义的实体类的设备ID查询对应实体类信息
+     * select * from dev_my_demo_CustomEntity where device_id=?
+     *
+     * @param deviceId 设备id
+     * @return
+     */
+    @PostMapping("/{deviceId}/dsl/eq")
+    public Flux<CustomEntity> createQueryEqual(@PathVariable(value = "deviceId") String deviceId) {
+        return customService.createQuery()
+                .where("device_id", deviceId)
+                .fetch();
+    }
+
+     /**
+     * 根据自定义的实体类的设备ID查询对应实体类信息
+     * select * from dev_my_demo_CustomEntity where device_id= like ?+'%'
+     *
+     * @param deviceId 设备id
+     * @return
+     */
+    @PostMapping("/dsl/like")
+    public Flux<CustomEntity> createQueryLike(String deviceId) {
+        return customService.createQuery()
+                .like$("device_id",deviceId)
+                .fetch();
+    }
+
+
+    /**
+     * 根据设备ID更新设备信息，并更新自定义es索引数据
+     * @param typeList type集合
+     * @param deviceId 设备ID
+     */
+    @PostMapping("/{deviceId}/dsl/update")
+    public Mono<Integer> createUpdate(@RequestBody List<Integer> typeList, @PathVariable String deviceId) {
+       return customService.createUpdate()
+                //设置设备ID
+                .set("device_id", deviceId)
+                .where()
+                //查询条件 type like '%xxx'
+                .like$("type", typeList)
+                //更新后可以执行一些其他的操作
+                .onExecute((update, result) -> {
+                    return result
+                            .flatMap(i -> {
+                                //更新es索引
+                                return elasticSearchService
+                                        .save(CustomIndexEnum.custom.getIndex(), update.toQueryParam())
+                                        .thenReturn(i);
+                                //执行
+                            });
+
+                })
+                .execute();
+    }
+
+    /**
+     * 根据设备ID，删除自定义设备信息，并删除自定义es索引数据
+     * @param deviceId 设备ID
+     * @return
+     */
+    @PostMapping("/{deviceId}/dsl/delete")
+    public Mono<Integer> createDelete(@PathVariable String deviceId) {
+        return customService.createDelete()
+                .where("device_id", deviceId)
+                .onExecute((delete, result) -> {
+                    return result
+                            .flatMap(i -> {
+                                return elasticSearchService.
+                                        delete(CustomIndexEnum.custom.getIndex(), delete.toQueryParam())
+                                        .thenReturn(i);
+                            });
+
+                })
+                .execute();
+    }
+```
 
 
 
@@ -802,64 +1023,16 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 
-<p>Q：如何将自定义的接口加入swagger扫描并在API配置中显示出来？</p>
-<p>A：在平台的<a>application.yml</a>文件内swagger下声明该项目扫描路径。</p></div>
-
-
-
-```yaml
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-  group-configs:
-    - group: 设备接入相关接口
-      packages-to-scan:
-        - org.jetlinks.pro.network.manager.web
-        - org.jetlinks.pro.device.web
-      paths-to-match:
-        - /gateway/**
-        - /network/**
-        - /protocol/**
-    - group: 系统管理相关接口
-      packages-to-scan:
-        - org.jetlinks.pro.auth
-        - org.hswebframework.web.system.authorization.defaults.webflux
-        - org.hswebframework.web.file
-        - org.hswebframework.web.authorization.basic.web
-        - org.jetlinks.pro.openapi.manager.web
-        - org.jetlinks.pro.logging.controller
-        - org.jetlinks.pro.tenant.web
-    - group: 自定义接口
-      packages-to-scan:
-        - com.example.mydemo.web
-```
-
-效果图：
-![效果图](./images/code-guide-1-7.png)
-
-
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <p>Q：自定义的接口不想被平台鉴权拦截？</p>
-  <p>A：在类上或者方法上声明<span class="explanation-title font-weight">@Authorize(ignore = true)</span>。</p>
-  <p>类上注解表明该类所有方法均不受鉴权拦截，方法上则仅限当前被注解的方法不受鉴权拦截。</p>
-</div>
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题3</span>
-  </p>
-
   <p>Q：启动报错，Field repository in org.hswebframework.web.crud.service.GenericReactiveCrudService required a bean of type 'org.hswebframework.ezorm.rdb.mapping.ReactiveRepository' that could not be found.？</p>
-  <p>A：检查jetlinks-pro的standalone的启动类的
-  @EnableEasyormRepository({"org.jetlinks.community.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.*"</span>})</p>
-  <p>改为：org.example.xxx.entity.**或者org.example.xxx.entity</p>
+  <p>A：检查`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`的 @EnableEasyormRepository注解的实体扫描包
+  如：@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.*"</span>})</p>
+<p>应改为：<br/><li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity"</span>})</li>
+    或者：<br/>
+    <li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.**"</span>})</li>
+   原因：<br/>
+    //todo  待补充
+</p>
+
 </div>
 
 <div class='explanation error'>
@@ -867,7 +1040,6 @@ springdoc:
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-
   <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
@@ -1018,13 +1190,10 @@ EntityCreatedEvent
   </p>
  EntityCreatedEvent 实体类创建事件,可用于记录日志等操作,对应操作insert
 </div>
+EntityCreatedEvent的事件监听：
 
-###### EntityCreatedEvent的事件监听：`org.jetlinks.community.notify.manager.service.NotifySubscriberService`
-```java
-@EventListener
-public void handleEvent(EntityCreatedEvent<NotifySubscriberEntity> entity) {
-    entity.getEntity().forEach(this::doNotifyChange);
-}
+```
+org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityCreatedEvent<NotifySubscriberEntity> entity)
 ```
 
 EntitySavedEvent
@@ -1035,14 +1204,13 @@ EntitySavedEvent
   </p>
  EntitySavedEvent 实体类保存事件,可用于记录日志等操作,对应操作save
 </div>
+EntitySavedEvent的事件监听：
 
-###### EntitySavedEvent的事件监听：`org.jetlinks.community.notify.manager.service.NotifySubscriberService`
-```java
-@EventListener
-public void handleEvent(EntitySavedEvent<NotifySubscriberEntity> entity) {
-    entity.getEntity().forEach(this::doNotifyChange);
-}
 ```
+org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntitySavedEvent<NotifySubscriberEntity> entity)
+```
+
+
 
 
 EntityDeletedEvent
@@ -1053,17 +1221,13 @@ EntityDeletedEvent
   </p>
 EntityDeletedEvent 实体类删除事件,可用于记录日志等操作,对应操作delete
 </div>
+EntityDeletedEvent的事件监听：
 
-###### EntityDeletedEvent的事件监听：`org.jetlinks.community.notify.manager.service.NotifySubscriberService`
-```java
-@EventListener
-public void handleEvent(EntityDeletedEvent<NotifySubscriberEntity> entity) {
-    entity.getEntity().forEach(e -> {
-        e.setState(SubscribeState.disabled);
-        doNotifyChange(e);
-    });
-}
 ```
+org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityDeletedEvent<NotifySubscriberEntity> entity)
+```
+
+
 
 
 EntityModifyEvent
@@ -1074,14 +1238,13 @@ EntityModifyEvent
   </p>
 EntityModifyEvent 实体类修改事件,可用于记录日志等操作,对应操作update
 </div>
+EntityModifyEvent的事件监听：
 
-###### EntityModifyEvent的事件监听：`org.jetlinks.community.notify.manager.service.NotifySubscriberService`
-```java
-@EventListener
-public void handleEvent(EntityModifyEvent<NotifySubscriberEntity> entity) {
-    entity.getAfter().forEach(this::doNotifyChange);
-}
 ```
+org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityModifyEvent<NotifySubscriberEntity> entity)
+```
+
+
 
 ##### 授权相关事件
 <div class='explanation info'>
@@ -1107,46 +1270,21 @@ AuthorizationDecodeEvent
   </p>
 AuthorizationDecodeEvent 认证解密事件，可用于自定义用户名密码加密解密
 </div>
-
-###### AuthorizationDecodeEvent的事件发布：`org.hswebframework.web.authorization.basic.web.AuthorizationController`
-```java
-private Mono<Map<String, Object>> doLogin(Mono<Map<String, Object>> parameter) {
-
-    return parameter.flatMap(parameters -> {
-	//相关业务逻辑处理
-	...
-	//事件发布
-        return Mono.defer(() -> {
-            AuthorizationDecodeEvent decodeEvent = new AuthorizationDecodeEvent(username_, password_, parameterGetter);
-            return decodeEvent
-                    .publish(eventPublisher)
-                    .then(Mono.defer(() -> {}
-}
+###### AuthorizationDecodeEvent的事件发布：
 
 ```
-
-###### AuthorizationDecodeEvent的事件监听：`org.jetlinks.community.auth.captcha.CaptchaController`
-```java
-@EventListener
-public void handleAuthEvent(AuthorizationDecodeEvent event) {
-    if (!properties.isEnabled()) {
-        return;
-    }
-    String key = event.getParameter("verifyKey").map(String::valueOf).orElseThrow(() -> new ValidationException("验证码错误"));
-    String code = event.getParameter("verifyCode").map(String::valueOf).orElseThrow(() -> new ValidationException("验证码错误"));
-    String redisKey = "captcha:" + key;
-    event.async(
-        redis
-            .opsForValue()
-            .get(redisKey)
-            .map(code::equalsIgnoreCase)
-            .defaultIfEmpty(false)
-            .flatMap(checked -> redis
-                .delete(redisKey)
-                .then(checked ? Mono.empty() : Mono.error(new ValidationException("验证码错误"))))
-    );
-}
+org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter)
 ```
+
+
+
+###### AuthorizationDecodeEvent的事件监听：
+
+```
+org.jetlinks.pro.auth.captcha.CaptchaController.handleAuthEvent(AuthorizationDecodeEvent event)
+```
+
+
 
 AuthorizationBeforeEvent
 <div class='explanation info'>
@@ -1156,21 +1294,13 @@ AuthorizationBeforeEvent
   </p>
 AuthorizationBeforeEvent 认证前触发，可用于校验其他参数，比如验证码
 </div>
+AuthorizationBeforeEvent的事件发布：
 
-###### AuthorizationBeforeEvent的事件发布：`org.hswebframework.web.authorization.basic.web.AuthorizationController`
-```java
-private Mono<Map<String, Object>> doLogin(Mono<Map<String, Object>> parameter) {
-
-    return parameter.flatMap(
-	//相关业务处理
-                        AuthorizationBeforeEvent beforeEvent = new AuthorizationBeforeEvent(username, password, parameterGetter);
-                        return beforeEvent
-                                .publish(eventPublisher)
-                                .then()
-								其他相关处理
-								...
-}
 ```
+org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter) 
+```
+
+AuthorizationBeforeEvent的事件监听：
 
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
@@ -1184,45 +1314,19 @@ AuthorizationSuccessEvent
   </p>
 AuthorizationSuccessEvent 认证通过时触发，可用于认证通过后，自定义一些信息给前端返回
 </div>
+AuthorizationSuccessEvent的事件发布：
 
-###### AuthorizationSuccessEvent的事件发布：`org.hswebframework.web.authorization.basic.web.AuthorizationController`
+```
+org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter)
+```
 
-```java
-private Mono<Map<String, Object>> doLogin(Mono<Map<String, Object>> parameter) {
+AuthorizationSuccessEvent的事件监听：
 
-    return parameter.flatMap(
-	//相关业务处理
-	....
-	//事件发布
-        .flatMap(auth -> {
-       //触发授权成功事件
-  AuthorizationSuccessEvent event = new AuthorizationSuccessEvent(auth, parameterGetter);
-     event.getResult().put("userId", auth.getUser().getId());
-                return event.publish(eventPublisher)                                             .then(Mono.fromCallable(event::getResult));
-        })
-}
+```
+org.jetlinks.pro.standalone.authorize.LoginEvent.handleLoginSuccess
 ```
 
 
-###### AuthorizationSuccessEvent的事件监听：`org.jetlinks.community.standalone.authorize.LoginEvent`
-```java
-@EventListener
-public void handleLoginSuccess(AuthorizationSuccessEvent event) {
-    Map<String, Object> result = event.getResult();
-    Authentication authentication = event.getAuthentication();
-    List<Dimension> dimensions = authentication.getDimensions();
-
-    result.put("permissions", authentication.getPermissions());
-    result.put("roles", dimensions);
-    result.put("currentAuthority", authentication.getPermissions().stream().map(Permission::getId).collect(Collectors.toList()));
-
-    event.async(
-        detailService
-            .findUserDetail(event.getAuthentication().getUser().getId())
-            .doOnNext(detail -> result.put("user", detail))
-    );
-}
-```
 
 AuthorizationFailedEvent
 <div class='explanation info'>
@@ -1232,22 +1336,14 @@ AuthorizationFailedEvent
   </p>
 AuthorizationFailedEvent 认证失败时触发，可用于自定义失败时的处理逻辑
 </div>
+AuthorizationFailedEvent的事件发布:
 
-###### AuthorizationFailedEvent的事件发布：`org.hswebframework.web.authorization.basic.web.AuthorizationController`
-
-```java
-private Mono<Map<String, Object>> doLogin(Mono<Map<String, Object>> parameter) {
-     AuthorizationFailedEvent failedEvent = new AuthorizationFailedEvent(username_, password_, parameterGetter);
-failedEvent.setException(err);
-//事件发布
-return failedEvent
-        .publish(eventPublisher)
-        .then(Mono.error(failedEvent.getException()));
-}
+```
+org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> 
 ```
 
+AuthorizationFailedEvent的事件监听：
 
-###### AuthorizationFailedEvent的事件监听：
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -1279,22 +1375,12 @@ UserCreatedEvent
   </p>
 UserCreatedEvent 用户创建事件
 </div>
+UserCreatedEvent的事件发布：
 
-###### UserCreatedEvent的事件发布：`org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService`
-```java
-protected Mono<UserEntity> doAdd(UserEntity userEntity) {
-
-    return Mono
-            .defer(() -> {
-               //相关业务处理
-			   ....
-			   //用户创建事件发布
-                        .flatMap(user -> new UserCreatedEvent(user).publish(eventPublisher))
-                        .thenReturn(userEntity);
-            });
-
-}
 ```
+org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.doAdd(UserEntity userEntity)
+```
+
 UserCreatedEvent的事件监听：
 
 ```
@@ -1309,30 +1395,17 @@ UserDeletedEvent
   </p>
 UserDeletedEvent 用户删除事件
 </div>
-
-###### UserDeletedEvent的事件发布：`org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService`
-```java
- @Transactional(readOnly = true, transactionManager = TransactionManagers.reactiveTransactionManager)
-    public Mono<Boolean> deleteUser(String userId) {
-        return this
-                .findById(userId)
-                .flatMap(user -> this
-                        .deleteById(Mono.just(userId))
-                        .flatMap(i -> new UserDeletedEvent(user).publish(eventPublisher))
-                        .thenReturn(true));
-    }
+UserDeletedEvent的事件发布：
 
 ```
-###### UserDeletedEvent的事件监听：`org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService`
-```java
-@EventListener
-public void handleUserDeleteEntity(UserDeletedEvent event) {
-    event.async(this.createDelete()
-                    .where(DimensionUserEntity::getUserId, event.getUser().getId())
-                    .execute()
-                    .doOnSuccess(i -> log.debug("user deleted,clear user dimension!"))
-    );
-}
+org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.deleteUser(String userId)
+
+```
+
+UserDeletedEvent的事件监听：
+
+```
+org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService.handleUserDeleteEntity(UserDeletedEvent event)
 ```
 
 UserModifiedEvent
@@ -1343,38 +1416,20 @@ UserModifiedEvent
   </p>
 UserModifiedEvent 用户修改事件
 </div>
-
-###### UserModifiedEvent的事件发布：`org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService`
-```java
-protected Mono<UserEntity> doUpdate(UserEntity old, UserEntity newer) {
-    return Mono
-            .defer(() -> {
-             //相关业务处理
-			 ...
-			 //用户修改事件
-                        .flatMap(-> new UserModifiedEvent(old, newer, passwordChanged).publish(eventPublisher))
-                        .thenReturn(newer)
-                        .flatMap(e -> ClearUserAuthorizationCacheEvent
-                                .of(e.getId())
-                                .publish(eventPublisher)
-                                .thenReturn(e));
-            });
-
-}
+UserModifiedEvent的事件发布：
 
 ```
-###### UserModifiedEvent的事件监听：`org.hswebframework.web.system.authorization.defaults.service.RemoveUserTokenWhenUserDisabled`
-```java
-@EventListener
-public void handleStateChangeEvent(UserModifiedEvent event) {
-    if (event.getUserEntity().getStatus() != null && event.getUserEntity().getStatus() != 1) {
-        event.async(
-                Mono.just(event.getUserEntity().getId())
-                    .flatMap(userTokenManager::signOutByUserId)
-        );
-    }
-}
+org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.doUpdate(UserEntity old, UserEntity newer)
+
 ```
+
+UserModifiedEvent的事件监听：
+
+```
+org.hswebframework.web.system.authorization.defaults.service.RemoveUserTokenWhenUserDisabled.handleStateChangeEvent(UserModifiedEvent event)
+```
+
+
 
 ClearUserAuthorizationCacheEvent
 <div class='explanation info'>
@@ -1384,46 +1439,19 @@ ClearUserAuthorizationCacheEvent
   </p>
 ClearUserAuthorizationCacheEvent 清空用户权限缓存信息事件,可用发送此事件来清理用户权限缓存
 </div>
-
-###### ClearUserAuthorizationCacheEvent的事件发布：`org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService`
-```java
-private Mono<Void> clearUserCache(List<DimensionUserEntity> entities) {
-    return Flux.fromIterable(entities)
-               .map(DimensionUserEntity::getUserId)
-               .distinct()
-               .collectList()
-               .flatMap(list -> ClearUserAuthorizationCacheEvent.of(list).publish(eventPublisher));
-}
+ClearUserAuthorizationCacheEvent的事件发布：
 
 ```
-###### ClearUserAuthorizationCacheEvent的事件监听：`org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveAuthenticationManager`
-```java
-@EventListener
-public void handleClearAuthCache(ClearUserAuthorizationCacheEvent event) {
-    if (cacheManager != null) {
-        Mono<Void> operator;
-        if (event.isAll()) {
-            operator = cacheManager
-                    .getCache("user-auth")
-                    .clear()
-                    .doOnSuccess(nil -> log.info("clear all user authentication cache success"))
-                    .doOnError(err -> log.error(err.getMessage(), err));
-        } else {
-            operator = cacheManager
-                    .getCache("user-auth")
-                    .evictAll(event.getUserId())
-                    .doOnError(err -> log.error(err.getMessage(), err))
-                    .doOnSuccess(__ -> log.info("clear user {} authentication cache success", event.getUserId()));
-        }
-        if (event.isAsync()) {
-            event.async(operator);
-        } else {
-            log.warn("please use async for ClearUserAuthorizationCacheEvent");
-            operator.subscribe();
-        }
-    }
-}
+org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService.clearUserCache(List<DimensionUserEntity> entities)
 ```
+
+ClearUserAuthorizationCacheEvent的事件监听：
+
+```
+org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveAuthenticationManager.handleClearAuthCache(ClearUserAuthorizationCacheEvent event)
+```
+
+
 
 ##### 数据权限相关(企业版)
 ```java
@@ -1441,36 +1469,19 @@ AssetsBindEvent
   </p>
 AssetsBindEvent 资产绑定事件
 </div>
-###### AssetsBindEvent的事件发布：`org.jetlinks.pro.assets.CompositeAssetBindManager`
-```java
-public Mono<Void> bindAssets(@Nonnull Publisher<AssetBindRequest> requestFlux) {
-    Flux<AssetBindRequest> cache = Flux.from(requestFlux).cache();
-    //event
-    Mono<Void> then = cache
-	//事件发布
-        .flatMap(request -> AssetsBindEvent
-            .of(request.getTargetType(),
-                request.getTargetId(),
-                request.getAssetType(),
-                request.getAssetIdList(),
-                request.getPermission(),
-                request.getRelation(),
-                request.isAllPermission())
-            .publish(eventPublisher))
-        .then();
-}
+AssetsBindEvent的事件发布：
+
 ```
-###### AssetsBindEvent的事件监听：`org.jetlinks.pro.device.service.DeviceTenantSynchronizer`
-```java
-@EventListener
-public void handleUnBindEvent(AssetsBindEvent event) {
-    if (DeviceAssetType.device.getId().equals(event.getAssetType())) {
-        event.async(
-            syncDeviceBindingAsync(event.getAssetId())
-        );
-    }
-}
+`org.jetlinks.pro.assets.CompositeAssetBindManager.bindAssets(@Nonnull Publisher<AssetBindRequest> requestFlux)
 ```
+
+AssetsBindEvent的事件监听：
+
+```
+org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindEvent(AssetsBindEvent event)
+```
+
+
 
 AssetsUnBindEvent
 <div class='explanation info'>
@@ -1480,29 +1491,19 @@ AssetsUnBindEvent
   </p>
 AssetsUnBindEvent 资产解绑事件
 </div>
-###### AssetsUnBindEvent的事件发布：`org.jetlinks.pro.assets.CompositeAssetBindManager`
-```java
-public Mono<Void> unbindAssets(@Nonnull Publisher<AssetUnbindRequest> requestFlux) {
-    Flux<AssetUnbindRequest> cache = Flux.from(requestFlux).cache();
-    //事件发布
-    Mono<Void> then = cache
-        .flatMap(request -> AssetsUnBindEvent
-            .of(request.getTargetType(), request.getTargetId(), request.getAssetType(), request.getAssetIdList())
-            .publish(eventPublisher))
-        .then();
+AssetsUnBindEvent的事件发布：
+
 ```
-###### AssetsUnBindEvent的事件监听：`org.jetlinks.pro.device.service.DeviceTenantSynchronizer`
-```java
-@EventListener
-@SuppressWarnings("all")
-public void handleUnBindEvent(AssetsUnBindEvent event) {
-    if (DeviceAssetType.device.getId().equals(event.getAssetType())) {
-        event.async(
-            syncDeviceBindingAsync(event.getAssetId())
-        );
-    }
-}
+org.jetlinks.pro.assets.CompositeAssetBindManager.unbindAssets(@Nonnull Publisher<AssetUnbindRequest> requestFlux)
 ```
+
+AssetsUnBindEvent的事件监听：
+
+```
+org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindEvent(AssetsUnBindEvent event)
+```
+
+
 
 AssetsUnBindAllEvent
 <div class='explanation info'>
@@ -1512,32 +1513,19 @@ AssetsUnBindAllEvent
   </p>
 AssetsUnBindAllEvent 全部资产解绑事件
 </div>
-###### AssetsUnBindAllEvent的事件发布：`org.jetlinks.pro.assets.CompositeAssetBindManager`
-```java
-public Mono<Integer> unbindAllAssets(@Nonnull String assetType,
-                                     @Nonnull Collection<?> assetId) {
-    return Flux
-        .fromIterable(managers)
-        .flatMap(manager -> manager.unbindAllAssets(assetType, assetId))
-        .reduce(Math::addExact)
-		//事件发布
-        .flatMap(AssetsUnBindAllEvent
-                     .of(assetType, assetId.stream().map(String::valueOf).collect(Collectors.toSet()))
-                     .publish(eventPublisher)
-                     ::thenReturn);
-}
+AssetsUnBindAllEvent的事件发布：
+
 ```
-###### AssetsUnBindAllEvent的事件监听：`org.jetlinks.pro.device.service.DeviceTenantSynchronizer`
-```java
-@EventListener
-public void handleUnBindAllEvent(AssetsUnBindAllEvent event) {
-    if (DeviceAssetType.device.getId().equals(event.getAssetType())) {
-        event.async(
-            syncDeviceBinding(event.getAssetId())
-        );
-    }
-}
+org.jetlinks.pro.assets.CompositeAssetBindManager.unbindAllAssets(@Nonnull String assetType,@Nonnull Collection<?> assetId)
 ```
+
+AssetsUnBindAllEvent的事件监听：
+
+```
+org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindAllEvent(AssetsUnBindAllEvent event)
+```
+
+
 
 TenantMemberBindEvent
 <div class='explanation info'>
@@ -1547,22 +1535,14 @@ TenantMemberBindEvent
   </p>
 TenantMemberBindEvent 租户成员绑定事件
 </div>
-###### TenantMemberBindEvent的事件发布：`org.jetlinks.pro.auth.service.TenantMemberService`
-```java
-public Mono<Void> bindMembers(String tenantId, Flux<BindMemberRequest> bind) {
-   //相关业务处理
-   ...
-   //事件发布
-    return entityCache
-		   .map(TenantMemberEntity::getUserId)
-		   .collectList()
-		   .flatMap(users -> TenantMemberBindEvent
-		   .of(tenantId, users)
-		   .publish(eventPublisher))
-         .then();
-}
+TenantMemberBindEvent的事件发布：
+
 ```
-###### TenantMemberBindEvent的事件监听：
+org.jetlinks.pro.auth.service.TenantMemberService.bindMembers(String tenantId, Flux<BindMemberRequest> bind)
+```
+
+TenantMemberBindEvent的事件监听：
+
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -1575,24 +1555,14 @@ TenantMemberUnBindEvent
   </p>
 TenantMemberUnBindEvent 租户成员解绑事件
 </div>
-###### TenantMemberUnBindEvent的事件发布：`org.jetlinks.pro.auth.service.TenantMemberService`
-```java
-@Transactional
-public Mono<Void> unbindMembers(String tenantId, Flux<String> bindIdStream) {
-               //相关业务处理
-			   ({...
-			   //事件发布
-			    then.(TenantMemberUnBindEvent.of(tenantId, userIdList).publish(eventPublisher))
-                //解绑后清除绑定用户的权限设置缓存
-                .then(
-    ClearUserAuthorizationCacheEvent.of(userIdList).publish(eventPublisher)
-           );
-        })
-        .then(deleteById(cache))
-        .then();
-}
+TenantMemberUnBindEvent的事件发布：
+
 ```
-###### TenantMemberUnBindEvent的事件监听:
+org.jetlinks.pro.auth.service.TenantMemberService.unbindMembers(String tenantId, Flux<String> bindIdStream)
+```
+
+TenantMemberUnBindEvent的事件监听:
+
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -1614,31 +1584,20 @@ DeviceDeployedEvent
   </p>
 DeviceDeployedEvent: 设备激活时触发
 </div>
-###### DeviceDeployedEvent的事件发布：`org.jetlinks.pro.device.service.LocalDeviceInstanceService`
-```java
-public Flux<DeviceDeployResult> deploy(Flux<DeviceInstanceEntity> flux,
-                                       Function<? super Throwable, ? extends Mono<DeviceInstanceEntity>> fallback) {
-                     //相关业务逻辑处理
-					 ...
-                     //推送激活事件
-                     .flatMap(res -> DeviceDeployedEvent.of(all).publish(eventPublisher).thenReturn(res)),
-                 Queues.XS_BUFFER_SIZE
-        )
-        //激活时不触发事件,单独处理DeviceDeployedEvent
-        .as(EntityEventHelper::setDoNotFireEvent)
-        ;
-}
+DeviceDeployedEvent的事件发布：
+
 ```
-###### DeviceDeployedEvent的事件监听：`org.jetlinks.pro.device.service.DeviceGroupService`
-```java
-//激活设备时
-@EventListener
-public void handleDeviceDeploy(DeviceDeployedEvent event) {
-    syncDeviceGroup(
-        event.getDevices().stream().map(DeviceInstanceEntity::getId).collect(Collectors.toList())
-    ).subscribe();
-}
+org.jetlinks.pro.device.service.LocalDeviceInstanceService.deploy(Flux<DeviceInstanceEntity> flux,
+                                       Function<? super Throwable, ? extends Mono<DeviceInstanceEntity>> fallback)
 ```
+
+DeviceDeployedEvent的事件监听：
+
+```
+org.jetlinks.pro.device.service.DeviceGroupService.handleDeviceDeploy(DeviceDeployedEvent event)
+```
+
+
 
 DeviceUnregisterEvent
 <div class='explanation info'>
@@ -1648,20 +1607,14 @@ DeviceUnregisterEvent
   </p>
 DeviceUnregisterEvent: 设备注销时触发
 </div>
-###### DeviceUnregisterEvent的事件发布：`org.jetlinks.pro.device.service.LocalDeviceInstanceService`
-```java
-public Mono<Integer> unregisterDevice(Publisher<String> ids) {
-    return Flux
-        //相关业务处理
-           ...
-        //注销事件的发布
-            .flatMap(devices -> DeviceUnregisterEvent.of(devices).publish(eventPublisher))
-        ...
-
-}
+DeviceUnregisterEvent的事件发布：
 
 ```
-###### DeviceUnregisterEvent的事件监听：``
+org.jetlinks.pro.device.service.LocalDeviceInstanceService.unregisterDevice(Publisher<String> ids)
+```
+
+DeviceUnregisterEvent的事件监听：
+
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -1674,25 +1627,14 @@ DeviceAutoRegisterEvent
   </p>
 DeviceAutoRegisterEvent: 设备自动注册时触发,可返回是否允许自动注册
 </div>
-###### DeviceAutoRegisterEvent的事件发布：`org.jetlinks.pro.device.service.DeviceMessageBusinessHandler`
-```java
-private Mono<DeviceOperator> doAutoRegister(DeviceRegisterMessage message) {
-    //自动注册
-    return Mono
-        //相关业务处理
-		....
-		//先推送DeviceAutoRegisterEvent
-           DeviceAutoRegisterEvent event = new DeviceAutoRegisterEvent(instance);
-            return event
-                .publish(eventPublisher)
-                .then(Mono.defer(() -> {
-				      ......
-				}
-}
-
+DeviceAutoRegisterEvent的事件发布：
 
 ```
-###### DeviceAutoRegisterEvent的事件监听：``
+org.jetlinks.pro.device.service.DeviceMessageBusinessHandler.doAutoRegister(DeviceRegisterMessage message)
+```
+
+DeviceAutoRegisterEvent的事件监听：
+
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -1706,83 +1648,78 @@ DeviceProductDeployEvent
   </p>
 DeviceProductDeployEvent: 产品激活时触发
 </div>
-###### DeviceProductDeployEvent的事件发布：`org.jetlinks.pro.device.service.LocalDeviceProductService`
-```java
-public Mono<Integer> deploy(String id) {
-    return findById(Mono.just(id))
-             //相关业务处理
-            .flatMap(i -> FastBeanCopier
-             //事件发布
-                .copy(product, new DeviceProductDeployEvent())
-                .publish(eventPublisher)
-                .thenReturn(i))
-        );
-}
+DeviceProductDeployEvent的事件发布：
 
 ```
-###### DeviceProductDeployEvent的事件监听：`org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler`
-```java
-@EventListener
-public void handlerEvent(DeviceProductDeployEvent event) {
-    event.async(
-        this
-            .doRegisterMetadata(event.getId(), event.getMetadata())
-            .then(
-                eventBus.publish("/_sys/product-upgrade", event.getId())
-            )
-    );
-}
+org.jetlinks.pro.device.service.LocalDeviceProductService.deploy(String id)
 ```
-#### 补充:
-##### 如何自定义的项目内引入es模块
+
+DeviceProductDeployEvent的事件监听：
+
+```
+org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(DeviceProductDeployEvent event)
+```
+
+
+
+##### ### 如何自定义的项目内引入es模块
 1、在自定义的项目中引入平台es的模块
 
-![es依赖](./images/es-1.png)
+依赖：`<jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>`
 
 ```java
- 依赖：
-   <dependency>
-	   <groupId>org.jetlinks.community</groupId>
-	   <artifactId>elasticsearch-component</artifactId>
-	   <version>1.20.0-SNAPSHOT</version>
-	   <scope>compile</scope>
-   </dependency>
+  <dependency>
+    <groupId>org.jetlinks.pro</groupId>
+    <artifactId>elasticsearch-component</artifactId>
+    <version>${jetlinks.version}</version>
+    <scope>compile</scope>
+  </dependency>
 ```
 
 2、创建自定义枚举类实现 `ElasticIndex`，定义es索引模板名称
 
-![定义es索引模板名称](./images/es-2.png)
+代码：
 
   ```java
-  代码：
   package org.example.mydemo.enums;
-  import lombok.AllArgsConstructor;
-  import lombok.Getter;
-  import org.jetlinks.community.elastic.search.index.ElasticIndex;
+  import org.jetlinks.pro.elastic.search.index.ElasticIndex;
 
   @Getter
   @AllArgsConstructor
   public enum DemoIndexs implements ElasticIndex {
-  test("test");
+  custom("custom");
   private String index;
   }
   ```
-3、启动程序时会根据如下代码创建创建索引模板
+3、在创建自定义es索引前，需要先创建es模板，启动程序时会根据如下配置代码创建es索引模板
 
-![创建模板](./images/es-3.png)
+代码：
 
    ```java
+package org.example.mydemo.config;
+
+import org.example.mydemo.enums.CustomIndexEnum;
+import org.jetlinks.pro.elastic.search.index.DefaultElasticSearchIndexMetadata;
+import org.jetlinks.pro.elastic.search.index.ElasticSearchIndexManager;
+import org.jetlinks.core.metadata.types.DateTimeType;
+import org.jetlinks.core.metadata.types.IntType;
+import org.jetlinks.core.metadata.types.StringType;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 @Component
 @Setter
 @AllArgsConstructor
 public class Configurations implements CommandLineRunner {
-
+    //引入indexManager
     private final ElasticSearchIndexManager indexManager;
 
     @Override
     public void run(String... args) throws Exception {
         indexManager.putIndex(
-                new DefaultElasticSearchIndexMetadata(DemoIndexs.test.getIndex())
+                //设置es自定义模板名称
+                new DefaultElasticSearchIndexMetadata(CustomIndexEnum.custom.getIndex())
+                        //添加自定义模板属性
                         .addProperty("device_id", new StringType())
                         .addProperty("type", new IntType())
                         .addProperty("timestamp", new DateTimeType())
@@ -1792,11 +1729,11 @@ public class Configurations implements CommandLineRunner {
    ```
 
 4、 在controller层引入`ElasticSearchService`服务
-   ![引入ElasticSearchService服务](./images/es-4.png)
+
+ 在`org.example.mydemo.web.CustomController`中引入`elasticSearchService`
 
 ```java
-   //在自定义模块的controller层引入elasticSearchService
-	private final ElasticSearchService elasticSearchService;
+ private final ElasticSearchService elasticSearchService;
 ```
 
 5、`ElasticSearchService`的核心方法
@@ -1818,61 +1755,101 @@ public class Configurations implements CommandLineRunner {
 
 6、es相关简单代码示例
 
-1、save：向数据库新增数据并保存到es
-
 ```
-    /*
-     * 保存数据并存储到es（save）
-     * */
+package org.example.mydemo.web;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.mydemo.entity.CustomEntity;
+import org.example.mydemo.enums.CustomIndexEnum;
+import org.example.mydemo.service.CustomService;
+import org.hswebframework.web.api.crud.entity.PagerResult;
+import org.hswebframework.web.api.crud.entity.QueryParamEntity;
+import org.hswebframework.web.authorization.annotation.Authorize;
+import org.hswebframework.web.authorization.annotation.QueryAction;
+import org.hswebframework.web.authorization.annotation.Resource;
+import org.hswebframework.web.crud.service.ReactiveCrudService;
+import org.hswebframework.web.crud.web.reactive.ReactiveServiceCrudController;
+import org.jetlinks.pro.elastic.search.service.ElasticSearchService;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
+
+
+@RestController
+@RequestMapping("/demo")
+@Getter
+@AllArgsConstructor
+@Resource(id = "demo", name = "自定义接口")
+@Tag(name = "自定义接口")
+@Authorize(ignore = true)
+
+public class CustomController implements ReactiveServiceCrudController<CustomEntity, String> {
+
+    private final CustomService testService;
+    //引入es
+    private final ElasticSearchService elasticSearchService;
+
+    /**
+     * 将参数实体内容存储到es中
+     * @param entity 存储参数实体
+     * @return
+     */
     @PostMapping("/save")
     @QueryAction
-    public Mono<TestEntity> saveData(@RequestBody TestEntity entity) {
+    public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
+        //保存到数据库
         return testService.insert(entity)
                 .filter(number -> number > 0)
+                //将成功保存到数据库的数据存储到自定义的es索引中
                 .flatMap(number -> elasticSearchService
-                        .save("test", entity)
+                        .save(CustomIndexEnum.custom.getIndex(), entity)
                         .thenReturn(entity)
                 );
     }
-```
 
-2、count:查询es中的数据记录数
-
-```
-     /*
-     * 查询es中的数据记录数（count)
-     * */
+    /**
+     *  根据参数，查询索引中的记录数
+     * @param _index  索引名称
+     * @param queryParam  查询参数
+     * @return
+     */
     @PostMapping("/count/{_index}")
     @QueryAction
     public Mono<Long> countData(@PathVariable String _index, @Parameter QueryParamEntity queryParam) {
-        return  elasticSearchService.count(_index, queryParam);
-    }
-```
-
-3、queryPager:根据传入的索引名称和条件，分页查询数据，封装到自定义实体类中
-
-​     `_index`：索引名称，`queryParam`：查询条件  `map`：返回结果
-
-```
-   /*
-     * 查询es中的数据（query)
-     * */
-    @PostMapping("/get/{_index}")
-    @QueryAction
-    public Mono<PagerResult<TestEntity>> queryData(@PathVariable String _index, QueryParamEntity queryParam)    {
-        //QueryParam的参数数据
-        return elasticSearchService
-                .queryPager(_index, queryParam, map -> TestEntity.of(map));
+        return elasticSearchService.count(_index, queryParam);
     }
     
+    /**
+     * 根据参数，分页查询索引中的数据
+     * @param _index 索引名称
+     * @param queryParam 查询参数
+     * @return
+     */
+    @PostMapping("/{_index}/query")
+    @QueryAction
+    public Mono<PagerResult<CustomEntity>> queryPagerData(@PathVariable String _index, QueryParamEntity queryParam) {
+     //从es中得到的查询结果会存入map，被自定义实体类(CustomEntity)的of方法转换，返回给调用者
+        return elasticSearchService
+                .queryPager(_index, queryParam, map -> CustomEntity.of(map));
+    }
+
+    @Override
+    public ReactiveCrudService<CustomEntity, String> getService() {
+        return testService;
+    }
+}
+
 ```
 
-`TestEntity `的`of`方法进行转换
+`CustomEntity`的`of`方法
 
 ```
- public static TestEntity of(Map<String, Object> map) {
-    //转换为TestEntity类实体数据
-        return  JSONObject.parseObject(JSONObject.toJSONString(map), TestEntity.class);
+    /**
+     * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
+     * @param map  传入参数
+     * @return
+     */
+    public static CustomEntity of(Map<String, Object> map) {
+        return  JSONObject.parseObject(JSONObject.toJSONString(map), CustomEntity.class);
     }
 ```
 
@@ -1884,6 +1861,10 @@ public class Configurations implements CommandLineRunner {
 #### 在使用过程中写响应式应注意什么
 #### 扩展点：
 ##### 比如我要在自己的项目内使用es查询设备历史数据，在自己的项目内使用es聚合查询给出示例代码
+
+
+
+
 
 ### 使用消息总线
 
@@ -1987,7 +1968,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 
 发布事件:
-
 ```java
       public Mono<Void> shutdown(NetworkType type, String NetworkId) {
           return
@@ -1998,7 +1978,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 ```
 
 订阅事件：
-
 ```java
       //使用Subscribe方法
       public void doSubscribe() {
@@ -2030,6 +2009,9 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     }
 ```
 
+
+
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -2044,11 +2026,9 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 </div>
 
 #### 共享订阅实例
-
 使用Subscribe方法：
-
 ```java
-      public void doSubscribe(){
+      public void doSubscribe() {
         eventBus
             //调用subscribe方法
             .subscribe(Subscription
@@ -2068,9 +2048,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
         .subscribe();
       }
 ```
-
 使用Subscribe注解：
-
 ```java
       
     //订阅特性为shared
@@ -2105,17 +2083,15 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 #### 多订阅特性实例
 
 Subscribe方法：
-
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
- ```
+```
 
 Subscribe注解：
-
  ```java
-@Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
-```
+@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+ ```
 
 ### 添加自定义存储策略
 
@@ -2405,6 +2381,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 #### 应用场景
 
+
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
 2、通过实现自定义协议的DeviceMessageSenderInterceptor.afterSent来拦截消息发送,替换掉默认处理方式.在这里使用WebClient或者Vertx请求第三方或者设备。<br/>
@@ -2413,12 +2390,11 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 
 #### 例子一,通过http到第三方平台获取数据
-
 ##### 第一步 定义消息编码解码器
 
 ```java
 public class HttpMessageCodec implements DeviceMessageCodec {
-
+    
     // 定义一个通用的响应，用于收到请求后响应
     private static final SimpleHttpResponseMessage response = SimpleHttpResponseMessage
             .builder()
@@ -2426,18 +2402,18 @@ public class HttpMessageCodec implements DeviceMessageCodec {
             .contentType(MediaType.APPLICATION_JSON)
             .status(200)
             .build();
-
+    
     @Override
     public Transport getSupportTransport() {
         return DefaultTransport.HTTP;
     }
-
+    
     @Nonnull
     @Override
-    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context) {
+    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context){
         // 这里用于别的平台请求/通知jetlinks的请求处理
         // 把消息转换为http消息
-        HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
+         HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
         String url = message.getUrl();
         // 这里通常需要判断是不是自己需要的请求，如果不是直接返回/响应，防止非法请求
         if (!url.endsWith("/eventRcv")) {
@@ -2455,15 +2431,15 @@ public class HttpMessageCodec implements DeviceMessageCodec {
         eventMessage.setTimestamp(System.currentTimeMillis());
         return message.response(response).thenMany(Flux.just(eventMessage));
     }
-
-
+    
+    
     @Nonnull
     @Override
     public Publisher<? extends EncodedMessage> encode(@Nonnull MessageEncodeContext context) {
         // 对接其他云平台，命令发起不在这里处理，所以这里返回空就可以了
         return Mono.empty();
     }
-
+    
 }
 ```
 
@@ -2480,7 +2456,6 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
 	private DecodedClientMessageHandler handler;
     
     private static final WebClient webclient=WebClient.builder().build();
-
    /**
      * 在消息发送后触发.
      *
@@ -3230,59 +3205,6 @@ public class UseConsumer{
 
 
 
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
-
-
-<br>
-
 ### 使用MQTT订阅平台相关消息
 
 #### 应用场景
@@ -3334,17 +3256,135 @@ messaging:
 
 </div>
 
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+<br>
+
+#### 创建第三方平台
+
+首先进入平台：选择平台上方的[系统管理]---左侧的[应用管理]---点击新增按钮
+
+![创建第三方平台](./images/add-third-api-0.png)
+
+然后应用选择第三方应用，接入方式只勾选API服务，填入名称、secureKey，选择角色，点击保存
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip访问本平台
+</div>
+
+![创建第三方平台1](./images/add-third-api-1.png)
+
+<br>
+
+#### 赋权
+
+//TODO
+
+<br>
+
+### 接入方式
+
+1、使用签名的方式
+
+验证流程
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <ul>
+        <li style='list-style-type: none;'>1、图中Signature函数为客户端设置的签名方式，支持MD5和Sha256</li>
+        <li style='list-style-type: none;'>2、发起请求的签名信息都需要放到请求头中，而不是请求体</li>
+        <li style='list-style-type: none;'>3、OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web'>查看使用方式</a></li>
+    </ul>
+</div>
+
+![使用签名的方式](./images/use-sign.png)
+
+签名
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  <p>
+      平台使用签名来校验客户端请求的完整性以及合法性
+    </p>
+    <p>
+        例如:
+    </p>
+    <p>
+        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为md5
+    </p>
+    <ul style='margin-left:-5px'>
+        <li style='list-style-type: none;'>1、将参数key按ascii排序得到: pageIndex=0&pageSize=20</li>
+        <li style='list-style-type: none;'>2、使用拼接时间戳以及密钥得到: pageIndex=0&pageSize=201574993804802testSecure</li>
+        <li style='list-style-type: none;'>3、使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>得到<code>837fe7fa29e7a5e4852d447578269523</code></li>
+    </ul>
+    </div>
+
+示例：
+
+```
+GET /api/device?pageIndex=0&amp;pageSize=20
+X-Client-Id: testId
+X-Timestamp: 1574993804802
+X-Sign: 837fe7fa29e7a5e4852d447578269523
 ```
 
-#### 核心类说明
+响应结果
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+```
+HTTP/1.1 200 OK
+X-Timestamp: 1574994269075
+X-Sign: c23faa3c46784ada64423a8bba433f25
+
+{"status":200,result:[]}
+```
+
+<br>
+
+验签
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  需要使用使用和签名相同的算法，不需要对响应结果排序
+</div>
+
+示例：
+
+```java
+String secureKey = ...; //密钥
+String responseBody = ...;//服务端响应结果
+String timestampHeader = ...;//响应头: X-Timestamp
+String signHeader = ...; //响应头: X-Sign
+
+String sign = DigestUtils.md5Hex(responseBody + timestampHeader + secureKey);
+if(sign.equalsIgnoreCase(signHeader)){
+    //验签通过
+}
+```
+
+<br>
+
+2、使用token的方式
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
+</div>
+
+申请token
 
 #### 常见问题
 
@@ -3474,29 +3514,21 @@ messaging:
 </div>
 
 ### 中间件部署及常见问题
-本文档安装环境为Centos7。
-#### 离线包部署
+本文档部署环境为Centos7，中间件部署方法提供了两种分别为离线包部署和docker部署，可根据实际情况选择对应的部署方式。
 #### 版本说明
 | 中间件 | 版本号 |  是否必装 | 下载地址 |
 |----------------|-----|-----|--------|---------------------------|
-| redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
-| jdk |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
-| elasticsearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
-| kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
-| postgresql |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-如果你是linux或者macOS系统,或者是windows10. 推荐使用docker安装所需环境
-</div>
+| Redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
+| JDK |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
+| ElasticSearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
+| Kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
+| PostgreSQL |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
 
 
-#### 通过离线包方式部署
-#### 部署Redis
-1. 上传离线包至服务器/usr/local目录下。
+
+#### 离线包方式部署
+##### 部署Redis
+1. 上传离线包至服务器`/usr/local`目录下。
 
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf redis-5.0.4.tar.gz`命令进行解压，解压完成之后会生成`redis-5.0.4`文件夹。
 
@@ -3507,7 +3539,7 @@ messaging:
   yum -y install readline-devel
 ```
 
-4. 安装redis 
+4. 安装Redis 
 ```shell
    cd ./redis-5.0.4
    make
@@ -3518,7 +3550,7 @@ messaging:
  ```shell
 cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
 ```
-6. 修改redis.config文件
+6. 修改`redis.config`文件
 修改以下参数：
 ```shell
 #注释掉，只允许来自指定网卡的Redis请求。如果没有指定，就说明可以接受来自任意一个网卡的Redis请求
@@ -3528,11 +3560,12 @@ daemonize no -- > 改成 daemonize yes
 #关闭保护模式
 protected-mode yes  -- > 改成 protected-mode no
 ```
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
   </p>
+
 protected-mode no 表示关闭保护模式，不建议在生产环境关闭保护模式</br>
 保护模式的生效条件：保护模式已打开且未指定bind且未指定密码,例如：
 
@@ -3541,7 +3574,10 @@ protected-mode yes // 打开保护模式
 #bind 127.0.0.1 //不绑定任何网络接口
 #requirepass xiaoyi //不设置密码 
 ```
+
 </div>
+
+
 
 7. 启动Redis
 ```shell
@@ -3556,13 +3592,14 @@ root      34853  0.1  0.0 153984  7628 ?        Ssl  18:19   0:00 /usr/local/bin
 root      35139  0.0  0.0 112824   976 pts/2    S+   18:24   0:00 grep --color=auto redis
 ```
 
-10. 防火墙开放端口<br/>
+9. 防火墙开放端口<br/>
 ```shell
 firewall-cmd --zone=public --add-port=6379/tcp --permanent
 firewall-cmd --reload
 ```
 
-#### Redis部署常见问题
+10. Redis部署常见问题
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -3573,15 +3610,23 @@ A：CentOS7默认安装的是4.8.5，而redis6.0只支持5.3以上版本，这�
 </div>
 
 ```shell
-gcc -v                                              # 查看gcc版本
+gcc -v                                              #查看gcc版本
 yum install -y centos-release-scl scl-utils-build   #安装scl 源
 yum -y install devtoolset-9-gcc*                    #安装9版本的 gcc gcc-c++ gdb 
 scl enable devtoolset-9 bash                        #临时覆盖系统原有的gcc 引用
-gcc -v                                              # 查看gcc版本
+gcc -v                                              #查看gcc版本
 ```
 
 
-#### 部署Java
+##### 部署JDK
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以第一步要安装JDK
+</div>
 
 1. 上传离线包至服务器`/usr/local`目录下
 2. 进入该目录，使用`tar -xzvf jdk-8u341-linux-x64.tar.gz`命令进行解压，解压完成之后会生成`jdk1.8.0_341`文件夹
@@ -3601,16 +3646,10 @@ Java(TM) SE Runtime Environment (build 1.8.0_341-b10)
 Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以第一步要安装JDK
-</div>
 
-#### 部署ElasticSearch
-1. 上传离线包至服务器/usr/local目录下
+
+##### 部署ElasticSearch
+1. 上传离线包至服务器`/usr/local`目录下
 
 2. 进入该目录，使用`tar -xzvf elasticsearch-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`elasticsearch-6.8.11`文件夹
 3. 修改es配置文件 `vi /usr/local/elasticsearch-6.8.11/config/elasticsearch.yml`
@@ -3647,10 +3686,10 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
 -Xms1g 
 -Xmx1g 
 ```
-4.  创建es用户
+5.  创建es用户
 
-创建用户组：groupadd es<br/>
-创建用户并添加至用户组：useradd es -g es <br/>
+创建用户组：`groupadd es`<br/>
+创建用户并添加至用户组：`useradd es -g es` <br/>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -3660,9 +3699,14 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
  Elasticsearch默认是不允许在root用户下进行安装的，在安装之前，应创建一个用户
 </div>
 
-5. 切换到es用户`su es`，进入bin目录`cd /usr/local/elasticsearch-6.8.11/bin/`
-6. 启动es`./elasticsearch`
-7. 在浏览器输入`IP地址：9200`来验证elasticsearch是否配置成功，若出现以下字样说明配置成功
+7. 切换到es用户`su es`，进入bin目录`cd /usr/local/elasticsearch-6.8.11/bin/`
+8. 启动es`./elasticsearch`
+9. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
+firewall-cmd --reload
+```
+10. 在浏览器输入`IP地址：9200`来验证elasticsearch是否配置成功，若出现以下字样说明配置成功
 ```shell
 {
   "name" : "3CBfLD\_",
@@ -3682,7 +3726,9 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
   "tagline" : "You Know, for Search"
 }
 ```
-#### ElasticSearch部署常见问题
+
+
+11. ElasticSearch部署常见问题
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -3692,7 +3738,7 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
 
 
 
-Q:启动项目源码报错,访问权限不够,报错内容如下：
+Q：启动项目源码报错,访问权限不够,报错内容如下：
 
 ```shell
 Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elasticsearch-6.8.11/config/jvm.options
@@ -3707,7 +3753,7 @@ Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elast
 	at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:60)
 ```
 
-Q:使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
+A：使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
 
 </div>
 
@@ -3719,7 +3765,7 @@ Q:使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切
   </p>
 
 
-Q:启动es报错，报错内容如下：
+Q：启动es报错，报错内容如下：
 
 
 ```shell
@@ -3729,11 +3775,11 @@ ERROR: [3] bootstrap checks failed
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
-A:有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
+A：有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
 
 </div>
 
-`vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
+1. `vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
 
 ```shell
 
@@ -3751,7 +3797,7 @@ A:有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(�
 
 ```
 
-`vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
+2. `vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
 
 
 ```shell
@@ -3771,11 +3817,11 @@ vm.max_map_count=262144
 
 ```
 
-新增完成之后使用`sysctl -p`命令使配置生效
+3. 新增完成之后使用`sysctl -p`命令使配置生效
 
 
-#### 部署Kibana
-1. 上传离线包至服务器/usr/local目录下
+##### 部署Kibana
+1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf kibana-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`kibana-6.8.11-linux-x86_64`文件夹
 3. 给es用户授权
 ```shell
@@ -3797,11 +3843,17 @@ cd /usr/local/kibana-6.8.11-linux-x86_64/bin
 #启动kibana
 ./kibana
 ```
-6. 验证是否配置成功，在浏览器输入`部署服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
+6. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=5601/tcp --permanent
+firewall-cmd --reload
+```
+
+7. 验证是否配置成功，在浏览器输入`服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
 
 
-#### 部署PostgreSQL
-1. 上传离线包至服务器/usr/local目录下
+##### 部署PostgreSQL
+1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`# tar -xzvf postgresql-11.12.tar.gz`命令进行解压，解压完成之后会生成`postgresql-11.12`文件夹
 3. 安装PostgreSQL <br/>
 ```shell
@@ -3811,13 +3863,12 @@ cd ./postgresql-11.12
 make && make install
 ```
    
-4. 创建目录 data、log<br/>
+4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
-mkdir /usr/local/postgresql/log
 ```
 5. 加入系统环境变量`vi /etc/profile`<br/>
-   在文件最后写入如下内容<br/>
+在文件最后写入如下内容：<br/>
 ```shell
 PGHOME=/usr/local/postgresql
 export PGHOME
@@ -3828,7 +3879,7 @@ export PATH
 ```
 使配置文件生效`source /etc/profile`<br/>
 
-6. 增加用户 postgres 并赋权<br/>
+6. 增加用户`postgres`并赋权<br/>
 ```shell
 adduser postgres
 chown -R postgres:root /usr/local/postgresql/
@@ -3849,20 +3900,20 @@ listen_addresses = '*'
 port = 5432
 ```
 
-`vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
+9. 修改配置文件`vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
 
 ```shell
   # 在 IPv4 local connections 区域中添加如下一行 ：
   host    all             all             0.0.0.0/0            trust
 ```
 
-<div class='explanation primary'>
+<div class='explanation error'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
   </p>
 
-  trust表示只要知道数据库用户名就能登录，建议不要在生产环境中使用，生产环境建使用password或md5。
+  trust表示使用数据库和用户名就能登录，安全性低建议不要在生产环境中使用，生产环境建使用password或md5。
 
 </div>
 
@@ -3871,10 +3922,15 @@ port = 5432
 [postgres@localhost postgresql-10.11]$ pg_ctl start -l /usr/local/postgresql/log/pg_server.log
 waiting for server to start.... done
 server started
-
 ```
-10. 验证部署是否成功,使用第三方工具测试连接。
 
+10. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=5432/tcp --permanent
+firewall-cmd --reload
+```
+11. 验证部署是否成功,使用第三方工具测试连接
+![img.png](./images/pg-sucess.png)
 
 
 <div class='explanation warning'>
@@ -3896,11 +3952,19 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 
 #### docker部署
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>JetLinks提供了很多中间件docker部署的配置文件，下方的表格提供了中间件配置文件的路径地址，可根据实际需求选择对应中间件部署</p>
+</div>
+
 | 中间件 | 是否必须部署 | 文件位置 | 
 |----------------| -------------------------- |--------|---------------------------|
 | Redis | 是 |jetlinks-pro/docker-compose.yml|
 | ElasticSearch| 是 |jetlinks-pro/docker-compose.yml|
-| Kibana| 否 |jetlinks-pro/docker-compose.yml|
+| Kibana| 是 |jetlinks-pro/docker-compose.yml|
 | PostgreSQL| 是 |jetlinks-pro/docker-compose.yml|
 | ClickHouse| 否 |jetlinks-pro/jetlinks-components/clickhouse-component/docker-compose.yml|
 | Cassandra| 否 |jetlinks-pro/jetlinks-components/cassandra-component/docker-compose.yml|
@@ -3910,7 +3974,9 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 | Kafka| 否 |jetlinks-pro/expands-components/messaging-component/kafka-component/docker-compose.yml|
 | RabbitMQ| 否 |jetlinks-pro/expands-components/messaging-component/rabbitmq-component/docker-compose.yml|
 
-#### 配置文件说明
+
+
+##### 配置文件说明
 
 ```shell
 version: '2'
@@ -3979,9 +4045,9 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
 ```
-#### 创建并运行容器
+##### 创建并运行容器
 
-1. 将docker-compose.yml文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
+1. 将`docker-compose.yml`文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
 
 2. 使用`docker-compose up -d`命令创建并运行容器
 
@@ -3996,11 +4062,11 @@ Container jetlinks-kibana         Started                                       
          
 ```
 
-3. 查看是否创建/运行成功 docker ps
+3. 查看是否创建/运行成功 `docker ps -a`
 
 ```shell
 
-[root@localhost docker-compose]# docker ps
+[root@localhost docker-compose]# docker ps -a
 CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS          PORTS                                                                                                                                                                     NAMES
 045b6c06cf81   kibana:6.8.11                 "/usr/local/bin/kiba…"   35 seconds ago      Up 32 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                                                                              jetlinks-ce-kibana
 0399d3741730   redis:5.0.4                   "docker-entrypoint.s…"   35 seconds ago      Up 34 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp                                                                                                                              jetlinks-ce-redis
