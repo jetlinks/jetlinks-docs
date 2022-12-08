@@ -4,6 +4,8 @@
 
 - <a target='_self' href='/dev-guide/code-guide.html#%E6%BA%90%E7%A0%81%E6%8B%89%E5%8F%96%E5%8F%8A%E5%AD%90%E6%A8%A1%E5%9D%97%E6%9B%B4%E6%96%B0%E6%8C%87%E5%8D%97'>
    如何拉取源码及更新子模块？</a>
+  - <a target='_self' href=''>
+  中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
@@ -26,6 +28,7 @@
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
+
 
 ### 源码拉取及子模块更新指南
 
@@ -62,7 +65,9 @@
 
 </div>
 
+
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
+   
 
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
@@ -151,17 +156,14 @@ $ clip < ~/.ssh/id_ed25519.pub
 进入第一步创建的文件夹内执行拉取代码及子模块
 
 - 拉取`jetlinks-pro`
-
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 
 - 拉取`jetlinks-cloud`
-
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
 ```
-
 6. 更新基础子模块
 
 <div class='explanation info'>
@@ -186,7 +188,6 @@ $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
 示例命令:
-
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
@@ -202,7 +203,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
+[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
 
 8. 代码拉取完毕后`reimport`
 
@@ -226,18 +227,15 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 在项目根目录下的`pom.xml`中的modules节点中添加模块
 
 ```xml
-
 <modules>
     <module>expands-components/jetlinks-ctwing</module>
 </modules>
 ```
-
 - jetlinks-pro添加子模块依赖
+  
 
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
-
 ```xml
-
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -249,9 +247,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 - jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
-
 ```xml
-
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -259,7 +255,6 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </dependency>
 
 ```
-
 其余模块同理。
 
 10. 提交代码至自建仓库
@@ -274,7 +269,6 @@ $  git submodule foreach git push gitee master
 11. 更新源仓库代码并同步自建仓库
 
 查看远程仓库信息
-
 ```shell
 $  git remote -v
 # gitee 是上一步remote add声明的自建仓库名
@@ -330,7 +324,6 @@ User git
 3. 在切换到端口443后第一次与 GitHub 交互时，您可能会收到一条警告消息。
 
 此处在配置公钥过后选择`yes`即可
-
 ```shell
 > The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
 > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -340,6 +333,7 @@ User git
 ```
 
 4. 配置好上述内容后，执行拉取命令即可。
+
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -363,6 +357,31 @@ User git
 
 </div>
 
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
+  </p>
+
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+
+</div>
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+</div>
+
+
+
 ### 在JetLinks上构建自己的业务功能
 
 #### 应用场景
@@ -372,6 +391,7 @@ User git
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
+
 
    <p>当您想使用JetLinks平台做自己的业务，又不想将项目独立时，可以选择基于JetLinks进行开发。</p>
 
@@ -397,7 +417,6 @@ User git
 示例代码:
 
 ```xml
-
 <modules>
     <module>jetlinks-parent</module>
     <module>jetlinks-components</module>
@@ -504,7 +523,6 @@ User git
 
 
 ```text
-
 [INFO] Reactor Summary:
 [INFO] 
 [INFO] jetlinks-parent .................................... SUCCESS [  1.346 s]
@@ -599,6 +617,9 @@ Process finished with exit code 0
 简单的业务系统目录结构如下图：
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
+
+
+
 
 2.controller层：TestController类
   ```java
@@ -729,7 +750,6 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     private String modifierName;
 }
 
-
   ```
 5. 在jetlinks-pro的启动类上加入自定义项目的扫描路径
 ```java
@@ -797,7 +817,6 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
-
 <p>Q：如何将自定义的接口加入swagger扫描并在API配置中显示出来？</p>
 <p>A：在平台的<a>application.yml</a>文件内swagger下声明该项目扫描路径。</p></div>
 
@@ -863,7 +882,6 @@ springdoc:
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-
   <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
@@ -1925,21 +1943,21 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 发布事件:
 
 ```java
-      public Mono<Void> shutdown(NetworkType type, String NetworkId) {
-          return
-           //将停止网络组件事件推送到消息总线   
-           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
-          .then();
-          }
+    public Mono<Void> shutdown(NetworkType type,String NetworkId){
+        return
+            //将停止网络组件事件推送到消息总线   
+            eventBus.publish("/_sys/network/"+type.getId()+"/shutdown",NetworkId)
+                .then();
+    }
 ```
 
 订阅事件：
 
 ```java
       //使用Subscribe方法
-      public void doSubscribe() {
+    public void doSubscribe() {
         eventBus
-            //调用subscribe方法
+        //调用subscribe方法
             .subscribe(Subscription
             //构建订阅者消息
             .builder()
@@ -1950,17 +1968,17 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
             //订阅特性,有三类特性
             .justBroker()
             .build())
-         //拿到消息总线中的数据进行后续处理
-        .flatMap(payload -> {
-            ...
-        })
-        .subscribe();
-      }
+      //拿到消息总线中的数据进行后续处理
+      .flatMap(payload -> {
+        ...
+      })
+      .subscribe();
+    }
 
     //使用Subscribe注解
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
-    public Mono<Void> doStart(String id) {
-            return this
+    public Mono<Void> doStart(String id){
+        return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -2012,7 +2030,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     //订阅特性为shared
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
     public Mono<Void> doStart(String id) {
-            return this
+        return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -2045,13 +2063,14 @@ Subscribe方法：
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
- ```
+```
 
 Subscribe注解：
 
  ```java
 @Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
 ```
+
 
 ### 添加自定义存储策略
 
@@ -2063,277 +2082,21 @@ Subscribe注解：
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-<p>当平台提供的存储策略不满足自己的需求时，可以选择自行开发.</p>
-
-</div>
-
-##### 操作步骤
-
-1. 实现`ThingsDataRepositoryStrategy`接口或者继承`AbstractThingDataRepositoryStrategy`类。重写接口或父类的方法
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-
-<p>推荐使用继承 <span class='explanation-title font-weight'>AbstractThingDataRepositoryStrategy</span>的方式。
-AbstractThingDataRepositoryStrategy继承CacheSaveOperationsStrategy类，CacheSaveOperationsStrategy类在执行存储操作时会将
-数据库操作对象存放至内存，在调用存储方法过程中减少上下文对象的创建。
-</p>
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
 
 ```java
-
-@AllArgsConstructor
-public class CustomRowModeStrategy extends AbstractThingDataRepositoryStrategy {
-
-    private final ThingsRegistry registry;
-    //自定义存储帮助类
-    private final CustomHelper helper;
-
-    @Override
-    public String getId() {
-        return "custom-row";
-    }
-
-    @Override
-    public String getName() {
-        return "自定义-行式存储";
-    }
-
-    @Override
-    public SaveOperations createOpsForSave(OperationsContext context) {
-        //创建自定义SaveOperations类，返回自定义SaveOperations对象
-        return new CustomColumnModeSaveOperations(
-                registry,
-                context.getMetricBuilder(),
-                context.getSettings(),
-                helper);
-    }
-
-    @Override
-    protected QueryOperations createForQuery(String thingType, String templateId, String thingId, OperationsContext context) {
-        //创建自定义QueryOperations类，返回自定义QueryOperations对象
-        return new CustomColumnModeQueryOperations(
-                thingType,
-                templateId,
-                thingId,
-                context.getMetricBuilder(),
-                context.getSettings(),
-                registry,
-                helper);
-    }
-
-    @Override
-    protected DDLOperations createForDDL(String thingType, String templateId, String thingId, OperationsContext context) {
-        //创建自定义DDLOperations类，返回自定义DDLOperations对象
-        return new CustomColumnModeQueryOperations(
-                thingType,
-                templateId,
-                thingId,
-                context.getMetricBuilder(),
-                context.getSettings(),
-                registry,
-                helper);
-    }
-
-    @Override
-    public int getOrder() {
-        return 10000;
-    }
-}
-
-
+//此处将具体代码实现放入
+//1.对关键部分代码进行步骤梳理及注释说明
+//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
 ```
 
-2. 创建自定义存储策略的操作对象(上一步内相关注释)
-
-```java
-//创建自定义SaveOperations
-
-public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
-
-    private final CustomHelper helper;
-
-
-    public CustomRowModeSaveOperations(ThingsRegistry registry,
-                                       MetricBuilder metricBuilder,
-                                       DataSettings settings,
-                                       CustomHelper helper) {
-        super(registry, metricBuilder, settings);
-        this.helper = helper;
-    }
-
-
-    @Override
-    protected Map<String, Object> createRowPropertyData(String id, long timestamp, ThingMessage message, PropertyMetadata property, Object value) {
-        Map<String, Object> values = super.createRowPropertyData(id, timestamp, message, property, value);
-
-        //额外的数据类型处理
-        //时间统一转换为时间戳
-        values.compute(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, (key, val) -> {
-            if (val == null) {
-                return null;
-            }
-            return CastUtils.castDate(val).getTime();
-        });
-        //地理位置值存储为数组
-        values.compute(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, (key, val) -> {
-            if (val == null) {
-                return null;
-            }
-            GeoPoint point = GeoPoint.of(val);
-
-            return Arrays.asList((float) point.getLon(), (float) point.getLat());
-        });
-
-        //默认null
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_NUMBER_VALUE, null);
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, null);
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, null);
-
-        return values;
-    }
-
-    @Override
-    protected Map<String, Object> createEventData(ThingEventMessage message, ThingMetadata metadata) {
-        return super.createEventData(message, metadata);
-    }
-
-    @Override
-    protected Mono<Void> doSave(String metric, TimeSeriesData data) {
-        return helper.doSave(metric, data);
-    }
-
-    @Override
-    protected Mono<Void> doSave(String metric, Flux<TimeSeriesData> data) {
-        return helper.doSave(metric, data);
-    }
-}
-
-
-```
-
-```java
-//创建自定义QueryOperations
-public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
-
-    private final CustomHelper helper;
-
-    public CustomModeQueryOperations(String thingType,
-                                     String thingTemplateId,
-                                     String thingId,
-                                     MetricBuilder metricBuilder,
-                                     DataSettings settings,
-                                     ThingsRegistry registry,
-                                     CustomHelper helper) {
-        super(thingType, thingTemplateId, thingId, metricBuilder, settings, registry);
-        this.helper = helper;
-    }
-
-    @Override
-    protected Flux<TimeSeriesData> doQuery(String metric, Query<?, QueryParamEntity> query) {
-        return helper.doQuery(metric, query.getParam());
-    }
-
-    @Override
-    protected <T> Mono<PagerResult<T>> doQueryPage(String metric, Query<?, QueryParamEntity> query, Function<TimeSeriesData, T> mapper) {
-        return helper.doQueryPager(metric, query.getParam(), mapper);
-    }
-
-    @Override
-    protected Flux<AggregationData> doAggregation(String metric,
-                                                  AggregationRequest request,
-                                                  AggregationContext context) {
-        return doSomeThings();
-    }
-
-    @Override
-    protected Flux<ThingPropertyDetail> queryEachProperty(@Nonnull String metric,
-                                                          @Nonnull Query<?, QueryParamEntity> query,
-                                                          @Nonnull ThingMetadata metadata,
-                                                          @Nonnull Map<String, PropertyMetadata> properties) {
-        return doSomeThings();
-    }
-
-}
-
-```
-
-```java
-//创建自定义DDLOperations
-public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
-
-    private final CustomHelper helper;
-
-    public CustomRowModeDDLOperations(String thingType,
-                                      String templateId,
-                                      String thingId,
-                                      DataSettings settings,
-                                      MetricBuilder metricBuilder,
-                                      CustomHelper helper) {
-        super(thingType, templateId, thingId, settings, metricBuilder);
-        this.helper = helper;
-    }
-
-    static Set<String> notSaveColumns = new HashSet<>(Arrays.asList(
-            ThingsDataConstants.COLUMN_PROPERTY_OBJECT_VALUE,
-            ThingsDataConstants.COLUMN_PROPERTY_ARRAY_VALUE,
-            ThingsDataConstants.COLUMN_LOG_TYPE,
-            ThingsDataConstants.COLUMN_PROPERTY_TYPE
-    ));
-
-    @Override
-    protected Mono<Void> register(MetricType metricType, String metric, List<PropertyMetadata> properties) {
-        switch (metricType) {
-            case properties:
-                return helper
-                        .createTable(metric, properties
-                                        .stream()
-                                        .filter(prop -> !notSaveColumns.contains(prop.getId()))
-                                        .collect(Collectors.toList()),
-                                metricBuilder.getThingIdProperty(),
-                                ThingsDataConstants.COLUMN_PROPERTY_ID,
-                                ThingsDataConstants.COLUMN_TIMESTAMP);
-
-            case log:
-                return helper
-                        .createTable(metric, properties,
-                                metricBuilder.getThingIdProperty(),
-                                ThingsDataConstants.COLUMN_TIMESTAMP);
-            case event:
-                if (settings.getEvent().eventIsAllInOne()) {
-                    return helper
-                            .createTable(metric, properties,
-                                    metricBuilder.getThingIdProperty(),
-                                    ThingsDataConstants.COLUMN_EVENT_ID,
-                                    ThingsDataConstants.COLUMN_TIMESTAMP);
-
-                }
-                return helper
-                        .createTable(metric, properties,
-                                metricBuilder.getThingIdProperty(),
-                                ThingsDataConstants.COLUMN_TIMESTAMP);
-        }
-        return Mono.empty();
-    }
-
-    @Override
-    protected Mono<Void> reload(MetricType metricType, String metric, List<PropertyMetadata> properties) {
-        return helper.reload(metric);
-    }
-}
-
-```
-
-3. 自定义`CustomHelper`存储帮助类。该类主要是完成自定义存储的具体实现。
-
-#### AbstractThingDataRepositoryStrategy
+#### 核心类说明
 
 | 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|-------------------|
+|----------------| -------------------------- |--------|---------------------------|-------------------|
 | DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
@@ -2388,6 +2151,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 ### 主动从第三方平台、设备获取数据
 
 #### 应用场景
+
 
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
@@ -2464,7 +2228,6 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
 	private DecodedClientMessageHandler handler;
     
     private static final WebClient webclient=WebClient.builder().build();
-
    /**
      * 在消息发送后触发.
      *
@@ -2820,11 +2583,6 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 </div>
 
 
-
-
-
-<br>
-
 **推送方式**
 
 1.通过规则引擎推送
@@ -2853,6 +2611,7 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
   </p>
 现规则引擎内未实现推送到rabbitmq的下游节点功能，此处只举例对MQTT与kafka进行举例<br>
 </div>
+
 
 
 
@@ -3240,7 +2999,6 @@ public class UseConsumer{
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
-
   <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
@@ -3263,7 +3021,6 @@ public class UseConsumer{
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-
 若设备限制数量不能满足您的业务需求，请
 <a>提交工单</a>
 说明您的需求。
@@ -3332,11 +3089,11 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+     <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
+
 
 ```java
 //此处将具体代码实现放入
@@ -3476,3 +3233,539 @@ messaging:
 <a>提交工单</a>
 说明您的需求。
 </div>
+
+### 中间件部署及常见问题
+本文档安装环境为Centos7。
+#### 离线包部署
+#### 版本说明
+| 中间件 | 版本号 |  是否必装 | 下载地址 |
+|----------------|-----|-----|--------|---------------------------|
+| redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
+| jdk |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
+| elasticsearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
+| kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
+| postgresql |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+如果你是linux或者macOS系统,或者是windows10. 推荐使用docker安装所需环境
+</div>
+
+
+#### 通过离线包方式部署
+#### 部署Redis
+1. 上传离线包至服务器/usr/local目录下。
+
+2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf redis-5.0.4.tar.gz`命令进行解压，解压完成之后会生成`redis-5.0.4`文件夹。
+
+3. 安装相应编译器及开发包  
+```shell
+  yum -y install gcc-c++
+  yum install zlib-devel
+  yum -y install readline-devel
+```
+
+4. 安装redis 
+```shell
+   cd ./redis-5.0.4
+   make
+   #PREFIX参数表示指定安装路径
+   make install PREFIX=/usr/local/redis 
+   ```
+5. 将原有的配置文件复制一份到新目录
+ ```shell
+cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
+```
+6. 修改redis.config文件
+修改以下参数：
+```shell
+#注释掉，只允许来自指定网卡的Redis请求。如果没有指定，就说明可以接受来自任意一个网卡的Redis请求
+bind 127.0.0.1 --> 改成 #bind 127.0.0.1
+#是否允许后台运行
+daemonize no -- > 改成 daemonize yes 
+#关闭保护模式
+protected-mode yes  -- > 改成 protected-mode no
+```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+protected-mode no 表示关闭保护模式，不建议在生产环境关闭保护模式</br>
+保护模式的生效条件：保护模式已打开且未指定bind且未指定密码,例如：
+
+```shell
+protected-mode yes // 打开保护模式
+#bind 127.0.0.1 //不绑定任何网络接口
+#requirepass xiaoyi //不设置密码 
+```
+</div>
+
+7. 启动Redis
+```shell
+/usr/local/redis/bin/redis-server /usr/local/redis/bin/redis.conf
+```
+
+8. 查看Redis是否启动`ps -ef|grep redis`
+
+```shell
+root@localhost bin]#  ps -ef|grep redis  
+root      34853  0.1  0.0 153984  7628 ?        Ssl  18:19   0:00 /usr/local/bin/redis-server 127.0.0.1:6379
+root      35139  0.0  0.0 112824   976 pts/2    S+   18:24   0:00 grep --color=auto redis
+```
+
+10. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=6379/tcp --permanent
+firewall-cmd --reload
+```
+
+#### Redis部署常见问题
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+Q：若redis版本为6.0以上会出现，gcc版本和redis版本不符合的问题,在使用make编译的时候会报错
+A：CentOS7默认安装的是4.8.5，而redis6.0只支持5.3以上版本，这里将gcc升级到9，安装指令如下
+</div>
+
+```shell
+gcc -v                                              # 查看gcc版本
+yum install -y centos-release-scl scl-utils-build   #安装scl 源
+yum -y install devtoolset-9-gcc*                    #安装9版本的 gcc gcc-c++ gdb 
+scl enable devtoolset-9 bash                        #临时覆盖系统原有的gcc 引用
+gcc -v                                              # 查看gcc版本
+```
+
+
+#### 部署Java
+
+1. 上传离线包至服务器`/usr/local`目录下
+2. 进入该目录，使用`tar -xzvf jdk-8u341-linux-x64.tar.gz`命令进行解压，解压完成之后会生成`jdk1.8.0_341`文件夹
+3. 设置环境变量，使用`vi /etc/profile`命令进入文件，在文件末尾添加以下内容
+```shell
+export JAVA_HOME=/usr/local/jdk1.8.0_341 #JDK所在路径
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+```
+4. 使用`source /etc/profile`命令，使环境变量生效
+5. 查看是否安装成功 `java -version`
+```shell
+[root@localhost local]# java -version
+java version "1.8.0_341"
+Java(TM) SE Runtime Environment (build 1.8.0_341-b10)
+Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
+```
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以第一步要安装JDK
+</div>
+
+#### 部署ElasticSearch
+1. 上传离线包至服务器/usr/local目录下
+
+2. 进入该目录，使用`tar -xzvf elasticsearch-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`elasticsearch-6.8.11`文件夹
+3. 修改es配置文件 `vi /usr/local/elasticsearch-6.8.11/config/elasticsearch.yml`
+```
+# 绑定本机IP地址或直接设置为0.0.0.0
+#network.host: 192.168.0.1 --> 改成 network.host: 0.0.0.0
+#http.port: 9200 --> 改成 http.port: 9200
+```
+
+4. 修改jvm参数，`vi /usr/local/elasticsearch-6.8.11/config/jvm.options`
+```shell
+## JVM configuration
+
+################################################################
+## IMPORTANT: JVM heap size
+################################################################
+##
+## You should always set the min and max JVM heap
+## size to the same value. For example, to set
+## the heap to 4 GB, set:
+##
+## -Xms4g
+## -Xmx4g
+##
+## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
+## for more information
+##
+################################################################
+
+# Xms represents the initial size of total heap space
+# Xmx represents the maximum size of total heap space
+
+# 修改这里的配置，根据自身配置的内存大小进行分配，最大为32g
+-Xms1g 
+-Xmx1g 
+```
+4.  创建es用户
+
+创建用户组：groupadd es<br/>
+创建用户并添加至用户组：useradd es -g es <br/>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+ Elasticsearch默认是不允许在root用户下进行安装的，在安装之前，应创建一个用户
+</div>
+
+5. 切换到es用户`su es`，进入bin目录`cd /usr/local/elasticsearch-6.8.11/bin/`
+6. 启动es`./elasticsearch`
+7. 在浏览器输入`IP地址：9200`来验证elasticsearch是否配置成功，若出现以下字样说明配置成功
+```shell
+{
+  "name" : "3CBfLD\_",
+  "cluster\_name" : "elasticsearch",
+  "cluster\_uuid" : "Hszg4mFkRuugIAN0golMNw",
+  "version" : {
+    "number" : "6.8.11",
+    "build\_flavor" : "default",
+    "build\_type" : "tar",
+    "build\_hash" : "00bf386",
+    "build\_date" : "2020-07-09T19:08:08.940669Z",
+    "build\_snapshot" : false,
+    "lucene\_version" : "7.7.3",
+    "minimum\_wire\_compatibility\_version" : "5.6.0",
+    "minimum\_index\_compatibility\_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+#### ElasticSearch部署常见问题
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+
+
+Q:启动项目源码报错,访问权限不够,报错内容如下：
+
+```shell
+Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elasticsearch-6.8.11/config/jvm.options
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+	at java.nio.file.Files.newByteChannel(Files.java:361)
+	at java.nio.file.Files.newByteChannel(Files.java:407)
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
+	at java.nio.file.Files.newInputStream(Files.java:152)
+	at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:60)
+```
+
+Q:使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
+
+</div>
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+
+
+Q:启动es报错，报错内容如下：
+
+
+```shell
+
+ERROR: [3] bootstrap checks failed
+[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
+[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+A:有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
+
+</div>
+
+`vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
+
+```shell
+
+#*               soft    core            0
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#@student        -       maxlogins       4
+#下面两行为添加内容
+*            soft    nofile          65536
+*            hard    nofile          65536
+# End of file
+
+```
+
+`vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
+
+
+```shell
+
+# sysctl settings are defined through files in
+# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.
+#
+# Vendors settings live in /usr/lib/sysctl.d/.
+# To override a whole file, create a new file with the same in
+# /etc/sysctl.d/ and put new settings there. To override
+# only specific settings, add a file with a lexically later
+# name in /etc/sysctl.d/ and put new settings there.
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+
+vm.max_map_count=262144
+
+```
+
+新增完成之后使用`sysctl -p`命令使配置生效
+
+
+#### 部署Kibana
+1. 上传离线包至服务器/usr/local目录下
+2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf kibana-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`kibana-6.8.11-linux-x86_64`文件夹
+3. 给es用户授权
+```shell
+chown -R es:es /usr/local/kibana-6.8.11-linux-x86_64
+```
+4. 修改配置文件`vi /usr/local/kibana-6.8.11-linux-x86_64/config/kibana.yml`,修改内容如下
+```shell
+server.port: 5601
+server.host: "0.0.0.0"
+#修改为自己es的端口
+elasticsearch.url: "http://localhost:9200"
+```
+5. 启动kibana
+```shell
+#切换到es用户
+su es
+#进入bin目录
+cd /usr/local/kibana-6.8.11-linux-x86_64/bin
+#启动kibana
+./kibana
+```
+6. 验证是否配置成功，在浏览器输入`部署服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
+
+
+#### 部署PostgreSQL
+1. 上传离线包至服务器/usr/local目录下
+2. 使用`cd /usr/local`命令进入该目录，使用`# tar -xzvf postgresql-11.12.tar.gz`命令进行解压，解压完成之后会生成`postgresql-11.12`文件夹
+3. 安装PostgreSQL <br/>
+```shell
+cd ./postgresql-11.12
+#PREFIX参数表示指定安装路径
+./configure --prefix=/usr/local/postgresql
+make && make install
+```
+   
+4. 创建目录 data、log<br/>
+```shell
+mkdir /usr/local/postgresql/data
+mkdir /usr/local/postgresql/log
+```
+5. 加入系统环境变量`vi /etc/profile`<br/>
+   在文件最后写入如下内容<br/>
+```shell
+PGHOME=/usr/local/postgresql
+export PGHOME
+PGDATA=/usr/local/postgresql/data
+export PGDATA
+PATH=$PATH:$HOME/.local/bin:$HOME/bin:$PGHOME/bin
+export PATH
+```
+使配置文件生效`source /etc/profile`<br/>
+
+6. 增加用户 postgres 并赋权<br/>
+```shell
+adduser postgres
+chown -R postgres:root /usr/local/postgresql/
+```
+
+
+7. 初始化数据库<br/>
+```shell
+#切换到postgres用户
+su postgres
+/usr/local/postgresql/bin/initdb -D /usr/local/postgresql/data/
+```
+
+8. 修改配置文件
+   `vi /usr/local/postgresql/data/postgresql.conf`,修改参数如下：<br/>
+```shell
+listen_addresses = '*'
+port = 5432
+```
+
+`vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
+
+```shell
+  # 在 IPv4 local connections 区域中添加如下一行 ：
+  host    all             all             0.0.0.0/0            trust
+```
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+  trust表示只要知道数据库用户名就能登录，建议不要在生产环境中使用，生产环境建使用password或md5。
+
+</div>
+
+9. 启动数据库`pg_ctl start -l /usr/local/postgresql/log/pg_server.log`
+```shell
+[postgres@localhost postgresql-10.11]$ pg_ctl start -l /usr/local/postgresql/log/pg_server.log
+waiting for server to start.... done
+server started
+
+```
+10. 验证部署是否成功,使用第三方工具测试连接
+
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+
+Q:初始化数据库报错
+```shell
+[root@localhost ~]# /usr/local/postgresql/bin/initdb -D /usr/local/postgresql/data/
+initdb: cannot be run as root
+Please log in (using, e.g., "su") as the (unprivileged) user that will
+own the server process.
+```
+A:不能在root用户下初始化数据库，要切换到postgres用户
+
+</div>
+
+#### docker部署
+#### 
+| 中间件 | 是否必须部署 | 文件位置 | 
+|----------------| -------------------------- |--------|---------------------------|
+| Redis | 是 |jetlinks-pro/docker-compose.yml|
+| ElasticSearch| 是 |jetlinks-pro/docker-compose.yml|
+| Kibana| 否 |jetlinks-pro/docker-compose.yml|
+| PostgreSQL| 是 |jetlinks-pro/docker-compose.yml|
+| ClickHouse| 否 |jetlinks-pro/jetlinks-components/clickhouse-component/docker-compose.yml|
+| Cassandra| 否 |jetlinks-pro/jetlinks-components/cassandra-component/docker-compose.yml|
+| InfluxDB| 否 |jetlinks-pro/jetlinks-components/influxdb-component/docker-compose.yml|
+| TDengine| 否 |jetlinks-pro/jetlinks-components/tdengine-component/docker-compose.yml|
+| ZLMediaKit| 否 |jetlinks-pro/expands-components/jetlinks-media/zlm/docker-compose.yml|
+| Kafka| 否 |jetlinks-pro/expands-components/messaging-component/kafka-component/docker-compose.yml|
+| RabbitMQ| 否 |jetlinks-pro/expands-components/messaging-component/rabbitmq-component/docker-compose.yml|
+
+#### 配置文件说明
+
+```shell
+version: '2'
+services:
+  redis:
+    #镜像名
+    image: redis:5.0.4
+    #容器名
+    container_name: jetlinks-redis
+    #端口号
+    ports:
+      - "6379:6379"
+    #卷挂载
+    volumes:
+      - "./data/redis:/data"
+    #开启redis持久化
+    command: redis-server --appendonly yes
+    #docker容器时区
+    environment:
+      - TZ=Asia/Shanghai
+  elasticsearch:
+    image: elasticsearch:6.8.10
+    container_name: jetlinks-elasticsearch
+    environment:
+      #jvm参数
+      ES_JAVA_OPTS: -Djava.net.preferIPv4Stack=true -Xms1g -Xmx1g
+      #对外暴露的host
+      transport.host: 0.0.0.0
+      #单节点
+      discovery.type: single-node
+      #锁定物理内存地址，防止es内存频繁交换，导致IOPS变高
+      bootstrap.memory_lock: "true"
+      #抑制脑裂参数
+      discovery.zen.minimum_master_nodes: 1
+      #单播节点
+      discovery.zen.ping.unicast.hosts: elasticsearch
+      TZ: Asia/Shanghai
+#    volumes:
+#      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  kibana:
+    image: kibana:6.8.10
+    container_name: jetlinks-kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      TZ: Asia/Shanghai
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+  postgres:
+    image: postgres:11-alpine
+    container_name: jetlinks-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+    environment:
+      #数据库密码
+      POSTGRES_PASSWORD: jetlinks
+      #数据库名
+      POSTGRES_DB: jetlinks
+      TZ: Asia/Shanghai
+```
+#### 创建并运行容器
+
+1. 将docker-compose.yml文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
+
+2. 使用`docker-compose up -d`命令创建并运行容器
+
+```shell
+
+[root@localhost docker-compose]# docker-compose up -d
+[+] Running 6/6
+⠿ Container jetlinks-postgres       Started                                       1.0s
+⠿ Container jetlinks-redis          Started                                       1.0s
+⠿ Container jetlinks-elasticsearch  Started                                       0.9s                                                                
+⠿ Container jetlinks-kibana         Started                                       6.4s       
+         
+```
+
+3. 查看是否创建/运行成功 docker ps
+
+```shell
+
+[root@localhost docker-compose]# docker ps
+CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS          PORTS                                                                                                                                                                     NAMES
+045b6c06cf81   kibana:6.8.11                 "/usr/local/bin/kiba…"   35 seconds ago      Up 32 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                                                                              jetlinks-ce-kibana
+0399d3741730   redis:5.0.4                   "docker-entrypoint.s…"   35 seconds ago      Up 34 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp                                                                                                                              jetlinks-ce-redis
+aeaf46fe55c0   elasticsearch:6.8.11          "/usr/local/bin/dock…"   35 seconds ago      Up 34 seconds   0.0.0.0:9200->9200/tcp, :::9200->9200/tcp, 0.0.0.0:9300->9300/tcp, :::9300->9300/tcp                                                                                   jetlinks-ce-elasticsearch
+6af987ad063d   postgres:11-alpine            "docker-entrypoint.s…"   35 seconds ago      Up 34 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                                                                                                              jetlinks-ce-postgres
+
+```
