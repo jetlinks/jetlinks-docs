@@ -28,7 +28,10 @@
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 0fb2e09 (中间件)
 
 ### 源码拉取及子模块更新指南
 
@@ -1585,20 +1588,20 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 发布事件:
 ```java
-    public Mono<Void> shutdown(NetworkType type,String NetworkId){
-        return
-            //将停止网络组件事件推送到消息总线   
-            eventBus.publish("/_sys/network/"+type.getId()+"/shutdown",NetworkId)
-                .then();
-    }
+      public Mono<Void> shutdown(NetworkType type, String NetworkId) {
+          return
+           //将停止网络组件事件推送到消息总线   
+           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
+          .then();
+          }
 ```
 
 订阅事件：
 ```java
       //使用Subscribe方法
-    public void doSubscribe() {
+      public void doSubscribe() {
         eventBus
-        //调用subscribe方法
+            //调用subscribe方法
             .subscribe(Subscription
             //构建订阅者消息
             .builder()
@@ -1609,17 +1612,17 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
             //订阅特性,有三类特性
             .justBroker()
             .build())
-      //拿到消息总线中的数据进行后续处理
-      .flatMap(payload -> {
-        ...
-      })
-      .subscribe();
-    }
+         //拿到消息总线中的数据进行后续处理
+        .flatMap(payload -> {
+            ...
+        })
+        .subscribe();
+      }
 
     //使用Subscribe注解
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
-    public Mono<Void> doStart(String id){
-        return this
+    public Mono<Void> doStart(String id) {
+            return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -1670,7 +1673,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     //订阅特性为shared
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
     public Mono<Void> doStart(String id) {
-        return this
+            return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -2435,4 +2438,8 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 若设备限制数量不能满足您的业务需求，请
 <a>提交工单</a>
 说明您的需求。
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> parent of 0fb2e09 (中间件)
