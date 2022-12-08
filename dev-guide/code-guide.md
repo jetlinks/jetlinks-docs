@@ -3634,7 +3634,7 @@ waiting for server to start.... done
 server started
 
 ```
-10. 验证部署是否成功,使用第三方工具测试连接
+10. 验证部署是否成功,使用第三方工具测试连接。
 
 
 
