@@ -1941,6 +1941,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 
 发布事件:
+
 ```java
     public Mono<Void> shutdown(NetworkType type,String NetworkId){
         return
@@ -1951,6 +1952,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 ```
 
 订阅事件：
+
 ```java
       //使用Subscribe方法
     public void doSubscribe() {
@@ -1982,9 +1984,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     }
 ```
 
-
-
-
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -1999,9 +1998,11 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 </div>
 
 #### 共享订阅实例
+
 使用Subscribe方法：
+
 ```java
-      public void doSubscribe() {
+      public void doSubscribe(){
         eventBus
             //调用subscribe方法
             .subscribe(Subscription
@@ -2021,7 +2022,9 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
         .subscribe();
       }
 ```
+
 使用Subscribe注解：
+
 ```java
       
     //订阅特性为shared
@@ -2056,15 +2059,18 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 #### 多订阅特性实例
 
 Subscribe方法：
+
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
 ```
 
 Subscribe注解：
+
  ```java
-@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
- ```
+@Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+```
+
 
 ### 添加自定义存储策略
 
@@ -2155,11 +2161,12 @@ Subscribe注解：
 
 
 #### 例子一,通过http到第三方平台获取数据
+
 ##### 第一步 定义消息编码解码器
 
 ~~~java
 public class HttpMessageCodec implements DeviceMessageCodec {
-    
+
     // 定义一个通用的响应，用于收到请求后响应
     private static final SimpleHttpResponseMessage response = SimpleHttpResponseMessage
             .builder()
@@ -2167,18 +2174,18 @@ public class HttpMessageCodec implements DeviceMessageCodec {
             .contentType(MediaType.APPLICATION_JSON)
             .status(200)
             .build();
-    
+
     @Override
     public Transport getSupportTransport() {
         return DefaultTransport.HTTP;
     }
-    
+
     @Nonnull
     @Override
-    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context){
+    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context) {
         // 这里用于别的平台请求/通知jetlinks的请求处理
         // 把消息转换为http消息
-         HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
+        HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
         String url = message.getUrl();
         // 这里通常需要判断是不是自己需要的请求，如果不是直接返回/响应，防止非法请求
         if (!url.endsWith("/eventRcv")) {
@@ -2196,21 +2203,22 @@ public class HttpMessageCodec implements DeviceMessageCodec {
         eventMessage.setTimestamp(System.currentTimeMillis());
         return message.response(response).thenMany(Flux.just(eventMessage));
     }
-    
-    
+
+
     @Nonnull
     @Override
     public Publisher<? extends EncodedMessage> encode(@Nonnull MessageEncodeContext context) {
         // 对接其他云平台，命令发起不在这里处理，所以这里返回空就可以了
         return Mono.empty();
     }
-    
+
 }
 ~~~
 
 ##### 第二步 定义一个消息拦截器
 
 ~~~java
+
 @Slf4j
 @AllArgsConstructor
 @Getter
@@ -2575,11 +2583,6 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 </div>
 
 
-
-
-
-<br>
-
 **推送方式**
 
 1.通过规则引擎推送
@@ -2608,6 +2611,7 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
   </p>
 现规则引擎内未实现推送到rabbitmq的下游节点功能，此处只举例对MQTT与kafka进行举例<br>
 </div>
+
 
 
 
