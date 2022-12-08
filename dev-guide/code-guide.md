@@ -67,6 +67,7 @@
 
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
    
+
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
 
@@ -231,6 +232,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 ```
 - jetlinks-pro添加子模块依赖
   
+
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
 ```xml
 <dependency>
@@ -376,6 +378,8 @@ User git
 <a>提交工单</a>
 说明您的需求。
 </div>
+
+
 
 ### 在JetLinks上构建自己的业务功能
 
@@ -877,7 +881,6 @@ springdoc:
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-
   <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
@@ -1179,6 +1182,21 @@ AuthorizationFailedEvent
 AuthorizationFailedEvent 认证失败时触发，可用于自定义失败时的处理逻辑
 </div>
 
+###### AuthorizationFailedEvent的事件发布：`org.hswebframework.web.authorization.basic.web.AuthorizationController`
+
+```java
+private Mono<Map<String, Object>> doLogin(Mono<Map<String, Object>> parameter) {
+     AuthorizationFailedEvent failedEvent = new AuthorizationFailedEvent(username_, password_, parameterGetter);
+failedEvent.setException(err);
+//事件发布
+return failedEvent
+        .publish(eventPublisher)
+        .then(Mono.error(failedEvent.getException()));
+}
+```
+
+
+###### AuthorizationFailedEvent的事件监听：
 ```java
 平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
 ```
@@ -2976,7 +2994,6 @@ public class UseConsumer{
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
-
   <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
@@ -2999,7 +3016,6 @@ public class UseConsumer{
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-
 若设备限制数量不能满足您的业务需求，请
 <a>提交工单</a>
 说明您的需求。
