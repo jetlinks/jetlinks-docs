@@ -11,6 +11,7 @@
     "vuepress-plugin-medium-zoom": "^1.1.8"
   },
   "dependencies": {
+    "global": "^4.4.0",
     "vue-template-compiler": "^2.7.7"
   }
 }

@@ -551,7 +551,19 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 
 ## 使用MQTT订阅平台消息
 
->tip 在`1.5`企业版本后提供mqtt方式订阅平台消息的功能。可以通过mqtt来订阅设备、规则引擎、设备告警等相关消息。
+提供mqtt方式订阅平台消息的功能。可以通过mqtt来订阅设备、规则引擎、设备告警等相关消息。
+
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+本功能仅在企业版中提供。
+
+</div>
+
 
 ### 修改配置文件
 
