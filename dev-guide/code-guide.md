@@ -3535,29 +3535,21 @@ messaging:
 </div>
 
 ### 中间件部署及常见问题
-本文档安装环境为Centos7。
-#### 离线包部署
+本文档部署环境为Centos7，中间件部署方法提供了两种分别为离线包部署和docker部署，可根据实际情况选择对应的部署方式。
 #### 版本说明
 | 中间件 | 版本号 |  是否必装 | 下载地址 |
 |----------------|-----|-----|--------|---------------------------|
-| redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
-| jdk |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
-| elasticsearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
-| kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
-| postgresql |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-如果你是linux或者macOS系统,或者是windows10. 推荐使用docker安装所需环境
-</div>
+| Redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
+| JDK |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
+| ElasticSearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
+| Kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
+| PostgreSQL |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
 
 
-#### 通过离线包方式部署
-#### 部署Redis
-1. 上传离线包至服务器/usr/local目录下。
+
+#### 离线包方式部署
+##### 部署Redis
+1. 上传离线包至服务器`/usr/local`目录下。
 
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf redis-5.0.4.tar.gz`命令进行解压，解压完成之后会生成`redis-5.0.4`文件夹。
 
@@ -3568,7 +3560,7 @@ messaging:
   yum -y install readline-devel
 ```
 
-4. 安装redis 
+4. 安装Redis 
 ```shell
    cd ./redis-5.0.4
    make
@@ -3579,7 +3571,7 @@ messaging:
  ```shell
 cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
 ```
-6. 修改redis.config文件
+6. 修改`redis.config`文件
 修改以下参数：
 ```shell
 #注释掉，只允许来自指定网卡的Redis请求。如果没有指定，就说明可以接受来自任意一个网卡的Redis请求
@@ -3589,11 +3581,12 @@ daemonize no -- > 改成 daemonize yes
 #关闭保护模式
 protected-mode yes  -- > 改成 protected-mode no
 ```
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
   </p>
+
 protected-mode no 表示关闭保护模式，不建议在生产环境关闭保护模式</br>
 保护模式的生效条件：保护模式已打开且未指定bind且未指定密码,例如：
 
@@ -3602,7 +3595,10 @@ protected-mode yes // 打开保护模式
 #bind 127.0.0.1 //不绑定任何网络接口
 #requirepass xiaoyi //不设置密码 
 ```
+
 </div>
+
+
 
 7. 启动Redis
 ```shell
@@ -3617,13 +3613,14 @@ root      34853  0.1  0.0 153984  7628 ?        Ssl  18:19   0:00 /usr/local/bin
 root      35139  0.0  0.0 112824   976 pts/2    S+   18:24   0:00 grep --color=auto redis
 ```
 
-10. 防火墙开放端口<br/>
+9. 防火墙开放端口<br/>
 ```shell
 firewall-cmd --zone=public --add-port=6379/tcp --permanent
 firewall-cmd --reload
 ```
 
-#### Redis部署常见问题
+10. Redis部署常见问题
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -3634,15 +3631,23 @@ A：CentOS7默认安装的是4.8.5，而redis6.0只支持5.3以上版本，这�
 </div>
 
 ```shell
-gcc -v                                              # 查看gcc版本
+gcc -v                                              #查看gcc版本
 yum install -y centos-release-scl scl-utils-build   #安装scl 源
 yum -y install devtoolset-9-gcc*                    #安装9版本的 gcc gcc-c++ gdb 
 scl enable devtoolset-9 bash                        #临时覆盖系统原有的gcc 引用
-gcc -v                                              # 查看gcc版本
+gcc -v                                              #查看gcc版本
 ```
 
 
-#### 部署Java
+##### 部署JDK
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以第一步要安装JDK
+</div>
 
 1. 上传离线包至服务器`/usr/local`目录下
 2. 进入该目录，使用`tar -xzvf jdk-8u341-linux-x64.tar.gz`命令进行解压，解压完成之后会生成`jdk1.8.0_341`文件夹
@@ -3662,16 +3667,10 @@ Java(TM) SE Runtime Environment (build 1.8.0_341-b10)
 Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以第一步要安装JDK
-</div>
 
-#### 部署ElasticSearch
-1. 上传离线包至服务器/usr/local目录下
+
+##### 部署ElasticSearch
+1. 上传离线包至服务器`/usr/local`目录下
 
 2. 进入该目录，使用`tar -xzvf elasticsearch-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`elasticsearch-6.8.11`文件夹
 3. 修改es配置文件 `vi /usr/local/elasticsearch-6.8.11/config/elasticsearch.yml`
@@ -3708,10 +3707,10 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
 -Xms1g 
 -Xmx1g 
 ```
-4.  创建es用户
+5.  创建es用户
 
-创建用户组：groupadd es<br/>
-创建用户并添加至用户组：useradd es -g es <br/>
+创建用户组：`groupadd es`<br/>
+创建用户并添加至用户组：`useradd es -g es` <br/>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -3721,9 +3720,14 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
  Elasticsearch默认是不允许在root用户下进行安装的，在安装之前，应创建一个用户
 </div>
 
-5. 切换到es用户`su es`，进入bin目录`cd /usr/local/elasticsearch-6.8.11/bin/`
-6. 启动es`./elasticsearch`
-7. 在浏览器输入`IP地址：9200`来验证elasticsearch是否配置成功，若出现以下字样说明配置成功
+7. 切换到es用户`su es`，进入bin目录`cd /usr/local/elasticsearch-6.8.11/bin/`
+8. 启动es`./elasticsearch`
+9. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
+firewall-cmd --reload
+```
+10. 在浏览器输入`IP地址：9200`来验证elasticsearch是否配置成功，若出现以下字样说明配置成功
 ```shell
 {
   "name" : "3CBfLD\_",
@@ -3743,7 +3747,9 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
   "tagline" : "You Know, for Search"
 }
 ```
-#### ElasticSearch部署常见问题
+
+
+11. ElasticSearch部署常见问题
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -3753,7 +3759,7 @@ Elasticsearch是基于Java开发是一个Java程序，运行在Jvm中，所以�
 
 
 
-Q:启动项目源码报错,访问权限不够,报错内容如下：
+Q：启动项目源码报错,访问权限不够,报错内容如下：
 
 ```shell
 Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elasticsearch-6.8.11/config/jvm.options
@@ -3768,7 +3774,7 @@ Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elast
 	at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:60)
 ```
 
-Q:使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
+A：使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
 
 </div>
 
@@ -3780,7 +3786,7 @@ Q:使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切
   </p>
 
 
-Q:启动es报错，报错内容如下：
+Q：启动es报错，报错内容如下：
 
 
 ```shell
@@ -3790,11 +3796,11 @@ ERROR: [3] bootstrap checks failed
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
-A:有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
+A：有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
 
 </div>
 
-`vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
+1. `vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
 
 ```shell
 
@@ -3812,7 +3818,7 @@ A:有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(�
 
 ```
 
-`vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
+2. `vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
 
 
 ```shell
@@ -3832,11 +3838,11 @@ vm.max_map_count=262144
 
 ```
 
-新增完成之后使用`sysctl -p`命令使配置生效
+3. 新增完成之后使用`sysctl -p`命令使配置生效
 
 
-#### 部署Kibana
-1. 上传离线包至服务器/usr/local目录下
+##### 部署Kibana
+1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf kibana-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`kibana-6.8.11-linux-x86_64`文件夹
 3. 给es用户授权
 ```shell
@@ -3858,11 +3864,17 @@ cd /usr/local/kibana-6.8.11-linux-x86_64/bin
 #启动kibana
 ./kibana
 ```
-6. 验证是否配置成功，在浏览器输入`部署服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
+6. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=5601/tcp --permanent
+firewall-cmd --reload
+```
+
+7. 验证是否配置成功，在浏览器输入`服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
 
 
-#### 部署PostgreSQL
-1. 上传离线包至服务器/usr/local目录下
+##### 部署PostgreSQL
+1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`# tar -xzvf postgresql-11.12.tar.gz`命令进行解压，解压完成之后会生成`postgresql-11.12`文件夹
 3. 安装PostgreSQL <br/>
 ```shell
@@ -3872,13 +3884,12 @@ cd ./postgresql-11.12
 make && make install
 ```
    
-4. 创建目录 data、log<br/>
+4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
-mkdir /usr/local/postgresql/log
 ```
 5. 加入系统环境变量`vi /etc/profile`<br/>
-   在文件最后写入如下内容<br/>
+在文件最后写入如下内容：<br/>
 ```shell
 PGHOME=/usr/local/postgresql
 export PGHOME
@@ -3889,7 +3900,7 @@ export PATH
 ```
 使配置文件生效`source /etc/profile`<br/>
 
-6. 增加用户 postgres 并赋权<br/>
+6. 增加用户`postgres`并赋权<br/>
 ```shell
 adduser postgres
 chown -R postgres:root /usr/local/postgresql/
@@ -3910,20 +3921,20 @@ listen_addresses = '*'
 port = 5432
 ```
 
-`vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
+9. 修改配置文件`vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
 
 ```shell
   # 在 IPv4 local connections 区域中添加如下一行 ：
   host    all             all             0.0.0.0/0            trust
 ```
 
-<div class='explanation primary'>
+<div class='explanation error'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
   </p>
 
-  trust表示只要知道数据库用户名就能登录，建议不要在生产环境中使用，生产环境建使用password或md5。
+  trust表示使用数据库和用户名就能登录，安全性低建议不要在生产环境中使用，生产环境建使用password或md5。
 
 </div>
 
@@ -3932,10 +3943,15 @@ port = 5432
 [postgres@localhost postgresql-10.11]$ pg_ctl start -l /usr/local/postgresql/log/pg_server.log
 waiting for server to start.... done
 server started
-
 ```
-10. 验证部署是否成功,使用第三方工具测试连接。
 
+10. 防火墙开放端口<br/>
+```shell
+firewall-cmd --zone=public --add-port=5432/tcp --permanent
+firewall-cmd --reload
+```
+11. 验证部署是否成功,使用第三方工具测试连接
+![img.png](./images/pg-sucess.png)
 
 
 <div class='explanation warning'>
@@ -3957,11 +3973,19 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 
 #### docker部署
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>JetLinks提供了很多中间件docker部署的配置文件，下方的表格提供了中间件配置文件的路径地址，可根据实际需求选择对应中间件部署</p>
+</div>
+
 | 中间件 | 是否必须部署 | 文件位置 | 
 |----------------| -------------------------- |--------|---------------------------|
 | Redis | 是 |jetlinks-pro/docker-compose.yml|
 | ElasticSearch| 是 |jetlinks-pro/docker-compose.yml|
-| Kibana| 否 |jetlinks-pro/docker-compose.yml|
+| Kibana| 是 |jetlinks-pro/docker-compose.yml|
 | PostgreSQL| 是 |jetlinks-pro/docker-compose.yml|
 | ClickHouse| 否 |jetlinks-pro/jetlinks-components/clickhouse-component/docker-compose.yml|
 | Cassandra| 否 |jetlinks-pro/jetlinks-components/cassandra-component/docker-compose.yml|
@@ -3971,7 +3995,9 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 | Kafka| 否 |jetlinks-pro/expands-components/messaging-component/kafka-component/docker-compose.yml|
 | RabbitMQ| 否 |jetlinks-pro/expands-components/messaging-component/rabbitmq-component/docker-compose.yml|
 
-#### 配置文件说明
+
+
+##### 配置文件说明
 
 ```shell
 version: '2'
@@ -4040,9 +4066,9 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
 ```
-#### 创建并运行容器
+##### 创建并运行容器
 
-1. 将docker-compose.yml文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
+1. 将`docker-compose.yml`文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
 
 2. 使用`docker-compose up -d`命令创建并运行容器
 
@@ -4057,11 +4083,11 @@ Container jetlinks-kibana         Started                                       
          
 ```
 
-3. 查看是否创建/运行成功 docker ps
+3. 查看是否创建/运行成功 `docker ps -a`
 
 ```shell
 
-[root@localhost docker-compose]# docker ps
+[root@localhost docker-compose]# docker ps -a
 CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS          PORTS                                                                                                                                                                     NAMES
 045b6c06cf81   kibana:6.8.11                 "/usr/local/bin/kiba…"   35 seconds ago      Up 32 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                                                                              jetlinks-ce-kibana
 0399d3741730   redis:5.0.4                   "docker-entrypoint.s…"   35 seconds ago      Up 34 seconds   0.0.0.0:6379->6379/tcp, :::6379->6379/tcp                                                                                                                              jetlinks-ce-redis
