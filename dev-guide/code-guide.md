@@ -29,7 +29,6 @@
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
 
-
 ### 源码拉取及子模块更新指南
 
 #### 应用场景
@@ -65,9 +64,7 @@
 
 </div>
 
-
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
-   
 
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
@@ -156,14 +153,17 @@ $ clip < ~/.ssh/id_ed25519.pub
 进入第一步创建的文件夹内执行拉取代码及子模块
 
 - 拉取`jetlinks-pro`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 
 - 拉取`jetlinks-cloud`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
 ```
+
 6. 更新基础子模块
 
 <div class='explanation info'>
@@ -188,6 +188,7 @@ $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
 示例命令:
+
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
@@ -203,7 +204,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
+[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
 
 8. 代码拉取完毕后`reimport`
 
@@ -227,15 +228,18 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 在项目根目录下的`pom.xml`中的modules节点中添加模块
 
 ```xml
+
 <modules>
     <module>expands-components/jetlinks-ctwing</module>
 </modules>
 ```
+
 - jetlinks-pro添加子模块依赖
-  
 
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -247,7 +251,9 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 - jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -255,6 +261,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </dependency>
 
 ```
+
 其余模块同理。
 
 10. 提交代码至自建仓库
@@ -269,6 +276,7 @@ $  git submodule foreach git push gitee master
 11. 更新源仓库代码并同步自建仓库
 
 查看远程仓库信息
+
 ```shell
 $  git remote -v
 # gitee 是上一步remote add声明的自建仓库名
@@ -324,6 +332,7 @@ User git
 3. 在切换到端口443后第一次与 GitHub 交互时，您可能会收到一条警告消息。
 
 此处在配置公钥过后选择`yes`即可
+
 ```shell
 > The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
 > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -333,7 +342,6 @@ User git
 ```
 
 4. 配置好上述内容后，执行拉取命令即可。
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -357,31 +365,6 @@ User git
 
 </div>
 
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
-
-
-
 ### 在JetLinks上构建自己的业务功能
 
 #### 应用场景
@@ -391,7 +374,6 @@ User git
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
 
    <p>当您想使用JetLinks平台做自己的业务，又不想将项目独立时，可以选择基于JetLinks进行开发。</p>
 
@@ -417,6 +399,7 @@ User git
 示例代码:
 
 ```xml
+
 <modules>
     <module>jetlinks-parent</module>
     <module>jetlinks-components</module>
@@ -523,6 +506,7 @@ User git
 
 
 ```text
+
 [INFO] Reactor Summary:
 [INFO] 
 [INFO] jetlinks-parent .................................... SUCCESS [  1.346 s]
@@ -617,9 +601,6 @@ Process finished with exit code 0
 简单的业务系统目录结构如下图：
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
-
-
-
 
 2.controller层：TestController类
   ```java
@@ -750,6 +731,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     private String modifierName;
 }
 
+
   ```
 5. 在jetlinks-pro的启动类上加入自定义项目的扫描路径
 ```java
@@ -817,6 +799,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
+
 <p>Q：如何将自定义的接口加入swagger扫描并在API配置中显示出来？</p>
 <p>A：在平台的<a>application.yml</a>文件内swagger下声明该项目扫描路径。</p></div>
 
@@ -882,6 +865,7 @@ springdoc:
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
+
   <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
@@ -1943,21 +1927,21 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 发布事件:
 
 ```java
-    public Mono<Void> shutdown(NetworkType type,String NetworkId){
-        return
-            //将停止网络组件事件推送到消息总线   
-            eventBus.publish("/_sys/network/"+type.getId()+"/shutdown",NetworkId)
-                .then();
-    }
+      public Mono<Void> shutdown(NetworkType type, String NetworkId) {
+          return
+           //将停止网络组件事件推送到消息总线   
+           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
+          .then();
+          }
 ```
 
 订阅事件：
 
 ```java
       //使用Subscribe方法
-    public void doSubscribe() {
+      public void doSubscribe() {
         eventBus
-        //调用subscribe方法
+            //调用subscribe方法
             .subscribe(Subscription
             //构建订阅者消息
             .builder()
@@ -1968,17 +1952,17 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
             //订阅特性,有三类特性
             .justBroker()
             .build())
-      //拿到消息总线中的数据进行后续处理
-      .flatMap(payload -> {
-        ...
-      })
-      .subscribe();
-    }
+         //拿到消息总线中的数据进行后续处理
+        .flatMap(payload -> {
+            ...
+        })
+        .subscribe();
+      }
 
     //使用Subscribe注解
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
-    public Mono<Void> doStart(String id){
-        return this
+    public Mono<Void> doStart(String id) {
+            return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -2030,7 +2014,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     //订阅特性为shared
     @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
     public Mono<Void> doStart(String id) {
-        return this
+            return this
             .findById(id)
             .flatMap(this::doStart);
     }
@@ -2063,14 +2047,13 @@ Subscribe方法：
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
-```
+ ```
 
 Subscribe注解：
 
  ```java
 @Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
 ```
-
 
 ### 添加自定义存储策略
 
@@ -2082,22 +2065,286 @@ Subscribe注解：
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+<p>当平台提供的存储策略不满足自己的需求时，可以选择自行开发.</p>
+
+</div>
+
+##### 操作步骤
+
+1. 实现`ThingsDataRepositoryStrategy`接口或者继承`AbstractThingDataRepositoryStrategy`类。重写接口或父类的方法
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+<p>推荐使用继承 <span class='explanation-title font-weight'>AbstractThingDataRepositoryStrategy</span>的方式。
+AbstractThingDataRepositoryStrategy继承CacheSaveOperationsStrategy类，CacheSaveOperationsStrategy类在执行存储操作时会将
+数据库操作对象存放至内存，在调用存储方法过程中减少上下文对象的创建。
+</p>
 
 </div>
 
 ```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+
+@AllArgsConstructor
+public class CustomRowModeStrategy extends AbstractThingDataRepositoryStrategy {
+
+    private final ThingsRegistry registry;
+    //自定义存储帮助类
+    private final CustomHelper helper;
+
+    @Override
+    public String getId() {
+        return "custom-row";
+    }
+
+    @Override
+    public String getName() {
+        return "自定义-行式存储";
+    }
+
+    @Override
+    public SaveOperations createOpsForSave(OperationsContext context) {
+        //创建自定义SaveOperations类，返回自定义SaveOperations对象
+        return new CustomColumnModeSaveOperations(
+                registry,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                helper);
+    }
+
+    @Override
+    protected QueryOperations createForQuery(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义QueryOperations类，返回自定义QueryOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    protected DDLOperations createForDDL(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义DDLOperations类，返回自定义DDLOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    public int getOrder() {
+        return 10000;
+    }
+}
+
+
 ```
 
-#### 核心类说明
+2. 创建自定义存储策略的操作对象(上一步内相关注释)
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+```java
+//创建自定义SaveOperations
+
+public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
+
+    private final CustomHelper helper;
+
+
+    public CustomRowModeSaveOperations(ThingsRegistry registry,
+                                       MetricBuilder metricBuilder,
+                                       DataSettings settings,
+                                       CustomHelper helper) {
+        super(registry, metricBuilder, settings);
+        this.helper = helper;
+    }
+
+
+    @Override
+    protected Map<String, Object> createRowPropertyData(String id, long timestamp, ThingMessage message, PropertyMetadata property, Object value) {
+        Map<String, Object> values = super.createRowPropertyData(id, timestamp, message, property, value);
+
+        //额外的数据类型处理
+        //时间统一转换为时间戳
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            return CastUtils.castDate(val).getTime();
+        });
+        //地理位置值存储为数组
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            GeoPoint point = GeoPoint.of(val);
+
+            return Arrays.asList((float) point.getLon(), (float) point.getLat());
+        });
+
+        //默认null
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_NUMBER_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, null);
+
+        return values;
+    }
+
+    @Override
+    protected Map<String, Object> createEventData(ThingEventMessage message, ThingMetadata metadata) {
+        return super.createEventData(message, metadata);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, TimeSeriesData data) {
+        return helper.doSave(metric, data);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, Flux<TimeSeriesData> data) {
+        return helper.doSave(metric, data);
+    }
+}
+
+
+```
+
+```java
+//创建自定义QueryOperations
+public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomModeQueryOperations(String thingType,
+                                     String thingTemplateId,
+                                     String thingId,
+                                     MetricBuilder metricBuilder,
+                                     DataSettings settings,
+                                     ThingsRegistry registry,
+                                     CustomHelper helper) {
+        super(thingType, thingTemplateId, thingId, metricBuilder, settings, registry);
+        this.helper = helper;
+    }
+
+    @Override
+    protected Flux<TimeSeriesData> doQuery(String metric, Query<?, QueryParamEntity> query) {
+        return helper.doQuery(metric, query.getParam());
+    }
+
+    @Override
+    protected <T> Mono<PagerResult<T>> doQueryPage(String metric, Query<?, QueryParamEntity> query, Function<TimeSeriesData, T> mapper) {
+        return helper.doQueryPager(metric, query.getParam(), mapper);
+    }
+
+    @Override
+    protected Flux<AggregationData> doAggregation(String metric,
+                                                  AggregationRequest request,
+                                                  AggregationContext context) {
+        //此处伪代码，需自行在aggregationQuery内编写聚合查询实现
+        return aggregationQuery();
+    }
+
+    @Override
+    protected Flux<ThingPropertyDetail> queryEachProperty(@Nonnull String metric,
+                                                          @Nonnull Query<?, QueryParamEntity> query,
+                                                          @Nonnull ThingMetadata metadata,
+                                                          @Nonnull Map<String, PropertyMetadata> properties) {
+        //此处伪代码，需自行在doSomeThings内编写查询实现
+        return doSomeThings();
+    }
+
+}
+
+```
+
+```java
+//创建自定义DDLOperations
+public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomRowModeDDLOperations(String thingType,
+                                      String templateId,
+                                      String thingId,
+                                      DataSettings settings,
+                                      MetricBuilder metricBuilder,
+                                      CustomHelper helper) {
+        super(thingType, templateId, thingId, settings, metricBuilder);
+        this.helper = helper;
+    }
+
+    static Set<String> notSaveColumns = new HashSet<>(Arrays.asList(
+            ThingsDataConstants.COLUMN_PROPERTY_OBJECT_VALUE,
+            ThingsDataConstants.COLUMN_PROPERTY_ARRAY_VALUE,
+            ThingsDataConstants.COLUMN_LOG_TYPE,
+            ThingsDataConstants.COLUMN_PROPERTY_TYPE
+    ));
+
+    @Override
+    protected Mono<Void> register(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        switch (metricType) {
+            case properties:
+                return helper
+                        .createTable(metric, properties
+                                        .stream()
+                                        .filter(prop -> !notSaveColumns.contains(prop.getId()))
+                                        .collect(Collectors.toList()),
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_PROPERTY_ID,
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+
+            case log:
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+            case event:
+                if (settings.getEvent().eventIsAllInOne()) {
+                    return helper
+                            .createTable(metric, properties,
+                                    metricBuilder.getThingIdProperty(),
+                                    ThingsDataConstants.COLUMN_EVENT_ID,
+                                    ThingsDataConstants.COLUMN_TIMESTAMP);
+
+                }
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+        }
+        return Mono.empty();
+    }
+
+    @Override
+    protected Mono<Void> reload(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        return helper.reload(metric);
+    }
+}
+
+```
+
+3. 自定义`CustomHelper`存储帮助类。该类主要是完成自定义存储的具体实现。
+
+#### 核心类及接口
+
+##### `AbstractThingDataRepositoryStrategy`
+
+| 方法名                                                                                          | 参数                          | 返回值 | 说明 |
+|----------------------------------------------------------------------------------------------|-----------------------------|--------|-------------------|
+| `createOpsForSave(OperationsContext context)`                                                  | `OperationsContext`:操作对象上下文 |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| `createForQuery(String thingType,String templateId,String thingId, OperationsContext context)` | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| `createForDDL(String thingType,String templateId,String thingId, OperationsContext context)`                                                                               | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| `opsForThing(String thingType,String templateId,String thingId, OperationsContext context)`                                                                               | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| `DeviceOperator `                                                                              | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
 
@@ -2151,7 +2398,6 @@ Subscribe注解：
 ### 主动从第三方平台、设备获取数据
 
 #### 应用场景
-
 
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
@@ -2228,6 +2474,7 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
 	private DecodedClientMessageHandler handler;
     
     private static final WebClient webclient=WebClient.builder().build();
+
    /**
      * 在消息发送后触发.
      *
@@ -2613,15 +2860,6 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 </div>
 
 
-
-
-
-
-
-<br>
-
-
-
 **MQTT**
 
 选择服务端，服务端需要在网络组件内配置<code>MQTT客户端</code>
@@ -2999,6 +3237,7 @@ public class UseConsumer{
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
+
   <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
@@ -3021,6 +3260,7 @@ public class UseConsumer{
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
+
 若设备限制数量不能满足您的业务需求，请
 <a>提交工单</a>
 说明您的需求。
@@ -3089,11 +3329,11 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-     <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
-
 
 ```java
 //此处将具体代码实现放入
@@ -3634,7 +3874,7 @@ waiting for server to start.... done
 server started
 
 ```
-10. 验证部署是否成功,使用第三方工具测试连接
+10. 验证部署是否成功,使用第三方工具测试连接。
 
 
 
