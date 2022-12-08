@@ -123,11 +123,7 @@ module.exports = {
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
                     ['/protocol/mqtt.md', 'MQTT协议解析'],
-<<<<<<< HEAD
                     ['/protocol/api.md', '协议开发API'],
-=======
-                    // ['/protocol/api.md', '核心类API说明'],
->>>>>>> a67d538f460b0fc27a42a2294068f76aaceb1fad
                     ['/protocol/faq.md', '常见问题']
                 ]
             },
