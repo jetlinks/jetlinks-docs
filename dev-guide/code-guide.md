@@ -62,23 +62,24 @@
 
 </div>
 
-
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
-   
+
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
 
 3. 创建SSH key
-![create ssh keys](./images/code-guide-0-3.png)
+   ![create ssh keys](./images/code-guide-0-3.png)
 
 在第一步新建的目录内，右键空白处弹出菜单`git bash here`，在弹出的shell控制台内执行下方命令：
 
 该命令需要修改邮箱地址为您自己的邮箱地址。
+
 ```shell
 $ ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
 示例如下:
+
 ```shell
 $ ssh-keygen -t ed25519 -C "445990772@qq.com"
 Generating public/private ed25519 key pair.
@@ -125,7 +126,6 @@ $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 </div>
 
-
 4. 将生成的ssh key添加至github内。
 
 创建完成后使用下方命令复制公钥内容，
@@ -152,14 +152,17 @@ $ clip < ~/.ssh/id_ed25519.pub
 进入第一步创建的文件夹内执行拉取代码及子模块
 
 - 拉取`jetlinks-pro`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 
 - 拉取`jetlinks-cloud`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
 ```
+
 6. 更新基础子模块
 
 <div class='explanation info'>
@@ -184,6 +187,7 @@ $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
 示例命令:
+
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
@@ -209,7 +213,6 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 ![maven reimport](./images/code-guide-0-6.png)
 ![maven reimport](./images/code-guide-0-7.png)
 
-
 9. 扩展子模块加入Maven多模块项目
 
 <div class='explanation info'>
@@ -223,14 +226,18 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 在项目根目录下的`pom.xml`中的modules节点中添加模块
 
 ```xml
+
 <modules>
     <module>expands-components/jetlinks-ctwing</module>
 </modules>
 ```
+
 - jetlinks-pro添加子模块依赖
-  
+
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -242,7 +249,9 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 - jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -250,6 +259,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </dependency>
 
 ```
+
 其余模块同理。
 
 10. 提交代码至自建仓库
@@ -264,6 +274,7 @@ $  git submodule foreach git push gitee master
 11. 更新源仓库代码并同步自建仓库
 
 查看远程仓库信息
+
 ```shell
 $  git remote -v
 # gitee 是上一步remote add声明的自建仓库名
@@ -294,7 +305,7 @@ $ git push gitee master
   <p>Q：配置完SSH Key如果仍提示需要输入git@github.com‘s password，且尝试了所有密码均提示:Permission denied, please try again。</p>
   <p>A：Github官网给出的说法是：防火墙拒绝完全允许SSH连接。如果不能使用带有凭据缓存的HTTPS克隆，可以尝试使用通过HTTPS端口建立的SSH连接进行克隆。
 大多数防火墙规则应该允许这样做，但是代理服务器可能会干扰。可以参照下方步骤解决该问题。</p>
-  
+
 </div>
 
 1. 要测试是否可以通过 HTTPS 端口使用 SSH，请运行以下 SSH 命令。
@@ -319,6 +330,7 @@ User git
 3. 在切换到端口443后第一次与 GitHub 交互时，您可能会收到一条警告消息。
 
 此处在配置公钥过后选择`yes`即可
+
 ```shell
 > The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
 > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -328,7 +340,6 @@ User git
 ```
 
 4. 配置好上述内容后，执行拉取命令即可。
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -350,29 +361,6 @@ User git
   <p>Q：Maven项目启动过程中出现jar包引入失败。</p>
   <p>A：一般是由于自行设置了配置文件的mirrors镜像加速地址，注释或者使用纯净的<b class='explanation-title font-weight'>settings.xml</b>配置文件。</p>
 
-</div>
-
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
 </div>
 
 ### 在JetLinks上构建自己的业务功能
@@ -953,12 +941,12 @@ springdoc:
 ### 使用消息总线
 
 #### 应用场景
+
 EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系，
 当事件发布时，平台的其他模块，例如：产品/设备、规则引擎、设备告警等模块都可以同时订阅到该事件，能够有效地降低消息发布者和订阅者之间的耦合度。
 
-
-
 #### 核心接口说明
+
 核心接口org.jetlinks.core.event.EventBus
 
 | 方法名                                                                                                     | 返回值                  | 说明                         |
@@ -971,7 +959,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 | publish(String topic, Publisher\<T\> event, T event)                                                    | \<T\> Mono\<Long\>   | 推送单个数据到事件总线中并指定编码器用于将事件数据进行序列化                |
 | publish(String topic, Encoder\<T\> encoder, Publisher\<\? extends T\> eventStream)                      | \<T\> Mono\<Long\>   | 推送消息流到事件总线并指定编码器用于进行事件序列化  |
 | publish(String topic, Encoder\<T\> encoder, Publisher\<\? extends T\> eventStream, Scheduler scheduler) | \<T\> Mono\<Long\>   | 推送消息流到事件总线并指定编码器和调度器用于进行事件序列化 |
-
 
 #### 消息总线对应topic说明
 
@@ -1027,7 +1014,8 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 | COAP_SERVER       | CoAP服务       |
 | UDP               | UDP          | 
 
-设备消息对应事件总线详情参照<a href='/function-description/device_message_description.html#总线topic'>设备消息对应事件总线topic</a>
+设备消息对应事件总线详情参照<a href='/function-description/device_message_description.html#总线topic'>
+设备消息对应事件总线topic</a>
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -1048,53 +1036,51 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 </div>
 
-#### 发布/订阅事件实例 
-
+#### 发布/订阅事件实例
 
 发布事件:
+
 ```java
-      public Mono<Void> shutdown(NetworkType type, String NetworkId) {
-          return
-           //将停止网络组件事件推送到消息总线   
-           eventBus.publish("/_sys/network/" + type.getId() + "/shutdown", NetworkId)
-          .then();
-          }
+      public Mono<Void> shutdown(NetworkType type,String NetworkId){
+        return
+        //将停止网络组件事件推送到消息总线   
+        eventBus.publish("/_sys/network/"+type.getId()+"/shutdown",NetworkId)
+        .then();
+        }
 ```
 
 订阅事件：
+
 ```java
       //使用Subscribe方法
-      public void doSubscribe() {
+public void doSubscribe(){
         eventBus
-            //调用subscribe方法
-            .subscribe(Subscription
-            //构建订阅者消息
-            .builder()
-            //订阅者标识
-            .subscriberId("network-config-manager")
-            //订阅topic
-            .topics("/_sys/network/*/shutdown")
-            //订阅特性,有三类特性
-            .justBroker()
-            .build())
-         //拿到消息总线中的数据进行后续处理
-        .flatMap(payload -> {
-            ...
+        //调用subscribe方法
+        .subscribe(Subscription
+        //构建订阅者消息
+        .builder()
+        //订阅者标识
+        .subscriberId("network-config-manager")
+        //订阅topic
+        .topics("/_sys/network/*/shutdown")
+        //订阅特性,有三类特性
+        .justBroker()
+        .build())
+        //拿到消息总线中的数据进行后续处理
+        .flatMap(payload->{
+        ...
         })
         .subscribe();
-      }
+        }
 
-    //使用Subscribe注解
-    @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
-    public Mono<Void> doStart(String id) {
-            return this
-            .findById(id)
-            .flatMap(this::doStart);
-    }
+//使用Subscribe注解
+@Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.broker)
+public Mono<Void> doStart(String id){
+        return this
+        .findById(id)
+        .flatMap(this::doStart);
+        }
 ```
-
-
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -1110,38 +1096,42 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 </div>
 
 #### 共享订阅实例
+
 使用Subscribe方法：
+
 ```java
-      public void doSubscribe() {
+      public void doSubscribe(){
         eventBus
-            //调用subscribe方法
-            .subscribe(Subscription
-            //构建订阅者消息
-            .builder()
-            //订阅者标识
-            .subscriberId("network-config-manager")
-            //订阅topic
-            .topics("/_sys/network/*/shutdown")
-            //订阅特性为shared
-            .shared()
-            .build())
-         //拿到消息总线中的数据进行后续处理
-        .flatMap(payload -> {
-            ...
+        //调用subscribe方法
+        .subscribe(Subscription
+        //构建订阅者消息
+        .builder()
+        //订阅者标识
+        .subscriberId("network-config-manager")
+        //订阅topic
+        .topics("/_sys/network/*/shutdown")
+        //订阅特性为shared
+        .shared()
+        .build())
+        //拿到消息总线中的数据进行后续处理
+        .flatMap(payload->{
+        ...
         })
         .subscribe();
-      }
+        }
 ```
+
 使用Subscribe注解：
+
 ```java
-      
-    //订阅特性为shared
-    @Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
-    public Mono<Void> doStart(String id) {
-            return this
-            .findById(id)
-            .flatMap(this::doStart);
-    }
+
+//订阅特性为shared
+@Subscribe(topics = "/_sys/media-gateway/start", features = Subscription.Feature.shared)
+public Mono<Void> doStart(String id){
+        return this
+        .findById(id)
+        .flatMap(this::doStart);
+        }
 ```
 
 订阅特性字段Feature说明
@@ -1167,14 +1157,16 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 #### 多订阅特性实例
 
 Subscribe方法：
+
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
  ```
 
 Subscribe注解：
+
  ```java
-@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+@Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
 ```
 
 ### 添加自定义存储策略
@@ -1187,21 +1179,277 @@ Subscribe注解：
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+<p>当平台提供的存储策略不满足自己的需求时，可以选择自行开发.</p>
+
+</div>
+
+##### 操作步骤
+
+1. 实现`ThingsDataRepositoryStrategy`接口或者继承`AbstractThingDataRepositoryStrategy`类。重写接口或父类的方法
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+<p>推荐使用继承 <span class='explanation-title font-weight'>AbstractThingDataRepositoryStrategy</span>的方式。
+AbstractThingDataRepositoryStrategy继承CacheSaveOperationsStrategy类，CacheSaveOperationsStrategy类在执行存储操作时会将
+数据库操作对象存放至内存，在调用存储方法过程中减少上下文对象的创建。
+</p>
 
 </div>
 
 ```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+
+@AllArgsConstructor
+public class CustomRowModeStrategy extends AbstractThingDataRepositoryStrategy {
+
+    private final ThingsRegistry registry;
+    //自定义存储帮助类
+    private final CustomHelper helper;
+
+    @Override
+    public String getId() {
+        return "custom-row";
+    }
+
+    @Override
+    public String getName() {
+        return "自定义-行式存储";
+    }
+
+    @Override
+    public SaveOperations createOpsForSave(OperationsContext context) {
+        //创建自定义SaveOperations类，返回自定义SaveOperations对象
+        return new CustomColumnModeSaveOperations(
+                registry,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                helper);
+    }
+
+    @Override
+    protected QueryOperations createForQuery(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义QueryOperations类，返回自定义QueryOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    protected DDLOperations createForDDL(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义DDLOperations类，返回自定义DDLOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    public int getOrder() {
+        return 10000;
+    }
+}
+
+
 ```
 
-#### 核心类说明
+2. 创建自定义存储策略的操作对象(上一步内相关注释)
+
+```java
+//创建自定义SaveOperations
+
+public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
+
+    private final CustomHelper helper;
+
+
+    public CustomRowModeSaveOperations(ThingsRegistry registry,
+                                       MetricBuilder metricBuilder,
+                                       DataSettings settings,
+                                       CustomHelper helper) {
+        super(registry, metricBuilder, settings);
+        this.helper = helper;
+    }
+
+
+    @Override
+    protected Map<String, Object> createRowPropertyData(String id, long timestamp, ThingMessage message, PropertyMetadata property, Object value) {
+        Map<String, Object> values = super.createRowPropertyData(id, timestamp, message, property, value);
+
+        //额外的数据类型处理
+        //时间统一转换为时间戳
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            return CastUtils.castDate(val).getTime();
+        });
+        //地理位置值存储为数组
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            GeoPoint point = GeoPoint.of(val);
+
+            return Arrays.asList((float) point.getLon(), (float) point.getLat());
+        });
+
+        //默认null
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_NUMBER_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, null);
+
+        return values;
+    }
+
+    @Override
+    protected Map<String, Object> createEventData(ThingEventMessage message, ThingMetadata metadata) {
+        return super.createEventData(message, metadata);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, TimeSeriesData data) {
+        return helper.doSave(metric, data);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, Flux<TimeSeriesData> data) {
+        return helper.doSave(metric, data);
+    }
+}
+
+
+```
+
+```java
+//创建自定义QueryOperations
+public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomModeQueryOperations(String thingType,
+                                     String thingTemplateId,
+                                     String thingId,
+                                     MetricBuilder metricBuilder,
+                                     DataSettings settings,
+                                     ThingsRegistry registry,
+                                     CustomHelper helper) {
+        super(thingType, thingTemplateId, thingId, metricBuilder, settings, registry);
+        this.helper = helper;
+    }
+
+    @Override
+    protected Flux<TimeSeriesData> doQuery(String metric, Query<?, QueryParamEntity> query) {
+        return helper.doQuery(metric, query.getParam());
+    }
+
+    @Override
+    protected <T> Mono<PagerResult<T>> doQueryPage(String metric, Query<?, QueryParamEntity> query, Function<TimeSeriesData, T> mapper) {
+        return helper.doQueryPager(metric, query.getParam(), mapper);
+    }
+
+    @Override
+    protected Flux<AggregationData> doAggregation(String metric,
+                                                  AggregationRequest request,
+                                                  AggregationContext context) {
+        return doSomeThings();
+    }
+
+    @Override
+    protected Flux<ThingPropertyDetail> queryEachProperty(@Nonnull String metric,
+                                                          @Nonnull Query<?, QueryParamEntity> query,
+                                                          @Nonnull ThingMetadata metadata,
+                                                          @Nonnull Map<String, PropertyMetadata> properties) {
+        return doSomeThings();
+    }
+
+}
+
+```
+
+```java
+//创建自定义DDLOperations
+public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomRowModeDDLOperations(String thingType,
+                                      String templateId,
+                                      String thingId,
+                                      DataSettings settings,
+                                      MetricBuilder metricBuilder,
+                                      CustomHelper helper) {
+        super(thingType, templateId, thingId, settings, metricBuilder);
+        this.helper = helper;
+    }
+
+    static Set<String> notSaveColumns = new HashSet<>(Arrays.asList(
+            ThingsDataConstants.COLUMN_PROPERTY_OBJECT_VALUE,
+            ThingsDataConstants.COLUMN_PROPERTY_ARRAY_VALUE,
+            ThingsDataConstants.COLUMN_LOG_TYPE,
+            ThingsDataConstants.COLUMN_PROPERTY_TYPE
+    ));
+
+    @Override
+    protected Mono<Void> register(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        switch (metricType) {
+            case properties:
+                return helper
+                        .createTable(metric, properties
+                                        .stream()
+                                        .filter(prop -> !notSaveColumns.contains(prop.getId()))
+                                        .collect(Collectors.toList()),
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_PROPERTY_ID,
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+
+            case log:
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+            case event:
+                if (settings.getEvent().eventIsAllInOne()) {
+                    return helper
+                            .createTable(metric, properties,
+                                    metricBuilder.getThingIdProperty(),
+                                    ThingsDataConstants.COLUMN_EVENT_ID,
+                                    ThingsDataConstants.COLUMN_TIMESTAMP);
+
+                }
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+        }
+        return Mono.empty();
+    }
+
+    @Override
+    protected Mono<Void> reload(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        return helper.reload(metric);
+    }
+}
+
+```
+
+3. 自定义`CustomHelper`存储帮助类。该类主要是完成自定义存储的具体实现。
+
+#### AbstractThingDataRepositoryStrategy
 
 | 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
+|----------------| -------------------------- |--------|-------------------|
 | DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
@@ -1257,20 +1505,19 @@ Subscribe注解：
 
 #### 应用场景
 
-
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
 2、通过实现自定义协议的DeviceMessageSenderInterceptor.afterSent来拦截消息发送,替换掉默认处理方式.在这里使用WebClient或者Vertx请求第三方或者设备。<br/>
-3、请求后解析数据为对应的消息,调用DecodedClientMessageHandler.handleMessage(device,message)完成默认消息处理之后,返回消息。<br/>
-
-
+3、请求后解析数据为对应的消息,调用DecodedClientMessageHandler.handleMessage(device,message)
+完成默认消息处理之后,返回消息。<br/>
 
 #### 例子一,通过http到第三方平台获取数据
+
 ##### 第一步 定义消息编码解码器
 
 ~~~java
 public class HttpMessageCodec implements DeviceMessageCodec {
-    
+
     // 定义一个通用的响应，用于收到请求后响应
     private static final SimpleHttpResponseMessage response = SimpleHttpResponseMessage
             .builder()
@@ -1278,18 +1525,18 @@ public class HttpMessageCodec implements DeviceMessageCodec {
             .contentType(MediaType.APPLICATION_JSON)
             .status(200)
             .build();
-    
+
     @Override
     public Transport getSupportTransport() {
         return DefaultTransport.HTTP;
     }
-    
+
     @Nonnull
     @Override
-    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context){
+    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context) {
         // 这里用于别的平台请求/通知jetlinks的请求处理
         // 把消息转换为http消息
-         HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
+        HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
         String url = message.getUrl();
         // 这里通常需要判断是不是自己需要的请求，如果不是直接返回/响应，防止非法请求
         if (!url.endsWith("/eventRcv")) {
@@ -1307,31 +1554,33 @@ public class HttpMessageCodec implements DeviceMessageCodec {
         eventMessage.setTimestamp(System.currentTimeMillis());
         return message.response(response).thenMany(Flux.just(eventMessage));
     }
-    
-    
+
+
     @Nonnull
     @Override
     public Publisher<? extends EncodedMessage> encode(@Nonnull MessageEncodeContext context) {
         // 对接其他云平台，命令发起不在这里处理，所以这里返回空就可以了
         return Mono.empty();
     }
-    
+
 }
 ~~~
 
 ##### 第二步 定义一个消息拦截器
 
 ~~~java
+
 @Slf4j
 @AllArgsConstructor
 @Getter
 @Setter
-public class HttpMessageSenderInterceptor implements DeviceMessageSenderInterceptor{
+public class HttpMessageSenderInterceptor implements DeviceMessageSenderInterceptor {
     // 通过构造器注入一个编码消息处理器，用于消息的持久化
-	private DecodedClientMessageHandler handler;
-    
-    private static final WebClient webclient=WebClient.builder().build();
-   /**
+    private DecodedClientMessageHandler handler;
+
+    private static final WebClient webclient = WebClient.builder().build();
+
+    /**
      * 在消息发送后触发.
      *
      * @param device  设备操作接口
@@ -1342,42 +1591,42 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
      */
     public <R extends DeviceMessage> Flux<R> afterSent(DeviceOperator device, DeviceMessage message, Flux<R> reply) {
         return Flux.from(
-            // 从配置中获取url等各种请求所需参数
-            device.getConfigs("url")
-                        .flatMap(values->{
-                            String url=values.getValue("url").map(Value::asString).orElse(null);
-                            // 通常发起请求都是通过方法调用
-                            FunctionInvokeMessage invokeMessage = (FunctionInvokeMessage) message;
-                            // 从命令发起的上下文中获取消息体
-        				  List<FunctionParameter> inputs = invokeMessage.getInputs();
-                            Map< String, Object> body=iputs
-                                .stream()
-                                .collect(Collectors
-                                         .toMap(FunctionParameter::getName, 			FunctionParameter::getValue));
-                            return webclient  // 构造WebClient
-                            	.post()  // 指定请求类型
-                            	.uri(url) // 请求路径
-                            	.bodyValue(body) // 请求参数
-                           		.retrieve() // 发起请求
-                           		.bodyToMono(String.class) // 响应参数
-                           		.flatMap(s -> {
-                                    // 响应参数包装为功能回复参数
-                               		FunctionInvokeMessageReply reply1 = new FunctionInvokeMessageReply();
-                               		reply1.setSuccess(true);
-                               		reply1.setMessage(s);
-                               		reply1.setDeviceId(message.getDeviceId());
-                               		reply1.setMessageId(message.getMessageId());
-                               		reply1.setTimestamp(System.currentTimeMillis());
-                               		reply1.setOutput(s);
-                               		reply1.setFunctionId(((FunctionInvokeMessage) message).getFunctionId());
-                               return Mono.just(reply1)
-                                       .map(deviceMessage->(R)deviceMessage);
-                           })
-                           // 消息持久化
-                           .flatMap(msg->handler.handleMessage(device,msg)
-                                   .thenReturn(msg));
-                        })
-                );
+                // 从配置中获取url等各种请求所需参数
+                device.getConfigs("url")
+                      .flatMap(values -> {
+                          String url = values.getValue("url").map(Value::asString).orElse(null);
+                          // 通常发起请求都是通过方法调用
+                          FunctionInvokeMessage invokeMessage = (FunctionInvokeMessage) message;
+                          // 从命令发起的上下文中获取消息体
+                          List<FunctionParameter> inputs = invokeMessage.getInputs();
+                          Map<String, Object> body = iputs
+                                  .stream()
+                                  .collect(Collectors
+                                          .toMap(FunctionParameter::getName, FunctionParameter::getValue));
+                          return webclient  // 构造WebClient
+                                            .post()  // 指定请求类型
+                                            .uri(url) // 请求路径
+                                            .bodyValue(body) // 请求参数
+                                            .retrieve() // 发起请求
+                                            .bodyToMono(String.class) // 响应参数
+                                            .flatMap(s -> {
+                                                // 响应参数包装为功能回复参数
+                                                FunctionInvokeMessageReply reply1 = new FunctionInvokeMessageReply();
+                                                reply1.setSuccess(true);
+                                                reply1.setMessage(s);
+                                                reply1.setDeviceId(message.getDeviceId());
+                                                reply1.setMessageId(message.getMessageId());
+                                                reply1.setTimestamp(System.currentTimeMillis());
+                                                reply1.setOutput(s);
+                                                reply1.setFunctionId(((FunctionInvokeMessage) message).getFunctionId());
+                                                return Mono.just(reply1)
+                                                           .map(deviceMessage -> (R) deviceMessage);
+                                            })
+                                            // 消息持久化
+                                            .flatMap(msg -> handler.handleMessage(device, msg)
+                                                                   .thenReturn(msg));
+                      })
+        );
     }
 }
 ~~~
@@ -1386,8 +1635,8 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
 
 ~~~java
 /**
-* 这个接口会在进入设备详情页面和刷新设备状态时调用
-*/
+ * 这个接口会在进入设备详情页面和刷新设备状态时调用
+ */
 @Slf4j
 public class HttpDeviceStateChecker implements DeviceStateChecker {
     @Override
@@ -1401,15 +1650,15 @@ public class HttpDeviceStateChecker implements DeviceStateChecker {
 ##### 第四步 定义协议处理器
 
 ~~~java
-public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
-    
-        private static final DefaultConfigMetadata httpRequest = new DefaultConfigMetadata(
+public class HttpProtocolSupportProvider implements ProtocolSupportProvider {
+
+    private static final DefaultConfigMetadata httpRequest = new DefaultConfigMetadata(
             "Http请求配置"
             , "")
             .add("url", "url", " http请求地址", new StringType());
-    
+
     @Override
-    public Mono<? extends ProtocolSupport> create(ServiceContext serviceContext){
+    public Mono<? extends ProtocolSupport> create(ServiceContext serviceContext) {
         CompositeProtocolSupport support = new CompositeProtocolSupport();
         support.setId("http-demo-v1");
         support.setName("http调用第三方接口DEMO");
@@ -1425,7 +1674,7 @@ public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
         support.setDeviceStateChecker(httpDeviceStateChecker);
         // 设置HTTP消息拦截器，用于发送HTTP消息
         serviceContext.getService(DecodedClientMessageHandler.class)
-                .ifPresent(handler -> support.addMessageSenderInterceptor(new HttpMessageSenderInterceptor(handler)));
+                      .ifPresent(handler -> support.addMessageSenderInterceptor(new HttpMessageSenderInterceptor(handler)));
         return Mono.just(support);
     }
 }
@@ -1636,17 +1885,17 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
         //收到设备报文时，说明设备和平台已建立连接会话（session）
         //可以通过context获取会话session，将缓存的消息处理后send给设备
         return context.getDevice()
-                //从缓存里获取配置信息，获取到后并删除该缓存
-                .getAndRemoveConfig("will-msg")
-                .map(val -> val.as(DeviceMessage.class))
-                .flatMap((msg) -> {
-                    //取到消息后在此处将消息send返回给设备
-                    return ((FromDeviceMessageContext) context)
-                            .getSession(doEncode(msg))
-                            .send(); //编码并发送给设备
-                })
-                //同时解码上报的报文信息返回平台
-                .thenReturn(doDecode(context));
+                      //从缓存里获取配置信息，获取到后并删除该缓存
+                      .getAndRemoveConfig("will-msg")
+                      .map(val -> val.as(DeviceMessage.class))
+                      .flatMap((msg) -> {
+                          //取到消息后在此处将消息send返回给设备
+                          return ((FromDeviceMessageContext) context)
+                                  .getSession(doEncode(msg))
+                                  .send(); //编码并发送给设备
+                      })
+                      //同时解码上报的报文信息返回平台
+                      .thenReturn(doDecode(context));
 
     }
 
