@@ -62,9 +62,8 @@
 
 </div>
 
-
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
-   
+
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
 
@@ -152,14 +151,17 @@ $ clip < ~/.ssh/id_ed25519.pub
 进入第一步创建的文件夹内执行拉取代码及子模块
 
 - 拉取`jetlinks-pro`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 
 - 拉取`jetlinks-cloud`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
 ```
+
 6. 更新基础子模块
 
 <div class='explanation info'>
@@ -184,6 +186,7 @@ $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
 示例命令:
+
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
@@ -223,14 +226,18 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 在项目根目录下的`pom.xml`中的modules节点中添加模块
 
 ```xml
+
 <modules>
     <module>expands-components/jetlinks-ctwing</module>
 </modules>
 ```
+
 - jetlinks-pro添加子模块依赖
-  
+
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -242,7 +249,9 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 - jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -250,6 +259,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </dependency>
 
 ```
+
 其余模块同理。
 
 10. 提交代码至自建仓库
@@ -264,6 +274,7 @@ $  git submodule foreach git push gitee master
 11. 更新源仓库代码并同步自建仓库
 
 查看远程仓库信息
+
 ```shell
 $  git remote -v
 # gitee 是上一步remote add声明的自建仓库名
@@ -294,7 +305,7 @@ $ git push gitee master
   <p>Q：配置完SSH Key如果仍提示需要输入git@github.com‘s password，且尝试了所有密码均提示:Permission denied, please try again。</p>
   <p>A：Github官网给出的说法是：防火墙拒绝完全允许SSH连接。如果不能使用带有凭据缓存的HTTPS克隆，可以尝试使用通过HTTPS端口建立的SSH连接进行克隆。
 大多数防火墙规则应该允许这样做，但是代理服务器可能会干扰。可以参照下方步骤解决该问题。</p>
-  
+
 </div>
 
 1. 要测试是否可以通过 HTTPS 端口使用 SSH，请运行以下 SSH 命令。
@@ -319,6 +330,7 @@ User git
 3. 在切换到端口443后第一次与 GitHub 交互时，您可能会收到一条警告消息。
 
 此处在配置公钥过后选择`yes`即可
+
 ```shell
 > The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
 > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -328,7 +340,6 @@ User git
 ```
 
 4. 配置好上述内容后，执行拉取命令即可。
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -427,7 +438,7 @@ User git
 
 3. reimport项目
 
-以上两步操作完成之后需要使用Maven窗口的`reimport`按钮，重新引入模块依赖，此时模块被加入jetlinks-pro项目下
+以上两步操作完成之后需要使用Maven窗口的`reimport`即 `Reload ALL Maven Project`按钮，重新引入模块依赖，此时模块被加入jetlinks-pro项目下
 ![在pom文件内声明模块信息](./images/code-guide-1-5.png)
 
 4. 加入子模块声明后，修改自定义项目pom文件内容
@@ -490,6 +501,7 @@ User git
   </p>
 <p>Q：如何确认模块被引入？</p>
 <p>A：可以使用Maven工具或者命令打包时出现自定义模块的名称说明模块被引入。</p>
+
 
 ```text
 
@@ -587,9 +599,6 @@ Process finished with exit code 0
 简单的业务系统目录结构如下图：
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
-
-
-
 
 2.controller层：TestController类
   ```java
@@ -719,6 +728,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     )
     private String modifierName;
 }
+
 
   ```
 5. 在jetlinks-pro的启动类上加入自定义项目的扫描路径
@@ -865,7 +875,6 @@ springdoc:
 ### 监听实体变化做业务
 
 #### 应用场景
-
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -1815,14 +1824,12 @@ public class Configurations implements CommandLineRunner {
 ### 使用消息总线
 
 #### 应用场景
-
 EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系，
 当事件发布时，平台的其他模块，例如：产品/设备、规则引擎、设备告警等模块都可以同时订阅到该事件，能够有效地降低消息发布者和订阅者之间的耦合度。
 
 
 
 #### 核心接口说明
-
 核心接口org.jetlinks.core.event.EventBus
 
 | 方法名                                                                                                     | 返回值                  | 说明                         |
@@ -1916,7 +1923,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 
 
 发布事件:
-
 ```java
       public Mono<Void> shutdown(NetworkType type, String NetworkId) {
           return
@@ -1927,7 +1933,6 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 ```
 
 订阅事件：
-
 ```java
       //使用Subscribe方法
       public void doSubscribe() {
@@ -1959,6 +1964,9 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
     }
 ```
 
+
+
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -1973,11 +1981,9 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 </div>
 
 #### 共享订阅实例
-
 使用Subscribe方法：
-
 ```java
-      public void doSubscribe(){
+      public void doSubscribe() {
         eventBus
             //调用subscribe方法
             .subscribe(Subscription
@@ -1997,9 +2003,7 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
         .subscribe();
       }
 ```
-
 使用Subscribe注解：
-
 ```java
       
     //订阅特性为shared
@@ -2034,16 +2038,14 @@ EventBus是一个基于发布者/订阅者模式的事件总线框架。发布�
 #### 多订阅特性实例
 
 Subscribe方法：
-
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
  ```
 
 Subscribe注解：
-
  ```java
-@Subscribe(topics = "/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
+@Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
 ```
 
 ### 添加自定义存储策略
@@ -2382,7 +2384,6 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 #### 应用场景
 
-
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
 2、通过实现自定义协议的DeviceMessageSenderInterceptor.afterSent来拦截消息发送,替换掉默认处理方式.在这里使用WebClient或者Vertx请求第三方或者设备。<br/>
@@ -2391,12 +2392,11 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 
 #### 例子一,通过http到第三方平台获取数据
-
 ##### 第一步 定义消息编码解码器
 
 ~~~java
 public class HttpMessageCodec implements DeviceMessageCodec {
-
+    
     // 定义一个通用的响应，用于收到请求后响应
     private static final SimpleHttpResponseMessage response = SimpleHttpResponseMessage
             .builder()
@@ -2404,18 +2404,18 @@ public class HttpMessageCodec implements DeviceMessageCodec {
             .contentType(MediaType.APPLICATION_JSON)
             .status(200)
             .build();
-
+    
     @Override
     public Transport getSupportTransport() {
         return DefaultTransport.HTTP;
     }
-
+    
     @Nonnull
     @Override
-    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context) {
+    public Publisher<? extends Message> decode(@Nonnull MessageDecodeContext context){
         // 这里用于别的平台请求/通知jetlinks的请求处理
         // 把消息转换为http消息
-        HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
+         HttpExchangeMessage message = (HttpExchangeMessage) context.getMessage();
         String url = message.getUrl();
         // 这里通常需要判断是不是自己需要的请求，如果不是直接返回/响应，防止非法请求
         if (!url.endsWith("/eventRcv")) {
@@ -2433,22 +2433,21 @@ public class HttpMessageCodec implements DeviceMessageCodec {
         eventMessage.setTimestamp(System.currentTimeMillis());
         return message.response(response).thenMany(Flux.just(eventMessage));
     }
-
-
+    
+    
     @Nonnull
     @Override
     public Publisher<? extends EncodedMessage> encode(@Nonnull MessageEncodeContext context) {
         // 对接其他云平台，命令发起不在这里处理，所以这里返回空就可以了
         return Mono.empty();
     }
-
+    
 }
 ~~~
 
 ##### 第二步 定义一个消息拦截器
 
 ~~~java
-
 @Slf4j
 @AllArgsConstructor
 @Getter
@@ -2695,7 +2694,7 @@ message.addHeader(Headers.keepOnlineTimeoutSeconds, 600);
 
   <li>短连接下发指令平台会抛出设备离线的异常信息。</li>
 
-[//]: # "  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>"
+[//]: # (  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>)
 
 </div>
 
