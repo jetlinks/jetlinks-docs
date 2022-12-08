@@ -64,9 +64,7 @@
 
 </div>
 
-
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
-   
 
 ![选择settings](./images/code-guide-0-1.png)
 ![选择ssh keys](./images/code-guide-0-2.png)
@@ -155,14 +153,17 @@ $ clip < ~/.ssh/id_ed25519.pub
 进入第一步创建的文件夹内执行拉取代码及子模块
 
 - 拉取`jetlinks-pro`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 
 - 拉取`jetlinks-cloud`
+
 ```shell
  $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
 ```
+
 6. 更新基础子模块
 
 <div class='explanation info'>
@@ -187,6 +188,7 @@ $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
 示例命令:
+
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
@@ -202,7 +204,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
+[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
 
 8. 代码拉取完毕后`reimport`
 
@@ -226,15 +228,18 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 在项目根目录下的`pom.xml`中的modules节点中添加模块
 
 ```xml
+
 <modules>
     <module>expands-components/jetlinks-ctwing</module>
 </modules>
 ```
+
 - jetlinks-pro添加子模块依赖
-  
 
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -246,7 +251,9 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 - jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
+
 ```xml
+
 <dependency>
     <groupId>org.jetlinks.pro</groupId>
     <artifactId>jetlinks-ctwing</artifactId>
@@ -254,6 +261,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </dependency>
 
 ```
+
 其余模块同理。
 
 10. 提交代码至自建仓库
@@ -268,6 +276,7 @@ $  git submodule foreach git push gitee master
 11. 更新源仓库代码并同步自建仓库
 
 查看远程仓库信息
+
 ```shell
 $  git remote -v
 # gitee 是上一步remote add声明的自建仓库名
@@ -323,6 +332,7 @@ User git
 3. 在切换到端口443后第一次与 GitHub 交互时，您可能会收到一条警告消息。
 
 此处在配置公钥过后选择`yes`即可
+
 ```shell
 > The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
 > ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -332,7 +342,6 @@ User git
 ```
 
 4. 配置好上述内容后，执行拉取命令即可。
-
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -356,31 +365,6 @@ User git
 
 </div>
 
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
-
-
-
 ### 在JetLinks上构建自己的业务功能
 
 #### 应用场景
@@ -390,7 +374,6 @@ User git
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
 
    <p>当您想使用JetLinks平台做自己的业务，又不想将项目独立时，可以选择基于JetLinks进行开发。</p>
 
@@ -416,6 +399,7 @@ User git
 示例代码:
 
 ```xml
+
 <modules>
     <module>jetlinks-parent</module>
     <module>jetlinks-components</module>
@@ -522,6 +506,7 @@ User git
 
 
 ```text
+
 [INFO] Reactor Summary:
 [INFO] 
 [INFO] jetlinks-parent .................................... SUCCESS [  1.346 s]
@@ -616,9 +601,6 @@ Process finished with exit code 0
 简单的业务系统目录结构如下图：
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
-
-
-
 
 2.controller层：TestController类
   ```java
@@ -749,6 +731,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     private String modifierName;
 }
 
+
   ```
 5. 在jetlinks-pro的启动类上加入自定义项目的扫描路径
 ```java
@@ -761,6 +744,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
 @EnableEasyormRepository({"org.jetlinks.community.**.entity","org.example.mydemo.entity.**"})
 @EnableAopAuthorize
 @EnableAccessLogger
+    @Slf4j
 @Slf4j
 ```
 6. 核心类说明
@@ -816,6 +800,7 @@ public class TestEntity extends GenericEntity<String> implements RecordCreationE
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
+
 <p>Q：如何将自定义的接口加入swagger扫描并在API配置中显示出来？</p>
 <p>A：在平台的<a>application.yml</a>文件内swagger下声明该项目扫描路径。</p></div>
 
@@ -881,6 +866,7 @@ springdoc:
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
+
   <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
   <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
   <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
@@ -2058,12 +2044,12 @@ Subscribe方法：
 ```java
 eventBus
         .subscribe(Subscription.of("gateway"", "/_sys/media-gateway/start", Subscription.Feature.local, Subscription.Feature.broker))
-```
+ ```
 
 Subscribe注解：
  ```java
 @Subscribe(topics ="/_sys/media-gateway/start", features = {Subscription.Feature.broker, Subscription.Feature.local})
- ```
+```
 
 ### 添加自定义存储策略
 
@@ -2075,21 +2061,277 @@ Subscribe注解：
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+<p>当平台提供的存储策略不满足自己的需求时，可以选择自行开发.</p>
+
+</div>
+
+##### 操作步骤
+
+1. 实现`ThingsDataRepositoryStrategy`接口或者继承`AbstractThingDataRepositoryStrategy`类。重写接口或父类的方法
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+<p>推荐使用继承 <span class='explanation-title font-weight'>AbstractThingDataRepositoryStrategy</span>的方式。
+AbstractThingDataRepositoryStrategy继承CacheSaveOperationsStrategy类，CacheSaveOperationsStrategy类在执行存储操作时会将
+数据库操作对象存放至内存，在调用存储方法过程中减少上下文对象的创建。
+</p>
 
 </div>
 
 ```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+
+@AllArgsConstructor
+public class CustomRowModeStrategy extends AbstractThingDataRepositoryStrategy {
+
+    private final ThingsRegistry registry;
+    //自定义存储帮助类
+    private final CustomHelper helper;
+
+    @Override
+    public String getId() {
+        return "custom-row";
+    }
+
+    @Override
+    public String getName() {
+        return "自定义-行式存储";
+    }
+
+    @Override
+    public SaveOperations createOpsForSave(OperationsContext context) {
+        //创建自定义SaveOperations类，返回自定义SaveOperations对象
+        return new CustomColumnModeSaveOperations(
+                registry,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                helper);
+    }
+
+    @Override
+    protected QueryOperations createForQuery(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义QueryOperations类，返回自定义QueryOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    protected DDLOperations createForDDL(String thingType, String templateId, String thingId, OperationsContext context) {
+        //创建自定义DDLOperations类，返回自定义DDLOperations对象
+        return new CustomColumnModeQueryOperations(
+                thingType,
+                templateId,
+                thingId,
+                context.getMetricBuilder(),
+                context.getSettings(),
+                registry,
+                helper);
+    }
+
+    @Override
+    public int getOrder() {
+        return 10000;
+    }
+}
+
+
 ```
 
-#### 核心类说明
+2. 创建自定义存储策略的操作对象(上一步内相关注释)
+
+```java
+//创建自定义SaveOperations
+
+public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
+
+    private final CustomHelper helper;
+
+
+    public CustomRowModeSaveOperations(ThingsRegistry registry,
+                                       MetricBuilder metricBuilder,
+                                       DataSettings settings,
+                                       CustomHelper helper) {
+        super(registry, metricBuilder, settings);
+        this.helper = helper;
+    }
+
+
+    @Override
+    protected Map<String, Object> createRowPropertyData(String id, long timestamp, ThingMessage message, PropertyMetadata property, Object value) {
+        Map<String, Object> values = super.createRowPropertyData(id, timestamp, message, property, value);
+
+        //额外的数据类型处理
+        //时间统一转换为时间戳
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            return CastUtils.castDate(val).getTime();
+        });
+        //地理位置值存储为数组
+        values.compute(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, (key, val) -> {
+            if (val == null) {
+                return null;
+            }
+            GeoPoint point = GeoPoint.of(val);
+
+            return Arrays.asList((float) point.getLon(), (float) point.getLat());
+        });
+
+        //默认null
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_NUMBER_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, null);
+        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, null);
+
+        return values;
+    }
+
+    @Override
+    protected Map<String, Object> createEventData(ThingEventMessage message, ThingMetadata metadata) {
+        return super.createEventData(message, metadata);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, TimeSeriesData data) {
+        return helper.doSave(metric, data);
+    }
+
+    @Override
+    protected Mono<Void> doSave(String metric, Flux<TimeSeriesData> data) {
+        return helper.doSave(metric, data);
+    }
+}
+
+
+```
+
+```java
+//创建自定义QueryOperations
+public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomModeQueryOperations(String thingType,
+                                     String thingTemplateId,
+                                     String thingId,
+                                     MetricBuilder metricBuilder,
+                                     DataSettings settings,
+                                     ThingsRegistry registry,
+                                     CustomHelper helper) {
+        super(thingType, thingTemplateId, thingId, metricBuilder, settings, registry);
+        this.helper = helper;
+    }
+
+    @Override
+    protected Flux<TimeSeriesData> doQuery(String metric, Query<?, QueryParamEntity> query) {
+        return helper.doQuery(metric, query.getParam());
+    }
+
+    @Override
+    protected <T> Mono<PagerResult<T>> doQueryPage(String metric, Query<?, QueryParamEntity> query, Function<TimeSeriesData, T> mapper) {
+        return helper.doQueryPager(metric, query.getParam(), mapper);
+    }
+
+    @Override
+    protected Flux<AggregationData> doAggregation(String metric,
+                                                  AggregationRequest request,
+                                                  AggregationContext context) {
+        return doSomeThings();
+    }
+
+    @Override
+    protected Flux<ThingPropertyDetail> queryEachProperty(@Nonnull String metric,
+                                                          @Nonnull Query<?, QueryParamEntity> query,
+                                                          @Nonnull ThingMetadata metadata,
+                                                          @Nonnull Map<String, PropertyMetadata> properties) {
+        return doSomeThings();
+    }
+
+}
+
+```
+
+```java
+//创建自定义DDLOperations
+public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
+
+    private final CustomHelper helper;
+
+    public CustomRowModeDDLOperations(String thingType,
+                                      String templateId,
+                                      String thingId,
+                                      DataSettings settings,
+                                      MetricBuilder metricBuilder,
+                                      CustomHelper helper) {
+        super(thingType, templateId, thingId, settings, metricBuilder);
+        this.helper = helper;
+    }
+
+    static Set<String> notSaveColumns = new HashSet<>(Arrays.asList(
+            ThingsDataConstants.COLUMN_PROPERTY_OBJECT_VALUE,
+            ThingsDataConstants.COLUMN_PROPERTY_ARRAY_VALUE,
+            ThingsDataConstants.COLUMN_LOG_TYPE,
+            ThingsDataConstants.COLUMN_PROPERTY_TYPE
+    ));
+
+    @Override
+    protected Mono<Void> register(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        switch (metricType) {
+            case properties:
+                return helper
+                        .createTable(metric, properties
+                                        .stream()
+                                        .filter(prop -> !notSaveColumns.contains(prop.getId()))
+                                        .collect(Collectors.toList()),
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_PROPERTY_ID,
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+
+            case log:
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+            case event:
+                if (settings.getEvent().eventIsAllInOne()) {
+                    return helper
+                            .createTable(metric, properties,
+                                    metricBuilder.getThingIdProperty(),
+                                    ThingsDataConstants.COLUMN_EVENT_ID,
+                                    ThingsDataConstants.COLUMN_TIMESTAMP);
+
+                }
+                return helper
+                        .createTable(metric, properties,
+                                metricBuilder.getThingIdProperty(),
+                                ThingsDataConstants.COLUMN_TIMESTAMP);
+        }
+        return Mono.empty();
+    }
+
+    @Override
+    protected Mono<Void> reload(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        return helper.reload(metric);
+    }
+}
+
+```
+
+3. 自定义`CustomHelper`存储帮助类。该类主要是完成自定义存储的具体实现。
+
+#### AbstractThingDataRepositoryStrategy
 
 | 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
+|----------------| -------------------------- |--------|-------------------|
 | DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
@@ -2144,7 +2386,6 @@ Subscribe注解：
 ### 主动从第三方平台、设备获取数据
 
 #### 应用场景
-
 
 当平台需要主动去调用第三方平台接口，或者设备无法主动将数据推送到平台，就需要进行以下步骤进行数据的主动拉取。<br/>
 1、通过实现自定义协议的DeviceStateChecker来自定义处理设备状态获取逻辑,比如通过调用第三方平台获取设备信息。<br/>
@@ -2219,6 +2460,7 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
 	private DecodedClientMessageHandler handler;
     
     private static final WebClient webclient=WebClient.builder().build();
+
    /**
      * 在消息发送后触发.
      *
@@ -2455,7 +2697,7 @@ message.addHeader(Headers.keepOnlineTimeoutSeconds, 600);
 
   <li>短连接下发指令平台会抛出设备离线的异常信息。</li>
 
-[//]: # "  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>"
+[//]: # (  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>)
 
 </div>
 
@@ -2570,419 +2812,24 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
-  </p>设备相关数据需要对接到其他平台或者自己的业务系统，此时需要将数据推送到消息中间件，目前支持的方式有规则引擎推送以及编程式实现
-</div>
-
-
-
-
-
-<br>
-
-**推送方式**
-
-1.通过规则引擎推送
-
-![push-way](./images/push-way.png)
-
-
-
-配置实时订阅平台设备数据
-
-![实时订阅平台设备数据](./images/data-from.png)
-
-
-
-
-<br>
-
-
-
-下游节点接收参数
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
   </p>
-现规则引擎内未实现推送到rabbitmq的下游节点功能，此处只举例对MQTT与kafka进行举例<br>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
 </div>
-
-
-
-
-
-
-<br>
-
-
-
-**MQTT**
-
-选择服务端，服务端需要在网络组件内配置<code>MQTT客户端</code>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-配置客户端的原因是：此处平台创建一个MQTT客户端将上游reactorQL订阅到平台消息总线内的实时数据通过客户端推送给EMQ服务，由EMQ来做数据分发，达到数据转发的目的。此时其他MQTT客户端订阅平台推送时填写的<code>{topic}</code>即可收到消息<br>
-</div>
-
-
-![mqtt节点配置](./images/mqtt-config.png)
-
-可接收的参数为上图红框圈出内容，`topic`,`qos`,`retain`参数可以在mqtt推送配置页面进行配置，而`payload`则必须由`函数(function)`节点配置。
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-函数的配置需要取决于下游节点接收参数是什么？ 下游节点即与函数连接的下一个node节点。 举例：在转发方式内，函数的下游节点是订阅MQTT和写入Kafka。中间连接函数节点配置下游节点接受的参数信息来完成数据的转发。<br>
-</div>
-
-![函数配置](./images/function-config.png)
-
-
-
-<br><br>
-
-
-
-**写入Kafka**
-
-订阅实时数据同上，函数配置同MQTT订阅一致
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-Kafka存在集群配置，只需要在broker地址填入多个服务器地址并用逗号分隔<br>
-</div>
-
-![Kafka配置详细](./images/kafka-config.png)
-
-
-
-<br>
-
-
-
-2.通过开启配置文件的kafka和rabbitmq推送
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-    producer和consumer的配置不能同时开启，否则会出现重复写入时序库内
-</div>
-
-
-
-<br>
-
-
-
-kafka的使用
-
-```yaml
-device:
-  message:
-    writer:
-      time-series:
-        enabled: true #直接写出设备消息数据到elasticsearch        
-      kafka:
-        enabled: true # 推送设备消息到kafka
-        consumer: true # 设置为true会从kafka订阅消息并写入到时序数据库
-        topic-name: device.message
-        
-spring:
-  kafka: # 开启了device.message.writer.kafka.enabled=true时生效
-    consumer: #消費者相关配置
-      client-id: ${spring.application.name}-consumer:${server.port}
-      group-id: ${spring.application.name}
-      max-poll-records: 1000
-    producer: #生产者相关配置
-      client-id: ${spring.application.name}-producer:${server.port}
-      acks: 1
-      retries: 3 #重试次数
-    bootstrap-servers: [ "127.0.0.1:9092" ] #如果配置多个ip则为Kafka集群
-```
 
 ```java
-//Kafka生产者使用
-@Data
-public class UseProducer(){
-	//此处演示为 使用注入的方式取得在application.yml中配置的kafka相关配置信息
-    @Autowired
-    private KafkaProperties kafkaProperties ;
-    
-    //创建并初始化生产者
-    private KafkaProducer producer = new ReactorKafkaProducer(properties);
-    
-    /**
-    * 此处从事件总线org.jetlinks.core.event.EventBus中订阅消息并执行注解的方法,
-	* 事件总线的输出数据可以作为方法参数,如果类型不一致会自动转换。
-	* 也可以通过方法参数直接获取事件总线的原始数据:org.jetlinks.core.event.TopicPayload
-	* 也可以自定义消息来源之后推送到kafka
-    **/
-    @Subscribe(topics = "/device/**", id = "device-message-kafka-writer")
-    public Mono<Void> writeDeviceMessageToTs(TopicPayload payload) {
-		
-        ByteBuf topic = Unpooled.wrappedBuffer(payload.getTopic().getBytes());
-        DeviceMessage message = payload.decode(DeviceMessage.class);
-        ByteBuf messageBuf = Unpooled.wrappedBuffer(JSON.toJSONBytes(message.toJson()));
-        if (!type.match(message.getMessageType())) {
-            return Mono.empty();
-        }
-        producer.sendAsync(SimpleMessage.of(topicName, topic, messageBuf));
-        return Mono.empty();
-    }
-}
+//此处将具体代码实现放入
+//1.对关键部分代码进行步骤梳理及注释说明
+//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
 ```
 
+#### 核心类说明
 
-
-<br>
-
-
-
-**ReactorKafkaProducer**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    kafka生产者，该类实现了KafkaProducer接口，重写了send和sendAsync方法
-</div>
-
-| 方法                                 | 参数                     | 返回值       | 说明     |
-| ------------------------------------ | ------------------------ | ------------ | -------- |
-| `send(Publisher<Message> publisher)` | publisher - 消息流       | `Mono<Void>` | 推送消息 |
-| `sendAsync(Message message)`         | message - 需要推送的消息 | 无           | 推送消息 |
-
-
-
-<br>
-
-
-
-```java
-//Kafka消费者使用
-@Data
-public class UseConsumer(){
-    //此处演示为 使用注入的方式取得在application.yml中配置的kafka相关配置信息
-    @Autowired
-    private KafkaProperties kafkaProperties ;
-    
-    //创建并初始化消费者,topicName为配置中的topic-name
-    private KafkaConsumer consumer = new ReactorKafkaConsumer(Collections.singleton(topicName), properties);
-    
-    public void use(){
-        //开始订阅
-    	consumer.subscribe()
-           //定义消息如何处理
-          .flatMap(msg->doSomething(msg))
-          .subscribe();
-    }
-}
-```
-
-
-
-<br>
-
-
-
-**ReactorKafkaConsumer**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    kafka消费者，该类实现了KafkaConsumer接口，定义其中的subscribe方法去如何订阅消息
-</div>
-
-| 方法        | 参数 | 返回值 | 说明                                                         |
-| ----------- | ---- | ------ | ------------------------------------------------------------ |
-| `doStart()` | 无   | 无     | 实现自KafkaConsumer接口，内部调用doStart方法进行处理，返回订阅的消息 |
-
-
-
-<br>
-
-
-
-rabbitmq的使用
-
-```yaml
-device:
-  message:
-    writer:
-      time-series:
-        enabled: true #直接写出设备消息数据到elasticsearch
-      rabbitmq:
-        enabled: true # 推送设备消息到rabbitMq
-        consumer: true # 设置为true则从rabbitMQ订阅消息并写入到时序数据库
-        thread-size: 4 # 消费线程数
-        auto-ack: true # 自动应答,为true可能导致数据丢失，但性能最高
-        topic-name: device.message # exchange名称
-      
-spring:
-  rabbitmq: # 开启了device.message.writer.rabbitmq.enabled=true时生效
-    host: localhost
-    port: 5672
-    username: admin
-    password: jetlinks
-```
-
-```java
-//rabbitMQ生产者的使用示例
-@Data
-public class UseProducer{
-    
-    //此处演示为 使用注入的方式取得在application.yml中配置的rabbitmq相关配置信息
-    @Autowired
-    private RabbitProperties rabbitProperties ;
-    
-    //生产者
-    private RabbitMQProducer producer ;
-    
-    @PostConstruct
-    public void init(){
-        //根据配置创建连接工厂
-        ConnectionFactory connectionFactory = RabbitUtils.createConnectionFactory(rabbitProperties);
-        //指定使用异步方式
-        connectionFactory.useNio();
-        
-        //初始化生产者
-        producer = new ReactorRabbitMQProducer(connectionFactory).init();
-    }
-    
-    /**
-    * 此处从事件总线org.jetlinks.core.event.EventBus中订阅消息并执行注解的方法,
-	* 事件总线的输出数据可以作为方法参数,如果类型不一致会自动转换。
-	* 也可以通过方法参数直接获取事件总线的原始数据:org.jetlinks.core.event.TopicPayload
-	* 也可以自定义消息来源之后推送到rabbitmq
-    **/
-    @Subscribe(topics = "/device/**", id = "device-message-rabbitmq-writer")
-    public Mono<Void> writeDeviceMessageToTs(TopicPayload payload) {
-		
-        //获取设备消息
-        DeviceMessage message = payload.decode(DeviceMessage.class);
-
-        if (!type.match(message.getMessageType())) {
-            return Mono.empty();
-        }
-        ByteBuf messageBuf = Unpooled.wrappedBuffer(JSON.toJSONBytes(message.toJson()));
-        return producer
-            //推送消息
-            .publish(SimpleAmqpMessage.of(topicName, producerRouteKey, null, messageBuf))
-            .subscribeOn(Schedulers.boundedElastic());
-    }
-}
-```
-
-
-
-<br>
-
-
-
-**ReactorRabbitMQProducer**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-   实现了RabbitMQProducer接口，定义其中的publish方法如何去推送消息
-</div>
-
-| 方法                                                | 参数                               | 返回值       | 说明     |
-| --------------------------------------------------- | ---------------------------------- | ------------ | -------- |
-| `publish(Publisher<AmqpMessage> amqpMessageStream)` | amqpMessageStream - rabbitMQ消息流 | `Mono<Void>` | 推送消息 |
-| `publish(AmqpMessage message)`                      | message - rabbitMQ消息             | `Mono<Void>` | 推送消息 |
-
-
-
-<br>
-
-
-
-```java
-//rabbitMQ消费者的使用示例
-@Data
-public class UseConsumer{
-    
-    //此处演示为 使用注入的方式取得在application.yml中配置的rabbitmq相关配置信息
-    @Autowired
-    private RabbitProperties rabbitProperties ;
-    
-    //生产者
-    private RabbitMQConsumer consumer;
-    
-    @PostConstruct
-    public void init(){
-        //根据配置创建连接工厂
-        ConnectionFactory connectionFactory = RabbitUtils.createConnectionFactory(rabbitProperties);
-        //指定使用异步方式
-        connectionFactory.useNio();
-        
-        //初始化消费者
-        this.consumer = new ReactorRabbitMQConsumer(topicName, true, connectionFactory)
-             .consumerGroup(group)
-             .consumerRouteKey(consumerRouteKey)
-             .consumerThread(threadSize)
-             .autoAck(autoAck)
-             .init();
-    }
-    
-    public void use(){
-        if(this.consumer == null){
-            return ;
-        }
-        //开始订阅
-        this.consumer.subscribe()
-            //将订阅到的消息进行自定义处理
-            .flatMap(msg->doSomething(msg))
-            .subscribe();
-    }
-}
-```
-
-
-
-<br>
-
-
-
-核心类说明
-
-**ReactorRabbitMQConsumer**
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-   实现了RabbitMQConsumer接口，定义其中的subscribe方法去如何订阅消息
-</div>
-
-| 方法          | 参数 | 返回值          | 说明                                                         |
-| ------------- | ---- | --------------- | ------------------------------------------------------------ |
-| `subscribe()` | 无   | `Flux<Message>` | 实现自RabbitMQConsumer接口，内部调用doStart方法进行处理，之后会返回订阅到的消息 |
-
-
-
-<br>
-
-
+| 类名 | 方法名 | 返回值 | 说明 |
+|----------------| -------------------------- |--------|---------------------------|-------------------|
+| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
 
@@ -2994,6 +2841,7 @@ public class UseConsumer{
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
+
   <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
@@ -3016,6 +2864,7 @@ public class UseConsumer{
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
+
 若设备限制数量不能满足您的业务需求，请
 <a>提交工单</a>
 说明您的需求。
@@ -3031,49 +2880,6 @@ public class UseConsumer{
 <a>提交工单</a>
 说明您的需求。
 </div>
-
-
-<br>
-
-
-
-### 使用MQTT订阅平台相关消息
-
-#### 应用场景
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-     可以使用MQTT来订阅设备,规则引擎,设备告警等相关消息
-    </div>
-
-配置文件新增：
-
-```yaml
-messaging:
-  mqtt:
-    enabled: true #开启mqtt支持
-    port: 11883 # 端口
-    host: 0.0.0.0 #绑定网卡
-```
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-1.6版本后支持分组订阅：同一个用户订阅相同的topic，只有其中一个订阅者收到消息，在topic前增加<code>$shared</code>即可，如： <code>$shared/device/+/+/#</code><br>
-</div>
-
-订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](http://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
-
-
-
-<br>
-
-
 
 ### 第三方平台请求JetLinks服务接口
 
@@ -3084,11 +2890,11 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-     <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
-
 
 ```java
 //此处将具体代码实现放入
