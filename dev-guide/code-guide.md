@@ -4,6 +4,8 @@
 
 - <a target='_self' href='/dev-guide/code-guide.html#%E6%BA%90%E7%A0%81%E6%8B%89%E5%8F%96%E5%8F%8A%E5%AD%90%E6%A8%A1%E5%9D%97%E6%9B%B4%E6%96%B0%E6%8C%87%E5%8D%97'>
    如何拉取源码及更新子模块？</a>
+  - <a target='_self' href=''>
+  中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
@@ -26,8 +28,7 @@
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
-- <a target='_self' href=''>
-  中间件部署及常见问题</a>
+
 
 ### 源码拉取及子模块更新指南
 
@@ -3233,13 +3234,13 @@ messaging:
 本文档安装环境为Centos7。
 #### 离线包部署
 #### 版本说明
-| 中间件 | 是否必装 | 下载地址 | 
-|----------------| -------------------------- |--------|---------------------------|
-| redis 5.0.4  | 是 |<a href='http://www.redis.cn/download.html'>点击下载</a>  | 
-| jdk 1.8.0_341 | 是 |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> | 
-| elasticsearch 6.8.11  | 是 |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> | 
-| kibana 6.8.11  | 否 |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> | 
-| postgresql 11.12  | 是 |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
+| 中间件 | 版本号 |  是否必装 | 下载地址 |
+|----------------|-----|-----|--------|---------------------------|
+| redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
+| jdk |1.8.0_341 | 是   |<a href='https://www.oracle.com/java/technologies/downloads/#java8'>点击下载</a> |
+| elasticsearch |6.8.11  | 是   |<a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.11.tar.gz'>点击下载</a> |
+| kibana |6.8.11  | 否   |<a href='https://artifacts.elastic.co/downloads/kibana/kibana-6.8.11-linux-x86_64.tar.gz'>点击下载</a> |
+| postgresql |11.12  | 是   |<a href='https://www.postgresql.org/ftp/source'>点击下载</a> |
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -3306,7 +3307,11 @@ protected-mode yes // 打开保护模式
 
 8. 查看Redis是否启动`ps -ef|grep redis`
 
-![img_1.png](./images/redis-run.png)
+```shell
+root@localhost bin]#  ps -ef|grep redis  
+root      34853  0.1  0.0 153984  7628 ?        Ssl  18:19   0:00 /usr/local/bin/redis-server 127.0.0.1:6379
+root      35139  0.0  0.0 112824   976 pts/2    S+   18:24   0:00 grep --color=auto redis
+```
 
 10. 防火墙开放端口<br/>
 ```shell
@@ -3526,7 +3531,30 @@ vm.max_map_count=262144
 新增完成之后使用`sysctl -p`命令使配置生效
 
 
-
+#### 部署Kibana
+1. 上传离线包至服务器/usr/local目录下
+2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf kibana-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`kibana-6.8.11-linux-x86_64`文件夹
+3. 给es用户授权
+```shell
+chown -R es:es /usr/local/kibana-6.8.11-linux-x86_64
+```
+4. 修改配置文件`vi /usr/local/kibana-6.8.11-linux-x86_64/config/kibana.yml`,修改内容如下
+```shell
+server.port: 5601
+server.host: "0.0.0.0"
+#修改为自己es的端口
+elasticsearch.url: "http://localhost:9200"
+```
+5. 启动kibana
+```shell
+#切换到es用户
+su es
+#进入bin目录
+cd /usr/local/kibana-6.8.11-linux-x86_64/bin
+#启动kibana
+./kibana
+```
+6. 验证是否配置成功，在浏览器输入`部署服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
 
 
 #### 部署PostgreSQL
@@ -3577,8 +3605,13 @@ su postgres
 listen_addresses = '*'
 port = 5432
 ```
+
 `vi /usr/local/postgresql/data/pg_hba.conf`,在文件末尾添加如下参数：<br/>
-![img_2.png](./images/pg-config.png)
+
+```shell
+  # 在 IPv4 local connections 区域中添加如下一行 ：
+  host    all             all             0.0.0.0/0            trust
+```
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -3597,9 +3630,9 @@ waiting for server to start.... done
 server started
 
 ```
-10. 验证部署是否成功</br>
-    使用第三方工具测试连接
-![img_3.png](./images/pg-sucess.png)
+10. 验证部署是否成功,使用第三方工具测试连接
+
+
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
