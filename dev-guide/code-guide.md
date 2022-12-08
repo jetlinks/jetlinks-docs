@@ -29,7 +29,10 @@
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 0fb2e09 (中间件)
 =======
 >>>>>>> parent of 0fb2e09 (中间件)
 
@@ -2439,7 +2442,11 @@ public class JetLinksMqttDeviceMessageCodec implements DeviceMessageCodec {
 <a>提交工单</a>
 说明您的需求。
 <<<<<<< HEAD
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> parent of 0fb2e09 (中间件)
 =======
 </div>
 >>>>>>> parent of 0fb2e09 (中间件)
