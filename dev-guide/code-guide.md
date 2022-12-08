@@ -4,10 +4,12 @@
 
 - <a target='_self' href='/dev-guide/code-guide.html#%E6%BA%90%E7%A0%81%E6%8B%89%E5%8F%96%E5%8F%8A%E5%AD%90%E6%A8%A1%E5%9D%97%E6%9B%B4%E6%96%B0%E6%8C%87%E5%8D%97'>
    如何拉取源码及更新子模块？</a>
-  - <a target='_self' href=''>
+- <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%AD%E9%97%B4%E4%BB%B6%E9%83%A8%E7%BD%B2%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98'>
   中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8'>
+   关于平台存储的说明</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
    实体变更后如何触发自己的业务流程？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
@@ -17,7 +19,7 @@
 - <a target='_self' href='/dev-guide/code-guide.html#%E4%B8%BB%E5%8A%A8%E4%BB%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0%E3%80%81%E8%AE%BE%E5%A4%87%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE'>
    主动从设备获取属性、事件如何操作？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9F%AD%E8%BF%9E%E6%8E%A5%E3%80%81%E4%BD%8E%E5%8A%9F%E8%80%97%E7%B1%BB%E8%AE%BE%E5%A4%87%E6%8E%A5%E5%85%A5%E5%B9%B3%E5%8F%B0'>
-   短连接接入平台 </a>
+   短连接、低功耗类设备接入平台 </a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E8%AE%BE%E5%A4%87%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E6%8E%A8%E9%80%81%E5%88%B0%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6'>
    设备数据推送到消息中间件 </a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%B9%B3%E5%8F%B0%E8%AF%B7%E6%B1%82jetlinks%E6%9C%8D%E5%8A%A1%E6%8E%A5%E5%8F%A3'>
@@ -873,6 +875,83 @@ springdoc:
 
 </div>
 
+### 关于平台存储
+
+#### 使用场景
+
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+```java
+//此处将具体代码实现放入
+//1.对关键部分代码进行步骤梳理及注释说明
+//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+```
+
+#### 核心类说明
+
+| 类名 | 方法名 | 返回值 | 说明 |
+|----------------| -------------------------- |--------|---------------------------|-------------------|
+| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+
+#### 常见问题
+
+*对开发过程中出现的问题进行总结*
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
+  </p>
+
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+
+</div>
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+</div>
 
 ### 监听实体变化做业务
 
@@ -1819,10 +1898,6 @@ public class Configurations implements CommandLineRunner {
 #### 扩展点：
 ##### 比如我要在自己的项目内使用es查询设备历史数据，在自己的项目内使用es聚合查询给出示例代码
 
-
-
-
-
 ### 使用消息总线
 
 #### 应用场景
@@ -2154,7 +2229,7 @@ public class CustomRowModeStrategy extends AbstractThingDataRepositoryStrategy {
 
 ```java
 //创建自定义SaveOperations
-
+//伪代码，根据自己的需求在此处实现save操作实现
 public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
 
     private final CustomHelper helper;
@@ -2172,36 +2247,16 @@ public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
     @Override
     protected Map<String, Object> createRowPropertyData(String id, long timestamp, ThingMessage message, PropertyMetadata property, Object value) {
         Map<String, Object> values = super.createRowPropertyData(id, timestamp, message, property, value);
-
-        //额外的数据类型处理
-        //时间统一转换为时间戳
-        values.compute(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, (key, val) -> {
-            if (val == null) {
-                return null;
-            }
-            return CastUtils.castDate(val).getTime();
-        });
-        //地理位置值存储为数组
-        values.compute(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, (key, val) -> {
-            if (val == null) {
-                return null;
-            }
-            GeoPoint point = GeoPoint.of(val);
-
-            return Arrays.asList((float) point.getLon(), (float) point.getLat());
-        });
-
-        //默认null
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_NUMBER_VALUE, null);
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_TIME_VALUE, null);
-        values.putIfAbsent(ThingsDataConstants.COLUMN_PROPERTY_GEO_VALUE, null);
-
+        //可能存在不同的数据库对于数据类型的处理差异，values为物模型相关信息如属性id、设备id、时间戳、数据id等。
+        //此处可以做一些针对不同存储时数据类型兼容或转换的处理
+        
         return values;
     }
 
     @Override
     protected Map<String, Object> createEventData(ThingEventMessage message, ThingMetadata metadata) {
-        return super.createEventData(message, metadata);
+        //伪代码，不同的数据库对于数据类型的处理存在差异，可以自行在此处处理事件内的数据类型
+        return doSomeThing(message, metadata);
     }
 
     @Override
@@ -2220,6 +2275,7 @@ public class CustomRowModeSaveOperations extends RowModeSaveOperationsBase {
 
 ```java
 //创建自定义QueryOperations
+//伪代码，根据自己的需求在此处实现query操作实现
 public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
 
     private final CustomHelper helper;
@@ -2268,6 +2324,7 @@ public class CustomModeQueryOperations extends RowModeQueryOperationsBase {
 
 ```java
 //创建自定义DDLOperations
+//伪代码，根据自己的需求在此处实现ddl操作实现
 public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
     private final CustomHelper helper;
@@ -2282,6 +2339,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
         this.helper = helper;
     }
 
+    //不存储的数据类型
     static Set<String> notSaveColumns = new HashSet<>(Arrays.asList(
             ThingsDataConstants.COLUMN_PROPERTY_OBJECT_VALUE,
             ThingsDataConstants.COLUMN_PROPERTY_ARRAY_VALUE,
@@ -2291,11 +2349,13 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
     @Override
     protected Mono<Void> register(MetricType metricType, String metric, List<PropertyMetadata> properties) {
+        //根据物模型在时序库内创建表结构或映射
         switch (metricType) {
             case properties:
                 return helper
                         .createTable(metric, properties
                                         .stream()
+                                        //过滤不存储的数据类型
                                         .filter(prop -> !notSaveColumns.contains(prop.getId()))
                                         .collect(Collectors.toList()),
                                 metricBuilder.getThingIdProperty(),
@@ -2332,19 +2392,26 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 ```
 
-3. 自定义`CustomHelper`存储帮助类。该类主要是完成自定义存储的具体实现。
+3. 自定义`CustomHelper`存储帮助类。该类需要自行根据自定义存储的类型进行对接。
 
 #### 核心类及接口
 
 ##### `AbstractThingDataRepositoryStrategy`
 
-| 方法名                                                                                          | 参数                          | 返回值 | 说明 |
-|----------------------------------------------------------------------------------------------|-----------------------------|--------|-------------------|
-| `createOpsForSave(OperationsContext context)`                                                  | `OperationsContext`:操作对象上下文 |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-| `createForQuery(String thingType,String templateId,String thingId, OperationsContext context)` | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-| `createForDDL(String thingType,String templateId,String thingId, OperationsContext context)`                                                                               | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-| `opsForThing(String thingType,String templateId,String thingId, OperationsContext context)`                                                                               | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-| `DeviceOperator `                                                                              | getSelfConfig()             |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+| 方法名                                                                                             | 参数  | 返回值 | 说明                   |
+|-------------------------------------------------------------------------------------------------|-----|--------|----------------------|
+| `createOpsForSave(OperationsContext context)`                                                   | 见下表 |`SaveOperations` | 创建save操作类型的操作对象      |
+| `createForQuery(String thingType,String templateId,String thingId, OperationsContext context)`  | -   |`QueryOperations` | 创建query操作类型的操作对象     |
+| `createForDDL(String thingType,String templateId,String thingId, OperationsContext context)`    | -   |`DDLOperations` | 创建数据库ddl操作类型的操作对象    |
+| `opsForThing(String thingType,String templateId,String thingId, OperationsContext context)`     | -   |`ThingOperations` | 创建物（设备）相关操作类型的操作对象   |
+| `opsForTemplate(String thingType,String templateId,String thingId, OperationsContext context)`  | -   |`TemplateOperations` | 创建物模版（产品）数据操作类型的操作对象 |
+
+| 参数  | 参数含义                                                                  |
+|-----|-----------------------------------------------------------------------|
+|OperationsContext| ------                                                                |
+|thingType| 物类型：通常情况下是`device`,详见`ThingsBridgingDeviceDataService`类约定查询时序库给定的默认值。 |
+|templateId| 物模板id:通常情况下是产品id                                                      |
+|thingId| 物id：通常情况下是设备id                                                        |
 
 #### 常见问题
 
@@ -2410,7 +2477,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 ##### 第一步 定义消息编码解码器
 
-~~~java
+```java
 public class HttpMessageCodec implements DeviceMessageCodec {
 
     // 定义一个通用的响应，用于收到请求后响应
@@ -2459,11 +2526,11 @@ public class HttpMessageCodec implements DeviceMessageCodec {
     }
 
 }
-~~~
+```
 
 ##### 第二步 定义一个消息拦截器
 
-~~~java
+```java
 
 @Slf4j
 @AllArgsConstructor
@@ -2524,11 +2591,11 @@ public class HttpMessageSenderInterceptor implements DeviceMessageSenderIntercep
                 );
     }
 }
-~~~
+```
 
 ##### 第三步 定义一个设备状态检测器
 
-~~~java
+```java
 /**
 * 这个接口会在进入设备详情页面和刷新设备状态时调用
 */
@@ -2540,11 +2607,11 @@ public class HttpDeviceStateChecker implements DeviceStateChecker {
         return Mono.just(DeviceState.online);
     }
 }
-~~~
+```
 
 ##### 第四步 定义协议处理器
 
-~~~java
+```java
 public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
     
         private static final DefaultConfigMetadata httpRequest = new DefaultConfigMetadata(
@@ -2573,7 +2640,7 @@ public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
         return Mono.just(support);
     }
 }
-~~~
+```
 
 #### 例子二,通过tcp主动从设备拉取数据
 
@@ -2635,18 +2702,15 @@ public class HttpProtocolSupportProvider implements ProtocolSupportProvider{
 
 #### 应用场景
 
-默认情况下,使用tcp和mqtt方式接入时,当连接断开时,则认为设备已离线。
-但是在某些场景(如:低功率设备)下,无法使用长连接进行通信,可以通过指定特定配置使平台保持设备在线状态。</br>
-短连接接入场景：HTTP，MQTT/TCP发完即断开连接，CoAP协议。
-
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-以下功能及API在`jetlinks 1.4.0` 后提供。
-
+  <p>该功能及API在  <span class='explanation-title font-weight'>jetlinks 1.4.0</span> 后提供。</p>
+  <p>默认情况下,使用tcp和mqtt方式接入时,当连接断开时,则认为设备已离线。</p>
+  <p>但是在某些场景(如:低功率设备)下,无法使用长连接进行通信,可以通过指定特定配置使平台保持设备在线状态。</p>
+  <p>短连接接入场景：HTTP，MQTT/TCP发完即断开连接，CoAP协议。</p>
 </div>
 
 #### 保持在线
@@ -3280,8 +3344,6 @@ public class UseConsumer{
 
 <br>
 
-
-
 ### 使用MQTT订阅平台相关消息
 
 #### 应用场景
@@ -3317,8 +3379,6 @@ messaging:
 
 
 <br>
-
-
 
 ### 第三方平台请求JetLinks服务接口
 
@@ -3896,7 +3956,7 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 </div>
 
 #### docker部署
-#### 
+
 | 中间件 | 是否必须部署 | 文件位置 | 
 |----------------| -------------------------- |--------|---------------------------|
 | Redis | 是 |jetlinks-pro/docker-compose.yml|
@@ -3990,10 +4050,10 @@ services:
 
 [root@localhost docker-compose]# docker-compose up -d
 [+] Running 6/6
-⠿ Container jetlinks-postgres       Started                                       1.0s
-⠿ Container jetlinks-redis          Started                                       1.0s
-⠿ Container jetlinks-elasticsearch  Started                                       0.9s                                                                
-⠿ Container jetlinks-kibana         Started                                       6.4s       
+Container jetlinks-postgres       Started                                       1.0s
+Container jetlinks-redis          Started                                       1.0s
+Container jetlinks-elasticsearch  Started                                       0.9s                                                                
+Container jetlinks-kibana         Started                                       6.4s       
          
 ```
 
