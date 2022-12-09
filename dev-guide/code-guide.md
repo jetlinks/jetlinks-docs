@@ -1231,7 +1231,7 @@ DataSettings.Event.usingJsonString和DataSettings.Event.allInOne为true</span>�
     <span class='explanation-title font-weight'>问题4</span>
   </p>
 
-  <p>Q：td表后无法创建？</p>
+  <p>Q：td表删除后无法创建？</p>
   <p>A：解决方案如下:
       <p>1. 可通过org.jetlinks.core.message.Message.addHeader(String, Object)设置Headers.ignoreStorage来标识不存储此条数据。</p>
       <p>2. 定义产品属性物模型时设置存储策略：不存储。</p>
