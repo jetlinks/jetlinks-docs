@@ -8,10 +8,13 @@
   中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
+   自定义模块如何使用es？</a>  
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8'>
    关于平台存储的说明</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
    实体变更后如何触发自己的业务流程？</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'> 自定义模块如何引入es？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
    如何获取消息总线内的数据？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5'>
@@ -63,7 +66,6 @@
   </p>
   <p>目录名称应以英文命名，不要使用中文进行命名！</p>
   <p>使用中文命名可能会导致文件上传时，查找中文目录名称转义失败，抛出无法加载协议的异常。</p>
-
 </div>
 
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
@@ -206,7 +208,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
+[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
 
 8. 代码拉取完毕后`reimport`
 
@@ -666,12 +668,12 @@ springdoc:
 
 
 
-2.controller层：`org.example.mydemo.web.CustomController`
+2.web层：`org.example.mydemo.web.CustomController`
 
   ```java
   package com.example.mydemo.web;
-  import com.example.mydemo.entity.TestEntity;
-  import com.example.mydemo.service.TestService;
+  import com.example.mydemo.entity.CustomEntity;
+  import com.example.mydemo.service.CustomService;
   import io.swagger.v3.oas.annotations.Operation;
   import io.swagger.v3.oas.annotations.tags.Tag;
   import lombok.AllArgsConstructor;
@@ -739,7 +741,7 @@ import javax.persistence.*;
 import java.util.Map;
 
 
-@Table(name = "dev_my_demo_CustomEntity", indexes = {
+@Table(name = "dev_my_demo_customentity", indexes = {
         @Index(name = "idx_device_id_type", columnList = "device_id,type")
 })
 @Comment("自定义表")
@@ -851,7 +853,7 @@ public class JetLinksApplication {
 |-------------------------------|-------------------------------------------------|
 | `ReactiveServiceCrudController<E, K>` | 实体CRUD操作的抽象接口，该接口继承了CRUD相关操作的接口，这些接口内封装了默认的实现方法,`<E> `实体类类型 ` <K> `主键类型 |
 | `GenericEntity<PK>`             | 实体类需要继承该类，需要声明实体id数据类型                          |
-| `GenericReactiveCrudService<TestEntity, String>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
+| `GenericReactiveCrudService<E, K>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
 
 核心接口说明
 
@@ -1675,7 +1677,7 @@ org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(D
 
 
 
-##### ### 如何自定义的项目内引入es模块
+### 自定义模块如何使用es
 1、在自定义的项目中引入平台es的模块
 
 依赖：`<jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>`
@@ -1734,7 +1736,7 @@ public class Configurations implements CommandLineRunner {
                 new DefaultElasticSearchIndexMetadata(CustomIndexEnum.custom.getIndex())
                         //添加自定义模板属性
                         .addProperty("device_id", new StringType())
-                        .addProperty("type", new IntType())
+                        .addProperty("type",  new StringType())
                         .addProperty("timestamp", new DateTimeType())
         ).subscribe();
     }
@@ -1768,7 +1770,7 @@ public class Configurations implements CommandLineRunner {
 
 6、es相关简单代码示例
 
-```
+```java
 package org.example.mydemo.web;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -1797,7 +1799,7 @@ import reactor.core.publisher.Mono;
 
 public class CustomController implements ReactiveServiceCrudController<CustomEntity, String> {
 
-    private final CustomService testService;
+    private final CustomService customService;
     //引入es
     private final ElasticSearchService elasticSearchService;
 
@@ -1810,7 +1812,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     @QueryAction
     public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
         //保存到数据库
-        return testService.insert(entity)
+        return customService.insert(entity)
                 .filter(number -> number > 0)
                 //将成功保存到数据库的数据存储到自定义的es索引中
                 .flatMap(number -> elasticSearchService
@@ -1847,7 +1849,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
     @Override
     public ReactiveCrudService<CustomEntity, String> getService() {
-        return testService;
+        return customService;
     }
 }
 
@@ -1855,7 +1857,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
 `CustomEntity`的`of`方法
 
-```
+```java
     /**
      * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
      * @param map  传入参数
@@ -1866,9 +1868,71 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     }
 ```
 
+### 自定义模块如何引入消息总线
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+   EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
+</div>
 
-##### 如何引入消息总线、
+1.在`web`的`org.example.mydemo.web.CustomController`新建方法
+
+```java
+     /**
+     * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
+     * @param customEntity
+     * @return
+     */
+    @PostMapping("/eventBus/publish")
+    public Mono<Integer> eventBuspublish(@RequestBody CustomEntity customEntity) {
+        return customService.insert(customEntity)
+                .filter(num->num>0)
+                .flatMap(num->{
+                   return eventBus
+                            .publish("/demo/eventBus/insert", customEntity)
+                            .thenReturn(num);
+                });
+    }
+
+```
+
+2.在自定义的`mydemo`下，新建包`org.example.mydemo.event.customEventHandler`，新建`CustomEventHandler`类
+
+```java
+package org.example.mydemo.event.customEventHandler;
+
+import org.example.mydemo.enums.CustomIndexEnum;
+import org.example.mydemo.service.CustomService;
+import org.jetlinks.community.elastic.search.service.ElasticSearchService;
+import org.jetlinks.core.event.EventBus;
+import org.jetlinks.core.event.Subscription;
+import org.springframework.context.event.EventListener;
+
+@AllArgsConstructor
+@Getter
+public class CustomEventHandler {
+    //引入消息总线
+    private EventBus eventBus;
+    //引入es
+    private ElasticSearchService elasticSearchService;
+
+    public void doSubscribe() {
+        eventBus.subscribe(Subscription.builder()
+                //订阅者标识
+                .subscriberId("custom-device-query-event")
+                .topics("/demo/eventBus/insert")
+                //订阅者有三大特性
+                .local().build()).flatMap(payload -> {
+            //业务操作  往es里面存入数据
+            return elasticSearchService
+                    .save(CustomIndexEnum.custom.getIndex(), payload.getPayload());
+        }).subscribe();
+    }
+```
+
 ##### 如何引入设备操作
 ##### 如何使用redis缓存
 #### 在使用过程中写响应式应注意什么
@@ -3606,11 +3670,11 @@ if(sign.equalsIgnoreCase(signHeader)){
    make
    #PREFIX参数表示指定安装路径
    make install PREFIX=/usr/local/redis 
-   ```
+```
 5. 将原有的配置文件复制一份到新目录
  ```shell
 cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
-```
+ ```
 6. 修改`redis.config`文件
 修改以下参数：
 ```shell
@@ -3923,7 +3987,7 @@ cd ./postgresql-11.12
 ./configure --prefix=/usr/local/postgresql
 make && make install
 ```
-   
+
 4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
