@@ -206,7 +206,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </div>
 
 
-[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
+[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
 
 8. 代码拉取完毕后`reimport`
 
@@ -3298,8 +3298,6 @@ messaging:
 
 订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](http://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
 
-
-
 <br>
 
 ### 第三方平台请求JetLinks服务接口
@@ -3311,17 +3309,14 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
+    第三方平台通过api请求JetLinks服务接口获取相关数据
 </div>
 
 <br>
 
 #### 创建第三方平台
 
-首先进入平台：选择平台上方的[系统管理]---左侧的[应用管理]---点击新增按钮
+首先进入平台：选择平台上方的[系统管理]---选择左侧[应用管理]---点击新增按钮
 
 ![创建第三方平台](./images/add-third-api-0.png)
 
@@ -3332,8 +3327,9 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip访问本平台
+  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
 </div>
+
 
 ![创建第三方平台1](./images/add-third-api-1.png)
 
@@ -3341,7 +3337,17 @@ messaging:
 
 #### 赋权
 
-//TODO
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  大部分情况下只需要勾选设备相关权限即可
+</div>
+
+赋权操作在[系统管理]---[角色管理]---选择对应的角色后在页面内进行权限分配
+
+![选择权限](./images/select-auth.png)
 
 <br>
 
@@ -3356,12 +3362,12 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-    <ul>
-        <li style='list-style-type: none;'>1、图中Signature函数为客户端设置的签名方式，支持MD5和Sha256</li>
-        <li style='list-style-type: none;'>2、发起请求的签名信息都需要放到请求头中，而不是请求体</li>
-        <li style='list-style-type: none;'>3、OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web'>查看使用方式</a></li>
-    </ul>
+         1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
+         2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
+         3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+
 </div>
+
 
 ![使用签名的方式](./images/use-sign.png)
 
@@ -3379,14 +3385,21 @@ messaging:
         例如:
     </p>
     <p>
-        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为md5
+        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为<code>MD5</code>
     </p>
-    <ul style='margin-left:-5px'>
-        <li style='list-style-type: none;'>1、将参数key按ascii排序得到: pageIndex=0&pageSize=20</li>
-        <li style='list-style-type: none;'>2、使用拼接时间戳以及密钥得到: pageIndex=0&pageSize=201574993804802testSecure</li>
-        <li style='list-style-type: none;'>3、使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>得到<code>837fe7fa29e7a5e4852d447578269523</code></li>
-    </ul>
-    </div>
+        1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code><br>
+        2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code><br>
+        3. 使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code><br><br>
+</div>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  Demo示例:<br><br>
+    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。Demo中使用签名的方式接入(<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>)
+</div>
 
 示例：
 
@@ -3444,58 +3457,76 @@ if(sign.equalsIgnoreCase(signHeader)){
   </p>
   通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
 </div>
-
 申请token
 
-#### 常见问题
+客户端请求接口`/token`，请求方式post
 
-*对开发过程中出现的问题进行总结*
+```
+POST /token
+X-Sign: 932bbe8a39ae03f568f73a507d87afac
+X-Timestamp: 1587719082698 
+X-Client-Id: kF**********HRZ  
+Content-Type: application/json 
 
+{  
+    "expires": 7200 // 过期时间,单位秒.
+}
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
+//返回结果
+{
+    "status":200,
+    "result":"3bcddb719b01da679b88d07acde2516" //token信息
+}
+```
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+<br>
 
-</div>
+使用token发起请求
 
+```
+GET /device-instance/test001/_detail  
+X-Access-Token: 3bcddb719b01da679b88d07acde2516
+```
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
+响应结果
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+```json
+{
+    "result": {
+        "id": "test001",
+        "name": "温控设备0309",
+        "protocol": "demo-v1",
+        "transport": "MQTT",
+        "orgId": "test",
+        "productId": "1236859833832701952",
+        "productName": "智能温控",
+        "deviceType": {
+            "text": "网关设备",
+            "value": "gateway"
+        },
+        "state": {
+            "text": "离线",
+            "value": "offline"
+        },
+        "address": "/127.0.0.1:36982",
+        "onlineTime": 1586705515429,
+        "offlineTime": 1586705507734,
+        "createTime": 1585809343175,
+        "registerTime": 1583805253659,
+        "metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",
+        "configuration": {
+            "username": "test",
+            "password": "test"
+        },
+        "tags": []
+    },
+    "status": 200,
+    "code": "success"
+}
+```
 
-</div>
+<br>
 
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
 
 ### 自定义SQL条件构造器
 
@@ -3606,11 +3637,11 @@ if(sign.equalsIgnoreCase(signHeader)){
    make
    #PREFIX参数表示指定安装路径
    make install PREFIX=/usr/local/redis 
-   ```
+```
 5. 将原有的配置文件复制一份到新目录
  ```shell
 cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
-```
+ ```
 6. 修改`redis.config`文件
 修改以下参数：
 ```shell
@@ -3923,7 +3954,7 @@ cd ./postgresql-11.12
 ./configure --prefix=/usr/local/postgresql
 make && make install
 ```
-   
+
 4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
