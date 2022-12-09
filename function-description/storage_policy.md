@@ -10,11 +10,14 @@
 | ---------------------------- | ------ |  -------------------------  |
 | ElasticSearch-行式存储        | ✅      |  ✅                         |
 | ElasticSearch-列式存储        | ✅      |  ✅                         |
+| TDEngine-行式存储             | ✅      |  ✅                         |
 | TDEngine-列式存储             | ✅      |  ✅                         |
 | InfluxDB-行式存储             | ✅      |  ⭕                         |
 | InfluxDB-列式存储             | ✅      |  ⭕                         |
 | ClickHouse-行式存储           | ✅      |  ⭕                        |
-| ClickHouse-行式存储           | ✅      |  ⭕                         |
+| ClickHouse-列式存储           | ✅      |  ⭕                         |
+| Cassandra-行式存储           | ✅      |  ⭕                        |
+| Cassandra-列式存储           | ✅      |  ⭕                         |
 
 ## 存储策略说明
 
