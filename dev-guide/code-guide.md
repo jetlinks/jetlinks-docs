@@ -756,7 +756,7 @@ public class CustomEntity extends GenericEntity<String> implements
 
     @Column
     @Comment("类型")
-    private Integer type;
+    private String type;
 
     @Column(name = "creator_id", updatable = false)
     @Schema(
@@ -1712,7 +1712,7 @@ org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(D
 
   @Getter
   @AllArgsConstructor
-  public enum DemoIndexs implements ElasticIndex {
+  public enum CustomIndexEnum implements ElasticIndex {
   custom("custom");
   private String index;
   }
