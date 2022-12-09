@@ -27,6 +27,7 @@ module.exports = {
                     ['/', '介绍'],
                     // ['/home/Version_upgrade.md', '版本升级说明'],
                     ['/home/update-log.md', '更新记录'],
+                    ['/home/product-migration.md', '产品迁移'],
                 ]
             },
             {
