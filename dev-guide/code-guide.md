@@ -207,9 +207,6 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 <p>当您不知道仓库地址填什么的情况下，进入jetlinks-v2仓库内进行搜索模块名称，扩展模块相关信息查看<a target="_blank" href="/install-deployment/enterprise-version-start.html#添加扩展模块仓库">扩展模块列表</a></p>
 </div>
 
-
-[//]: # "移除子模块：git rm -f 【子模块本地存储目录】"
-
 8. 代码拉取完毕后`reimport`
 
 ![maven reimport](./images/code-guide-0-5.png)
@@ -3405,7 +3402,6 @@ messaging:
   appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
 </div>
 
-
 ![创建第三方平台1](./images/add-third-api-1.png)
 
 <br>
@@ -4029,7 +4025,7 @@ cd ./postgresql-11.12
 ./configure --prefix=/usr/local/postgresql
 make && make install
 ```
-
+   
 4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
