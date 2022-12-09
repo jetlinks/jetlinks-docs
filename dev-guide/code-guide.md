@@ -1680,7 +1680,18 @@ org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(D
 ### 自定义模块如何使用es
 1、在自定义的项目中引入平台es的模块
 
-依赖：`<jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>`
+1.`properties`
+
+```
+<properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>
+</properties>
+```
+
+2.依赖：
 
 ```java
   <dependency>
