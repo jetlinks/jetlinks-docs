@@ -8,10 +8,13 @@
   中间件部署及常见问题</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E5%9C%A8jetlinks%E4%B8%8A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%8A%9F%E8%83%BD'>
    在JetLinks上构建自己的业务功能？</a>
-- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E6%97%B6%E5%BA%8F%E5%AD%98%E5%82%A8%E7%9A%84%E8%AF%B4%E6%98%8E'>
-   关于平台时序存储的说明</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
+   自定义模块如何使用es？</a>  
+- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8'>
+   关于平台存储的说明</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
    实体变更后如何触发自己的业务流程？</a>
+- <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'> 自定义模块如何引入es？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E6%80%BB%E7%BA%BF'>
    如何获取消息总线内的数据？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5'>
@@ -63,7 +66,6 @@
   </p>
   <p>目录名称应以英文命名，不要使用中文进行命名！</p>
   <p>使用中文命名可能会导致文件上传时，查找中文目录名称转义失败，抛出无法加载协议的异常。</p>
-
 </div>
 
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
@@ -204,9 +206,6 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
   </p>
 <p>当您不知道仓库地址填什么的情况下，进入jetlinks-v2仓库内进行搜索模块名称，扩展模块相关信息查看<a target="_blank" href="/install-deployment/enterprise-version-start.html#添加扩展模块仓库">扩展模块列表</a></p>
 </div>
-
-
-[//]: # (移除子模块：git rm -f 【子模块本地存储目录】)
 
 8. 代码拉取完毕后`reimport`
 
@@ -666,12 +665,12 @@ springdoc:
 
 
 
-2.controller层：`org.example.mydemo.web.CustomController`
+2.web层：`org.example.mydemo.web.CustomController`
 
   ```java
   package com.example.mydemo.web;
-  import com.example.mydemo.entity.TestEntity;
-  import com.example.mydemo.service.TestService;
+  import com.example.mydemo.entity.CustomEntity;
+  import com.example.mydemo.service.CustomService;
   import io.swagger.v3.oas.annotations.Operation;
   import io.swagger.v3.oas.annotations.tags.Tag;
   import lombok.AllArgsConstructor;
@@ -739,7 +738,7 @@ import javax.persistence.*;
 import java.util.Map;
 
 
-@Table(name = "dev_my_demo_CustomEntity", indexes = {
+@Table(name = "dev_my_demo_customentity", indexes = {
         @Index(name = "idx_device_id_type", columnList = "device_id,type")
 })
 @Comment("自定义表")
@@ -754,7 +753,7 @@ public class CustomEntity extends GenericEntity<String> implements
 
     @Column
     @Comment("类型")
-    private Integer type;
+    private String type;
 
     @Column(name = "creator_id", updatable = false)
     @Schema(
@@ -851,7 +850,7 @@ public class JetLinksApplication {
 |-------------------------------|-------------------------------------------------|
 | `ReactiveServiceCrudController<E, K>` | 实体CRUD操作的抽象接口，该接口继承了CRUD相关操作的接口，这些接口内封装了默认的实现方法,`<E> `实体类类型 ` <K> `主键类型 |
 | `GenericEntity<PK>`             | 实体类需要继承该类，需要声明实体id数据类型                          |
-| `GenericReactiveCrudService<TestEntity, String>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
+| `GenericReactiveCrudService<E, K>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
 
 核心接口说明
 
@@ -1047,7 +1046,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 </div>
 
-### 关于平台时序存储的说明
+### 关于平台存储
 
 #### 使用场景
 
@@ -1058,129 +1057,26 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
     <span class='explanation-title font-weight'>说明</span>
   </p>
 
-  <p>平台设备实时数据存储在<span class='explanation-title font-weight'>产品接入选择的存储策略内</span>。</p>
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
 
+```java
+//此处将具体代码实现放入
+//1.对关键部分代码进行步骤梳理及注释说明
+//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+```
 
 #### 核心类说明
 
-| 类名 | 说明                                                                 |
-|----------------|--------------------------------------------------------------------|
-| `DeviceDataRepository` | 设备数据仓库,用户存储和查询设备相关历史数据,默认实现`ThingsBridgingDeviceDataService`       |
-| `ThingsDataRepository` | 物数据仓库,用于保存和查询物模型相关数据: 属性,事件,以及日志,默认实现`DefaultThingsDataRepository` |
-| `ThingsDataRepositoryStrategy` | 物数据仓库存储策略,实现此接口来自定义存储策略，具体存储策略实现类见下表1.                             |
-| `ThingsRegistry` | 物注册中心,统一管理物的基础信息以及配置等信息, 具体实现类见下表2.                                |
-
-- 表1.
-
-| 类名 | 说明                                                                      |
-|----------------|-------------------------------------------------------------------------|
-|`CacheSaveOperationsStrategy` | 缓存操作存储基类 ,所有的存储操作均经过该类，主要是使用cache减少存储操作对象的创建                            |
-|`AbstractThingDataRepositoryStrategy` | 物数据存储策略抽象基类，继承`CacheSaveOperationsStrategy`。下列类均继承该类，该类默认封装了数据库的操作对象信息。 |
-|`CassandraColumnModeStrategy` | Cassandra-列式存储                                                          |
-|`CassandraRowModeStrategy` | Cassandra-行式存储                                                          |
-|`ClickhouseColumnModeStrategy` | ClickHouse-列式存储                                                         |
-|`ClickhouseRowModeStrategy` | ClickHouse-行式存储                                                         |
-|`ElasticSearchColumnModeStrategy` | ElasticSearch-列式存储                                                      |
-|`ElasticSearchRowModeStrategy` | ElasticSearch-行式存储                                                      |
-|`InfluxdbColumnModeStrategy` | Influxdb-列式存储                                                           |
-|`InfluxdbRowModeStrategy` | Influxdb-行式存储                                                           |
-|`NoneThingsDataRepositoryStrategy` | 不存储，顾名思义，所有设备数据不进行持久化。                                                  |
-|`TDengineColumnModeStrategy` | TDEngine-列式存储                                                           |
-|`TDengineRowModeStrategy` | TDEngine-行式存储                                                           |
-
-- 表2.
-
-| 类名 | 说明                                               |
-|----------------|--------------------------------------------------|
-|`AutoRegisterThingsRegistry` | 自动注册物信息类，在spring组件初始化之后将该实体放置缓存内。                |
-|`DefaultThingsRegistry` | 统一的物注册中心默认实现，主要是获取物模板（产品）、物（设备）信息以及注册物和物模版等相关操作。 |
-
-#### 核心方法说明
-
-- `AbstractDDLOperations`
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <p>AbstractDDLOperations抽象物数据表DDL操作类,主要用于动态创建表结构或者索引映射。它有两个子类：
-  <span class='explanation-title font-weight'>RowModeDDLOperationsBase</span>和
-  <span class='explanation-title font-weight'>ColumnModeDDLOperationsBase</span>
-</p>
-  <p>因行式存储和列式存储的表结构数据存在差异，所以平台重写了父类的createPropertyProperties(List&lt;PropertyMetadata&gt;propertyMetadata)方法。</p>
-</div>
-
-![存储策略](./things-save-repositry-1.svg)
-
-
-| 方法名 | 返回值 | 参数值 | 说明                                            |
-|------- |--------|----------|-----------------------------------------------|
-| `registerMetadata(ThingMetadata metadata)`                          | `ThingMetadata`          | `Mono<Void>`             | 注册物模型，产品发布及更新时会触发注册物模型的操作。                    |
-| `reloadMetadata(ThingMetadata metadata)`                            | `ThingMetadata`          | `Mono<Void>`             | 集群模式下，非执行节点会监听其他服务节点，当产品发布变更物模型消息事件时，此动作会被触发。 |
-| `createBasicColumns()`                                              | -                        | `List<PropertyMetadata>` | 创建基础表结构信息、索引映射信息。                             |
-| `createPropertyProperties(List<PropertyMetadata> propertyMetadata)` | `List<PropertyMetadata>` | `List<PropertyMetadata>` | 创建物属性表结构元信息                                   |
-| `createEventProperties()`                                           | -                        | `List<PropertyMetadata>` | 创建物事件表结构元信息 ，仅将数据类型处理成`String`类型存储            |
-| `createEventProperties(EventMetadata event)`                        | `EventMetadata`          | `List<PropertyMetadata>` | 创建物事件表结构元信息，此方法会处理`Object`类型的数据，对象中的每一个属性都会被创建为一列,数据会存储到对应的列中              |
-| `createLogProperties()`                                             | -                        | `List<PropertyMetadata>` | 创建物日志表结构元信息                                   |
-
-- `AbstractQueryOperations`
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <p>AbstractQueryOperations抽象物数据表查询实例。它有两个子类：
-  <span class='explanation-title font-weight'>RowModeQueryOperationsBase</span>和
-  <span class='explanation-title font-weight'>ColumnModeQueryOperationsBase</span>
-</p>
-</div>
-
-![存储策略](./things-save-repositry-2.svg)
-
-| 方法名                                                                                      | 参数                                                 | 返回值                           | 说明                       |
-|------------------------------------------------------------------------------------------|----------------------------------------------------|-------------------------------|--------------------------|
-| `queryEachProperty(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
-| `queryPropertyPage(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Mono<PagerResult<ThingPropertyDetail>>`   | 分页查询属性数据,通常用于查询单个属性的历史列表 |
-| `aggregationProperties(AggregationRequest request, PropertyAggregation... properties)`   | `request`:聚合请求</br> `properties`:属性聚合方式            | `Flux<AggregationData>`   | 聚合查询属性数据                 |
-| `queryEachProperty(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
-
-- `AbstractSaveOperations`
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <p>
-AbstractSaveOperations抽象物数据保存操作类,实现对物消息的处理以及数据转换,转换为标准的数据结构进行存储。
-  此抽象类通常配合<span class='explanation-title font-weight'>AbstractDDLOperations，AbstractQueryOperations</span>一起使用。
-  该类主要包含<span class='explanation-title font-weight'>属性存储，事件存储，日志存储</span>三部分。
-  它有两个子类： 
-  <span class='explanation-title font-weight'>RowModeSaveOperationsBase</span>和
-  <span class='explanation-title font-weight'>ColumnModeSaveOperationsBase</span>
-</p>
-</div>
-
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-  <p>1. 默认情况下,所有的设备属性都会记录在属性表内。</p>
-  <p>2. 默认情况下,所有的设备消息都将会存储到日志表。</p>
-  <p>3. 设备事件存储存在两种模式，第一种：一个事件一张数据表【默认】，第二种：全部事件使用一张数据表。</p>
-  <p>4. 事件存储一个事件一张表时，持按事件物模型中的字段进行搜索，但是不支持设备定义单独的事件物模型。</p>
-
-</div>
-
-![存储策略](./things-save-repositry-3.svg)
+| 类名 | 方法名 | 返回值 | 说明 |
+|----------------| -------------------------- |--------|---------------------------|-------------------|
+| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
 
 #### 常见问题
+
+*对开发过程中出现的问题进行总结*
 
 
 <div class='explanation warning'>
@@ -1189,13 +1085,11 @@ AbstractSaveOperations抽象物数据保存操作类,实现对物消息的处理
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 
-  <p>Q：如何设置某些属性数据不存储？</p>
-  <p>A：解决方案如下:
-      <p>1. 可通过org.jetlinks.core.message.Message.addHeader(String, Object)设置 <span class='explanation-title font-weight'>Headers.ignoreStorage</span>来标识不存储此条数据。</p>
-      <p>2. 定义产品属性物模型时设置存储策略：不存储。</p>
-  </p>
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
+
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -1203,67 +1097,52 @@ AbstractSaveOperations抽象物数据保存操作类,实现对物消息的处理
     <span class='explanation-title font-weight'>问题2</span>
   </p>
 
-  <p>Q：如何设置全部事件使用一张数据表？</p>
-  <p>A：当DataSettings.Event.eventIsAllInOne()为true时生效，因此需要设置<span class='explanation-title font-weight'>
-DataSettings.Event.usingJsonString和DataSettings.Event.allInOne为true</span>时，设备的全部事件会以json字符串的行式存储在时序库内。此模式不支持按事件物模型中的字段进行搜索。
-  </p>
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
 
 </div>
 
-<div class='explanation warning'>
+<div class='explanation error'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题3</span>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
   </p>
 
-  <p>Q：如何设置仅存储部分消息类型的设备日志？</p>
-  <p>A：解决方案如下:
-      <p>1. 在org.jetlinks.core.message.Message.addHeader(String, Object)中设置<span class='explanation-title font-weight'>Headers.ignoreLog为true</span>来忽略存储日志。</p>
-      <p>2. 可通过<span class='explanation-title font-weight'>DataSettings.Log.setExcludes(Set)</span>方法指定传入不需要存储的日志类型。</p>
-      <p>3. 在配置文件<span class='explanation-title font-weight'>application.yml下配置jetlinks.device.storage.log.excludes</span>内添加不需要存储的日志类型。</p>
-  </p>
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
 
 </div>
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题4</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
-
-  <p>Q：td表删除后无法创建？</p>
-  <p>A：解决方案如下:
-      <p>1. 可通过org.jetlinks.core.message.Message.addHeader(String, Object)设置Headers.ignoreStorage来标识不存储此条数据。</p>
-      <p>2. 定义产品属性物模型时设置存储策略：不存储。</p>
-  </p>
-
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
 </div>
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题5</span>
-  </p>
-
-  <p>Q：以上存储策略均不符合自己的业务场景？</p>
-  <p>A：自己实现存储策略。<a target='_self' class='explanation-title font-weight' href='/dev-guide/code-guide.html#%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5'>
-  自定义存储策略</a></p>
-
-</div>
-
 
 ### 监听实体变化做业务
 
 #### 应用场景
-
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-<p>Spring Event 自定义事件链，实用性很强的一种设计，可以应用于业务剥离，复杂场景解耦、代码独立等，是事件驱动模型的核心，并且可以处理一对多、点对点，发布订阅的场景。 Spring Event不支持响应式,平台封装了响应式事件抽象类，
-可实现接口<span class='explanation-title font-weight'>AsyncEvent</span>或者继承<span class='explanation-title font-weight'>DefaultAsyncEvent</span>来处理 响应式操作。
-监听响应式事件时需要使用<span class='explanation-title font-weight'>event.async( doSomeThing(event))</span>来注册响应式操作。</p>
+ Spring Event 自定义事件链，实用性很强的一种设计，可以应用于业务剥离，复杂场景解耦、代码独立等，是事件驱动模型的核心，并且可以处理1对多，点对点，发布订阅的场景
+</div>
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   Spring Event不支持响应式,平台封装了响应式事件抽象类，
+可实现接口AsyncEven`或者继承DefaultAsyncEvent来处理 响应式操作。
+监听响应式事件时需要使用event.async( doSomeThing(event))来注册响应式操作.
+例如：
 </div>
 
 
@@ -1795,10 +1674,21 @@ org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(D
 
 
 
-##### ### 如何自定义的项目内引入es模块
+### 自定义模块如何使用es
 1、在自定义的项目中引入平台es的模块
 
-依赖：`<jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>`
+1.`properties`
+
+```
+<properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>
+</properties>
+```
+
+2.依赖：
 
 ```java
   <dependency>
@@ -1819,7 +1709,7 @@ org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(D
 
   @Getter
   @AllArgsConstructor
-  public enum DemoIndexs implements ElasticIndex {
+  public enum CustomIndexEnum implements ElasticIndex {
   custom("custom");
   private String index;
   }
@@ -1854,7 +1744,7 @@ public class Configurations implements CommandLineRunner {
                 new DefaultElasticSearchIndexMetadata(CustomIndexEnum.custom.getIndex())
                         //添加自定义模板属性
                         .addProperty("device_id", new StringType())
-                        .addProperty("type", new IntType())
+                        .addProperty("type",  new StringType())
                         .addProperty("timestamp", new DateTimeType())
         ).subscribe();
     }
@@ -1888,7 +1778,7 @@ public class Configurations implements CommandLineRunner {
 
 6、es相关简单代码示例
 
-```
+```java
 package org.example.mydemo.web;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -1917,7 +1807,7 @@ import reactor.core.publisher.Mono;
 
 public class CustomController implements ReactiveServiceCrudController<CustomEntity, String> {
 
-    private final CustomService testService;
+    private final CustomService customService;
     //引入es
     private final ElasticSearchService elasticSearchService;
 
@@ -1930,7 +1820,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     @QueryAction
     public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
         //保存到数据库
-        return testService.insert(entity)
+        return customService.insert(entity)
                 .filter(number -> number > 0)
                 //将成功保存到数据库的数据存储到自定义的es索引中
                 .flatMap(number -> elasticSearchService
@@ -1967,7 +1857,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
     @Override
     public ReactiveCrudService<CustomEntity, String> getService() {
-        return testService;
+        return customService;
     }
 }
 
@@ -1975,7 +1865,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
 `CustomEntity`的`of`方法
 
-```
+```java
     /**
      * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
      * @param map  传入参数
@@ -1986,9 +1876,71 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     }
 ```
 
+### 自定义模块如何引入消息总线
 
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+   EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
+</div>
 
-##### 如何引入消息总线、
+1.在`web`的`org.example.mydemo.web.CustomController`新建方法
+
+```java
+     /**
+     * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
+     * @param customEntity
+     * @return
+     */
+    @PostMapping("/eventBus/publish")
+    public Mono<Integer> eventBuspublish(@RequestBody CustomEntity customEntity) {
+        return customService.insert(customEntity)
+                .filter(num->num>0)
+                .flatMap(num->{
+                   return eventBus
+                            .publish("/demo/eventBus/insert", customEntity)
+                            .thenReturn(num);
+                });
+    }
+
+```
+
+2.在自定义的`mydemo`下，新建包`org.example.mydemo.event.customEventHandler`，新建`CustomEventHandler`类
+
+```java
+package org.example.mydemo.event.customEventHandler;
+
+import org.example.mydemo.enums.CustomIndexEnum;
+import org.example.mydemo.service.CustomService;
+import org.jetlinks.community.elastic.search.service.ElasticSearchService;
+import org.jetlinks.core.event.EventBus;
+import org.jetlinks.core.event.Subscription;
+import org.springframework.context.event.EventListener;
+
+@AllArgsConstructor
+@Getter
+public class CustomEventHandler {
+    //引入消息总线
+    private EventBus eventBus;
+    //引入es
+    private ElasticSearchService elasticSearchService;
+
+    public void doSubscribe() {
+        eventBus.subscribe(Subscription.builder()
+                //订阅者标识
+                .subscriberId("custom-device-query-event")
+                .topics("/demo/eventBus/insert")
+                //订阅者有三大特性
+                .local().build()).flatMap(payload -> {
+            //业务操作  往es里面存入数据
+            return elasticSearchService
+                    .save(CustomIndexEnum.custom.getIndex(), payload.getPayload());
+        }).subscribe();
+    }
+```
+
 ##### 如何引入设备操作
 ##### 如何使用redis缓存
 #### 在使用过程中写响应式应注意什么
@@ -2492,7 +2444,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 #### 核心类及接口
 
-`AbstractThingDataRepositoryStrategy`
+##### `AbstractThingDataRepositoryStrategy`
 
 | 方法名                                                                                             | 参数  | 返回值 | 说明                   |
 |-------------------------------------------------------------------------------------------------|-----|--------|----------------------|
@@ -2504,11 +2456,59 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 | 参数  | 参数含义                                                                  |
 |-----|-----------------------------------------------------------------------|
-|OperationsContext| 存储操作上下文                                                  |
+|OperationsContext| ------                                                                |
 |thingType| 物类型：通常情况下是`device`,详见`ThingsBridgingDeviceDataService`类约定查询时序库给定的默认值。 |
 |templateId| 物模板id:通常情况下是产品id                                                      |
 |thingId| 物id：通常情况下是设备id                                                        |
 
+#### 常见问题
+
+*对开发过程中出现的问题进行总结*
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+
+  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+
+</div>
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
+  </p>
+
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+
+</div>
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+若设备限制数量不能满足您的业务需求，请
+<a>提交工单</a>
+说明您的需求。
+</div>
 
 ### 主动从第三方平台、设备获取数据
 
@@ -3370,8 +3370,6 @@ messaging:
 
 订阅设备消息：与消息网关中的设备topic一致，[查看topic列表](http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic)。消息负载(`payload`)将与[设备消息类型 ](http://doc.jetlinks.cn/function-description/device_message_description.html#消息定义)一致。
 
-
-
 <br>
 
 ### 第三方平台请求JetLinks服务接口
@@ -3383,17 +3381,14 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
+    第三方平台通过api请求JetLinks服务接口获取相关数据
 </div>
 
 <br>
 
 #### 创建第三方平台
 
-首先进入平台：选择平台上方的[系统管理]---左侧的[应用管理]---点击新增按钮
+首先进入平台：选择平台上方的[系统管理]---选择左侧[应用管理]---点击新增按钮
 
 ![创建第三方平台](./images/add-third-api-0.png)
 
@@ -3404,7 +3399,7 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip访问本平台
+  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
 </div>
 
 ![创建第三方平台1](./images/add-third-api-1.png)
@@ -3413,7 +3408,17 @@ messaging:
 
 #### 赋权
 
-//TODO
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  大部分情况下只需要勾选设备相关权限即可
+</div>
+
+赋权操作在[系统管理]---[角色管理]---选择对应的角色后在页面内进行权限分配
+
+![选择权限](./images/select-auth.png)
 
 <br>
 
@@ -3428,12 +3433,12 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-    <ul>
-        <li style='list-style-type: none;'>1、图中Signature函数为客户端设置的签名方式，支持MD5和Sha256</li>
-        <li style='list-style-type: none;'>2、发起请求的签名信息都需要放到请求头中，而不是请求体</li>
-        <li style='list-style-type: none;'>3、OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web'>查看使用方式</a></li>
-    </ul>
+         1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
+         2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
+         3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+
 </div>
+
 
 ![使用签名的方式](./images/use-sign.png)
 
@@ -3451,14 +3456,21 @@ messaging:
         例如:
     </p>
     <p>
-        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为md5
+        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为<code>MD5</code>
     </p>
-    <ul style='margin-left:-5px'>
-        <li style='list-style-type: none;'>1、将参数key按ascii排序得到: pageIndex=0&pageSize=20</li>
-        <li style='list-style-type: none;'>2、使用拼接时间戳以及密钥得到: pageIndex=0&pageSize=201574993804802testSecure</li>
-        <li style='list-style-type: none;'>3、使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>得到<code>837fe7fa29e7a5e4852d447578269523</code></li>
-    </ul>
-    </div>
+        1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code><br>
+        2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code><br>
+        3. 使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code><br><br>
+</div>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  Demo示例:<br><br>
+    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。Demo中使用签名的方式接入(<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>)
+</div>
 
 示例：
 
@@ -3516,58 +3528,76 @@ if(sign.equalsIgnoreCase(signHeader)){
   </p>
   通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
 </div>
-
 申请token
 
-#### 常见问题
+客户端请求接口`/token`，请求方式post
 
-*对开发过程中出现的问题进行总结*
+```
+POST /token
+X-Sign: 932bbe8a39ae03f568f73a507d87afac
+X-Timestamp: 1587719082698 
+X-Client-Id: kF**********HRZ  
+Content-Type: application/json 
 
+{  
+    "expires": 7200 // 过期时间,单位秒.
+}
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
+//返回结果
+{
+    "status":200,
+    "result":"3bcddb719b01da679b88d07acde2516" //token信息
+}
+```
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+<br>
 
-</div>
+使用token发起请求
 
+```
+GET /device-instance/test001/_detail  
+X-Access-Token: 3bcddb719b01da679b88d07acde2516
+```
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
+响应结果
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+```json
+{
+    "result": {
+        "id": "test001",
+        "name": "温控设备0309",
+        "protocol": "demo-v1",
+        "transport": "MQTT",
+        "orgId": "test",
+        "productId": "1236859833832701952",
+        "productName": "智能温控",
+        "deviceType": {
+            "text": "网关设备",
+            "value": "gateway"
+        },
+        "state": {
+            "text": "离线",
+            "value": "offline"
+        },
+        "address": "/127.0.0.1:36982",
+        "onlineTime": 1586705515429,
+        "offlineTime": 1586705507734,
+        "createTime": 1585809343175,
+        "registerTime": 1583805253659,
+        "metadata": "{\"events\":[{\"id\":\"fire_alarm\",\"name\":\"火警报警\",\"expands\":{\"eventType\":\"reportData\",\"level\":\"urgent\"},\"valueType\":{\"type\":\"object\",\"properties\":[{\"id\":\"a_name\",\"name\":\"区域名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"b_name\",\"name\":\"建筑名称\",\"valueType\":{\"type\":\"string\"}},{\"id\":\"l_name\",\"name\":\"位置名称\",\"valueType\":{\"type\":\"string\"}}]}}],\"properties\":[{\"id\":\"temperature\",\"name\":\"温度\",\"valueType\":{\"type\":\"float\",\"min\":\"0\",\"max\":\"100\",\"step\":\"0.1\",\"unit\":\"celsiusDegrees\"},\"expands\":{\"readOnly\":\"true\"}}],\"functions\":[{\"id\":\"get-log\",\"name\":\"获取日志\",\"isAsync\":true,\"output\":{\"type\":\"string\",\"expands\":{\"maxLength\":\"2048\"}},\"inputs\":[{\"id\":\"start_date\",\"name\":\"开始日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"end_data\",\"name\":\"结束日期\",\"valueType\":{\"type\":\"date\",\"dateFormat\":\"yyyy-MM-dd HH:mm:ss\"}},{\"id\":\"time\",\"name\":\"分组\",\"valueType\":{\"type\":\"string\"}}]}]}",
+        "configuration": {
+            "username": "test",
+            "password": "test"
+        },
+        "tags": []
+    },
+    "status": 200,
+    "code": "success"
+}
+```
 
-</div>
+<br>
 
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
 
 ### 自定义SQL条件构造器
 
@@ -3678,11 +3708,11 @@ if(sign.equalsIgnoreCase(signHeader)){
    make
    #PREFIX参数表示指定安装路径
    make install PREFIX=/usr/local/redis 
-   ```
+```
 5. 将原有的配置文件复制一份到新目录
  ```shell
 cp /usr/local/redis-5.0.4/redis.conf /usr/local/redis/bin/
-```
+ ```
 6. 修改`redis.config`文件
 修改以下参数：
 ```shell
