@@ -10,7 +10,7 @@
    在JetLinks上构建自己的业务功能？</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
    自定义模块如何使用es？</a>  
-- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8'>
+- <a target='_self' href='/dev-guide/code-guide.html#%E5%85%B3%E4%BA%8E%E5%B9%B3%E5%8F%B0%E5%AD%98%E5%82%A8%E7%9A%84%E8%AF%B4%E6%98%8E'>
    关于平台存储的说明</a>
 - <a target='_self' href='/dev-guide/code-guide.html#%E7%9B%91%E5%90%AC%E5%AE%9E%E4%BD%93%E5%8F%98%E5%8C%96%E5%81%9A%E4%B8%9A%E5%8A%A1'>
    实体变更后如何触发自己的业务流程？</a>
@@ -1046,7 +1046,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 </div>
 
-### 关于平台时序存储的说明
+### 关于平台存储的说明
 
 #### 使用场景
 
@@ -1140,12 +1140,15 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 ![存储策略](./things-save-repositry-2.svg)
 
-| 方法名                                                                                      | 参数                                                 | 返回值                           | 说明                       |
-|------------------------------------------------------------------------------------------|----------------------------------------------------|-------------------------------|--------------------------|
-| `queryEachProperty(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
-| `queryPropertyPage(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Mono<PagerResult<ThingPropertyDetail>>`   | 分页查询属性数据,通常用于查询单个属性的历史列表 |
-| `aggregationProperties(AggregationRequest request, PropertyAggregation... properties)`   | `request`:聚合请求</br> `properties`:属性聚合方式            | `Flux<AggregationData>`   | 聚合查询属性数据                 |
-| `queryEachProperty(QueryParamEntity query, String... property)`                          | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性   | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
+| 方法名                                                                                    | 参数                                                           | 返回值                           | 说明                       |
+|----------------------------------------------------------------------------------------|--------------------------------------------------------------|-------------------------------|--------------------------|
+| `queryEachProperty(QueryParamEntity query, String... property)`                        | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性             | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
+| `queryPropertyPage(QueryParamEntity query, String... property)`                        | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性             | `Mono<PagerResult<ThingPropertyDetail>>`   | 分页查询属性数据,通常用于查询单个属性的历史列表 |
+| `aggregationProperties(AggregationRequest request, PropertyAggregation... properties)` | `request`:聚合请求</br> `properties`:属性聚合方式                      | `Flux<AggregationData>`   | 聚合查询属性数据                 |
+| `queryEachProperty(QueryParamEntity query, String... property)`                        | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性             | `Flux<ThingPropertyDetail>`   | 按条件查询每一个属性,通常用于同时查询多个属性值 |
+| `queryPropertyPage(QueryParamEntity query, String... property)`                        | `query`:查询条件</br> `property`:指定要查询的属性,不指定则查询全部属性             | `Mono<PagerResult<ThingPropertyDetail>>`   | 分页查询历史属性信息               |
+| `queryMessageLog(QueryParamEntity param)`                                              | `query`:查询条件</br>                                            | `Mono<PagerResult<ThingMessageLog>>`   | 查询设备日志数据                 |
+| `queryEventPage(String eventId,QueryParamEntity param,boolean format)`                 | `query`:查询条件</br> `eventId`:事件ID</br> `format`是否格式化，默认`true` | `Mono<PagerResult<ThingEvent>>`   | 查询设备事件数据                 |
 
 - `AbstractSaveOperations`
 
@@ -1178,6 +1181,10 @@ AbstractSaveOperations抽象物数据保存操作类,实现对物消息的处理
 </div>
 
 ![存储策略](./things-save-repositry-3.svg)
+
+| 方法名                                | 参数              | 返回值           | 说明                                         |
+|------------------------------------|-----------------|---------------|--------------------------------------------|
+| `save(ThingMessage thingMessage)`  | `ThingMessage`  | `Mono<Void>`  | 保存单个物消息,通常此操作不会立即写入物消息数据,而是会缓存到内存中,等待批量写入  |
 
 #### 常见问题
 
