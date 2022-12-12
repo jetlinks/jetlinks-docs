@@ -3566,9 +3566,16 @@ messaging:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-         1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
-         2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
-         3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+         <p>
+             1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
+    </p>
+         <p>
+             2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
+    </p>
+         <p>
+             3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller。<a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+    </p>
+
 
 </div>
 
@@ -3583,27 +3590,20 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
   <p>
-      平台使用签名来校验客户端请求的完整性以及合法性
+      平台使用签名来校验客户端请求的完整性以及合法性。
     </p>
-    <p>
-        例如:
-    </p>
-    <p>
-        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为<code>MD5</code>
-    </p>
-        1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code><br>
-        2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code><br>
-        3. 使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code><br><br>
+    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口，Demo中使用签名的方式接入。<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>
 </div>
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  Demo示例:<br><br>
-    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。Demo中使用签名的方式接入(<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>)
-</div>
+使用GET方式：
+
+<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>，参数为<code>pageSize=20&pageIndex=0</code>，签名方式为<code>md5</code>。</p>
+
+<p>1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code></p>
+
+<p>2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code></p>
+
+<p>3 .使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code></p>
 
 示例：
 
@@ -3622,6 +3622,20 @@ X-Timestamp: 1574994269075
 X-Sign: c23faa3c46784ada64423a8bba433f25
 
 {"status":200,result:[]}
+```
+
+使用POST方式：
+
+<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用</p>
+
+示例：
+
+```text
+POST /api/device
+
+X-Client-Id: testId
+X-Timestamp: 1574993804802
+X-Sign: 837fe7fa29e7a5e4852d447578269523
 ```
 
 <br>
@@ -3741,75 +3755,70 @@ X-Access-Token: 3bcddb719b01da679b88d07acde2516
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
+</div>
 
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
+新建一个类，继承`AbstractTermFragmentBuilder`。注解`@Component`注入到spring容器中。
 
+```java
+@Component
+public class CustomTermBuilder extends AbstractTermFragmentBuilder{
+
+    public CustomTermBuilder(){
+        //custom 为条件标识,就像like一样
+        super("custom","自定义查询条件");
+    }
+
+   public SqlFragments createFragments( String columnFullName,  //列全名,查询条件对应的列名
+                                        RDBColumnMetadata column,  //列元数据
+                                        Term term){ //条件
+        
+        return PrepareSqlFragments.of()
+        .addSql("exists(select 1 from custom_table t where t.device_id =",columnFullName," and t.value = ?)")
+        .addParameter(term.getValue());
+   }
+}
+```
+
+在后端通用crud使用
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    此处的<code>repository.createQuery()</code>相当于构建了<code>SELECT * FROM custom_table</code>
 </div>
 
 ```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
+repository.createQuery().where("deviceId$custom","1234").fetch();
 ```
 
-#### 核心类说明
+在前端通用查询条件中使用
 
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
+```json
+{
+ "where": "deviceId custom 1234"
+}
+```
 
-#### 常见问题
+或者
 
-*对开发过程中出现的问题进行总结*
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
+```json
+{
+ "terms":[
+     {
+         "column":"deviceId",
+         "termType":"custom",
+         "value":"1234"
+     }
+ ]
+}
+```
 
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
 
 ### 中间件部署及常见问题
+
 本文档部署环境为Centos7，中间件部署方法提供了两种分别为离线包部署和docker部署，可根据实际情况选择对应的部署方式。
 #### 版本说明
 | 中间件 | 版本号 |  是否必装 | 下载地址 |
@@ -4158,7 +4167,7 @@ cd ./postgresql-11.12
 ./configure --prefix=/usr/local/postgresql
 make && make install
 ```
-   
+
 4. 创建目录`data`<br/>
 ```shell
 mkdir /usr/local/postgresql/data
