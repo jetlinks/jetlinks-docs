@@ -1,21 +1,22 @@
-# 1.x版本产品迁移到2.0方案
+# 1.x版本迁移说明
+
+2.0版本权限控制体系、设备接入流程等功能都已做较大的变更，因此不在兼容1.x版本。 **所有数据都请按对应的功能操作手册重新录入**。
+
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+如你设备数据较多，可以参考如下迁移建议
+
+</div>
+
 
 ## 2.0版本环境准备
 
 参考[源码启动](/install-deployment/start-with-source.html)或[docker启动](/install-deployment/docker-start.html) 运行环境。
-
-
-## 系统数据迁移
-
-用户、角色、组织架构、菜单、权限...完善中
-
-## 视频中心数据迁移
-
-完善中
-
-## 通知数据迁移
-
-完善中
 
 ## 设备数据迁移
 
@@ -33,9 +34,9 @@
 
 </div>
 
-### 迁移说明
+### 迁移前提
 
-关系型数据库使用pgsql，安装方式为本机安装。
+关系型数据库使用pgsql。
 
 
 ### 数据迁移
