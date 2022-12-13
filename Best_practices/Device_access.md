@@ -455,7 +455,7 @@ docker run -d --name emqx -p 18083:18083 -p 1883:1883 emqx/emqx:latest
 后续操作参考[读取设备属性](/Best_practices/Device_access.html#读取设备属性)
 
 
-## TCP 服务接入
+## TCP 透传接入
 
 通过官方设备模拟器模拟TCP设备接入平台
 
