@@ -378,25 +378,6 @@
     当前产品下若已接入设备，不支持更换接入方式。
 </div>
 
-### 物模型映射
-
-#### 属性映射
-##### 操作步骤
-1.**登录**Jetlinks物联网平台。</br>
-2.在左侧导航栏，选择**设备管理>产品**，点击**查看**，切换至物模型映射tab页。</br>
-3.在物模型映射页面，通过下拉框建立**物模型属性**与**设备上报属性**的映射关系。</br>
-![](./img/30.png)
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>当产品的接入方式为自定义接入类型时才会出现物模型映射tab页。</li>
-  <li> 设备-物模型映射默认会继承产品物模型映射规则。</li>
-  <li>系统会根据属性标识进行自动映射，若属性标识不一致，默认使用物模型属性。</li>
-</div>
-
 ### 数据解析
 
 <div class='divider'></div>
@@ -817,24 +798,6 @@
 5.配置完成后，点击**发送**按钮，在对话框中查看具体的上下行消息，同时可查看页面右侧详细日志数据。</br>
 ![](./img/49.png)
 
-### 物模型映射
-当设备所属产品的接入方式为自定义接入类型时将出现此tab页。
-#### 属性映射
-##### 操作步骤
-1.**登录**Jetlinks物联网平台。</br>
-2.在左侧导航栏，选择**设备管理>设备**，点击**查看**，切换至物模型映射tab页。</br>
-3.在物模型映射页面，通过下拉框建立**物模型属性**与**设备上报属性**的映射关系。</br>
-![](./img/50.png)
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <li>当产品的接入方式为自定义接入类型时才会出现物模型映射tab页。</li>
-  <li> 设备-物模型映射进行修改后，将脱离产品物模型映射。</li>
-  <li>系统会根据属性标识进行自动映射，若属性标识不一致，默认使用物模型属性。</li>
-</div>
-
 ### 数据解析
 该tab页的显示与否由协议包进行拟定。
 ##### 操作步骤
@@ -843,12 +806,12 @@
 3.在数据解析页面，点击**修改**按钮，在线编辑数据解析规则后，模拟输入进行调试，调试完成后点击**保存**。</br>
 ![](./img/57.png)
 
-### modbus点位绑定
-当设备所属产品的接入方式为Modbus接入时将会出现此tab页。
+### 数采点位绑定
+当设备所属产品的接入方式为Modbus TCP/OPC UA接入时将会出现此tab页。
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
-2.在左侧导航栏，选择**设备管理>设备**，点击**查看**，切换至modbus tab页。</br>
-3.在modbus页面，建立**物模型属性**与**modbus点位**的关联关系。</br>
+2.在左侧导航栏，选择**设备管理>设备**，点击**查看**，切换至Modbus TCP/OPC UA列表页。</br>
+3.在列表页面，建立**物模型属性**与**modbus点位**的关联关系。</br>
 ![](./img/55.png)
 
 ##### 后续步骤

@@ -83,6 +83,8 @@ module.exports = {
                     ['/Northbound_output/Northbound_output8.md', '北向输出'],
                     ['/Rule_engine/Rule engine9.md', '规则引擎'],
                     ['/Video_Center/Video_equipment10.md', '视频中心'],
+                    ['/Data_Acquisition/Data_Acquisition.md', '数采管理'],
+                    ['/Iot_Card/Card.md', '物联卡'],
                     ['/System_settings/System_settings.md', '系统设置'],
                     ['/Personal_Center/Personal_Center.md', '个人中心'],
                 ]

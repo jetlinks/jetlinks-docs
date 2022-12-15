@@ -606,7 +606,7 @@ CoAP服务参数说明
 3.点击具体流媒体服务的**删除**按钮，然后点击**确定**。</br>
 ![](./img/81.png)
 
-## Modbus通道配置
+<!-- ## Modbus通道配置
 管理Modbus通道以及通道下的点位数据。
 
 
@@ -689,7 +689,7 @@ CoAP服务参数说明
     <span class='explanation-title font-weight'>说明</span>
   </p>
 删除点位后，与该点位绑定的设备属性将自动解绑。
-</div>
+</div> -->
 
 
 ## 远程升级
