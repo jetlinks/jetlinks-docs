@@ -3465,11 +3465,7 @@ public class UseConsumer{
 | ------------- | ---- | --------------- | ------------------------------------------------------------ |
 | `subscribe()` | 无   | `Flux<Message>` | 实现自RabbitMQConsumer接口，内部调用doStart方法进行处理，之后会返回订阅到的消息 |
 
-
-
 <br>
-
-
 
 ### 使用MQTT订阅平台相关消息
 
@@ -3626,7 +3622,17 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 
 使用POST方式：
 
-<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用</p>
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  <p>
+      如果POST请求的contentType类型为APPLICATION_FORM_URLENCODED，则加密方式可以参见GET的方式。如果为其他类型则会将参数转换成<code>ByteBuffer</code>进行计算。
+    </p>
+</div>
+
+<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口<code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用md5()后得到<code>ed6c0149e9e6d8875064df475240ed5d</code></p>
 
 示例：
 
@@ -3634,8 +3640,8 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 POST /api/device
 
 X-Client-Id: testId
-X-Timestamp: 1574993804802
-X-Sign: 837fe7fa29e7a5e4852d447578269523
+X-Timestamp: 167109938793
+X-Sign: ed6c0149e9e6d8875064df475240ed5d
 ```
 
 <br>
