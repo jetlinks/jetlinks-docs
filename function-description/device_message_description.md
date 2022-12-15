@@ -556,7 +556,7 @@ EventMessage{
 
 ## 设备接入流程
 
-![flow](function-description/img/device-flow.svg)
+![flow](./img/device-flow.svg)
 
 ## 设备接入最佳实践
 

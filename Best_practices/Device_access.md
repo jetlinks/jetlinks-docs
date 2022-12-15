@@ -324,8 +324,7 @@ MQTTX 推送设备事件消息到平台。<br />
 设备功能调用成功后在**设备-设备功能**tab页显示调用回复结果。
 
 ## MQTT Broker接入
-在某些场景,设备不是直接接入平台,而是通过第三方MQTT服务,如:`emqx`.
-消息编解码与MQTT服务一样,从消息协议中使用`DefaultTransport.MQTT`来获取消息编解码器.
+在某些场景,设备不是直接接入平台,而是通过第三方MQTT服务,如:`emqx`接入。
 本文使用`mqttx`模拟设备端，通过`emqx`接入平台。
 
 ### 安装并启动EMQ
@@ -337,7 +336,7 @@ MQTTX 推送设备事件消息到平台。<br />
 ```shell script
 docker run -d --name emqx -p 18083:18083 -p 1883:1883 emqx/emqx:latest
 ```
-### 访问EMQ Dashboard
+### 访问EMQX Dashboard
 
 在浏览器中输入 http://127.0.0.1:18083 ,默认账号密码为用户名：admin 密码：public。
 ![](./img/emq-monitor.png)
@@ -456,255 +455,219 @@ docker run -d --name emqx -p 18083:18083 -p 1883:1883 emqx/emqx:latest
 后续操作参考[读取设备属性](/Best_practices/Device_access.html#读取设备属性)
 
 
-[comment]: <> (## TCP 服务接入)
+## TCP 透传接入
 
-[comment]: <> (本文档使用[Packet Sender]&#40;https://packetsender.com/download#show&#41;工具模拟tcp客户端接入平台。)
+通过官方设备模拟器模拟TCP设备接入平台
 
-[comment]: <> (###  系统配置)
+### 系统配置
 
-[comment]: <> (1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建TCP服务网络组件。</br>)
+1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建TCP服务网络组件。</br>
 
-[comment]: <> (![]&#40;./img/tcpwl.png&#41;)
+`如服务在本机电脑启用，TCP服务网络组件填写参数参考下图填写即可`
 
-[comment]: <> (2.进入**协议管理**菜单，上传协议包。</br>)
+![](./img/tcp-server-network.png)
 
-[comment]: <> (![]&#40;./img/254.png&#41;)
+**网络组件填写参数说明**
 
-[comment]: <> (3.进入**设备接入网关**，创建TCP透传接入类型的接入网关。</br>)
+| 参数        | 说明   |  
+| --------   | -----:  | 
+| 本地地址      | TCP绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0   |   
+| 本地端口        |   监听指定端口的请求   |  
+| 远程地址        |   对外提供访问的地址,内网环境时填写服务器的内网IP地址   |  
+| 公网端口        |   对外提供访问端口   |  
+| 粘拆包规则        |    处理TCP粘拆包的方式    | 
 
-[comment]: <> (![]&#40;./img/tcpwg.png&#41;)
+2.进入**协议管理**菜单，上传协议包。</br>
 
-[comment]: <> (4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为TCP透传接入类型的设备接入网关。</br>)
+<a target='_blank' href='https://github.com/jetlinks/jetlinks-official-protocol'>获取协议包源码</a>
 
-[comment]: <> (![]&#40;./img/tcpjr.png&#41;)
+![](./img/254.png)
 
-[comment]: <> (5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择TCP透传接入类型的产品。</br>)
+3.进入**设备接入网关**，创建TCP透传类型的接入网关。</br>
+![](./img/tcp-gateway-add.png)
 
-[comment]: <> (### TCP工具接入)
 
-[comment]: <> (1.下载并安装[Packet Sender]&#40;https://packetsender.com/download#show&#41;。)
+4.[创建产品](../Device_access/Create_product3.1.md)，并选中接入方式为TCP透传类型的设备接入网关。</br>
+![](./img/tcp-product-access.png)
 
-[comment]: <> (<div class='explanation primary'>)
+5.设置TCP认证配置的secureKey值为`admin`
+![](./img/tcp-auth-info.png)
 
-[comment]: <> (  <p class='explanation-title-warp'>)
 
-[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
+6.创建物模型
 
-[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
+在产品详情-物模型tab页中创建温度属性物模型，属性ID:`temperature`
 
-[comment]: <> (  </p>)
+![](./img/tcp-product-create-property.png)
 
-[comment]: <> (TCP协议以二进制的数据包传输数据，此处使用Packet Sender工具将发送的消息先转成十六进制，)
 
-[comment]: <> (再通过该工具自动转换成二进制发送到平台。)
 
-[comment]: <> (</div>)
+7.[创建设备](../Device_access/Create_Device3.2.md)，选择第4步中创建的产品。</br>
 
-[comment]: <> (2.生成所需的十六进制字符串。  )
 
-[comment]: <> (i. 检出[协议代码]&#40;https://github.com/jetlinks/demo-protocol.git&#41;  )
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
 
-[comment]: <> (ii. 执行测试包org.jetlinks.demo.protocol.tcp下DemoTcpMessageTest的test方法生成设备认证所需的十六进制字符串  )
+需要先启用产品，才能基于产品创建设备
 
-[comment]: <> (代码如下：)
+</div>
 
-[comment]: <> (```java)
 
-[comment]: <> (    @Test)
+### 获取模拟器
 
-[comment]: <> (    void test&#40;&#41; {)
+前往获取[JetLinks官方设备模拟器](https://github.com/jetlinks/device-simulator)。
 
-[comment]: <> (        DemoTcpMessage message = DemoTcpMessage.of&#40;MessageType.AUTH_REQ, AuthRequest.of&#40;1000, "admin"&#41;&#41;;)
 
-[comment]: <> (        byte[] data = message.toBytes&#40;&#41;;)
+### 编写tcp设备模拟脚本
 
-[comment]: <> (        System.out.println&#40;Hex.encodeHexString&#40;data&#41;&#41;;)
 
-[comment]: <> (        DemoTcpMessage decode = DemoTcpMessage.of&#40;data&#41;;)
+将如下脚本内容复制到模拟器项目的benchmark/tcp/benchmark.js中。覆盖原有脚本内容
 
-[comment]: <> (        System.out.println&#40;decode&#41;;)
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
 
-[comment]: <> (        Assertions.assertEquals&#40;message.getType&#40;&#41;, decode.getType&#40;&#41;&#41;;)
+请修改下面脚本代码中deviceId为自己系统中刚刚创建的TCP设备ID
 
-[comment]: <> (        Assertions.assertArrayEquals&#40;message.getData&#40;&#41;.toBytes&#40;&#41;, decode.getData&#40;&#41;.toBytes&#40;&#41;&#41;;)
+</div>
 
-[comment]: <> (    })
-   
-[comment]: <> (```)
 
-[comment]: <> (结果：`000d000000e80300000000000061646d696e`)
+```javascript
 
-[comment]: <> (<div class='explanation primary'>)
+var protocol = require("benchmark/jetlinks-binary-protocol.js");
 
-[comment]: <> (  <p class='explanation-title-warp'>)
 
-[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
+var $enableReport = "true" === args.getOrDefault("report", "true");
+var $reportLimit = parseInt(args.getOrDefault("reportLimit", "1"));
+var $reportInterval = parseInt(args.getOrDefault("interval", "1000"));
 
-[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
+//绑定内置参数,否则匿名函数无法使用。
+var $benchmark = benchmark;
+//平台配置的密钥
+var secureKey = args.getOrDefault("secureKey", "admin");
 
-[comment]: <> (  </p>)
+var deviceId = "1602199560887795712";
 
-[comment]: <> (AuthRequest.of&#40;deviceId,key&#41; 第一个参数为设备id，第二参数为产品中配置的TCP认证配置。  )
 
-[comment]: <> (</div>)
+function beforeConnect(index, options) {
+    options.setId(deviceId);
+}
 
-[comment]: <> (iii. 在测试类中执行如下代码生成事件上报所需的十六进制字符串： )
 
-[comment]: <> (```java)
+//平台下发读取属性指令时
+protocol.doOnReadProperty(function (properties) {
 
-[comment]: <> (    @Test)
+    $benchmark.print("读取属性:" + properties);
 
-[comment]: <> (    void encodeEvent&#40;&#41; {)
+    let data = newHashMap();
 
-[comment]: <> (        DemoTcpMessage demoTcpMessage = DemoTcpMessage.of&#40;MessageType.FIRE_ALARM,)
+    properties.forEach(function (property) {
+        data.put(property, randomFloat(20, 30))
+    });
 
-[comment]: <> (                FireAlarm.builder&#40;&#41;)
+    return data;
+});
 
-[comment]: <> (                        .point&#40;ThreadLocalRandom.current&#40;&#41;.nextInt&#40;&#41;&#41;)
+//全部连接完成后执行
+function onComplete() {
+    if (!$enableReport) {
+        return;
+    }
+    // 心跳
+    $benchmark
+        .interval(function () {
+            return $benchmark.randomConnectionAsync(99999999, function (client) {
+                return sendTo(client, protocol.createPing(client));
+            });
+        }, 1000)
 
-[comment]: <> (                        .lat&#40;36.5F&#41;)
+    // 定时执行
+    $benchmark
+        .interval(function () {
+            $benchmark.print("上报属性....");
+            //随机获取100个连接然后上报属性数据
+            return $benchmark.randomConnectionAsync($reportLimit, reportTcpProperty);
+        }, $reportInterval)
 
-[comment]: <> (                        .lnt&#40;122.3F&#41;)
+}
 
-[comment]: <> (                        .deviceId&#40;1000&#41;)
 
-[comment]: <> (                        .build&#40;&#41;&#41;;)
+function sendTo(client, buffer) {
+    var len = buffer.writerIndex();
+    // $benchmark.print(client.getId() + " 发送数据 0x" + client.toHex(buffer))
+    client.send(
+        newBuffer().writeInt(len).writeBytes(buffer)
+    )
 
-[comment]: <> (        byte[] data = demoTcpMessage.toBytes&#40;&#41;;)
+}
 
-[comment]: <> (        System.out.println&#40;demoTcpMessage&#41;;)
+//协议发往设备
+protocol.doOnSend(sendTo);
 
-[comment]: <> (        System.out.println&#40;Hex.encodeHexString&#40;data&#41;&#41;;)
 
-[comment]: <> (    })
+//单个连接创建成功时执行
+function onConnected(client) {
 
-[comment]: <> (```  )
+    //上线
+    sendTo(client, protocol.createOnline(client, secureKey));
 
-[comment]: <> (结果：`0614000000e8030000000000009a99f4420000124222b7c94c`)
+    //订阅读取属性
+    client
+        .handlePayload(function (buf) {
 
-[comment]: <> (3.设置参数)
+            let buffer = buf.getByteBuf();
 
-[comment]: <> (i. 设置基本信息)
+            //忽略长度字段
+            buffer.readInt();
 
-[comment]: <> (![]&#40;./img/269.png&#41;)
+            protocol.handleFromServer(client, buffer);
+        });
 
-[comment]: <> (<table class='table'>)
+}
 
-[comment]: <> (        <thead>)
+//随机上报数据
+function reportTcpProperty(client) {
+    var data = new java.util.HashMap();
+    for (let i = 0; i < 1; i++) {
+        data['temperature'] = randomFloat(10, 30);
+    }
+    sendTo(client, protocol.createReportProperty(client, data));
+}
 
-[comment]: <> (            <tr>)
 
-[comment]: <> (              <td>参数</td>)
+//重点! 绑定函数到benchmark
+benchmark
+    .beforeConnect(beforeConnect)
+    .onConnected(onConnected)
+    .onComplete(onComplete);
+```
 
-[comment]: <> (              <td>说明</td>)
+### 运行模拟器
 
-[comment]: <> (            </tr>)
+1.在模拟器项目根目录执行如下命令
 
-[comment]: <> (        </thead>)
+```shell
+$ ./run-cli.sh
+```
+![](./img/simulator-run.png)
 
-[comment]: <> (        <tbody>)
+2.在运行成功的界面中执行如下命令。
 
-[comment]: <> (          <tr>)
+```shell
+ $ benchmark tcp --size=1 --name=tcp --host=127.0.0.1 --port=8803 --script=benchmark/tcp/benchmark.js
+```
 
-[comment]: <> (            <td>Name</td>)
+3. 出现如下界面表示TCP设备连接成功，并正在上报数据
+![](./img/tcp-device-simulator-connect.png)
 
-[comment]: <> (            <td>输入您的自定义名称。</td>)
 
-[comment]: <> (          </tr>)
 
-[comment]: <> (          <tr>)
 
-[comment]: <> (            <td>ASCII </td>)
-
-[comment]: <> (            <td>ASCII码，输入下方十六进制字符串后会自动生成。</td>)
-
-[comment]: <> (          </tr>)
-
-[comment]: <> (          <tr>)
-
-[comment]: <> (            <td>HEX</td>)
-
-[comment]: <> (            <td>十六进制。</td>)
-
-[comment]: <> (          </tr>)
-
-[comment]: <> (           <tr>)
-
-[comment]: <> (            <td>Address</td>)
-
-[comment]: <> (            <td>TCP服务地址。</td>)
-
-[comment]: <> (          </tr>)
-
-[comment]: <> (           <tr>)
-
-[comment]: <> (            <td>Port</td>)
-
-[comment]: <> (            <td>TCP服务端口。</td>)
-
-[comment]: <> (          </tr>)
-
-[comment]: <> (          <tr>)
-
-[comment]: <> (            <td>Persistent TCP</td>)
-
-[comment]: <> (            <td>勾选之后可保持长连接。</td>)
-
-[comment]: <> (          </tr>)
-
-[comment]: <> (        </tbody>)
-
-[comment]: <> (      </table>)
-
-[comment]: <> (<div class='explanation primary'>)
-
-[comment]: <> (  <p class='explanation-title-warp'>)
-
-[comment]: <> (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
-
-[comment]: <> (    <span class='explanation-title font-weight'>说明</span>)
-
-[comment]: <> (  </p>)
-
-[comment]: <> (设置参数时，请确保参数值中或参数值的前后均没有空格。)
-
-[comment]: <> (</div>)
-
-[comment]: <> (模式选择TCP。)
-
-[comment]: <> (![]&#40;./img/270.png&#41;)
-
-[comment]: <> (**分别保存上线参数以及事件上报参数**。</br>)
-
-[comment]: <> (设备上线：)
-
-[comment]: <> (![]&#40;./img/271.png&#41;)
-
-[comment]: <> (事件上报：)
-
-[comment]: <> (![]&#40;./img/272.png&#41;)
-
-[comment]: <> (4.模拟设备上下线</br>)
-
-[comment]: <> (单击packetsender工具上`Send`按钮发起请求。)
-
-[comment]: <> (![]&#40;./img/273.png&#41;)
-
-[comment]: <> (平台中设备状态变为上线即为连接成功,在设备日志模块可以看到设备上线日志。</br>)
-
-[comment]: <> (勾选`Persistent TCP`packetsender上请求成功后会打开一个新的已连接页面。)
-
-[comment]: <> (![]&#40;./img/274.png&#41;)
-
-[comment]: <> (关闭这个新的已连接页面即可断开设备与平台的连接,平台中设备状态变为离线,同时在设备日志模块可以看到设备离线日志。</br>)
-
-[comment]: <> (5.模拟设备上报事件</br>)
-
-[comment]: <> (i. 在第4.步，设备上线成功后打开的新的已连接页面上选择第3.步保存的事件上报参数。)
-
-[comment]: <> (![]&#40;./img/275.png&#41;)
-
-[comment]: <> (ii. 上报成功后，在**设备-运行状态**页面可以查看到。)
 
 ## HTTP接入
 ### 系统配置
