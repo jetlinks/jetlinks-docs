@@ -158,6 +158,8 @@ module.exports = {
                     ['/dev-guide/subscribe-device-message.md', '从事件总线中订阅消息'],
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/push-to-message-middleware.md', '设备相关数据推送到消息中间件'],
+                    ['/dev-guide/request-to-platform.md', '第三方平台请求JetLinks服务接口'],
+                    ['/dev-guide/diy-term-builder.md', '自定义SQL条件构造器'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
                     // ['/dev-guide/code-guide.md', '平台开发指导手册'],
