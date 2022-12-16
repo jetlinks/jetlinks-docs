@@ -159,6 +159,9 @@ module.exports = {
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
+                    ['/dev-guide/custom-code-guide.md', '在JetLinks上构建自己的业务功能'],
+                    ['/dev-guide/jetlinks-event-listener.md', '监听实体变化做业务'],
+
                     // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
                 ]
