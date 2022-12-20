@@ -1,4 +1,4 @@
-### 获取平台签名及token
+# 获取平台签名及Token
 
 1、使用签名的方式
 
@@ -9,9 +9,18 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-         1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
-         2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
-         3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller <a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+         <p>
+             1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
+    </p>
+         <p>
+             2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
+    </p>
+         <p>
+             3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller。<a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
+    </p>
+
+
+
 
 </div>
 
@@ -26,27 +35,22 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
   <p>
-      平台使用签名来校验客户端请求的完整性以及合法性
+      平台使用签名来校验客户端请求的完整性以及合法性。
     </p>
-    <p>
-        例如:
-    </p>
-    <p>
-        appId为<code>testId</code>,SecureKey为:<code>testSecure</code>,客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>,参数为<code>pageSize=20&pageIndex=0</code>,签名方式为<code>MD5</code>
-    </p>
-        1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code><br>
-        2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code><br>
-        3. 使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code><br><br>
+    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口，Demo中使用签名的方式接入。<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>
 </div>
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  Demo示例:<br><br>
-    Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口。Demo中使用签名的方式接入(<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>)
-</div>
+
+
+使用GET方式：
+
+<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口: <code>/api/v1/device/dev0001/log/_query</code>，参数为<code>pageSize=20&pageIndex=0</code>，签名方式为<code>md5</code>。</p>
+
+<p>1. 将参数key按ascii排序得到: <code>pageIndex=0&pageSize=20</code></p>
+
+<p>2. 使用拼接时间戳以及密钥得到: <code>pageIndex=0&pageSize=201574993804802testSecure</code></p>
+
+<p>3 .使用<code>md5("pageIndex=0&pageSize=201574993804802testSecure")</code>后得到<code>837fe7fa29e7a5e4852d447578269523</code></p>
 
 示例：
 
@@ -67,6 +71,44 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 {"status":200,result:[]}
 ```
 
+使用POST方式：
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  <p>
+      如果POST请求的contentType类型为APPLICATION_FORM_URLENCODED，则加密方式可以参见GET的方式。如果为其他类型则会将参数转换成<code>ByteBuffer</code>进行计算。
+    </p>
+</div>
+
+
+
+<p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口<code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用md5()后得到<code>ed6c0149e9e6d8875064df475240ed5d</code></p>
+
+示例：
+
+```text
+POST /api/device
+
+X-Client-Id: testId
+X-Timestamp: 167109938793
+X-Sign: ed6c0149e9e6d8875064df475240ed5d
+```
+
+响应结果：
+
+```
+HTTP/1.1 200 OK
+X-Timestamp: 167109989127
+X-Sign: d41d8cd98f00b204e9800998ecf8427e
+
+{"status":200,result:[]}
+```
+
+
+
 <br>
 
 验签
@@ -78,6 +120,8 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
   </p>
   需要使用使用和签名相同的算法，不需要对响应结果排序
 </div>
+
+
 
 示例：
 
@@ -104,6 +148,8 @@ if(sign.equalsIgnoreCase(signHeader)){
   </p>
   通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
 </div>
+
+
 申请token
 
 客户端请求接口`/token`，请求方式post
@@ -171,5 +217,3 @@ X-Access-Token: 3bcddb719b01da679b88d07acde2516
     "code": "success"
 }
 ```
-
-<br>
