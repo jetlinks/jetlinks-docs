@@ -1,17 +1,4 @@
-# 在JetLinks上构建自己的业务功能
-
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE'>
-  自定义模块项目</a>  
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E4%B8%AD%E7%BC%96%E5%86%99%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E9%80%BB%E8%BE%91%E4%BB%A3%E7%A0%81'>
-  自定义模块中编写增删改查逻辑代码</a>
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
-  自定义模块如何使用es</a>
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98'>
-  自定义模块如何引入使用redis缓存</a> 
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E4%BA%A7%E5%93%81%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF'>
-  自定义模块如何分组查询产品设备信息</a>
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8sqlexecutor'>
-  自定义模块如何使用sqlExecutor</a>
+### 在JetLinks上构建自己的业务功能
 
 #### 应用场景
 
@@ -23,23 +10,23 @@
 
    <p>当您想使用JetLinks平台做自己的业务，又不想将项目独立时，可以选择基于JetLinks进行开发。</p>
 
-  <p>JetLinks平台不用自动创建数据库，遵循JPA(Java Persistence API)规范，会根据@table注解自动创建表</p>
-
 </div>
 
-### 自定义模块项目
+#### 操作步骤
 
-#### 1.创建自定义Maven项目
+##### 创建新的Maven项目
+
+1. 创建自定义Maven项目
 
 ![创建新的Maven项目](./images/code-guide-1-1.png)
 
-#### 2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
+2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
 
 ![项目未加入JetLinks平台内时](./images/code-guide-1-2.png)
 
-#### 3.将自定义模块加入JetLinks平台
+##### 将自定义模块加入JetLinks平台
 
-##### 1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
+1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
 
 ![在pom文件内声明模块信息](./images/code-guide-1-3.png)
 示例代码:
@@ -64,7 +51,7 @@
 </modules>
 ```
 
-##### 2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
+2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
 
 ![在pom文件内声明模块信息](./images/code-guide-1-4.png)
 
@@ -84,12 +71,12 @@
 </profile>
 ```
 
-##### 3. reimport项目
+3. reimport项目
 
 以上两步操作完成之后需要使用Maven窗口的`reimport`即 `Reload ALL Maven Project`按钮，重新引入模块依赖，此时模块被加入jetlinks-pro项目下
 ![在pom文件内声明模块信息](./images/code-guide-1-5.png)
 
-##### 4. 加入子模块声明后，修改自定义项目pom文件内容
+4. 加入子模块声明后，修改自定义项目pom文件内容
 
 示例代码：
 
@@ -298,9 +285,11 @@ springdoc:
 
 </div>
 
-### 自定义模块中编写增删改查逻辑代码
 
-#### 1.添加简单的Controller类、Service、Entity等
+
+
+#### 2、如何使用hsweb4编写自己的业务增删改查逻辑代码
+1.添加简单的Controller类、Service、Entity等
 
 简单的业务系统目录结构如下图：
 
@@ -308,11 +297,25 @@ springdoc:
 
 
 
-#### 2.web层：`org.example.mydemo.web.CustomController`
+2.web层：`org.example.mydemo.web.CustomController`
 
   ```java
   package com.example.mydemo.web;
-  
+  import com.example.mydemo.entity.CustomEntity;
+  import com.example.mydemo.service.CustomService;
+  import io.swagger.v3.oas.annotations.Operation;
+  import io.swagger.v3.oas.annotations.tags.Tag;
+  import lombok.AllArgsConstructor;
+  import lombok.Getter;
+  import org.hswebframework.web.authorization.annotation.Authorize;
+  import org.hswebframework.web.authorization.annotation.QueryAction;
+  import org.hswebframework.web.authorization.annotation.Resource;
+  import org.hswebframework.web.crud.web.reactive.ReactiveServiceCrudController;
+  import org.springframework.web.bind.annotation.GetMapping;
+  import org.springframework.web.bind.annotation.RequestMapping;
+  import org.springframework.web.bind.annotation.RestController;
+  import reactor.core.publisher.Flux;
+
 @RestController
 @RequestMapping("/demo")
 @Getter
@@ -333,19 +336,39 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
 }
   ```
-#### 3.Service层 ：`org.example.mydemo.service.CustomService`
+3.Service层 ：`org.example.mydemo.service.CustomService`
 
   ```java
 package org.example.mydemo.service;
+
+import org.example.mydemo.entity.CustomEntity;
+import org.hswebframework.web.crud.service.GenericReactiveCrudService;
+import org.springframework.stereotype.Service;
 
  @Service
  public class CustomService extends GenericReactiveCrudService<CustomEntity,String> {
  }
   ```
-#### 4. entity层 ：`org.example.mydemo.entity.CustomEntity`
+4. entity层 ：`org.example.mydemo.entity.CustomEntity`
 
 ```java
 package org.example.mydemo.entity;
+
+
+import com.alibaba.fastjson.JSONObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import org.hswebframework.ezorm.rdb.mapping.annotation.Comment;
+import org.hswebframework.ezorm.rdb.mapping.annotation.DefaultValue;
+import org.hswebframework.web.api.crud.entity.GenericEntity;
+import org.hswebframework.web.api.crud.entity.RecordCreationEntity;
+import org.hswebframework.web.api.crud.entity.RecordModifierEntity;
+import org.hswebframework.web.crud.generator.Generators;
+
+import javax.persistence.*;
+import java.util.Map;
+
 
 @Table(name = "dev_my_demo_customentity", indexes = {
         @Index(name = "idx_device_id_type", columnList = "device_id,type")
@@ -414,7 +437,7 @@ public class CustomEntity extends GenericEntity<String> implements
 
 
 
-#### 5. 在`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`上加入自定义项目的扫描路径
+5. 在`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`上加入自定义项目的扫描路径
 
    代码：
 ```java
@@ -453,7 +476,7 @@ public class JetLinksApplication {
 }
 
 ```
-#### 6. 核心类说明
+6. 核心类说明
 
 | 类名                            | 说明                                              |
 |-------------------------------|-------------------------------------------------|
@@ -511,7 +534,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 #### DSL语法相关
 
-##### 1、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
+1、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
 
 | 方法名                                                       | 返回值              | 参数值                                                       | 说明                                                         |
 | ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -520,7 +543,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-##### 2、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
+2、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
 
 | 方法名                                                       | 返回值           | 参数                                                         |                                                              |
 | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -529,7 +552,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-##### 3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
+3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
 
 | 方法名       | 返回值          | 参数值 | 说明                                                        |
 | ------------ | --------------- | ------ | ----------------------------------------------------------- |
@@ -537,7 +560,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 | `count()`    | `Mono<Integer>` | 无     | 执行count查询,并返回count查询结果.                          |
 | `fetchOne()` | `Mono<T>`       | 无     | 执行查询并返回单个数据，T表示实体类                         |
 
-##### 4、相关代码示例
+4、相关代码示例
 
 `org.example.mydemo.web.CustomController`
 
@@ -654,718 +677,3 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
   <p><li>如果不会写响应式，建议最好独立项目不要与JetLinks混合使用非响应式，可能会导致项目出现阻塞。</li></p>
 
 </div>
-
-
-
-
-### 自定义模块如何使用es
-#### 1、在自定义的项目中引入平台es的模块
-
-##### 1.`properties`
-
-```
-<properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetlinks.version>1.20.0-SNAPSHOT</jetlinks.version>
-</properties>
-```
-
-##### 2.引入依赖：
-
-```java
-  <dependency>
-    <groupId>org.jetlinks.pro</groupId>
-    <artifactId>elasticsearch-component</artifactId>
-    <version>${jetlinks.version}</version>
-    <scope>compile</scope>
-  </dependency>
-```
-
-#### 2、创建自定义枚举类实现 `ElasticIndex`，定义es索引模板名称
-
-代码：
-
-  ```java
-  package org.example.mydemo.enums;
-  import org.jetlinks.pro.elastic.search.index.ElasticIndex;
-
-  @Getter
-  @AllArgsConstructor
-  public enum CustomIndexEnum implements ElasticIndex {
-  custom("custom");
-  private String index;
-  }
-  ```
-#### 3、在创建自定义es索引前，需要先创建es模板，启动程序时会根据如下配置代码创建es索引模板
-
-代码：
-
-   ```java
-package org.example.mydemo.config;
-
-
-@Component
-@Setter
-@AllArgsConstructor
-public class Configurations implements CommandLineRunner {
-    //引入indexManager
-    private final ElasticSearchIndexManager indexManager;
-
-    @Override
-    public void run(String... args) throws Exception {
-        indexManager.putIndex(
-                //设置es自定义模板名称
-                new DefaultElasticSearchIndexMetadata(CustomIndexEnum.custom.getIndex())
-                        //添加自定义模板属性
-                        .addProperty("device_id", new StringType())
-                        .addProperty("type",  new StringType())
-                        .addProperty("timestamp", new DateTimeType())
-        ).subscribe();
-    }
-}
-   ```
-
-#### 4、 在controller层引入`ElasticSearchService`服务
-
-在`org.example.mydemo.web.CustomController`中引入`elasticSearchService`
-
-```java
- private final ElasticSearchService elasticSearchService;
-```
-
-#### 5、`ElasticSearchService`的核心方法
-
-| 核心方法                                                     | 返回值                | 参数                                                         | 描述           |
-| ------------------------------------------------------------ | --------------------- | ------------------------------------------------------------ | -------------- |
-| `queryPager(String[] index, QueryParam queryParam, Function<Map<String, Object>, T> mapper)` | `Mono<PagerResult<T>` | String[] index-索引数组<br/> QueryParam queryParam-查询参数</br> `Function<Map<String, Object>, T>` mapper-函数式参数，传入Map，返回T | 分页查询数据   |
-| `queryPager(String index, QueryParam queryParam, Function<Map<String, Object>, T> mapper)` | `Flux<T>`             | String index-索引<br/> QueryParam queryParam-查询参数</br> `Function<Map<String, Object>, T>` mapper-函数式参数，传入Map，返回T | 查询数据       |
-| `query(String[] index, QueryParam queryParam, Function<Map<String, Object>, T> mapper)` | `Flux<T>`             | String[] index-索引数组<br/> QueryParam queryParam-查询参数</br> `Function<Map<String, Object>, T>` mapper-函数式参数，传入Map，返回T | 查询数据       |
-| `multiQuery(String[] index, Collection<QueryParam> queryParam, Function<Map<String, Object>, T> mapper)` | `Flux<T>`             | String[] index-索引数组<br/> `Collection<QueryParam> `queryParam-查询参数集合</br> Function<Map<String, Object>, T> mapper-函数式参数，传入Map，返回T | 查询数据       |
-| `count(String[] index, QueryParam queryParam)`               | `Mono<Long>`          | String[] index-索引数组<br/> QueryParam queryParam-查询参数  | 查询数据记录数 |
-| `delete(String index, QueryParam queryParam)`                | `Mono<Long>`          | String index-索引<br/> QueryParam queryParam-删除数据参数    | 删除数据记录   |
-| `commit(String index, T payload)`                            | `Mono<Void>`          | String index-索引<br/> T payload-提交的数据                  | 提交数据       |
-| `commit(String index, Collection<T> payload)`                | `Mono<Void>`          | String index-索引<br/> `Collection<T>` payload-提交的数据集合 | 提交数据       |
-| `commit(String index, Publisher<T> data)`                    | `Mono<Void>`          | String index-索引<br/> `Publisher<T>` data-提交的数据流      | 提交数据       |
-| `save(String index, T payload)`                              | `Mono<Void>`          | String index-索引<br/> T payload-保存的数据                  | 保存数据       |
-| `save(String index, Collection<T> payload)`                  | `Mono<Void>`          | String index-索引<br/> `Collection<T>` payload-保存的数据集合 | 保存数据       |
-| `save(String index, Publisher<T> data)`                      | `Mono<Void>`          | String index-索引<br/> `Publisher<T>` data-保存的数据流      | 保存数据       |
-
-#### 6、es相关简单代码示例
-
-```java
-package org.example.mydemo.web;
-
-
-
-@RestController
-@RequestMapping("/demo")
-@Getter
-@AllArgsConstructor
-@Resource(id = "demo", name = "自定义接口")
-@Tag(name = "自定义接口")
-@Authorize(ignore = true)
-
-public class CustomController implements ReactiveServiceCrudController<CustomEntity, String> {
-
-    private final CustomService customService;
-    //引入es
-    private final ElasticSearchService elasticSearchService;
-
-    /**
-     * 将参数实体内容存储到es中
-     * @param entity 存储参数实体
-     * @return
-     */
-    @PostMapping("/save")
-    @QueryAction
-    public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
-        //保存到数据库
-        return customService.insert(entity)
-                .filter(number -> number > 0)
-                //将成功保存到数据库的数据存储到自定义的es索引中
-                .flatMap(number -> elasticSearchService
-                        .save(CustomIndexEnum.custom.getIndex(), entity)
-                        .thenReturn(entity)
-                );
-    }
-
-    /**
-     *  根据参数，查询索引中的记录数
-     * @param _index  索引名称
-     * @param queryParam  查询参数
-     * @return
-     */
-    @PostMapping("/count/{_index}")
-    @QueryAction
-    public Mono<Long> countData(@PathVariable String _index, @Parameter QueryParamEntity queryParam) {
-        return elasticSearchService.count(_index, queryParam);
-    }
-    
-    /**
-     * 根据参数，分页查询索引中的数据
-     * @param _index 索引名称
-     * @param queryParam 查询参数
-     * @return
-     */
-    @PostMapping("/{_index}/query")
-    @QueryAction
-    public Mono<PagerResult<CustomEntity>> queryPagerData(@PathVariable String _index, QueryParamEntity queryParam) {
-     //从es中得到的查询结果会存入map，被自定义实体类(CustomEntity)的of方法转换，返回给调用者
-        return elasticSearchService
-                .queryPager(_index, queryParam, map -> CustomEntity.of(map));
-    }
-
-    @Override
-    public ReactiveCrudService<CustomEntity, String> getService() {
-        return customService;
-    }
-}
-
-```
-
-`CustomEntity`的`of`方法
-
-```java
-    /**
-     * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
-     * @param map  传入参数
-     * @return
-     */
-    public static CustomEntity of(Map<String, Object> map) {
-        return  JSONObject.parseObject(JSONObject.toJSONString(map), CustomEntity.class);
-    }
-```
-
-#### 常见问题
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-<p>Q：成功创建模板和索引，无法存入数据？</p>
-<p>A：查看自定义模板的属性类型是否和存入数据的数据类型一致</p></div>
-
-
-
-### 自定义模块如何引入消息总线
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-   EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
-</div>
-
-#### 1.在`web`的`org.example.mydemo.web.CustomController`新建方法
-
-```java
-     /**
-     * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
-     * @param customEntity
-     * @return
-     */
-    @PostMapping("/eventBus/publish")
-    public Mono<Integer> eventBuspublish(@RequestBody CustomEntity customEntity) {
-        return customService.insert(customEntity)
-                .filter(num->num>0)
-                .flatMap(num->{
-                   return eventBus
-                           //参数1：发布的主题  参数2：发布的数据，
-                       //存放在org.jetlinks.core.event.TopicPayload的payload中
-                            .publish("/demo/eventBus/insert", customEntity)
-                            .thenReturn(num);
-                });
-    }
-
-```
-
-#### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
-
-```java
-@Slf4j
-@Getter
-@Setter
-@Component
-@AllArgsConstructor
-public class CustomEventHandler implements CommandLineRunner {
-    //引入消息总线
-    @Qualifier("brokerEventBus")
-    private final EventBus eventBus;
-    //引入es
-    private final ElasticSearchService elasticSearchService;
-    //引入自定义service
-    private final CustomService customService;
-    
-    //订阅并消费
-     public void consumeMessage() {
-        eventBus.subscribe(Subscription.builder()
-                                       //订阅者标识
-                                       .randomSubscriberId()
-                                       .topics("/demo/eventBus/insert")
-                                        //订阅特性字段Feature说明
-                                        //local	订阅本地消息
-                                        //broker	订阅代理消息
-                                        //shared	共享订阅
-                                       .features(Subscription.Feature.local, Subscription.Feature.broker)
-                                       .build()).flatMap(payload -> {
-            //业务操作  往es里面存入数据
-            return elasticSearchService
-                    .save(CustomIndexEnum.custom.getIndex(), payload.getPayload());
-
-        }).subscribe();
-    }
-    
-    @Override
-    public void run(String... args) throws Exception {
-        consumeMessage();
-    }
-    
-```
-
-
-
-### 自定义模块如何引入使用redis缓存
-
-#### 1.前置操作
-
-##### 1.在自定义的pom文件中引入reids依赖
-
-```java
-    <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-    </dependency>
-```
-
-##### 2.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
-
-```java
-以下redis二选一进行使用
-//引入redis：选项一
-    private final ReactiveRedisOperations<String, String> redis;
-// 引入redis：选项二
-    private final ReactiveRedisTemplate<Object,Object> redis;
-```
-
-#### 2.相关代码示例
-
-##### 1.将数据存入`redis`:自定义模块的web层：`org.example.mydemo.web.CustomController`
-
-```java
- public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
-        //保存到数据库
-        return customService.insert(entity)
-                            .filter(number -> number > 0)
-                            //将成功保存到数据库的数据存储到自定义的es索引中
-                            .flatMap(number -> elasticSearchService
-                                    .save(CustomIndexEnum.custom.getIndex(), entity)
-                                    //事件发布，存入redis
-                                    .then(eventBus
-                                                  .publish("/demo/put/data/toRedis", entity))
-                            )
-                            .thenReturn(entity);
-    }
-```
-
-事件订阅：`org.example.mydemo.event.CustomEventHandler`
-
-```java
-@Getter
-@Setter
-@Component
-@AllArgsConstructor
-public class CustomEventHandler implements CommandLineRunner {
-    //引入消息总线
-    @Qualifier("brokerEventBus")
-    private final EventBus eventBus;
-    //引入redis
-    private final ReactiveRedisOperations<String, String> redis;
-    
-
-    public void write2Redis() {
-        eventBus
-                .subscribe(Subscription
-                                   .builder()
-                                   .randomSubscriberId()
-                                   .topics("/demo/put/data/toRedis")
-                                   .features(Subscription.Feature.local, Subscription.Feature.broker)
-                                   .build())
-                .flatMap(payload ->
-                                 redis
-                                         .opsForValue()
-                                         .set(payload.bodyToJson().getString("id"), payload.bodyToJson().toString()))
-                .subscribe();
-    }
-
-
-    @Override
-    public void run(String... args) throws Exception {
-        write2Redis();
-    }
-}
-```
-
-##### 2.从redis取数据，用stream进行分组返回
-
-```java
-/**
-     * 从redis缓存中获取数据
-     * @param redisKeys 集合key
-     * @return
-     */
-    @PostMapping("/get/data/fromRedis")
-    public Mono<Collection<List<CustomEntity>>> getData(@RequestBody List<String> redisKeys) {
-        return redis.opsForValue()
-                    .multiGet(redisKeys)
-                    .flatMap(list -> Mono.just(list.stream()
-                                               //转换为自定义类对象
-                                               .map(res -> JSONObject.parseObject(res, CustomEntity.class))
-                                               .collect(Collectors.toList())
-                                               .stream()
-                                               //按字段（type）分组
-                                               .collect(Collectors.groupingBy(customentity -> ((CustomEntity) customentity).getType()))
-                                               .values()));
-    }
-```
-
-### 常见问题
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-<p>Q：引入redis报错：No qualifying bean of type org.springframework.data.redis.core.ReactiveRedisTemplate available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}？</p>
-<p>A：查看redis的泛型，在平台是否有注入：如，org.jetlinks.community.standalone.configuration配置类中注入了范型事Object，Object的redis</p>
-</div>
-
-
-
-### 自定义模块如何分组查询产品设备信息
-
-#### 1.在自定义模块中新建`entity`类
-
-`org.example.mydemo.entity.CustomProductEntity`
-
-```java
-@Setter
-@Getter
-@Comment("自定义产品表")
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "custom_prodct_entity", indexes = {
-        @Index(name = "idx_productId", columnList = "id,product_id")
-})
-public class CustomProductEntity extends GenericEntity<String> implements RecordCreationEntity, RecordModifierEntity {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String getId(){
-        return super.getId();
-    }
-
-    @Column(name = "product_id")
-    @Comment("产品id")
-    private String productId;
-
-    @Column(name = "product_name")
-    @Comment("产品名称")
-    private String productName;
-
-    @Column(name="device_type")
-    @Comment("产品类型")
-    private String deviceType;
-
-    @Column
-    @Comment("状态")
-    private Integer state;
-
-    @Column(name = "creator_id", updatable = false)
-    @Schema(
-            description = "创建者ID(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorId;
-
-    @Column(name = "creator_name", updatable = false)
-    @Schema(
-            description = "创建者名称(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorName;
-
-    @Column(name = "create_time", updatable = false)
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "创建时间(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long createTime;
-
-    @Column
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "修改时间"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long modifyTime;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人ID"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierId;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人名称"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierName;
-
-}
-```
-
-`org.example.mydemo.entity.CustomDevcieEntity`
-
-```java
-@Setter
-@Getter
-@Comment("自定义设备表")
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "custom_device_entity", indexes = {
-        @Index(name = "idx_deviceId", columnList = "id,device_id")
-})
-public class CustomDevcieEntity extends GenericEntity<String> implements RecordCreationEntity, RecordModifierEntity {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String getId() {
-        return super.getId();
-    }
-
-    @Column(name = "device_id")
-    @Comment("设备id")
-    private String deviceId;
-
-
-    @Column(name = "device_name")
-    @Comment("设备名称")
-    private String deviceName;
-
-
-    @Column(name = "product_id")
-    @Comment("产品ID")
-    private String productId;
-
-    @Column(name = "product_name")
-    @Comment("产品名称")
-    private String productName;
-
-    @Column
-    @Comment("状态")
-    @DefaultValue("notActive")
-    private String state;
-
-    @Column(name = "creator_id", updatable = false)
-    @Schema(
-            description = "创建者ID(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorId;
-
-    @Column(name = "creator_name", updatable = false)
-    @Schema(
-            description = "创建者名称(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorName;
-
-    @Column(name = "create_time", updatable = false)
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "创建时间(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long createTime;
-
-    @Column
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "修改时间"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long modifyTime;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人ID"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierId;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人名称"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierName;
-
-
-}
-```
-
-#### 2.在自定义模块中新建`service`类
-
-`org.example.mydemo.service.CustomProductService`
-
-```java
-@Service
-public class CustomProductService extends GenericReactiveCrudService<CustomProductEntity,String> {
-}
-```
-
-`org.example.mydemo.service.CustomDeviceService`
-
-```java
-@Service
-public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcieEntity,String> {
-}
-```
-
-#### 3.在自定义模块中新建`controller`类
-
-`org.example.mydemo.web.CustomProDeviceController`
-
-```java
-@Getter
-@RestController
-@AllArgsConstructor
-@Authorize(ignore = true)
-@RequestMapping("/pro/device")
-public class CustomProDeviceController implements ReactiveServiceCrudController {
-    private static List<CustomDevcieEntity> list = new ArrayList<>();
-
-    //引入产品service
-    private CustomProductService customProductService;
-    //引入设备service
-    private CustomDeviceService customDeviceService;
-
-    //引入sql执行器
-    private DefaultR2dbcExecutor sqlExecutor;
-
-    /**
-     * 添加产品
-     *
-     * @param customProductEntity 产品数据
-     * @return
-     */
-
-    @PostMapping("/save/pro/")
-    public Mono<CustomProductEntity> savePro(@RequestBody CustomProductEntity customProductEntity) {
-        return customProductService
-                .insert(customProductEntity)
-                .thenReturn(customProductEntity);
-    }
-
-    /**
-     * 添加设备
-     *
-     * @param customDevcieEntity 设备数据
-     * @return
-     */
-
-    @PostMapping("/save/device")
-    public Mono<CustomDevcieEntity> saveDevice(@RequestBody CustomDevcieEntity customDevcieEntity) {
-        return
-                customDeviceService
-                        .insert(customDevcieEntity)
-                        .thenReturn(customDevcieEntity);
-    }
-    /**
-     * 查询产品设备信息，并按照产品类型分组
-     *
-     * @return
-     */
-    @GetMapping("/get")
-    public Mono<Object> getDeviceGroupByPro() {
-        return customProductService
-                .createQuery()
-                .fetch()
-                .map(list -> list.getProductId())
-                .collect(Collectors.toList())
-                .flatMap(proLists -> customDeviceService
-                        .createQuery()
-                        .in("product_id", proLists)
-                        .fetch()
-                        .collect(Collectors.toList())
-                        .flatMap(deviceList -> Mono.just(deviceList.stream()
-                                                                   .collect(Collectors.groupingBy(CustomDevcieEntity::getProductId))
-                                                                   .values()))
-                );
-    }
-
-
-    @Override
-    public ReactiveCrudService<CustomDevcieEntity, String> getService() {
-        return customDeviceService;
-    }
-}
-```
-
-### 自定义模块如何使用sqlExecutor
-
-#### 1.在自定义的service：`org.example.mydemo.service.CustomDeviceService`中引入平台的`sqlExecutor`
-
-```java
-@Service
-@AllArgsConstructor
-public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcieEntity,String> {
-    //引入sql执行器
-    private DefaultR2dbcExecutor sqlExecutor;
-}
-```
-
-#### 2.`org.hswebframework.ezorm.rdb.executor.reactive.ReactiveSqlExecutor`:响应式SQL执行器,用于响应式执行SQL操作
-
-### 核心方法
-| 核心方法                                                     | 返回值          | 参数                                                         | 描述                                                         |
-| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `update(Publisher<SqlRequest> request)`                      | `Mono<Integer>` | `Publisher<SqlRequest>` request-请求参数对象                 | 执行更新语句,支持 `update`,`delete`,`insert`                 |
-| `execute(Publisher<SqlRequest> request)`                     | `Mono<Void>`    | `Publisher<SqlRequest>` request-请求参数对象                 | 执行SQL语句,忽略结果                                         |
-| `select(Publisher<SqlRequest> request, ResultWrapper<E, ?> wrapper)` | `Mono<Void>`    | `Publisher<SqlRequest>` request-请求参数对象</br>`ResultWrapper<E, ?>` wrapper-返回结果集 | 执行查询语句,并使用同一个包装器包装返回结果,`<E>`-结果集类型 `<?>`-返回值类型 |
-
-#### 3.相关代码示例：
-
-```java
-     /**
-    * 使用sqlExector执行sql(insert)语句
-    */
-public Mono<Integer> saveData(CustomDevcieEntity customDevcieEntity) {
-        return sqlExecutor.update(
-        "insert into custom_device_entity(`id`,`device_id`,`device_name`,`product_id`,`product_name`) " +
-        "values(#{id},#{deviceId},#{deviceName},#{productId},#{productName})",
-        customDevcieEntity);
-        }
-
-      /**
-      * 使用sqlExector执行sql(update)语句
-      */
-public Mono<Integer> updateData(CustomDevcieEntity customDevcieEntity) {
-        return sqlExecutor.update(
-        "update custom_device_entity " +
-        "set `device_id`=#{deviceId},`device_name`=#{deviceName},`product_id`=#{productId},`product_name`=#{productName} where `id`=#{id}",
-        customDevcieEntity);
-        }
-```
-
-
-
-
-
-
-

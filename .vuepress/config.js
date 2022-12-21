@@ -152,15 +152,12 @@ module.exports = {
                     // ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
                     ['/dev-guide/commons-api.md', '平台内部核心类及接口说明'],
                     ['/dev-guide/cluster.md', '集群管理'],
-                    ['/dev-guide/sort-link.md', '短连接接入平台'],
-                    ['/dev-guide/poll-device-data.md', '平台从第三方或者设备主动拉取数据'],
+                    // ['/dev-guide/poll-device-data.md', '平台从第三方或者设备主动拉取数据'],
                     ['/dev-guide/assets.md', '数据权限控制'],
                     ['/dev-guide/subscribe-device-message.md', '从事件总线中订阅消息'],
                     ['/dev-guide/sso.md', '单点登录'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发常见问题'],
-                    ['/dev-guide/custom-code-guide.md', '在JetLinks上构建自己的业务功能'],
-                    ['/dev-guide/jetlinks-event-listener.md', '监听实体变化做业务'],
 
                     // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
