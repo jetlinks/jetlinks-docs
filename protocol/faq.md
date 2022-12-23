@@ -1,5 +1,28 @@
 # 协议开发常见问题
 
+
+## 如何在协议包中获取spring中的bean
+
+注意,协议包中的类`不支持`spring自动注入,可以通过从`ServiceContext`中获取bean,如:
+
+```java
+public class MyProtocolSupportProvider implements ProtocolSupportProvider {
+
+    @Override
+    public Mono<ProtocolSupport> create(ServiceContext context) {
+         //获取bean,作用和ApplicationContext相同
+         DeviceDataManager dataManager = context.getService(DeviceDataManager.class).orElseThrow(IllegalStateException::new);    
+         
+         ....
+    }
+
+}
+```
+
+::: tip 说明
+DeviceDataManager 可以获取设备属性数据缓存以及标签信息等
+:::
+
 ## 如何在协议包中使用第三方的依赖或者sdk
 
 1. 在`pom.xml`中添加依赖
