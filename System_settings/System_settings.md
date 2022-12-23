@@ -313,6 +313,47 @@
 
 </div>
 
+#### 名称解释
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>应用</td>
+            <td>
+            <li>内部独立应用</li>
+            适用于将官方开发的其他应用集成至jetlinks物联网平台。例如将大屏可视化平台集成至物联网平台。集成时jetlinks物联网平台端需要勾选页面集成、API服务，大屏可视化平台需勾选API客户端、单点登录。集成后的可视化大屏后端独立运行。
+             <li>内部集成应用</li>
+             适用于将官方开发的其他应用集成至jetlinks物联网平台。例如可将大屏可视化平台集成至物联网平台。集成时jetlinks物联网平台端需要勾选页面集成，大屏可视化平台需勾选API客户端、单点登录。集成后的大屏可视化后端与jetlinks物联网平台后端在同一环境下运行。
+            <li>微信网站应用</li>
+            适用于通过微信账户登录jetlinks物联网平台。
+           <li>钉钉企业内部应用</li>
+           适用于通过钉钉账户登录jetlinks物联网平台。
+           <li>第三方应用</li>
+           适用于将其他三方应用集成至jetlinks物联网平台。例如可将某公司OA系统集成至物联网平台。集成时jetlinks物联网平台端需要勾选页面集成、API服务，OA系统端作为客户端需自行设置接入所需的接入配置。
+            </td>
+          </tr>
+          <tr>
+            <td>接入方式</td>
+            <td>
+            <li>页面集成</li>
+            将其他应用系统的页面集成至jetlinks物联网平台。集成时通常需要配置API服务。
+            <li>API客户端</li>
+            将jetlinks物联网平台作为客户端集成到其他应用系统中，其他应用系统可通过Oauth2的方式访问物联网平台。
+             <li>API服务</li>
+             将jetlinks物联网API能力提供给其他应用，其他应用可通过接口的方式直接使用API能力，无须自行编写后端逻辑。
+             <li>单点登录</li>
+             使用第三方应用账户登录jetlinks物联网平台。
+            </td>
+          </tr>
+             </tbody>
+        </table>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -325,14 +366,164 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-第三方应用的API服务中，APPId和secureKey需要提供给客户端开发者。 
+第三方应用的API服务中，Appid和secureKey需要提供给客户端开发者。 
 </div>
+
+##### 页面集成
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接入地址</td>
+            <td>填写访问其它平台的地址，url地址+端口</td>
+          </tr>
+           <tr>
+            <td>路由方式</td>
+            <td><li>hash：使用URL的hash来模拟一个完整的URL, 其显示的网络路径中会有 “#” 号</li>
+            <li>history：路径中不包含“#”。依赖于Html5 的 history api</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API客户端
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接口地址</td>
+            <td>访问API服务的地址，url地址+端口</td>
+          </tr>
+          <tr>
+            <td>授权地址</td>
+            <td>认证授权地址，url地址+端口</td>
+          </tr>
+          <tr>
+            <td>回调地址</td>
+            <td>授权之后跳转到具体页面的回调地址，url地址+端口</td>
+          </tr>
+          <tr>
+            <td>appid</td>
+            <td>填写服务端的appid</td>
+          </tr>
+          <tr>
+            <td>appKey</td>
+            <td>填写服务端的appkey</td>
+          </tr>
+           <tr>
+            <td>请求头</td>
+            <td>根据不同应用的调用规范，自定义请求头内容</td>
+          </tr>
+           <tr>
+            <td>参数</td>
+            <td>根据不同应用的调用规范，自定义请求参数</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API服务
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>appid</td>
+            <td>调用API服务时所需的用户账号。配置API服务时，系统自动创建</td>
+          </tr>
+          <tr>
+            <td>secureKey</td>
+            <td>调用API服务时所需的用户密码,系统自动创建，可自定义编辑</td>
+          </tr>
+          <tr>
+            <td>回调地址</td>
+            <td>授权之后跳转到具体页面的回调地址，url地址+端口</td>
+          </tr>
+          <tr>
+            <td>角色</td>
+            <td>为API用户分配角色，根据绑定的角色，进行系统菜单赋权</td>
+          </tr>
+          <tr>
+            <td>组织</td>
+            <td>为API用户分配所属组织，根据绑定的组织，进行数据隔离</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### 单点登录
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>认证方式</td>
+            <td>设置单点登录认证方式</td>
+          </tr>
+          <tr>
+            <td>scope</td>
+            <td>用于限制应用程序对用户帐户的访问，填写服务端拟定好的scope类型</td>
+          </tr>
+          <tr>
+            <td>client_id</td>
+            <td>应用客户端唯一标识</td>
+          </tr>
+          <tr>
+            <td>client_secret</td>
+            <td>与应用客户端匹配的唯一秘钥</td>
+          </tr>
+          <tr>
+            <td>授权地址</td>
+            <td>oauth2授权地址，填写url地址+端口</td>
+          </tr>
+           <tr>
+            <td>token地址</td>
+            <td>身份认证地址，url地址+端口</td>
+          </tr>
+           <tr>
+            <td>用户信息地址</td>
+            <td>登录时用于获取用户信息的地址</td>
+          </tr>
+           <tr>
+            <td>用户ID</td>
+            <td>通过jsonpath表达式从授权结果中获取第三方平台用户的唯一标识</td>
+          </tr>
+           <tr>
+            <td>用户名</td>
+            <td>从用户信息接口返回数据中的用户名字段</td>
+          </tr>
+           <tr>
+            <td>头像</td>
+            <td>从用户信息接口返回数据中的头像字段</td>
+          </tr>
+           <tr>
+            <td>自动创建用户</td>
+            <td>初次通过第三方应用登录JetLinks物联网平台时将自动在平台端创建与之绑定的新用户</td>
+          </tr>
+        </tbody>
+      </table>
 
 ##### 后续操作
 1.当应用的接入方式勾选了**API服务**时，可以对该应用进行API赋权操作。鼠标移入**其他**按钮，点击隐藏的**赋权**按钮，进入赋权页面，勾选对应的API权限，然后点击**保存**。
 ![](./img/176.png)
 2.当应用的接入方式勾选了**API服务**时，可查看该应用的API权限。鼠标移入**其他**按钮，点击隐藏的**查看API**按钮，进入详情页面。</br>
-3.当应用的接入方式勾选了**页面集成**时，可以对该应用进行集成菜单配置。鼠标移入**其他**按钮，点击隐藏的**集成菜单**按钮，在弹框页中，勾选对应的API权限，然后点击**保存**。</br>
+3.当应用的接入方式勾选了**页面集成**时，可以对该应用进行集成菜单配置。鼠标移入**其他**按钮，点击隐藏的**集成菜单**按钮，在弹框页中，勾选需要集成的菜单，然后点击**保存**。</br>
 
 #### 编辑
 ##### 操作步骤
@@ -355,6 +546,17 @@
 2.点击顶部**系统管理**，在左侧导航栏，选择**第三方平台**，进入列表页。</br>
 3.点击具体第三方平台的**删除**按钮，然后点击**确定**
 ![](./img/180.png)
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+  若创建应用时有同步创建与之绑定的第三方平台用户，删除应用时将自动同步删除该用户；在用户管理菜单中删除第三方平台用户时，也将同步删除与之绑定的第三方应用配置数据。
+  说明您的需求。
+
+</div>
 
 ## 关系配置
 自定义系统内，各类数据资产之间的**关系**。该关系可用于系统其他功能进行调用，例如设备与用户的关系可用于场景联动引用。

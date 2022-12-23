@@ -24,13 +24,41 @@
 3.点击**新增**按钮，进入详情页，填写设备信息，然后点击**保存**。</br>
 ![](./img/127.png)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-接入密码需与设备端配置的接入密码一致。
-</div>
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+           <tr>
+            <td>接入方式</td>
+            <td>定义设备的接入方式，支持GB/T28181、固定地址2种方式。</td>
+          </tr>
+          <tr>
+            <td>设备名称</td>
+            <td>为视频设备命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>ID</td>
+            <td>设备唯一标识，请填写设备端配置的设备编号。</td>
+          </tr>
+          <tr>
+            <td>所属产品</td>
+            <td>定义设备所属产品，产品所引用的设备接入网关必须与接入方式类型相同。</td>
+          </tr>
+          <tr>
+            <td>接入密码</td>
+            <td>GB/T28181类型接入时将出现此字段。配置接入密码，设备端配置的密码需与该密码一致。该字段可在产品-设备接入页面进行统一配置，配置后所有设备将继承产品配置。设备单独修改后将脱离继承关系。</td>
+          </tr>
+          <tr>
+            <td>说明</td>
+            <td>描述点位信息，非必填。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 编辑
 ##### 操作步骤
@@ -54,6 +82,16 @@
 3.点击具体数据的**删除**按钮，然后点击**确定**。</br>
 ![](./img/130.png)
 
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+删除时将同步删除**物联网>设备管理>设备**页面中的数据。
+
+</div>
+
 
 #### 查看通道
 ##### 操作步骤
@@ -74,8 +112,51 @@
  只有固定地址接入类型的设备才可以新增通道。
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+           <tr>
+            <td>通道ID</td>
+            <td>同一个设备下通道ID具有唯一性，若不填写，系统将自动生成。</td>
+          </tr>
+          <tr>
+            <td>通道名称</td>
+            <td>为通道命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>视频地址</td>
+            <td>不同厂家的RTSP固定地址规则不同，请按对应厂家的规则填写。</td>
+          </tr>
+          <tr>
+            <td>用户名</td>
+            <td>填写通道的用户名信息，非必填。</td>
+          </tr>
+          <tr>
+            <td>密码</td>
+            <td>填写通道的密码，非必填。</td>
+          </tr>
+          <tr>
+            <td>说明</td>
+            <td>描述点位信息，非必填。</td>
+          </tr>
+        </tbody>
+      </table>
+
 2.播放通道实时视频流</br>
 ![](./img/133.png)
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+云台控制需设备端自身支持才可使用。
+</div>
 
 3.回放视频</br>
 ![](./img/134.png)
@@ -258,7 +339,7 @@
 
 ##### 后续步骤
 1.编辑国标ID</br>
-点击国标ID字段后方的**编辑**ICON，重新填写**18位**或**20位**的ID。
+点击国标ID字段后方的**编辑**ICON，重新填写**16位**或**20位**的ID。
 ![](./img/143.png)
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
