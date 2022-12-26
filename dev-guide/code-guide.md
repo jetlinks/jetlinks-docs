@@ -26,13 +26,11 @@
    设备数据推送到消息中间件</a>
 - <a target='_self' href='/dev-guide/mqtt-subs.html'>
    使用MQTT订阅平台相关消息</a>
-- <a target='_self' href='/dev-guide/third-request-interface.html'>
+- <a target='_self' href='/dev-guide/request-jetlinks-interface.html'>
    第三方平台请求JetLinks服务接口</a>
-- <a target='_self' href='/dev-guide/signature-token.html'>
-   获取平台签名及Token</a>
 - <a target='_self' href='/dev-guide/diy-term-builder.html'>
   自定义SQL条件构造器</a>
-- <a target='_self' href=''>
+- <a target='_self' href='/dev-guide/protocol-redis.html'>
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href=''>
   如何在协议包里面使用平台的业务方法？</a>

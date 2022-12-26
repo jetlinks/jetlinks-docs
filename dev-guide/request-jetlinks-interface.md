@@ -1,4 +1,57 @@
-# 获取平台签名及Token
+# 第三方平台请求JetLinks服务接口
+
+#### 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    第三方平台通过api请求JetLinks服务接口获取相关数据
+</div>
+
+
+<br>
+
+#### 创建第三方平台
+
+首先进入平台：选择平台上方的[系统管理]---选择左侧[应用管理]---点击新增按钮
+
+![创建第三方平台](./images/add-third-api-0.png)
+
+然后应用选择第三方应用，接入方式只勾选API服务，填入名称、secureKey，选择角色，点击保存
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
+</div>
+
+
+![创建第三方平台1](./images/add-third-api-1.png)
+
+<br>
+
+#### 赋权
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  大部分情况下只需要勾选设备相关权限即可
+</div>
+
+
+赋权操作在[系统管理]---[角色管理]---选择对应的角色后在页面内进行权限分配
+
+![选择权限](./images/select-auth.png)
+
+<br>
+
+#### 获取平台签名及Token
 
 1、使用签名的方式
 
@@ -18,10 +71,6 @@
          <p>
              3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller。<a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
     </p>
-
-
-
-
 </div>
 
 
@@ -39,6 +88,7 @@
     </p>
     Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口，Demo中使用签名的方式接入。<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>
 </div>
+
 
 
 
@@ -85,6 +135,7 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 
 
 
+
 <p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口<code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用md5()后得到<code>ed6c0149e9e6d8875064df475240ed5d</code></p>
 
 示例：
@@ -123,6 +174,7 @@ X-Sign: d41d8cd98f00b204e9800998ecf8427e
 
 
 
+
 示例：
 
 ```java
@@ -148,6 +200,7 @@ if(sign.equalsIgnoreCase(signHeader)){
   </p>
   通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
 </div>
+
 
 
 申请token

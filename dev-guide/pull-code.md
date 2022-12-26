@@ -314,8 +314,8 @@ User git
     <span class='explanation-title font-weight'>问题2</span>
   </p>
 
-  <li>Q：拉取代码的时候出现 <b class='explanation-title font-weight'> Please make sure you have the correct access rights and the repository exists</b>？</li>
-  <li>A：确认是否购买该模块或者账户未被添加进仓库，请联系商务。</li>
+  <p>Q：拉取代码的时候出现 <b class='explanation-title font-weight'> Please make sure you have the correct access rights and the repository exists</b>？</p>
+  <p>A：确认是否购买该模块或者账户未被添加进仓库，请联系商务。</p>
 
 </div>
 
