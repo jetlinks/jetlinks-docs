@@ -1,90 +1,49 @@
-# 前端部署及常见问题
-本文档部署环境为Centos7，提供了两种部署前端的方式分别为源码部署和docker部署，可根据实际情况选择对应的部署方式。
-## 源码方式部署
-### 版本说明
-<li>nodeJs v12.18.1</li>
-<li>yarn 1.22.19</li>
+# 前端部署说明
 
-### 打包前端文件
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  <p>本文档部署环境为Centos7，提供了两种部署方式分别为源码部署和docker部署，可根据实际情况选择对应的部署方式。</p>
+</div>
+
+## 源码方式部署
+
+### 版本说明
+
+- nodeJs v12.18.1
+- yarn 1.22.19
+
+### 操作步骤
+
 1. 获取源代码
-```shell script
+
+```shell
 $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
 ```
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>源码克隆下来之后，需要将分支从master切换到2.0分支</li>
+  <p>前端源码是开源的且无额外的仓库，源码克隆下来之后，需要将分支从master切换到2.0分支。</p>
 </div>
 
-2. 使用yarn打包,并将打包后生成的dist文件复制到项目的docker目录下（命令在项目根目录下执行）  
-```shell script
+2. 使用yarn打包,并将打包后生成的dist文件复制到项目的docker目录下（命令在项目根目录下执行）
+
+3. 执行下方命令
+
+```shell
 yarn install
-yarn run-script build 
-cp -r dist docker/       
+yarn build 
 ```
+4. 将打包的`dist`资源文件，上传至服务器上。
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
+5. 使用`pwd`查看`dist`目录的绝对路径。
 
-`yarn install`时出现版本`node`版本不兼容的报错
-```
-error react-dev-utils@12.0.1: The engine "node" is incompatible with this module. Expected version ">=14". Got "12.18.1"
-error Found incompatible module.
-```
-使用`yarn install --ignore-engines`命令忽略，再重新执行`yarn install`命令
-
-</div>
-
-
-
-
-### 使用docker部署前端
-1. 构建docker镜像
-```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
-```
-查看镜像是否构建成功`docker images`
-```
-$ docker images
-REPOSITORY                                                    TAG                 IMAGE ID       CREATED          SIZE
-registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro    2.0.0               f76af6002bcd   13 seconds ago   176MB
-```
-
-2. 将镜像推送到远程仓库
-```bash
-#登录阿里云仓库
-docker login --username=[username] registry.cn-hangzhou.aliyuncs.com
-#设置tag
-docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
-#推送到阿里云仓库
-docker push registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
-```
-
-查看是否推送成功
-
-![](./images/push_images.png)
-
-3. 运行docker镜像
-```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
-```
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-环境变量API_BASE_PATH为后台API根地址，由docker容器内进行自动代理，请根据自己的系统环境配置环境变量，API_BASE_PATH建议使用ipv4地址，若使用locahost或者127.0.0.1，可能会导致启动镜像失败
-</div>
-
-### 使用nginx部署前端
-1. 将打包的dist文件，传入服务器`/usr/share/nginx/html`路径下
-2. 修改nginx.conf配置文件，nginx配置参考: 
+6. 修改nginx.conf配置文件，nginx配置参考:
 
 ```conf
 server {
@@ -97,6 +56,7 @@ server {
     gzip_vary on;
     gzip_disable "MSIE [1-6]\.";
 
+    # 修改为pwd命令指向的完整资源路径
     root /usr/share/nginx/html;
     include /etc/nginx/mime.types;
     location / {
@@ -104,7 +64,8 @@ server {
     }
 
     location ^~/api/ {
-        proxy_pass http://xxx:8844/; #修改此地址为后台服务地址
+        #修改此地址为后台服务地址
+        proxy_pass http://xxx:8844/; 
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-IP  $remote_addr;
@@ -122,12 +83,92 @@ server {
     }
 }
 ```
-3. 使用`./nginx`命令启动前端
 
-<div class='explanation primary'>
+7. 启动nginx服务。
+
+### 常见问题
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+`yarn install`时出现版本`node`版本不兼容的报错。
+
+```shell
+error react-dev-utils@12.0.1: The engine "node" is incompatible with this module. Expected version ">=14". Got "12.18.1"
+error Found incompatible module.
+```
+
+使用`yarn install --ignore-engines`命令忽略，再重新执行`yarn build`命令打包资源文件。
+
+</div>
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+  <p>Q：如访问前端时发现接口出现502状态码？</p>
+  <p>A：502、504状态码一般是后端服务异常、或者nginx配置文件内的<span class='explanation-title font-weight'>proxy_pass</span>不正确导致的。</p>
+</div>
+
+### 使用docker部署前端
+
+1. 将资源文件目录拷贝至docker目录下
+2. 构建docker镜像
+
+```bash
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
+```
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+  <p>本文档内镜像地址是使用官方自己的仓库地址，如需提交自己的仓库，请自行更换。</p>
+</div>
+
+
+3. 查看镜像是否构建成功`docker images`
+
+```
+$ docker images
+REPOSITORY                                                    TAG                 IMAGE ID       CREATED          SIZE
+registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro    2.0.0               f76af6002bcd   13 seconds ago   176MB
+```
+
+4. 将镜像推送到远程仓库
+
+```bash
+#登录阿里云镜像仓库
+docker login --username=[username] registry.cn-hangzhou.aliyuncs.com
+#设置tag
+docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
+#推送到阿里云镜像仓库
+docker push registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
+```
+
+5. 查看是否推送成功
+
+![](./images/push_images.png)
+
+6. 运行docker镜像
+
+```bash
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+```
+
+<div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <li>前端启动后，要保证后端也是启动状态，才能加载出web页面</li>
+<p>环境变量<span class='explanation-title font-weight'>API_BASE_PATH</span>为后台API根地址，由docker容器自行转发代理，请根据自己的系统配置，
+<span class='explanation-title font-weight'>API_BASE_PATH</span>请使用ipv4地址，使用locahost或者127.0.0.1会因docker地址解析错误而启动镜像失败。</p>
 </div>
+

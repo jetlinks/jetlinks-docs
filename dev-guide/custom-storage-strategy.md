@@ -276,56 +276,7 @@ public class CustomRowModeDDLOperations extends RowModeDDLOperationsBase {
 
 | 参数  | 参数含义                                                                  |
 |-----|-----------------------------------------------------------------------|
-|OperationsContext| ------                                                                |
+|OperationsContext| 物存储操作对象                                                               |
 |thingType| 物类型：通常情况下是`device`,详见`ThingsBridgingDeviceDataService`类约定查询时序库给定的默认值。 |
 |templateId| 物模板id:通常情况下是产品id                                                      |
 |thingId| 物id：通常情况下是设备id                                                        |
-
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>
