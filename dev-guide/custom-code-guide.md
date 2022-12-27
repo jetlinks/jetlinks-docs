@@ -511,35 +511,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 #### DSL语法相关
 
-##### 1、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
-
-| 方法名                                                       | 返回值              | 参数值                                                       | 说明                                                         |
-| ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `execute()`                                                  | `Mono<Integer>`     | 无                                                           | 执行更新                                                     |
-| `onExecute(BiFunction<ReactiveUpdate<E>, Mono<Integer>, Mono<Integer>> consumer)` | `ReactiveUpdate<E>` | `BiFunction<ReactiveUpdate<E>,</br>Mono<Integer>,<br/>Mono<Integer>> consumer-函数式接口参数)` | 执行结果处理器<br/>`ReactiveUpdate<E>`-实体数据<br/>`Mono<Integer>`-更新执行器<br/> `Mono<Integer>`-新的执行器 |
-
-
-
-##### 2、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
-
-| 方法名                                                       | 返回值           | 参数                                                         |                                                              |
-| ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `execute()`                                                  | `Mono<Integer>`  | 无                                                           | 执行异步删除,返回被删除的数据条数                            |
-| `onExecute(BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper)` | `ReactiveDelete` | `BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper-函数式接口参数` | 执行结果处理器<br/>ReactiveDelete-当前动态删除接口<br/>`Mono<Integer>`-删除执行器<br/>`Mono<Integer>`-新的执行器 |
-
-
-
-##### 3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
-
-| 方法名       | 返回值          | 参数值 | 说明                                                        |
-| ------------ | --------------- | ------ | ----------------------------------------------------------- |
-| `fetch()`    | `Flux<T>`       | 无     | 执行查询并获取返回数据流,如果未查询到结果将返回Flux.empty() |
-| `count()`    | `Mono<Integer>` | 无     | 执行count查询,并返回count查询结果.                          |
-| `fetchOne()` | `Mono<T>`       | 无     | 执行查询并返回单个数据，T表示实体类                         |
-
-##### 4、相关代码示例
-
-`org.example.mydemo.web.CustomController`
+##### 1、相关代码示例
 
 ```java
 /**
@@ -623,6 +595,34 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
+##### 2.核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
+
+| 方法名                                                       | 返回值              | 参数值                                                       | 说明                                                         |
+| ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `execute()`                                                  | `Mono<Integer>`     | 无                                                           | 执行更新                                                     |
+| `onExecute(BiFunction<ReactiveUpdate<E>, Mono<Integer>, Mono<Integer>> consumer)` | `ReactiveUpdate<E>` | `BiFunction<ReactiveUpdate<E>,Mono<Integer>,Mono<Integer>> consumer-函数式接口参数)` | 执行结果处理器<br/>`ReactiveUpdate<E>`-实体数据<br/>`Mono<Integer>`-更新执行器<br/> `Mono<Integer>`-新的执行器 |
+
+
+
+##### 3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
+
+| 方法名                                                       | 返回值           | 参数                                                         |                                                              |
+| ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `execute()`                                                  | `Mono<Integer>`  | 无                                                           | 执行异步删除,返回被删除的数据条数                            |
+| `onExecute(BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper)` | `ReactiveDelete` | `BiFunction<ReactiveDelete, Mono<Integer>,Mono<Integer>> mapper-函数式接口参数` | 执行结果处理器<br/>ReactiveDelete-当前动态删除接口<br/>`Mono<Integer>`-删除执行器<br/>`Mono<Integer>`-新的执行器 |
+
+
+
+##### 4、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
+
+| 方法名       | 返回值          | 参数值 | 说明                                                        |
+| ------------ | --------------- | ------ | ----------------------------------------------------------- |
+| `fetch()`    | `Flux<T>`       | 无     | 执行查询并获取返回数据流,如果未查询到结果将返回Flux.empty() |
+| `count()`    | `Mono<Integer>` | 无     | 执行count查询,并返回count查询结果.                          |
+| `fetchOne()` | `Mono<T>`       | 无     | 执行查询并返回单个数据，T表示实体类                         |
+
+##### 
+
 #### 常见问题
 
 <div class='explanation warning'>
@@ -631,16 +631,15 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 
-  <p>Q：启动报错，Field repository in org.hswebframework.web.crud.service.GenericReactiveCrudService required a bean of type 'org.hswebframework.ezorm.rdb.mapping.ReactiveRepository' that could not be found.？</p>
+<p>Q：启动报错，Field repository in org.hswebframework.web.crud.service.GenericReactiveCrudService required a bean of type 'org.hswebframework.ezorm.rdb.mapping.ReactiveRepository' that could not be found.？</p >
   <p>A：检查`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`的 @EnableEasyormRepository注解的实体扫描包
-  如：@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.*"</span>})</p>
+  如：@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.*"</span>})</p >
 <p>应改为：<br/><li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity"</span>})</li>
     或者：<br/>
     <li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.**"</span>})</li>
    原因：<br/>
-    //todo  待补充
-</p>
-
+    平台使用ClassUtils.getPackageName(type)获取全类名称,@EnableEasyormRepository注解底层使用的是AntPathMatcher匹配机制，在AntPathMatcher匹配规则中a.b.c不能和a.b.c.*匹配
+</p >
 </div>
 
 <div class='explanation error'>
@@ -860,6 +859,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
    EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
 </div>
 
+
 #### 1.在`web`的`org.example.mydemo.web.CustomController`新建方法
 
 ```java
@@ -883,7 +883,13 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
 ```
 
-#### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
+#### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，引入消息总线，使用`eventBus`实现订阅
+
+```
+    //引入消息总线
+    @Qualifier("brokerEventBus")
+    private final EventBus eventBus;
+```
 
 ```java
 @Slf4j
@@ -915,7 +921,6 @@ public class CustomEventHandler implements CommandLineRunner {
             //业务操作  往es里面存入数据
             return elasticSearchService
                     .save(CustomIndexEnum.custom.getIndex(), payload.getPayload());
-
         }).subscribe();
     }
     
@@ -925,6 +930,17 @@ public class CustomEventHandler implements CommandLineRunner {
     }
     
 ```
+
+### 常见问题
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：每次重启服务后的第一次才能成功存储数据，第二次存储不成功，且使用doOnError()无错误信息提示</p>
+<p>A：检查自己的代码是否有断流，如：then()会返回了空流,导致上诉问题的出现</p>
+</div>
 
 
 
@@ -1009,7 +1025,7 @@ public class CustomEventHandler implements CommandLineRunner {
 }
 ```
 
-##### 2.从redis取数据，用stream进行分组返回
+##### 2.获取redis中的数据，可以选择stream将数据进行分组
 
 ```java
 /**
@@ -1040,184 +1056,48 @@ public class CustomEventHandler implements CommandLineRunner {
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 <p>Q：引入redis报错：No qualifying bean of type org.springframework.data.redis.core.ReactiveRedisTemplate available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}？</p>
-<p>A：查看redis的泛型，在平台是否有注入：如，org.jetlinks.community.standalone.configuration配置类中注入了范型事Object，Object的redis</p>
+<p>A：查看redis的泛型，在平台是否有注入：如，org.jetlinks.community.standalone.configuration配置类中注入了范型为Object，Object的redis</p>
 </div>
 
 
 
 ### 自定义模块如何分组查询产品设备信息
 
+#### 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    JetLinks平台未提供分组查询，用户可以使用stream流的方式实现业务数据分组
+</div>
+
+
 #### 1.在自定义模块中新建`entity`类
 
 `org.example.mydemo.entity.CustomProductEntity`
 
-```java
-@Setter
-@Getter
-@Comment("自定义产品表")
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "custom_prodct_entity", indexes = {
-        @Index(name = "idx_productId", columnList = "id,product_id")
-})
-public class CustomProductEntity extends GenericEntity<String> implements RecordCreationEntity, RecordModifierEntity {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String getId(){
-        return super.getId();
-    }
-
-    @Column(name = "product_id")
-    @Comment("产品id")
-    private String productId;
-
-    @Column(name = "product_name")
-    @Comment("产品名称")
-    private String productName;
-
-    @Column(name="device_type")
-    @Comment("产品类型")
-    private String deviceType;
-
-    @Column
-    @Comment("状态")
-    private Integer state;
-
-    @Column(name = "creator_id", updatable = false)
-    @Schema(
-            description = "创建者ID(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorId;
-
-    @Column(name = "creator_name", updatable = false)
-    @Schema(
-            description = "创建者名称(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorName;
-
-    @Column(name = "create_time", updatable = false)
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "创建时间(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long createTime;
-
-    @Column
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "修改时间"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long modifyTime;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人ID"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierId;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人名称"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierName;
-
-}
-```
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+CustomProductEntity类中包含的字段有：id(记录ID唯标识)、productId(产品ID)、productName(产品名称)、deviceType(产品类型)、devies(泛型为CustomProductEntity的list集合)
+</div>
 
 `org.example.mydemo.entity.CustomDevcieEntity`
 
-```java
-@Setter
-@Getter
-@Comment("自定义设备表")
-@AllArgsConstructor
-@NoArgsConstructor
-@Table(name = "custom_device_entity", indexes = {
-        @Index(name = "idx_deviceId", columnList = "id,device_id")
-})
-public class CustomDevcieEntity extends GenericEntity<String> implements RecordCreationEntity, RecordModifierEntity {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String getId() {
-        return super.getId();
-    }
-
-    @Column(name = "device_id")
-    @Comment("设备id")
-    private String deviceId;
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+CustomProductEntity类中包含的字段有：id(记录ID唯标识)、deviceId(设备ID)、deviceName(设备名称)、productId(产品ID)、productName(产品名称)
+</div>
 
 
-    @Column(name = "device_name")
-    @Comment("设备名称")
-    private String deviceName;
 
-
-    @Column(name = "product_id")
-    @Comment("产品ID")
-    private String productId;
-
-    @Column(name = "product_name")
-    @Comment("产品名称")
-    private String productName;
-
-    @Column
-    @Comment("状态")
-    @DefaultValue("notActive")
-    private String state;
-
-    @Column(name = "creator_id", updatable = false)
-    @Schema(
-            description = "创建者ID(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorId;
-
-    @Column(name = "creator_name", updatable = false)
-    @Schema(
-            description = "创建者名称(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String creatorName;
-
-    @Column(name = "create_time", updatable = false)
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "创建时间(只读)"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long createTime;
-
-    @Column
-    @DefaultValue(generator = Generators.CURRENT_TIME)
-    @Schema(
-            description = "修改时间"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private Long modifyTime;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人ID"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierId;
-
-    @Column(length = 64)
-    @Schema(
-            description = "修改人名称"
-            , accessMode = Schema.AccessMode.READ_ONLY
-    )
-    private String modifierName;
-
-
-}
-```
 
 #### 2.在自定义模块中新建`service`类
 
@@ -1254,62 +1134,41 @@ public class CustomProDeviceController implements ReactiveServiceCrudController 
     private CustomProductService customProductService;
     //引入设备service
     private CustomDeviceService customDeviceService;
-
-    //引入sql执行器
-    private DefaultR2dbcExecutor sqlExecutor;
-
-    /**
-     * 添加产品
-     *
-     * @param customProductEntity 产品数据
-     * @return
-     */
-
-    @PostMapping("/save/pro/")
-    public Mono<CustomProductEntity> savePro(@RequestBody CustomProductEntity customProductEntity) {
-        return customProductService
-                .insert(customProductEntity)
-                .thenReturn(customProductEntity);
-    }
-
-    /**
-     * 添加设备
-     *
-     * @param customDevcieEntity 设备数据
-     * @return
-     */
-
-    @PostMapping("/save/device")
-    public Mono<CustomDevcieEntity> saveDevice(@RequestBody CustomDevcieEntity customDevcieEntity) {
-        return
-                customDeviceService
-                        .insert(customDevcieEntity)
-                        .thenReturn(customDevcieEntity);
-    }
     /**
      * 查询产品设备信息，并按照产品类型分组
      *
      * @return
      */
     @GetMapping("/get")
-    public Mono<Object> getDeviceGroupByPro() {
+      /**
+     * 查询产品设备信息，并按照产品类型分组返回
+     *
+     * @return
+     */
+    @GetMapping("/get")
+    public Flux<CustomProductEntity> getDeviceGroupByPro() {
         return customProductService
-                .createQuery()
-                .fetch()
-                .map(list -> list.getProductId())
-                .collect(Collectors.toList())
-                .flatMap(proLists -> customDeviceService
-                        .createQuery()
-                        .in("product_id", proLists)
-                        .fetch()
-                        .collect(Collectors.toList())
-                        .flatMap(deviceList -> Mono.just(deviceList.stream()
-                                                                   .collect(Collectors.groupingBy(CustomDevcieEntity::getProductId))
-                                                                   .values()))
-                );
+            .createQuery()
+            .fetch()
+            .collectList()
+            .flatMapMany(productList -> {
+                List<String> list = productList.stream()
+                                               .map(CustomProductEntity::getProductId)
+                                               .collect(Collectors.toList());
+                return customDeviceService
+                    .createQuery()
+                    .in("product_id", list)
+                    .fetch()
+                    .collect(Collectors.toList())
+                    .map(deviceList -> deviceList.stream()
+                                                     .collect(Collectors.groupingBy(CustomDevcieEntity::getProductId)))
+                    .flatMapMany(map-> {
+                        productList.forEach(product->product.setDevices(map.get(product.getProductId())));
+                        return Flux.fromIterable(productList);
+                    });
+
+            });
     }
-
-
     @Override
     public ReactiveCrudService<CustomDevcieEntity, String> getService() {
         return customDeviceService;
@@ -1317,7 +1176,20 @@ public class CustomProDeviceController implements ReactiveServiceCrudController 
 }
 ```
 
-### 自定义模块如何使用sqlExecutor
+### 自定义模块如何使用sqlexecutor
+
+#### 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  用户可以在JetLinks平台代码中使用原生sql操作数据库
+</div>
+
+
+
 
 #### 1.在自定义的service：`org.example.mydemo.service.CustomDeviceService`中引入平台的`sqlExecutor`
 
@@ -1330,42 +1202,106 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 }
 ```
 
-#### 2.`org.hswebframework.ezorm.rdb.executor.reactive.ReactiveSqlExecutor`:响应式SQL执行器,用于响应式执行SQL操作
+#### 2.相关代码示例：
 
-### 核心方法
-| 核心方法                                                     | 返回值          | 参数                                                         | 描述                                                         |
-| ------------------------------------------------------------ | --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `update(Publisher<SqlRequest> request)`                      | `Mono<Integer>` | `Publisher<SqlRequest>` request-请求参数对象                 | 执行更新语句,支持 `update`,`delete`,`insert`                 |
-| `execute(Publisher<SqlRequest> request)`                     | `Mono<Void>`    | `Publisher<SqlRequest>` request-请求参数对象                 | 执行SQL语句,忽略结果                                         |
-| `select(Publisher<SqlRequest> request, ResultWrapper<E, ?> wrapper)` | `Mono<Void>`    | `Publisher<SqlRequest>` request-请求参数对象</br>`ResultWrapper<E, ?>` wrapper-返回结果集 | 执行查询语句,并使用同一个包装器包装返回结果,`<E>`-结果集类型 `<?>`-返回值类型 |
-
-#### 3.相关代码示例：
-
-```java
-     /**
-    * 使用sqlExector执行sql(insert)语句
-    */
-public Mono<Integer> saveData(CustomDevcieEntity customDevcieEntity) {
+```
+/**
+     * 使用sqlExector执行sql(insert)语句
+     * @param customDevcieEntity 传入参数
+     * @return
+     */
+    public Mono<Integer> saveData(CustomDevcieEntity customDevcieEntity) {
         return sqlExecutor.update(
-        "insert into custom_device_entity(`id`,`device_id`,`device_name`,`product_id`,`product_name`) " +
-        "values(#{id},#{deviceId},#{deviceName},#{productId},#{productName})",
-        customDevcieEntity);
-        }
+                "insert into custom_device_entity(`id`,`device_id`,`device_name`,`product_id`,`product_name`) " +
+                        "values(#{id},#{deviceId},#{deviceName},#{productId},#{productName})",
+                customDevcieEntity);
+    }
 
-      /**
-      * 使用sqlExector执行sql(update)语句
-      */
-public Mono<Integer> updateData(CustomDevcieEntity customDevcieEntity) {
+    /**
+     * 使用sqlExector执行sql(update)语句
+     * @param customDevcieEntity 传入参数
+     * @return
+     */
+    public Mono<Integer> updateData(CustomDevcieEntity customDevcieEntity) {
         return sqlExecutor.update(
-        "update custom_device_entity " +
-        "set `device_id`=#{deviceId},`device_name`=#{deviceName},`product_id`=#{productId},`product_name`=#{productName} where `id`=#{id}",
-        customDevcieEntity);
-        }
+                "update custom_device_entity " +
+                        "set `device_id`=#{deviceId},`device_name`=#{deviceName},`product_id`=#{productId},`product_name`=#{productName} where `id`=#{id}",
+                customDevcieEntity);
+    }
+
+
+   /**
+     * 使用sqlExector执行sql(select)语句
+     * 2个参数，平台会使用ResultWrappers.map()作为包装器
+     *
+     * @param customDevcieEntity 传入参数
+     * @return
+     */
+    public Flux<Map<String, Object>> getData(CustomDevcieEntity customDevcieEntity) {
+        return sqlExecutor
+            .select("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}",
+                    customDevcieEntity)
+            ;
+    }
+
+    /**
+     * 使用sqlExector执行sql(select)语句
+     * 3个参数，第3个参数为指定的平台包装器
+     *
+     * @param customDevcieEntity 传入参数
+     * @return
+     */
+    public Flux<Map<String, Object>> getData2(CustomDevcieEntity customDevcieEntity) {
+        return sqlExecutor
+            .select(SqlRequests
+                        .of("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}", customDevcieEntity), ResultWrappers.map())
+            ;
+    }
 ```
 
 
 
+#### 3.`org.hswebframework.ezorm.rdb.executor.reactive.ReactiveSqlExecutor`:响应式SQL执行器,用于响应式执行SQL操作
+
+### 核心方法
+
+| 核心方法                                                     | 返回值                      | 参数                                                         | 描述                                                         |
+| ------------------------------------------------------------ | --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `update(Publisher<SqlRequest> request)`                      | `Mono<Integer>`             | `Publisher<SqlRequest>` request-请求参数对象                 | 执行更新语句,支持 `update`,`delete`,`insert`                 |
+| `execute(Publisher<SqlRequest> request)`                     | `Mono<Void>`                | `Publisher<SqlRequest>` request-请求参数对象                 | 执行SQL语句,忽略结果                                         |
+| `select(Publisher<SqlRequest> request, ResultWrapper<E, ?> wrapper)` | `Mono<Void>`                | `Publisher<SqlRequest>` request-请求参数对象</br>`ResultWrapper<E, ?>` wrapper-返回结果集 | 执行查询语句,并使用同一个包装器包装返回结果,`<E>`-结果集类型 `<?>`-返回值类型 |
+| `select(String sql, Object... args)`                         | `Flux<Map<String, Object>>` | String sql-sql语句</br>Object... args-sql参数                | 使用预编译执行查询SQL,并返回map结果                          |
 
 
 
+#### 4.平台`ResultWrappers`相关说明
+
+```
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   ResultWrappers:通用查询结果包装器大全
+</div>
+```
+
+#### 核心方法
+
+| 核心方法                                                     | 返回值                                                       | 参数                                                         | 描述                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `lowerCase(ResultWrapper<E, R> wrapper)`                     | `<E, R> ResultWrapper<E, R>`                                 | `ResultWrapper<E, R>` wrapper-下级包装器                     | 创建将列转为小写的包装器                                     |
+| `map()`                                                      | `ResultWrapper<Map<String, Object>, Map<String, Object>>`    | 无                                                           | 将行转为Map的包装器,此包装器不具备收集能力,通常需要配合具备收集能力的包装器使用 |
+| `mapList()`                                                  | `ResultWrapper<Map<String, Object>, List<Map<String, Object>>>` | 无                                                           | map集合结果包装器                                            |
+| `mapStream()`                                                | `ResultWrapper<Map<String, Object>, Stream<Map<String, Object>>>` | 无                                                           | map流结果包装器                                              |
+| `set(ResultWrapper<E, ?> wrapper)`                           | `<E> ResultWrapper<E, Set<E>>`                               | `ResultWrapper<E, ?> `wrapper-行包装器                       | Set结果包装器                                                |
+| `stream(ResultWrapper<E, ?> wrapper)`                        | `<E> ResultWrapper<E, Stream<E>>`                            | `ResultWrapper<E, ?> `wrapper-流结果                         | 创建流结果包装器                                             |
+| `singleMap()`                                                | `ResultWrapper<Map<String, Object>, Map<String, Object>>`    | 无                                                           | 单个map的结果包装器                                          |
+| `list(ResultWrapper<E, ?> wrapper)`                          | `<E> ResultWrapper<E, List<E>>`                              | `ResultWrapper<E, ?>` wrapper-行包装器                       | 集合结果包装器,将所有行结果收集成一个集合                    |
+| `optional(ResultWrapper<E, R> wrapper)`                      | `<E, R> ResultWrapper<E, Optional<R>>`                       | `ResultWrapper<E, ?>` wrapper-行包装器                       | 可选结果包装器                                               |
+| `single(ResultWrapper<E, ?> wrapper)`                        | `<E> ResultWrapper<E, E>`                                    | `ResultWrapper<E, ?>` wrapper-行包装器                       | 单个结果包装器,结果可能为 `<code>null</code>`                |
+| `column(String column, Decoder<R> decoder)`                  | `<R> ResultWrapper<R, R>`                                    | String column-列名</br>`Decoder<R>` decoder-解码器           | 创建单列结果包装器,只包装处理单个列的数据                    |
+| `consumer(ResultWrapper<E, ?> wrapper, Consumer<E> consumer)` | `<R> ResultWrapper<R, R>`                                    | `ResultWrapper<E, ?>` wrapper-行结果包装器</br> `Consumer<E>` consumer-行结果消费者 | 创建不收集结果,只消费行结果的包装器                          |
+| `consumer(ResultWrapper<E, ?> wrapper, Consumer<E> consumer, Runnable onCompleted)` | `<E> ResultWrapper<E, Integer> `                             | `ResultWrapper<E, ?>` wrapper-行结果包装器</br> `Consumer<E>` consumer-行结果消费者</br>Runnable onCompleted-当全部执行完成后执行的任务 | 创建不收集结果,只消费行结果的包装器,并支持全部消费完后,执行指定的任务 |
+| `convert(ResultWrapper<E, R> wrapper, Function<R, C> converter)` | `<E, R, C> ResultWrapper<E, C>`                              | `ResultWrapper<E, R>` wrapper-原始包装器</br>` Function<R, C> `converter-结果转换器 | 创建转换结果的包装器                                         |
 
