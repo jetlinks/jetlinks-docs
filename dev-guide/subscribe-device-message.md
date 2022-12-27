@@ -200,57 +200,75 @@ eventBus
 
 </div>
 
-| topic                                              | 类型                       | 说明                                      |
-| -------------------------------------------------- | -------------------------- | ----------------------------------------- |
-| /online                                            | DeviceOnlineMessage        | 设备上线                                  |
-| /offline                                           | DeviceOfflineMessage       | 设备离线                                  |
-| /message/event/{eventId}                           | DeviceEventMessage         | 设备事件                                  |
-| /message/property/report                           | ReportPropertyMessage      | 设备上报属性                              |
-| /message/property/read/reply                       | ReadPropertyMessageReply   | 读取属性回复                              |
-| /message/property/write/reply                      | WritePropertyMessageReply  | 修改属性回复                              |
-| /message/function/reply                            | FunctionInvokeMessageReply | 调用功能回复                              |
-| /register                                          | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用         |
-| /unregister                                        | DeviceUnRegisterMessage    | 设备注销,同上                             |
-| /message/children/{childrenDeviceId}/{topic}       | ChildDeviceMessage         | 子设备消息,{topic}为子设备消息对应的topic |
-| /message/children/reply/{childrenDeviceId}/{topic} | ChildDeviceMessage         | 子设备回复消息,同上                       |
+| topic                                        | 类型                         | 说明                          |
+|----------------------------------------------|----------------------------|-----------------------------|
+| /online                                      | DeviceOnlineMessage        | 设备上线                        |
+| /offline                                     | DeviceOfflineMessage       | 设备离线                        |
+| /disconnect                                  | DisconnectDeviceMessage       | 平台主动断开连接                    |
+| /disconnect/reply                            | DisconnectDeviceMessageReply       | 平台主动断开连接回复                  |
+| /message/event/{eventId}                     | DeviceEventMessage         | 设备事件                        |
+| /message/property/report                     | ReportPropertyMessage      | 设备上报属性                      |
+| /message/property/read/reply                 | ReadPropertyMessageReply   | 读取属性回复                      |
+| /message/property/write/reply                | WritePropertyMessageReply  | 修改属性回复                      |
+| /message/function/reply                      | FunctionInvokeMessageReply | 调用功能回复                      |
+| /register                                    | DeviceRegisterMessage      | 设备注册,通常与子设备消息配合使用           |
+| /unregister                                  | DeviceUnRegisterMessage    | 设备注销,同上                     |
+| /firmware/pull                               | RequestFirmwareMessage     | 设备拉取固件信息                    |
+| /firmware/pull/reply                         | RequestFirmwareMessageReply    | 设备拉取固件信息响应                  |
+| /firmware/report                             | ReportFirmwareMessage     | 上报设备固件信息                    |
+| /firmware/progress                           | UpgradeFirmwareProgressMessage    | 上报固件更新进度                    |
+| /firmware/push                               | UpgradeFirmwareMessage    | 更新设备固件                      |
+| /firmware/push/reply                         | UpgradeFirmwareMessageReply   | 更新设备固件回复                    |
+| /message/acknowledge                         | AcknowledgeDeviceMessage   | 应答指令                        |
+| /message/log                                 | DeviceLogMessage   | 日志                          |
+| /message/direct                              | DirectDeviceMessage   | 透传消息                        |
+| /message/tags/update                         | UpdateTagMessage   | 更新标签                        |
+| /message/tags/update                         | UpdateTagMessage   | 更新标签                        |
+| /message/children                            | ChildDeviceMessage   | 下行子设备消息                     |
+| /message/children/reply                      | ChildDeviceMessageReply   | 上行子设备消息回复                   |
+| /metadata/derived                            | DerivedMetadataMessage   | 派生属性                        |
+| /message/state_check                         | DeviceStateCheckMessage   | 状态检查                        |
+| /message/state_check/reply                   | DeviceStateCheckMessageReply   | 状态检查回复                      |
+
 
 ### 系统消息对应topic说明
 
-| Topic                                            | 说明       |
-|--------------------------------------------------|----------|
-| /_sys/network/{typeId}/reload                    | 重启网络组件   |
-| /_sys/network/{typeId}/shutdown                  | 停止网络组件   |
-| /_sys/network/{typeId}/destroy                   | 删除网络组件   |
-| /_sys/media-gateway/{gatewayId}/sync-channel     | 视频网关同步   |
-| /_sys/media-gateway/start                        | 视频网关启动   |
-| /_sys/media-gateway/stop                         | 视频网关停止   |
-| /_sys/collector-conf                             | 采集器配置    |
-| /_sys/collector-remove                           | 采集器删除    |
-| /_sys/collector-point                            | 采集器点位    |
-| /_sys/collector-channel                          | 采集器通道    |
-| /_sys/collector-channel-remove                   | 删除采集器通道  |
-| /sys-event/{operationType}/{operationId}/{level} | 系统事件     |
-| /logging/system/{logName}/{logLevel}             | 系统日志     |
-| /_sys/notifier/reload                            | 消息通知重启   |
-| /_sys/registry-product/{productID}/register      | 产品注册     |
-| /_sys/registry-product/{productID}/unregister    | 产品注销     |
-| /_sys/registry-product/{productID}/metadata      | 产品物模型    |
-| /_sys/user-dimension-changed/{userId}            | 用户维度变更   |
-| /_sys/metadata-mapping-changed                   | 物模型变更    |
-| /_sys/metadata-mapping-deleted                   | 物模型删除    |
-| /debug/device/{deviceId}/trace                   | 设备诊断     |
-| /_sys/notify-channel/register                    | 注册消息通道   |
-| /_sys/notify-channel/unregister                  | 注销消息通道   |
-| /_sys/alarm/config/deleted                       | 告警配置删除   |
-| /_sys/alarm/config/created                       | 告警配置创建   |
-| /_sys/alarm/config/saved                         | 告警配置保存   |
-| /_sys/alarm/config/modified                      | 告警配置修改   |
-| /_sys/device-alarm-config/save                   | 设备告警保存   |
-| /_sys/device-alarm-config/bind                   | 设备告警绑定   |
-| /_sys/device-alarm-config/unbind                 | 设备告警解绑   |
-| /_sys/thing-connector/started                    | 启动连接器    |
-| /_sys/thing-connector/stopped                    | 停止连接器    |
-| /_sys/thing-connector/deleted                    | 删除连接器    |
+| Topic                                            | 说明      |
+|--------------------------------------------------|---------|
+| /_sys/network/{typeId}/reload                    | 重启网络组件  |
+| /_sys/network/{typeId}/shutdown                  | 停止网络组件  |
+| /_sys/network/{typeId}/destroy                   | 删除网络组件  |
+| /_sys/zlm/notify/{action}                        | 流媒体通知   |
+| /_sys/media-gateway/{gatewayId}/sync-channel     | 视频网关同步  |
+| /_sys/media-gateway/start                        | 视频网关启动  |
+| /_sys/media-gateway/stop                         | 视频网关停止  |
+| /_sys/collector-conf                             | 采集器配置   |
+| /_sys/collector-remove                           | 采集器删除   |
+| /_sys/collector-point                            | 采集器点位   |
+| /_sys/collector-channel                          | 采集器通道   |
+| /_sys/collector-channel-remove                   | 删除采集器通道 |
+| /sys-event/{operationType}/{operationId}/{level} | 系统事件    |
+| /logging/system/{logName}/{logLevel}             | 系统日志    |
+| /_sys/notifier/reload                            | 消息通知重启  |
+| /_sys/registry-product/{productID}/register      | 产品注册    |
+| /_sys/registry-product/{productID}/unregister    | 产品注销    |
+| /_sys/registry-product/{productID}/metadata      | 产品物模型   |
+| /_sys/user-dimension-changed/{userId}            | 用户维度变更  |
+| /_sys/metadata-mapping-changed                   | 物模型变更   |
+| /_sys/metadata-mapping-deleted                   | 物模型删除   |
+| /debug/device/{deviceId}/trace                   | 设备诊断    |
+| /_sys/notify-channel/register                    | 注册消息通道  |
+| /_sys/notify-channel/unregister                  | 注销消息通道  |
+| /_sys/alarm/config/deleted                       | 告警配置删除  |
+| /_sys/alarm/config/created                       | 告警配置创建  |
+| /_sys/alarm/config/saved                         | 告警配置保存  |
+| /_sys/alarm/config/modified                      | 告警配置修改  |
+| /_sys/device-alarm-config/save                   | 设备告警保存  |
+| /_sys/device-alarm-config/bind                   | 设备告警绑定  |
+| /_sys/device-alarm-config/unbind                 | 设备告警解绑  |
+| /_sys/thing-connector/started                    | 启动连接器   |
+| /_sys/thing-connector/stopped                    | 停止连接器   |
+| /_sys/thing-connector/deleted                    | 删除连接器   |
 
 ##### typeId字段说明
 
