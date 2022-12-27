@@ -1,4 +1,13 @@
 # 平台开发指导手册
+  
+<div class='explanation primary'>
+<p class='explanation-title-warp'>
+  <span class='iconfont icon-bangzhu explanation-icon'></span>
+  <span class='explanation-title font-weight'>说明</span>
+</p>
+  <p>本文档主要是用于指导用户如何下载及更新代码、部署过程中遇到的问题汇总以及常见的开发问题汇总。</p>
+  
+</div>
 
 ## 常见开发问题
 
