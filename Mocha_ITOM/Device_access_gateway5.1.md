@@ -45,19 +45,19 @@
         <tbody>
           <tr>
             <td>SIP域</td>
-            <td>SIP域地址，通常为SIP ID的前10位</td>
+            <td>SIP域地址，通常为SIP ID的前10位。</td>
           </tr>
           <tr>
             <td>SIP ID</td>
-            <td>SIP ID通常为16位或20位，填写规范请参见《GB/T28181-2016》</td>
+            <td>SIP ID通常为16位或20位，填写规范请参见《GB/T28181-2016》。</td>
           </tr>
           <tr>
             <td>SIP地址</td>
-            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0</td>
+            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0。</td>
           </tr>
           <tr>
             <td>公网Host</td>
-            <td>监听指定端口的请求</td>
+            <td>监听指定端口的请求。</td>
           </tr>
         </tbody>
       </table>
@@ -84,15 +84,15 @@
         <tbody>
           <tr>
             <td>接口地址</td>
-            <td>用于iot平台向CTWing平台同步数据，仅回显，不可编辑</td>
+            <td>用于iot平台向CTWing平台同步数据，仅回显，不可编辑。</td>
           </tr>
           <tr>
             <td>APP Key</td>
-            <td>CTWing平台中三方应用的唯一身份标识</td>
+            <td>CTWing平台中三方应用的唯一身份标识。</td>
           </tr>
           <tr>
             <td>appSecret</td>
-            <td>CTWing平台中三方应用的唯一身份认证秘钥</td>
+            <td>CTWing平台中三方应用的唯一身份认证秘钥。</td>
           </tr>
         </tbody>
       </table>
@@ -109,19 +109,19 @@
         <tbody>
           <tr>
             <td>接口地址</td>
-            <td>用于iot平台向OneNet平台同步数据，仅回显，不可编辑</td>
+            <td>用于iot平台向OneNet平台同步数据，仅回显，不可编辑。</td>
           </tr>
           <tr>
             <td>API key</td>
-            <td>OneNet平台中具体产品的Key</td>
+            <td>OneNet平台中具体产品的Key。</td>
           </tr>
           <tr>
             <td>通知Token</td>
-            <td>用于验证请求是否来自OneNET</td>
+            <td>用于验证请求是否来自OneNET。</td>
           </tr>
           <tr>
             <td>aesKey</td>
-            <td>OneNet端生成的消息加密key</td>
+            <td>OneNet端生成的消息加密key。</td>
           </tr>
         </tbody>
       </table>
@@ -204,6 +204,29 @@
   <li>jar:上传协议jar包,文件格式支持.jar或.zip。</li>
   <li>local:填写本地协议编译目录绝对地址,如:d:/protocol/target/classes</li>
 </div>
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为协议命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>类型</td>
+            <td>定义协议包类型。jar包格式支持.jar或.zip；local类型填写本地协议编译目录绝对地址,如:d:/protocol/target/classes</td>
+          </tr>
+          <tr>
+            <td>说明</td>
+            <td>为协议填写备注信息，最多可输入200个字符，非必填。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 编辑
 ##### 操作步骤
@@ -289,7 +312,7 @@ UDP参数说明
           </tr>
           <tr>
             <td>本地地址</td>
-            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0</td>
+            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0。</td>
           </tr>
            <tr>
             <td>本地端口</td>
@@ -397,11 +420,11 @@ WebSocket/HTTP服务参数说明
           </tr>
           <tr>
             <td>本地地址</td>
-            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0</td>
+            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0。</td>
           </tr>
            <tr>
             <td>本地端口</td>
-            <td>监听指定端口的请求</td>
+            <td>监听指定端口的请求。</td>
           </tr>
            <tr>
             <td>公网地址</td>
@@ -449,11 +472,11 @@ MQTT客户端参数说明
           </tr>
           <tr>
             <td>远程地址</td>
-            <td>连接远程连接地址</td>
+            <td>连接远程连接地址。</td>
           </tr>
            <tr>
             <td>远程端口</td>
-            <td>连接远程端口的请求</td>
+            <td>连接远程端口的请求。</td>
           </tr>
            <tr>
             <td>clientId</td>
@@ -473,7 +496,7 @@ MQTT客户端参数说明
           </tr>
            <tr>
             <td>订阅前缀</td>
-            <td>当连接的服务为EMQ时,可能需要使用共享的订阅前缀,如:$queue或$share</td>
+            <td>当连接的服务为EMQ时,可能需要使用共享的订阅前缀,如:$queue或$share。</td>
            <tr>
             <td>DTLS</td>
             <td>是否开启DTLS，用于数据加密配置。</td>
@@ -512,11 +535,11 @@ MQTT服务参数说明
           </tr>
           <tr>
             <td>本地地址</td>
-            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0</td>
+            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0。</td>
           </tr>
            <tr>
             <td>本地端口</td>
-            <td>监听指定端口的请求</td>
+            <td>监听指定端口的请求。</td>
           </tr>
            <tr>
             <td>公网地址</td>
@@ -568,7 +591,7 @@ CoAP服务参数说明
           </tr>
           <tr>
             <td>本地地址</td>
-            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0</td>
+            <td>绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0。</td>
           </tr>
            <tr>
             <td>本地端口</td>

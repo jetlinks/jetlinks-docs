@@ -38,6 +38,50 @@
   <li>用户具有多个角色时，拥有多个角色权限的并集。</li>
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td>为用户命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>用户名</td>
+            <td>设置账号的用户名信息，该字段将用于登录系统。用户名在系统内具有唯一性。</td>
+          </tr>
+          <tr>
+            <td>密码</td>
+            <td>密码不低于8位，最多64位；密码必须包含大小写字母+数字。</td>
+          </tr>
+          <tr>
+            <td>确认密码</td>
+            <td>再次输入密码，2次输入的密码必须一致。</td>
+          </tr>
+          <tr>
+            <td>角色</td>
+            <td>为当前用户账号绑定角色，系统将基于角色进行菜单权限分配，非必填。</td>
+          </tr>
+          <tr>
+            <td>组织</td>
+            <td>为当前用户账号绑定组织，系统将基于组织进行数据权限分配。非必填。</td>
+          </tr>
+           <tr>
+            <td>手机号</td>
+            <td>填写该用户的手机号信息，非必填。</td>
+          </tr>
+           <tr>
+            <td>邮箱</td>
+            <td>填写该用户的邮箱信息，非必填。</td>
+          </tr>
+          </tbody>
+</table>
+
+
 
 #### 编辑
 ##### 操作步骤
@@ -152,13 +196,35 @@
 4.点击具体角色的**编辑**按钮，进入详情页，勾选所需的菜单、操作、数据权限，然后点击**保存**。</br>
 ![](./img/162.png)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为角色命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>说明</td>
+            <td>角色备注说明信息，非必填。</td>
+          </tr>
+          <tr>
+            <td>权限分配</td>
+            <td>为角色分配菜单、操作、数据权限。
+            <div class='explanation info no-border'>
     <span class='explanation-title font-weight'>说明</span>
-  </p>
+    <ul>
 勾选父菜单会自动关联勾选下属子菜单，以及子菜单中的所有操作权限。数据权限默认是选择<span style='font-weight:600'>自己创建的</span>数据。
-</div>
+    </ul>
+  </div>
+            </td>
+          </tr>
+          </tbody>
+</table>
 
 ##### 后续步骤
 1.绑定用户</br>
@@ -206,8 +272,74 @@
 菜单的数据权限由后端代码控制，若后端代码不支持数据权限，即使前端页面配置为支持数据权限也无法生效。
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为菜单命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>编码</td>
+            <td>菜单唯一编码。</td>
+          </tr>
+          <tr>
+            <td>页面地址</td>
+            <td>菜单对应的页面路由地址。</td>
+          </tr>
+          <tr>
+            <td>排序</td>
+            <td>菜单排序，展示时将按照升序排列。</td>
+          </tr>
+         <tr>
+            <td>权限配置</td>
+            <td>配置菜单的操作权限、数据权限。
+            <li>不支持：菜单内的数据不支持权限隔离，拥有菜单权限即可查看菜单页面内的所有数据。</li>
+            <li>支持：菜单内的数据支持权限隔离，可基于组织实现数据隔离。</li>
+            <li>间接控制：此菜单内的数据基于其他菜单的数据权限控制。</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
 4.（可选操作）点击切换至**按钮管理**tab，点击**新增**按钮，在弹框页面填写按钮权限信息，然后点击**保存**。</br>
 ![](./img/167.png)
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为按钮命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>编码</td>
+            <td>菜单内按钮的唯一编码。
+                        <div class='explanation info no-border'>
+    <span class='explanation-title font-weight'>说明</span>
+    <ul>
+按钮是一个抽象概念，可以基于实际业务以及代码的实际情况，将tab页权限以按钮权限的方式进行配置。
+    </ul>
+  </div>
+            </td>
+          </tr>
+          <tr>
+            <td>权限</td>
+            <td>为菜单内的按钮分配操作权限。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 菜单配置
 ##### 操作步骤
@@ -265,6 +397,29 @@
 标识必须与代码中的标识ID一致，否则配置将不生效。
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>标识</td>
+            <td>权限控制唯一标识，系统内具有唯一性。标识必须与代码中的标识ID一致，否则配置将不生效。</td>
+          </tr>
+          <tr>
+            <td>名称</td>
+            <td>为权限命名，最多可输入64个字符。
+            </td>
+          </tr>
+          <tr>
+            <td>操作类型</td>
+            <td>定义权限中的具体操作类型。填写时需与代码中定义的操作类型一致。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 导入
 ##### 操作步骤
@@ -609,7 +764,7 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-禁用状态下，管理按钮不可点击。
+禁用状态下，管理按钮不可点击。RabbitMQ类型暂不支持管理功能。
 </div>
 
 #### 启用/禁用

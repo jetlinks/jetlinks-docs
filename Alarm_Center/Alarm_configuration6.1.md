@@ -134,6 +134,29 @@
 4.填写配置信息，然后点击**保存**。</br>
 ![](./img/89.png)
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>kafka地址</td>
+            <td>填写kafka地址，IP地址+端口。</td>
+          </tr>
+          <tr>
+            <td>topic</td>
+            <td>填写topic地址。</td>
+          </tr>
+          <tr>
+            <td> 状态</td>
+            <td>启用后配置将生效。</td>
+          </tr>
+          </tbody>
+</table>
+
 ## 告警记录
 统一维护根据告警规则产生的告警数据，可对告警记录进行详情查看与告警处理。
 ### 告警处理
