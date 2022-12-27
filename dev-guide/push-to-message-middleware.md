@@ -94,7 +94,6 @@ Kafka存在集群配置，只需要在broker地址填入多个服务器地址并
   </p>
     producer和consumer的配置不能同时开启，否则会出现重复写入时序库内
 </div>
-
 <br>
 
 kafka的使用
@@ -107,7 +106,7 @@ device:
         enabled: true #直接写出设备消息数据到elasticsearch        
       kafka:
         enabled: true # 推送设备消息到kafka
-        consumer: true # 设置为true会从kafka订阅消息并写入到时序数据库
+        consumer: true # 设置为true会从kafka订阅消息并写入到时序数据库,false则不写入
         topic-name: device.message
         
 spring:
@@ -225,7 +224,7 @@ device:
         enabled: true #直接写出设备消息数据到elasticsearch
       rabbitmq:
         enabled: true # 推送设备消息到rabbitMq
-        consumer: true # 设置为true则从rabbitMQ订阅消息并写入到时序数据库
+        consumer: true # 设置为true则从rabbitMQ订阅消息并写入到时序数据库,false则不写入
         thread-size: 4 # 消费线程数
         auto-ack: true # 自动应答,为true可能导致数据丢失，但性能最高
         topic-name: device.message # exchange名称
