@@ -12,8 +12,7 @@
 </div>
 
 
-## 基本操作
-### 使用流程
+## 获取源码
 
 1. 拉取源码
    在拉取JetLinks源码之前，您需要先注册一个Github账号。请参见<a href="https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home">
@@ -33,6 +32,23 @@
 - <a target='_self'>
    后端部署及常见问题</a>
 
+## 设备接入
+  - MQTT
+  - TCP
+  - HTTP
+  - UDP
+  - CoAP
+  - Websocket
+  - 网关子设备接入
+  - 电信OneNet
+  - 移动ctwing
+  - 阿里云
+  - 小度
+  - 国标28181/2016接入
+  - 固定地址接入
+  - OPC UA接入
+  - Modbus/TCP接入
+
 ## 基本开发问题
 
 - <a target='_self' href='/dev-guide/custom-code-guide.html'>
@@ -41,13 +57,18 @@
    实体变更后如何触发自己的业务流程？</a>
 - <a target='_self' href='/dev-guide/subscribe-device-message.html'>
    如何使用消息总线？</a>
-- <a target='_self'>如何横向扩展集群节点？</a>
 - <a target='_self' href='/dev-guide/custom-storage-strategy.html'>
   如何添加自定义存储策略？</a>
 - <a target='_self' href='/dev-guide/rule-engine.html'>
   如何添加自定义规则引擎节点？</a>
 - <a target='_self' href='/dev-guide/diy-term-builder.html'>
   自定义SQL条件构造器</a>
+- 透传协议
+- 数据权限控制？
+- 数据隔离如何操作？
+- 如何横向扩展集群节点？
+- 国际化
+- 文件管理
 
 ## 数据流转
 
@@ -55,11 +76,15 @@
    设备数据推送到消息中间件</a>
 - <a target='_self' href='/dev-guide/mqtt-subs.html'>
    订阅平台相关消息</a>
+- 调用平台历史数据接口
 
 ## 对接第三方系统
 
 - <a target='_self' href='/dev-guide/request-jetlinks-interface.html'>
    第三方平台请求JetLinks服务接口</a>
+- 在JetLinks内集成第三方系统
+- 在第三方系统内集成JetLinks
+- 单点登录
 
 ## 协议开发问题
 
@@ -71,3 +96,8 @@
    主动从设备获取属性、事件如何操作？</a>
 - <a target='_self' href='/dev-guide/sort-link.html'>
    短连接、低功耗类设备接入平台 </a>
+
+## 系统压力测试
+- 压测场景
+- 压测脚本
+- 模拟并发
