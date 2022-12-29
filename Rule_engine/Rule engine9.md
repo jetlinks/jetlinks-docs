@@ -54,6 +54,15 @@
 
 ## 场景联动
 通过可视化的方式定义设备之间联动规则。当触发条件指定的事件或属性变化事件发生时，系统通过判断执行条件是否已满足，来决定是否执行规则中定义的执行动作。
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+ 场景联动规则仅支持以<span style='font-weight:600'>产品物模型</span>进行配置，不支持以<span style='font-weight:600'>设备物模型</span>进行配置。
+</div>
+
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
