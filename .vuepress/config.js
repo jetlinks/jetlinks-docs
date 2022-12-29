@@ -151,6 +151,7 @@ module.exports = {
                     ['/dev-guide/cluster.md', '集群管理'],
                     ['/dev-guide/assets.md', '数据权限控制'],
                     ['/dev-guide/sso.md', '单点登录'],
+                    //['/dev-guide/i18n-back.md', '国际化'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发及使用指导'],
 
