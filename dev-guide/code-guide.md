@@ -30,7 +30,7 @@
    前端部署及常见问题</a>
 - <a target='_self' href='/dev-guide/middleware-deploy.html'>
    中间件部署及常见问题</a>
-- <a target='_self'>
+- <a target='_self' href='/dev-guide/java-deploy.html'>
    后端部署及常见问题</a>
 
 ## 基本开发问题
