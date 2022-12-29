@@ -61,9 +61,9 @@
     id = "custom",
     name = "自定义组件",
     //节点显示需要填入的数据
-    editor = "rule-engine/editor/common/custom-node.html",
+    editor = "rule-engine/editor/common/2-custom-node.html",
     //该节点的说明页面
-    helper = "rule-engine/i18n/zh-CN/common/custom-node.html",
+    helper = "rule-engine/i18n/zh-CN/common/2-custom-node.html",
     order = 2
 )
 public class MyCustomExecutorProvider implements TaskExecutorProvider {
@@ -79,7 +79,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
     //创建执行任务
     @Override
     public Mono<TaskExecutor> createTask(ExecutionContext context) {
-        return Mono.just(new DeviceSceneTaskExecutor(context));
+        return Mono.just(new CustomTaskExecutor(context));
     }
 	
     //定义一个内部类继承FunctionTaskExecutor
@@ -89,7 +89,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
         private String name;
 
-        public DeviceSceneTaskExecutor(ExecutionContext context) {
+        public CustomTaskExecutor(ExecutionContext context) {
             super("自定义执行器", context);
             reload();
         }
@@ -133,7 +133,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 ### 配置并显示自定义节点
 
-1、在包<code>rule-engine.editor.common</code>下创建一个<code>custom-node.html</code>文件
+1、在包<code>rule-engine.editor.common</code>下创建一个<code>2-custom-node.html</code>文件
 
 2、配置节点所需填写内容
 
@@ -188,7 +188,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 ```
 
-3、在<code>rule-engine.i18n.zh-CN.common</code>包下创建<code>custom-node.html</code>并配置节点说明（可以跳过）
+3、在<code>rule-engine.i18n.zh-CN.common</code>包下创建<code>2-custom-node.html</code>并配置节点说明（可以跳过）
 
 ```html
 <script type="text/html" data-help-name="custom">
@@ -240,6 +240,74 @@ reactorQL配置
 3、启动自定义规则，右侧点击<code>debug</code>按钮，执行效果如下
 
 ![执行结果](./images/custom-rule-engine-result.png)
+
+
+### 自定义节点如何实现国际化
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>可以配置参数切换主时区</p>
+    <p>-Duser.language=en -Duser.region=US</p>
+</div>
+
+替换MyCustomExecutorProvider注解中的helper
+```
+@EditorResource(
+    id = "custom",
+    name = "自定义组件",
+    //节点显示需要填入的数据
+    editor = "rule-engine/editor/common/2-custom-node.html",
+    //该节点的说明页面
+    helper = "rule-engine/i18n/{local}/common/2-custom-node.html",
+    order = 2
+)
+```
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   helper = "rule-engine/i18n/{language}/common/custom-node.html"中的{locale}在程序启动时会在org.jetlinks.pro.rule.engine.editor.resolve替换成真正的路劲，如被zh-CN或者en-US替代
+</div>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明案例</span>
+  </p>
+     <p>@EditorResource注解的helper路劲中可代替参数有3种，要与resources下文档路劲匹配</p>
+     <p>文档示例的三种写法应该为：</p>
+     <p>1. {language}启动时会被en或者zh替代，对应的资源路劲应为：rule-engine/i18n/en(或者zh)/common/custom-node.html</p>
+     <p>2. {country}启动时会被CN或者US替代，对应的资源路劲应为：rule-engine/i18n/US(或者CN)/common/custom-node.html</p>
+     <p>3. {locale}启动时会被zh-CN或者en-US替代，对应的资源路劲应为：rule-engine/i18n/en-US(或者zh-CN)/common/custom-node.html</p>
+</div>
+
+3.创建I18n en-US相关的html文件
+
+rule-engine/i18n/en-US/common/2-custom-node.html
+
+```html
+<script type="text/html" data-help-name="custom">
+    <p>custom node</p>
+    <h3>example</h3>
+    <code>
+    <pre>
+    id:d1257d60.3add8
+    name:custom i18n
+    </pre>
+    </code>
+</script>
+```
+
+
+4.helper国际化html文档结构图如下：
+
+![i18n文档结构图](./images/i18n-01.png)
+
+
 
 
 

@@ -1,6 +1,6 @@
 # 源码拉取及子模块更新指南
 
-#### 应用场景
+#### 指导介绍
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
