@@ -1,0 +1,213 @@
+## 后端部署
+
+### 使用docker部署后端
+
+1. 使用maven命令将项目打包  
+   在代码根目录执行：
+
+```shell script
+./mvnw clean package -Dmaven.test.skip=true
+```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+打包完成之后，会在/jetlinks-standalone/target路径下生成jetlinks-standalone.jar文件
+</div>
+
+2. 使用docker构建镜像
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+请自行准备docker镜像仓库，此处以registry.cn-shenzhen.aliyuncs.com阿里云仓库为例。
+</div>
+
+```shell script
+$ cd ./jetlinks-standalone
+#注意:命令末尾的 . 不要遗漏了
+$ docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:latest .
+```
+
+3. 推送镜像
+
+```bash
+#登录阿里云镜像仓库，此处会让你输密码，就是创建镜像服务时自己设置的密码
+docker login --username=[username] registry.cn-shenzhen.aliyuncs.com
+#设置tag
+docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0
+#推送到阿里云镜像仓库
+$ docker push registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0
+```
+4. 查看镜像是否推送成功
+   ![create ssh keys2](./images/java-image.png)
+
+5. 创建docker-compose文件
+
+```bash
+version: '2'
+services:
+  redis:
+    image: redis:5.0.4
+    container_name: jetlinks-ce-redis
+     ports:
+       - "6379:6379"
+    volumes:
+      - "redis-volume:/data"
+    command: redis-server --appendonly yes --requirepass "JetLinks@redis"
+    environment:
+      - TZ=Asia/Shanghai
+  elasticsearch:
+    image: elasticsearch:6.8.11
+    container_name: jetlinks-ce-elasticsearch
+    environment:
+      ES_JAVA_OPTS: -Djava.net.preferIPv4Stack=true -Xms1g -Xmx1g
+      transport.host: 0.0.0.0
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      discovery.zen.minimum_master_nodes: 1
+      discovery.zen.ping.unicast.hosts: elasticsearch
+    volumes:
+      - elasticsearch-volume:/usr/share/elasticsearch/data
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+  kibana:
+    image: kibana:6.8.11
+    container_name: jetlinks-ce-kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - "5602:5601"
+    depends_on:
+      - elasticsearch
+  postgres:
+    image: postgres:11-alpine
+    container_name: jetlinks-ce-postgres
+    volumes:
+      - "postgres-volume:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: jetlinks
+      POSTGRES_DB: jetlinks
+      TZ: Asia/Shanghai
+  ui:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+    container_name: jetlinks-ce-ui
+    ports:
+      - 9000:80
+    environment:
+      - "API_BASE_PATH=http://jetlinks:8848/" #API根路径
+    volumes:
+      - "jetlinks-volume:/usr/share/nginx/html/upload"
+    links:
+      - jetlinks:jetlinks
+  jetlinks:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0
+    container_name: jetlinks-ce
+    ports:
+      - "8848:8848" # API端口
+      - "1883-1890:1883-1890" # 预留
+      - "8800-8810:8800-8810" # 预留
+      - "5060-5061:5060-5061" # 预留
+    volumes:
+      - "jetlinks-volume:/application/static/upload"  # 持久化上传的文件
+      - "jetlinks-file-volume:/application/data/files"
+      - "jetlinks-protocol-volume:/application/data/protocols"
+    environment:
+      - "JAVA_OPTS=-Duser.language=zh -XX:+UseG1GC"
+      - "TZ=Asia/Shanghai"
+      - "hsweb.file.upload.static-location=http://127.0.0.1:8848/upload"  #上传的静态文件访问根地址,为ui的地址.
+      - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.data.elasticsearch.client.reactive.endpoints=elasticsearch:9200"
+#        - "spring.data.elasticsearch.client.reactive.username=admin"
+#        - "spring.data.elasticsearch.client.reactive.password=admin"
+#        - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+      - "spring.redis.host=redis"
+      - "spring.redis.port=6379"
+      - "file.manager.storage-base-path=/application/data/files"
+      - "spring.redis.password=JetLinks@redis"
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=warn"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+      - "network.resources[0]=0.0.0.0:8800-8810/tcp"
+      - "network.resources[1]=0.0.0.0:1883-1890"
+      - "hsweb.cors.enable=true"
+      - "hsweb.cors.configs[0].path=/**"
+      - "hsweb.cors.configs[0].allowed-credentials=true"
+      - "hsweb.cors.configs[0].allowed-headers=*"
+      - "hsweb.cors.configs[0].allowed-origins=*"
+      - "hsweb.cors.configs[0].allowed-methods[0]=GET"
+      - "hsweb.cors.configs[0].allowed-methods[1]=POST"
+      - "hsweb.cors.configs[0].allowed-methods[2]=PUT"
+      - "hsweb.cors.configs[0].allowed-methods[3]=PATCH"
+      - "hsweb.cors.configs[0].allowed-methods[4]=DELETE"
+      - "hsweb.cors.configs[0].allowed-methods[5]=OPTIONS"
+    links:
+      - redis:redis
+      - postgres:postgres
+      - elasticsearch:elasticsearch
+    depends_on:
+      - postgres
+      - redis
+      - elasticsearch
+volumes:
+  postgres-volume:
+  redis-volume:
+  elasticsearch-volume:
+  jetlinks-volume:
+  jetlinks-file-volume:
+  jetlinks-protocol-volume:
+```
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+jetlinks docker镜像版本更新和源代码根目录下文件pom.xml中的版本号同步。
+
+</div>
+
+6.运行docker-compose文件
+
+```shell script
+docker-compose up -d
+```
+
+### jar包方式
+
+1.使用maven命令将项目打包，在代码根目录执行：
+
+```shell script
+./mvnw clean package -Dmaven.test.skip=true
+```
+
+2.将jar包上传到需要部署的服务器上。
+
+jar包文件地址: `jetlinks-standalone/target/jetlinks-standalone.jar`
+
+3.使用java命令运行jar包
+
+```bash
+$ java -jar jetlinks-standalone.jar
+```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+请根据情况调整jvm参数等信息.
+
+</div>

@@ -2,34 +2,7 @@
 ## 应用场景
 jetlinks支持用户向平台的Redis中存入自定义的参数，用户可以在协议包中获取Redis里的参数进行使用，获取方式有两种，一是使用`redis.opsForValue.get()`获取平台缓存数据，二是使用`deviceOperator.getconfig()`获取设备缓存的配置信息。
 ## 平台缓存
-### 核心接口说明
 
-核心接口:org.springframework.data.redis.core.ReactiveRedisTemplate
-
-
-| 方法名                             | 返回值                                 | 说明                |
-|---------------------------------|-------------------------------------|-------------------|
-| hasKey(K key)                   | Mono\<Boolean\>                     | 判断是否有key所对应的值     |
-| delete(K... key)                | Mono\<Long\>                        | 删除单个key值          |
-| delete(Publisher\<K\> keys)     | Mono\<Long\>                        | 批量删除key           |
-| rename(K oldKey, K newKey)      | Mono\<Boolean\>                     | 修改key的名称          |
-| expire(K key, Duration timeout) | Mono\<Boolean\>                     | 设置key过期时间         |
-| getExpire(K key)                | Mono\<Duration\>                    | 返回当前key所对应的剩余过期时间 |
-| opsForValue()                   | ReactiveValueOperations\<K, V\>     | 返回对简单值的操作         |
-| opsForHash()                    | ReactiveHashOperations\<K, HK, HV\> | 返回对hash集合的操作      |
-| opsForList()                    | ReactiveListOperations\<K, HK, HV\> | 返回对list列表的操作      |
-
-
-核心接口:org.springframework.data.redis.core.ReactiveValueOperations
-
-
-| 方法名                                   | 返回值               | 说明                    |
-|---------------------------------------|-------------------|-----------------------|
-| get(Object key)                       | Mono\<V\>         | 取出key值所对应的值           |
-| set(K key, V value)                   | Mono\<Boolean\>   | 存入key以及value值         |
-| set(K key, V value, Duration timeout) | Mono\<Boolean\>   | 存入key以及value值，并设置过期时间 |
-| multiGet(Collection\<K\> keys)        | Mono\<List\<V\>\> | 批量获取key值所对应的值         |
-| size(K key)                           | Mono\<Long\>      | 获取key对应值的字符串长度        |
 
 ### 使用示例
 
@@ -91,6 +64,10 @@ public class MqttDeviceMessageCodec implements DeviceMessageCodec {
         MqttMessage message = (MqttMessage) context.getMessage();
         if (message.getTopic().startsWith("/report-property")) {
             JSONObject payload = JSON.parseObject(message.getPayload().toString(StandardCharsets.UTF_8));
+            //在json串里拿到需要的参数
+            String path = payload.getString("path");
+            //根据设备需求进行解析
+            ...
             HashMap<String, Object> map = new HashMap<>();
             map.put("properties", payload);
             ReportPropertyMessage rm = new ReportPropertyMessage();
@@ -136,21 +113,36 @@ public class ProtocolSupportProviderImpl implements ProtocolSupportProvider {
     }
 }
 ```
-
-
-## 设备缓存
 ### 核心接口说明
 
-核心接口:org.jetlinks.core.Configurable
+核心接口:org.springframework.data.redis.core.ReactiveRedisTemplate
 
-| 方法名                                  | 返回值             | 说明                        |
-|--------------------------------------|-----------------|---------------------------|
-| getConfig(String key)                | Mono\<Value\>   | 获取单个配置信息                  |
-| getConfigs(String... keys)           | Mono\<Values\>  | 获取多个配置信息，如果未指定key,则获取全部配置 |
-| setConfig(String key, Object value)  | Mono\<Boolean\> | 设置单个配置信息                  |
-| setConfigs(Map<String, Object> conf) | Mono\<Boolean\> | 设置多个配置信息                  |
-| removeConfig(String key)             | Mono\<Boolean\> | 删除配置信息                    |
-| refreshAllConfig()                   | Mono\<Void\>    | 刷新配置信息                    |
+
+| 方法名                             | 返回值                                 | 说明                |
+|---------------------------------|-------------------------------------|-------------------|
+| hasKey(K key)                   | Mono\<Boolean\>                     | 判断是否有key所对应的值     |
+| delete(K... key)                | Mono\<Long\>                        | 删除单个key值          |
+| delete(Publisher\<K\> keys)     | Mono\<Long\>                        | 批量删除key           |
+| rename(K oldKey, K newKey)      | Mono\<Boolean\>                     | 修改key的名称          |
+| expire(K key, Duration timeout) | Mono\<Boolean\>                     | 设置key过期时间         |
+| getExpire(K key)                | Mono\<Duration\>                    | 返回当前key所对应的剩余过期时间 |
+| opsForValue()                   | ReactiveValueOperations\<K, V\>     | 返回对简单值的操作         |
+| opsForHash()                    | ReactiveHashOperations\<K, HK, HV\> | 返回对hash集合的操作      |
+| opsForList()                    | ReactiveListOperations\<K, HK, HV\> | 返回对list列表的操作      |
+
+
+核心接口:org.springframework.data.redis.core.ReactiveValueOperations
+
+
+| 方法名                                   | 返回值               | 说明                    |
+|---------------------------------------|-------------------|-----------------------|
+| get(Object key)                       | Mono\<V\>         | 取出key值所对应的值           |
+| set(K key, V value)                   | Mono\<Boolean\>   | 存入key以及value值         |
+| set(K key, V value, Duration timeout) | Mono\<Boolean\>   | 存入key以及value值，并设置过期时间 |
+| multiGet(Collection\<K\> keys)        | Mono\<List\<V\>\> | 批量获取key值所对应的值         |
+| size(K key)                           | Mono\<Long\>      | 获取key对应值的字符串长度        |
+
+## 设备缓存
 
 ### 使用示例
 1. 定义消息编码解码器
@@ -241,6 +233,19 @@ public class ProtocolSupportProviderImpl implements ProtocolSupportProvider {
     }
 }
 ```
+### 核心接口说明
+
+核心接口:org.jetlinks.core.Configurable
+
+| 方法名                                  | 返回值             | 说明                        |
+|--------------------------------------|-----------------|---------------------------|
+| getConfig(String key)                | Mono\<Value\>   | 获取单个配置信息                  |
+| getConfigs(String... keys)           | Mono\<Values\>  | 获取多个配置信息，如果未指定key,则获取全部配置 |
+| setConfig(String key, Object value)  | Mono\<Boolean\> | 设置单个配置信息                  |
+| setConfigs(Map<String, Object> conf) | Mono\<Boolean\> | 设置多个配置信息                  |
+| removeConfig(String key)             | Mono\<Boolean\> | 删除配置信息                    |
+| refreshAllConfig()                   | Mono\<Void\>    | 刷新配置信息                    |
+
 
 
 
