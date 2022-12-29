@@ -118,11 +118,38 @@ error Found incompatible module.
 
 ### 使用docker部署前端
 
-1. 将资源文件目录拷贝至docker目录下
+#### 创建阿里云镜像仓库
+
+1. 进入阿里云容器镜像服务页面
+网址:`https://cr.console.aliyun.com/cn-hangzhou/instances`
+2. 开通镜像服务
+
+   ![create ssh keys2](./images/open-image.png)
+   ![create ssh keys2](./images/registry-password.png)
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>这里设置的密码需要记住，后面推送镜像到仓库时需要用到</p>
+
+</div>
+
+3. 创建命名空间
+
+   ![create ssh keys2](./images/registry-name.png)
+
+4. 创建镜像仓库
+   ![create ssh keys2](./images/registry-create.png)
+
+#### 推送镜像到仓库
+
+1. 将`dist`资源文件目录拷贝至`docker`目录下
 2. 构建docker镜像
 
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0 ./docker
 ```
 
 <div class='explanation info'>
@@ -130,7 +157,7 @@ docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-  <p>本文档内镜像地址是使用官方自己的仓库地址，如需提交自己的仓库，请自行更换。</p>
+  <p>如需提交自己的仓库，请自行更换自己的仓库地址。</p>
 </div>
 
 
@@ -138,20 +165,28 @@ docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
 
 ```
 $ docker images
-REPOSITORY                                                    TAG                 IMAGE ID       CREATED          SIZE
-registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro    2.0.0               f76af6002bcd   13 seconds ago   176MB
+REPOSITORY                                                            TAG                 IMAGE ID       CREATED          SIZE
+registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro    2.0.0               f76af6002bcd   13 seconds ago   176MB
 ```
 
 4. 将镜像推送到远程仓库
 
 ```bash
-#登录阿里云镜像仓库
+#登录阿里云镜像仓库，此处会让你输密码，就是创建镜像服务时自己设置的密码
 docker login --username=[username] registry.cn-hangzhou.aliyuncs.com
 #设置tag
-docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
+docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0-SNAPSHOT
 #推送到阿里云镜像仓库
-docker push registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNAPSHOT
+docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0-SNAPSHOT
 ```
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+  username和ImageId这两个参数需要自行替换,username为阿里云账户全名,ImageId为本地构建镜像的id
+</div>
 
 5. 查看是否推送成功
 
@@ -160,7 +195,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0-SNA
 6. 运行docker镜像
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0
 ```
 
 <div class='explanation warning'>
