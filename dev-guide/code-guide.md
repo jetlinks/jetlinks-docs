@@ -90,7 +90,7 @@
 
 - <a target='_self' href='/dev-guide/protocol-redis.html'>
   如何在协议包里面使用Redis？</a>
-- <a target='_self' href=''>
+- <a target='_self' href='/dev-guide/jetlinks-protocol-use-business-method.html'>
   如何在协议包里面使用平台的业务方法？</a>
 - <a target='_self' href='/dev-guide/poll-device-data.html'>
    主动从设备获取属性、事件如何操作？</a>
