@@ -8,8 +8,32 @@
    EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
 </div>
 
-1.在`web`的`org.example.mydemo.web.CustomController`新建方法
+#### 指导介绍
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
 
+  <p>1. <a href="#1" >如何引入eventBus</a></p>
+  <p>2. <a href="#2" >如何使用eventBus</a></p>
+  <p>3. <a href="#3" >常见问题</a></p>
+
+</div>
+
+### <font id="1">如何引入eventBus</font>
+
+#### 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
+
+```java
+    //引入消息总线
+    @Qualifier("brokerEventBus")
+    private final EventBus eventBus;
+```
+
+###  <font id="2">如何使用eventBus</font>
+
+#### 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
 ```java
      /**
      * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
@@ -22,6 +46,8 @@
                 .filter(num->num>0)
                 .flatMap(num->{
                    return eventBus
+                           //参数1：发布的主题  参数2：发布的数据，
+                       //存放在org.jetlinks.core.event.TopicPayload的payload中
                             .publish("/demo/eventBus/insert", customEntity)
                             .thenReturn(num);
                 });
@@ -29,42 +55,59 @@
 
 ```
 
-2.在自定义的`mydemo`下，新建包`org.example.mydemo.event.customEventHandler`，新建`CustomEventHandler`类
+#### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
+
 
 ```java
-package org.example.mydemo.event.customEventHandler;
-
-import org.example.mydemo.enums.CustomIndexEnum;
-import org.example.mydemo.service.CustomService;
-import org.jetlinks.community.elastic.search.service.ElasticSearchService;
-import org.jetlinks.core.event.EventBus;
-import org.jetlinks.core.event.Subscription;
-import org.springframework.context.event.EventListener;
-
-@AllArgsConstructor
+@Slf4j
 @Getter
-public class CustomEventHandler {
+@Setter
+@Component
+@AllArgsConstructor
+public class CustomEventHandler implements CommandLineRunner {
     //引入消息总线
-    private EventBus eventBus;
+    @Qualifier("brokerEventBus")
+    private final EventBus eventBus;
     //引入es
-    private ElasticSearchService elasticSearchService;
-
-    public void doSubscribe() {
+    private final ElasticSearchService elasticSearchService;
+    //引入自定义service
+    private final CustomService customService;
+    
+    //订阅并消费
+     public void consumeMessage() {
         eventBus.subscribe(Subscription.builder()
-                //订阅者标识
-                .subscriberId("custom-device-query-event")
-                .topics("/demo/eventBus/insert")
-                //订阅者有三大特性
-                .local().build()).flatMap(payload -> {
+                                       //订阅者标识
+                                       .randomSubscriberId()
+                                       .topics("/demo/eventBus/insert")
+                                        //订阅特性字段Feature说明
+                                        //local	订阅本地消息
+                                        //broker	订阅代理消息
+                                        //shared	共享订阅
+                                       .features(Subscription.Feature.local, Subscription.Feature.broker)
+                                       .build()).flatMap(payload -> {
             //业务操作  往es里面存入数据
             return elasticSearchService
                     .save(CustomIndexEnum.custom.getIndex(), payload.getPayload());
         }).subscribe();
     }
+    
+    @Override
+    public void run(String... args) throws Exception {
+        consumeMessage();
+    }
+    
 ```
 
-##### 如何引入设备操作
-##### 如何使用redis缓存
-#### 在使用过程中写响应式应注意什么
-#### 扩展点：
-##### 比如我要在自己的项目内使用es查询设备历史数据，在自己的项目内使用es聚合查询给出示例代码
+### <font id="3">常见问题</font>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：每次重启服务后的第一次才能成功存储数据，第二次存储不成功，且使用doOnError()无错误信息提示</p>
+<p>A：检查自己的代码是否有断流，如：then()会返回了空流,导致上诉问题的出现</p>
+</div>
+
+
+
