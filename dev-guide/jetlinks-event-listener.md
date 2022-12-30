@@ -27,10 +27,9 @@ public void handleEvent(EntitySavedEvent<DeviceInstanceEntity>  event){
 event.async( this.sendNotify(event.getEntity()) );
 }
 
-public Mono<Void> this.sendNotify(List<DeviceInstanceEntity> entities){
+public Void this.sendNotify(List<DeviceInstanceEntity> entities){
   //相关业务场景处理
    doSomeThing();
-  return Mono.empty();
 }
 ```
 
@@ -188,7 +187,7 @@ org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(M
 AuthorizationBeforeEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 AuthorizationSuccessEvent
@@ -230,7 +229,7 @@ org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(M
 AuthorizationFailedEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 
@@ -269,7 +268,7 @@ org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUser
 UserCreatedEvent的事件监听：
 
 ```
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 UserDeletedEvent
@@ -429,7 +428,7 @@ org.jetlinks.pro.auth.service.TenantMemberService.bindMembers(String tenantId, F
 TenantMemberBindEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 TenantMemberUnBindEvent
@@ -449,7 +448,7 @@ org.jetlinks.pro.auth.service.TenantMemberService.unbindMembers(String tenantId,
 TenantMemberUnBindEvent的事件监听:
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 
@@ -501,7 +500,7 @@ org.jetlinks.pro.device.service.LocalDeviceInstanceService.unregisterDevice(Publ
 DeviceUnregisterEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 DeviceAutoRegisterEvent
@@ -521,7 +520,7 @@ org.jetlinks.pro.device.service.DeviceMessageBusinessHandler.doAutoRegister(Devi
 DeviceAutoRegisterEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用`@EventListener`注解自定义实现监听
+平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
 

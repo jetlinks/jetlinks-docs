@@ -7,12 +7,13 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
+   <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
   <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
 </div>
+
+
+
+
 
 ```java
 //此处将具体代码实现放入
