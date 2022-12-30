@@ -1,6 +1,6 @@
 # 源码拉取及子模块更新指南
 
-#### 指导介绍
+## 指导介绍
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -14,23 +14,35 @@
 
 </div>
 
-#### 操作步骤
+## 问题指引
+<table>
+<tr>
+    <td><a href="/dev-guide/pull-code.html#permission-denied-please-try-again">SSH配置成功后仍旧Permission denied, please try again</a></td>
+    <td><a href="/dev-guide/pull-code.html#拉取代码git抛出无权限异常">拉取代码git抛出无权限异常</a></td>
+</tr>
+<tr>
+   <td><a href="/dev-guide/pull-code.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>
+    <td><a href="/dev-guide/pull-code.html#下载完源码后maven编译失败">下载完源码后maven编译失败</a></td>
+</tr>
+</table>
 
-##### 配置SSH Key
+
+## 操作步骤
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  <p>在2021年8月13日Github停止了对https用户名及验证码的支持，因此本文档建议您使用SSH连接的方式拉取代码。</p>
+
+</div>
+
+### 配置SSH Key
 
 1. 在电脑的空闲磁盘上创建目录，并且安装Git客户端程序。
 
 安装Git客户端程序不在此处进行详述，可自行百度搜索安装Git。
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-  <p>目录名称应以英文命名，不要使用中文进行命名！</p>
-  <p>使用中文命名可能会导致文件上传时，查找中文目录名称转义失败，抛出无法加载协议的异常。</p>
-</div>
 
 2. 登录Github，进入个人中心->`Settings`->选择`SSH and GPG keys`
 
@@ -84,7 +96,7 @@ The key's randomart image is:
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-<p>注意: 如果您使用的遗留系统不支持 Ed25519算法，请使用:</p>
+<p>注意: 如果您使用的遗留系统不支持 Ed25519算法，请使用下方命令并替换邮箱地址:</p>
 
 ```shell
 
@@ -109,8 +121,8 @@ $ clip < ~/.ssh/id_ed25519.pub
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-<p>如果clip命令不起作用，您可以找到隐藏的.ssh 文件夹，隐藏的.ssh 文件夹一般在<b class='explanation-title font-weight'>C:\Users\{当前设备名称}</b>目录下，
-找到该目录下的<b class='explanation-title font-weight'>.pub</b>文件，复制该内容粘贴至github</p>
+<p>如果clip命令不起作用，您可以找到隐藏的.ssh 文件夹，隐藏的.ssh 文件夹一般在<b class='explanation-title font-weight'>C:\Users\{PC机名称}</b>目录下，
+找到该目录下的<b class='explanation-title font-weight'>.pub</b>文件，复制该内容粘贴至github的添加SSH Key输入框内，如下图。</p>
 
 </div>
 
@@ -140,7 +152,8 @@ $ clip < ~/.ssh/id_ed25519.pub
     <span class='explanation-title font-weight'>提示</span>
   </p>
 <p>JetLinks物联网平台只包含基础模块，扩展模块添加请参考第7步，未购买扩展模块可以跳过第7步。</p>
-<p>非首次拉取代码也可以使用下方命令更新全部子模块，但更新过后仍需执行<span class='explanation-title font-weight'>reimport</span>。</p>
+<p>非首次拉取代码但需要更新代码时也可以使用下方命令更新全部子模块，但更新过后仍需执行<span class='explanation-title font-weight'>reimport</span>。</p>
+<p>下方命令如手动复制执行，可以使用jetlinks-pro根路径下的update.sh脚本自动更新子模块代码。</p>
 </div>
 
 ```shell
@@ -155,27 +168,29 @@ $ git pull && git submodule init && git submodule update && git submodule foreac
 $ git submodule add --force [git仓库地址] [下载文件路径]
 ```
 
-示例命令:
+此处使用电信ctwing模块作为示例命令，其余模块同理:
 
 ```shell
 $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expands-components/jetlinks-ctwing
 ```
 
-其余模块同理。
+其他仓库信息
 
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-<p>当您不知道仓库地址填什么的情况下，进入jetlinks-v2仓库内进行搜索模块名称，扩展模块相关信息查看<a target="_blank" href="/install-deployment/enterprise-version-start.html#添加扩展模块仓库">扩展模块列表</a></p>
-</div>
+| 模块名称                        | 仓库名称 | 仓库地址                            |
+| ---------------------------- | ------ |---------------------------------|
+| 阿里云平台接入                | jetlinks-aliyun-bridge-gateway      |  git@github.com:jetlinks-v2/jetlinks-aliyun-bridge-gateway          |
+| 电信CTWing平台接入            | jetlinks-ctwing     | git@github.com:jetlinks-v2/jetlinks-ctwing.git               |
+| 小度平台接入               | jetlinks-dueros      | git@github.com:jetlinks-v2/jetlinks-dueros.git                   |
+| 移动OneNet平台接入              | jetlinks-onenet      | git@github.com:jetlinks-v2/jetlinks-onenet.git           |
+| GBT/28181视频设备接入       | jetlinks-media      | git@github.com:jetlinks-v2/jetlinks-media.git |
+| Modbus/TCP           | jetlinks-modbus      | git@github.com:jetlinks-v2/jetlinks-modbus.git                |
+| OPC UA            | jetlinks-opc-ua      | git@github.com:jetlinks-v2/jetlinks-opc-ua.git                    |
 
 8. 代码拉取完毕后`reimport`
 
 ![maven reimport](./images/code-guide-0-5.png)
 
-可以自行配置Maven多线程参数加快编译，具体线程数根据自己的电脑情况填写。
+由于首次拉取代码下载的依赖包较多请耐心等待。 下载完成后IDEA会自动进入maven编译，可以自行配置Maven多线程参数加快编译，具体线程数根据自己的电脑情况填写。
 ![maven reimport](./images/code-guide-0-6.png)
 ![maven reimport](./images/code-guide-0-7.png)
 
@@ -199,7 +214,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 </modules>
 ```
 
-- jetlinks-pro添加子模块依赖
+#### jetlinks-pro添加子模块依赖
 
 在启动模块(jetlinks-standalone/pom.xml)中引入依赖
 
@@ -213,7 +228,7 @@ $ git submodule add --force git@github.com:jetlinks-v2/jetlinks-ctwing.git expan
 
 ```
 
-- jetlinks-cloud添加子模块依赖
+#### jetlinks-cloud添加子模块依赖
 
 在启动模块(iot-service/pom.xml)中引入依赖
 
@@ -261,8 +276,8 @@ $ git push gitee master
 
 ```
 
-#### 常见问题
-
+## 常见问题
+### Permission denied, please try again
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -308,10 +323,22 @@ User git
 
 4. 配置好上述内容后，执行拉取命令即可。
 
+### 上传协议包抛出无法加载协议异常
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题2</span>
+  </p>
+  <p>目录名称应以英文命名，不要使用中文进行命名！</p>
+  <p>使用中文命名可能会导致文件上传时，查找中文目录名称转义失败，抛出无法加载协议的异常。</p>
+</div>
+
+### 拉取代码git抛出无权限异常
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题3</span>
   </p>
 
   <p>Q：拉取代码的时候出现 <b class='explanation-title font-weight'> Please make sure you have the correct access rights and the repository exists</b>？</p>
@@ -319,10 +346,11 @@ User git
 
 </div>
 
+### 下载完源码后maven编译失败
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题3</span>
+    <span class='explanation-title font-weight'>问题4</span>
   </p>
 
   <p>Q：Maven项目启动过程中出现jar包引入失败。</p>
