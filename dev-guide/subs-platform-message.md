@@ -8,38 +8,25 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        需要将平台的数据转发到自己的业务系统，可以订阅平台的特定主题获取
+        订阅平台内部的数据转发到自己的业务系统内做自定义业务处理，可以订阅平台特定主题获取
     </p>
 </div>
 
-
 <br>
 
-#### 订阅相关主题
+#### 指导介绍
 
-| 匹配Topic                                                    | 说明                |
-| ------------------------------------------------------------ | ------------------- |
-| `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | CoAP调试相关消息    |
-| `/dashboard/**`                                              | 仪表盘相关消息      |
-| `/rule-engine/device/alarm/*/*/*`                            | 设备告警相关消息    |
-| `/device-batch/*`                                            | 设备批量操作        |
-| `/device-current-state`                                      | 设备当前状态消息    |
-| `/device-firmware/publish`                                   | 推送设备固件更新    |
-| `/device-message-sender/*/*`                                 | 设备消息发送        |
-| `/device/*/*/**`                                             | 订阅设备消息        |
-| `/virtual-property-debug`                                    | 虚拟属性调试        |
-| `/network/http/client/*/_send`<br>`/network/http/server/*/_subscribe` | HTTP调试            |
-| `/network/mqtt/client/*/_subscribe/*`<br>`/network/mqtt/client/*/_publish/*` | MQTT客户端调试      |
-| `/network/mqtt/server/*/_subscribe/*`                        | MQTT服务调试        |
-| `/notifications`                                             | 通知推送            |
-| `/rule-engine/**`                                            | 规则引擎            |
-| `/scene/*`                                                   | 场景联动事件        |
-| `/network/simulator/**`                                      | 模拟器消息订阅      |
-| `/network/tcp/client/*/_send`<br>`/network/tcp/client/*/_subscribe` | TCP客户端调试       |
-| `/network/tcp/server/*/_subscribe`                           | TCP服务调试         |
-| `/network/udp/*/_send`<br>`/network/udp/*/_subscribe`        | UDP调试             |
-| `/network/websocket/client/*/_subscribe/*`<br>`/network/websocket/client/*/_publish/*` | WebSocket客户端调试 |
-| `/network/websocket/server/*/_subscribe`                     | WebSocket服务调试   |
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+      <p>1. 使用Websocket或者MQTT的方式连接到平台</p>
+      <p>2. 了解具体的订阅格式以及如何订阅</p>
+      <p>3. 找到想要订阅的topic订阅特定主题拿到平台数据</p>
+</div>
+
+<br>
 
 #### 如何连接到平台
 
@@ -56,20 +43,25 @@
 </div>
 
 
+
 此处以JavaScript代码为例，`token`可以在已经登录了的JetLinks平台内打开控制台->网络->Fetch/XHR选择其中任意一个请求查看`X-Access-Token`请求头获取
 
 ```javascript
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
-let ws = new WebSocket("ws://localhost:8848/messaging/19fdfae14177f5eb44ba59d66670d252");
+let ws = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
 ws.onclose=function(e){console.log(e)};
 ws.onmessage=function(e){console.log(e.data)}
 ```
+
+也可以使用Postman进行连接
+
+![通过Websocket连接到平台](./images/websocket-link-to-platform.png)
 
 <br>
 
 2、使用MQTT进行连接
 
-开启配置
+在`jetlinks-standalone`中的`application.yml`配置文件中开启使用MQTT订阅平台消息的配置
 
 ```yaml
 messaging:
@@ -79,7 +71,96 @@ messaging:
     host: 0.0.0.0 #绑定网卡
 ```
 
-默认使用`token`(可以使用`OpenAPI`申请token)作为`clientId`，连接地址为JetLinks平台部署的ip地址，端口11883，`username`和`password`可以不填写。可通过实现接口`MqttAuthenticationHandler`来自定义认证策略.
+默认使用`token`(可以使用`OpenAPI`申请token)作为`clientId`，连接地址为JetLinks平台部署的ip地址，默认端口为11883，`username`和`password`可以不填写。可以通过实现接口`MqttAuthenticationHandler`来自定义认证策略.
+
+![通过MQTT连接到平台](./images/mqtt-link-to-platform.png)
+
+<br>
+
+#### 如何订阅平台消息
+
+1、使用Websocket订阅
+
+消息格式
+
+```json
+{
+    "type": "sub", //固定为sub
+    "topic": "/device/*/*/**", //想要订阅的topic,具体订阅可以查看本文档的topic列表内容
+    "parameter": { //参数,不同的订阅请求,支持的参数不同
+        
+    },
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+![Websocket发送消息到平台](./images/websocket-send-message.png)
+
+<br>
+
+2、使用MQTT进行订阅
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        因为MQTT订阅时没有办法携带消息体，所以想要传入特定参数只能通过在订阅topic后方添加参数
+    </p>
+</div>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+	<p>
+        平台topic使用的通配符为<code>*</code>，在使用MQTT订阅时需要将通配符转换为MQTT的通配符：<code>*</code>转为<code>+</code>，<code>**</code>转为<code>#</code>
+    </p>
+</div>
+
+![MQTT订阅主题](./images/mqtt-sub-message.png)
+
+<br>
+
+#### 平台回复消息格式
+
+websocket回复消息格式：
+
+```json
+{
+	"payload":{}, //实际收到的消息内容, 与订阅的主题相关
+	"requestId": "request-id", //与订阅请求的id一致
+	"topic": "/device/demo-device/test0/offline", //topic,实际产生数据的topic
+	"type": "result" //类型 result:订阅结果 complete:结束订阅 error:发生错误 
+}
+```
+
+MQTT回复消息格式
+
+```json
+{根据订阅主题不同而不同，可以视作websocket的回复消息中payload部分的数据}
+```
+
+
+
+<br>
+
+#### 如何取消订阅
+
+websocket发送消息，格式为：
+
+```json
+{
+    "type":"unsub",//固定为unsub
+     "id": "request-id" //与订阅请求id一致
+}
+```
+
+//TODO
+
+MQTT如何取消?
 
 <br>
 
@@ -95,6 +176,7 @@ messaging:
     </p>
 </div>
 
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-jinggao explanation-icon'></span>
@@ -107,7 +189,35 @@ messaging:
 
 <br>
 
-#### 订阅CoAP调试相关消息
+#### 可订阅的相关主题
+
+| 匹配Topic                                                    | 说明                                                 |
+| ------------------------------------------------------------ | ---------------------------------------------------- |
+| `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
+| `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
+| `/rule-engine/device/alarm/*/*/*`                            | <a href='#device-alarm'>设备告警相关消息</a>         |
+| `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
+| `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
+| `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
+| `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a>      |
+| `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>           |
+| `/virtual-property-debug`                                    | <a href='#virtual-property'>虚拟属性调试</a>         |
+| `/network/http/client/*/_send`<br>`/network/http/server/*/_subscribe` | <a href='#http'>HTTP调试</a>                         |
+| `/network/mqtt/client/*/_subscribe/*`<br>`/network/mqtt/client/*/_publish/*` | <a href='#mqtt-client'>MQTT客户端调试</a>            |
+| `/network/mqtt/server/*/_subscribe/*`                        | <a href='#mqtt-server'>MQTT服务调试</a>              |
+| `/notifications`                                             | <a href='#notifications'>通知推送</a>                |
+| `/rule-engine/**`                                            | <a href='#rule-engine'>规则引擎</a>                  |
+| `/scene/*`                                                   | <a href='#scene'>场景联动事件</a>                    |
+| `/network/simulator/**`                                      | <a href='#simulator'>模拟器消息订阅</a>              |
+| `/network/tcp/client/*/_send`<br>`/network/tcp/client/*/_subscribe` | <a href='#tcp-client'>TCP客户端调试</a>              |
+| `/network/tcp/server/*/_subscribe`                           | <a href='#tcp-server'>TCP服务调试</a>                |
+| `/network/udp/*/_send`<br>`/network/udp/*/_subscribe`        | <a href='#udp'>UDP调试</a>                           |
+| `/network/websocket/client/*/_subscribe/*`<br>`/network/websocket/client/*/_publish/*` | <a href='#websocket-client'>WebSocket客户端调试</a>  |
+| `/network/websocket/server/*/_subscribe`                     | <a href='#websocket-server'>WebSocket服务调试</a>    |
+
+<br>
+
+#### <font id='coap'>订阅CoAP调试相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -118,27 +228,59 @@ messaging:
         订阅此主题分为CoAP客户端和CoAP服务端，当订阅主题以<code>/network/coap/server</code>开头时订阅为CoAP服务，否则为CoAP客户端
     </p>
 </div>
+1、订阅CoAP服务调试消息
 
+使用Websocket的方式
 
-订阅CoAP服务
-
-```javascript
+```json
 	//平台网络组件中想要订阅的CoAP服务组件的id
     //此id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
     //也可以去数据库中的jetlinks数据库下的network_config表中查找
-    "topic": "/network/coap/server/{id}/_subscribe"
+	{
+        "type": "sub",
+        "topic": "/network/coap/server/{id}/_subscribe",
+        "parameter": {
+            "request":"request-params-string"
+        },
+        "id": "request-id"
+	}
 ```
 
-订阅CoAP客户端
+使用MQTT的方式
 
-```json
-//获取id方式同上
-"topic": "/network/coap/client/{id}/_send"
+```kotlin
+/network/coap/server/{id}/_subscribe?request=request-params-string
 ```
 
 <br>
 
-#### 订阅仪表盘相关消息
+2、订阅CoAP客户端调试消息
+
+使用Websocket的方式
+
+```json
+	//获取id方式同上
+	{
+        "type": "sub",
+        "topic": "/network/coap/client/{id}/_send",
+        "parameter": {
+            "request":"request-params-string"
+        },
+        "id": "request-id"
+	}
+```
+
+使用MQTT的方式
+
+```kotlin
+/network/coap/client/{id}/_send?request=request-params-string
+```
+
+
+
+<br>
+
+#### <font id='dashboard'>订阅仪表盘相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -177,7 +319,26 @@ messaging:
 
 <br>
 
-#### 订阅设备告警相关消息
+使用Websocket订阅
+
+```json
+	{
+        "type": "sub",
+        "topic": "/dashboard/{dashboard}/{object}/{measurement}/{dimension}",
+        "parameter": {},
+        "id": "request-id"
+	}
+```
+
+使用MQTT订阅
+
+```kotlin
+/dashboard/{dashboard}/{object}/{measurement}/{dimension}
+```
+
+<br>
+
+#### <font id='device-alarm'>订阅设备告警相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -185,18 +346,32 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        设备告警相关信息
+        设备告警相关消息，<code>{productId}</code>产品id，<code>{deviceId}</code>设备id，<code>{alarmId}</code>设备告警id
     </p>
 </div>
 
+使用websocket订阅
+
+
 ```json
-//productId产品id，deviceId设备id，alarmId设备告警id
-"topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}"
+	{
+        "type": "sub",
+        "topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+        "parameter": {},
+        "id": "request-id"
+	}
+
+```
+
+使用MQTT订阅
+
+```kotlin
+/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}
 ```
 
 <br>
 
-#### 订阅设备批量操作消息
+#### <font id='device-bash'>订阅设备批量操作消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -207,14 +382,27 @@ messaging:
         <code>type</code>类型可以为<code>state-sync</code>(批量同步设备状态)或者<code>deploy</code>(批量发布设备)
     </p>
 </div>
+使用websocket订阅
+
 
 ```json
-"topic": "/device-batch/{type}"
+{
+    "type": "sub", //固定为sub
+    "topic": "/device-batch/{type}",
+    "parameter": {
+        "query":{"where":"productId is my-product"}//查询条件为动态查询条件
+    },
+    "id": "request-id"
+}
 ```
+
+使用MQTT订阅
+
+//TODO
 
 <br>
 
-#### 订阅设备当前状态消息
+#### <font id='device-current-state'>订阅设备当前状态消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -222,29 +410,33 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        订阅某一个设备的状态信息
+        订阅某一个设备的状态信息，无法使用通配符
     </p>
 </div>
 
+使用websocket订阅
 
 ```json
 {
-    //固定sub
     "type": "sub",
-    //固定topic
     "topic": "/device-current-state",
     "parameter": {
         //必须指定设备id
         "deviceId":"deviceId"
     },
-    //本次请求的id
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
+
+```kotlin
+/device-current-state?deviceId={deviceId}
+```
+
 <br>
 
-#### 订阅推送设备固件更新消息
+#### <font id='device-firm'>订阅推送设备固件更新消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -252,28 +444,34 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket订阅，<code>taskId</code>可以到数据库中的<code>jetlinks</code>数据库下的<code>dev_firmware_upgrade_task</code>表中找到
+       <code>taskId</code>可以到数据库中的<code>jetlinks</code>数据库下的<code>dev_firmware_upgrade_task</code>表中找到
     </p>
 </div>
 
+使用websocket订阅
+
+
 ```json
 {
-    //固定sub
     "type": "sub",
-    //固定topic
     "topic": "/device-current-state",
     "parameter": {
         //必须指定任务id
         "taskId":"taskId"
     },
-    //本次请求的id
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
+
+```kotlin
+/device-current-state?taskId={taskId}
+```
+
 <br>
 
-#### 订阅设备消息发送
+#### <font id='device-send-message'>订阅设备消息发送</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -281,9 +479,12 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket订阅，<code>deviceId</code>可以传入多个例如device1,device2，也可以使用通配符*，如果设备id使用通配符则<code>productId</code>不能进行通配，<code>parameter</code>内的<code>messageType</code>可以为<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能)
+       <code>deviceId</code>可以传入多个例如device1,device2，也可以使用通配符*，如果设备id使用通配符则<code>productId</code>不能进行通配，<code>parameter</code>内的<code>messageType</code>可以为<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能)
     </p>
 </div>
+
+使用websocket订阅
+
 
 ```json
 {
@@ -308,7 +509,7 @@ messaging:
 
 <br>
 
-#### 订阅设备消息
+#### <font id='device-message'>订阅设备消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -370,18 +571,9 @@ messaging:
 
 <br>
 
-#### 订阅虚拟属性调试消息
+#### <font id='virtual-property'>订阅虚拟属性调试消息</font>
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        websocket订阅
-    </p>
-</div>
-
+使用websocket订阅
 
 ```json
 {
@@ -399,7 +591,7 @@ messaging:
 
 <br>
 
-#### 订阅HTTP调试消息
+#### <font id='http'>订阅HTTP调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -410,27 +602,61 @@ messaging:
         订阅此主题分为HTTP客户端和HTTP服务端，当订阅主题以<code>/network/http/server</code>开头时订阅为HTTP服务，否则为HTTP客户端
     </p>
 </div>
-
-
 订阅HTTP服务
 
-```javascript
-	//平台网络组件中想要订阅的http服务组件的id
-    //此id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
-    //也可以去数据库中的jetlinks数据库下的network_config表中查找
-    "topic": "/network/http/server/{id}/_subscribe"
-```
-
-订阅HTTP客户端
+使用websocket订阅
 
 ```json
+//id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+//也可以去数据库中的jetlinks数据库下的network_config表中查找
+{
+    "type": "sub",
+    "topic": "/network/http/server/{id}/_subscribe",
+    "parameter": {
+        //请求参数字符串
+        "response":"response-params-string"
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
 //获取id方式同上
-"topic": "/network/coap/client/{id}/_send"
+/network/http/server/{id}/_subscribe?response={response-params-string}request-params-string
 ```
 
 <br>
 
-#### 订阅MQTT客户端调试消息
+订阅HTTP客户端 
+
+使用websocket订阅
+
+```json
+//id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+//也可以去数据库中的jetlinks数据库下的network_config表中查找
+{
+    "type": "sub",
+    "topic": "/network/http/server/{id}/_subscribe",
+    "parameter": {
+        //请求参数字符串
+        "request":"request-params-string"
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+//获取id方式同上
+/network/http/server/{id}/_subscribe?request={request-params-string}request-params-string
+```
+
+<br>
+
+#### <font id='mqtt-client'>订阅MQTT客户端调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -438,17 +664,63 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        订阅此主题的消息分为订阅时的消息和推送时的消息两部分，当<code>{pubsub}</code>为<code>_subscribe</code>时是订阅组件在订阅时产生的消息，否则为订阅组件在发布时产生的消息。<code>{id}</code>为MQTT客户端组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
+        订阅此主题的消息分为订阅时的消息和推送时的消息两部分，当<code>{pubsub}</code>为<code>_subscribe</code>时是订阅该id对应的组件在订阅时产生的消息，否则为<code>{_publish}</code>发布时产生的消息。<code>{id}</code>为MQTT客户端组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
     </p>
 </div>
 
+订阅时的消息
+
+使用websocket订阅
+
+
 ```json
-"topic": "/network/mqtt/client/{id}/{pubsub}/{type}"
+//id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+//也可以去数据库中的jetlinks数据库下的network_config表中查找
+{
+    "type": "sub",
+    "topic": "/network/mqtt/client/{id}/_subscribe/{type}",
+    "parameter": {
+        //想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔
+        "topics":"topics"
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+//想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔
+/network/mqtt/client/{id}/_subscribe/{type}?topics={topics}
 ```
 
 <br>
 
-#### 订阅MQTT服务调试消息
+发布时的消息
+
+使用websocket订阅
+
+
+```json
+//id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+//也可以去数据库中的jetlinks数据库下的network_config表中查找
+{
+    "type": "sub",
+    "topic": "/network/mqtt/client/{id}/_publish/{type}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/network/mqtt/client/{id}/_publish/{type}
+```
+
+<br>
+
+#### <font id='mqtt-server'>订阅MQTT服务调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -459,14 +731,29 @@ messaging:
        <code>{id}</code>为MQTT服务组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
     </p>
 </div>
+使用websocket订阅
+
 
 ```json
-"topic": "/network/mqtt/server/{id}/_subscribe/{type}"
+//id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+//也可以去数据库中的jetlinks数据库下的network_config表中查找
+{
+    "type": "sub",
+    "topic": "/network/mqtt/server/{id}/_subscribe/{type}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/network/mqtt/server/{id}/_subscribe/{type}
 ```
 
 <br>
 
-#### 订阅通知消息
+#### <font id='notifications'>订阅通知消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -474,17 +761,31 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-       会根据<code>token</code>去订阅相应用户的通知消息
+       会根据当前连接到平台的<code>token</code>去订阅相应用户的通知消息
     </p>
 </div>
 
+使用websocket订阅
+
+
 ```json
-"topic": "/notifications"
+{
+    "type": "sub",
+    "topic": "/notifications",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/notifications
 ```
 
 <br>
 
-#### 订阅规则引擎执行相关消息
+#### <font id='rule-engine'>订阅规则引擎执行相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -521,7 +822,7 @@ messaging:
 
 <br>
 
-#### 订阅场景联动消息
+#### <font id='scene'>订阅场景联动消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -532,14 +833,27 @@ messaging:
        <code>{sceneId}</code>为场景联动id
     </p>
 </div>
+使用websocket订阅
+
 
 ```json
-"topic": "/scene/{sceneId}"
+{
+    "type": "sub",
+    "topic": "/scene/{sceneId}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/scene/{sceneId}
 ```
 
 <br>
 
-#### 订阅模拟器消息
+#### <font id='simulator'>订阅模拟器消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -547,17 +861,31 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-       <code>{id}</code>为创建的模拟器的id，<code>{sessionId}</code>指创建模拟器时填入的<code>clientId</code>
+       <code>{id}</code>为创建的模拟器的id，<code>{sessionId}</code>指创建模拟器时填入的<code>clientId</code>，即设备id
     </p>
 </div>
 
+使用websocket订阅
+
+
 ```json
-"topic": "/network/simulator/{id}/{sessionId}"
+{
+    "type": "sub",
+    "topic": "/network/simulator/{id}/{sessionId}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/network/simulator/{id}/{sessionId}
 ```
 
 <br>
 
-#### 订阅TCP客户端调试消息
+#### <font id='tcp-client'>订阅TCP客户端调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -575,35 +903,53 @@ messaging:
 
 订阅接收到的消息
 
+使用websocket订阅
+
 ```json
 {
     "type": "sub",
     "topic": "/network/tcp/client/{id}/_subscribe",
     "parameter": {
-        //响应的数据，16进制以0x开头
+        //响应的数据，如果为16进制则以0x开头
         "response":"data"
     },
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
+
+```kotlin
+/network/tcp/client/{id}/_subscribe?response={data}
+```
+
+<br>
+
 订阅发送的消息
+
+使用websocket订阅
 
 ```json
 {
     "type": "sub",
     "topic": "/network/tcp/client/{id}/_send",
     "parameter": {
-        //请求的数据，16进制以0x开头
+        //请求的数据，如果为16进制则以0x开头
         "request":"data"
     },
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
+
+```
+/network/tcp/client/{id}/_send?request={data}
+```
+
 <br>
 
-#### 订阅TCP服务调试消息
+#### <font id='tcp-server'>订阅TCP服务调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -621,23 +967,29 @@ messaging:
 
 订阅接收到的数据
 
+使用websocket订阅
+
 ```json
 {
     "type": "sub",
     "topic": "/network/tcp/server/{id}/_subscribe",
     "parameter": {
-        //响应的数据，16进制以0x开头
+        //响应的数据，如果为16进制则以0x开头
         "response":"data"
     },
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
 
+```kotlin
+/network/tcp/server/{id}/_subscribe?response={data}
+```
 
 <br>
 
-#### 订阅UDP调试消息
+#### <font id='udp'>订阅UDP调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -648,12 +1000,9 @@ messaging:
         订阅此主题的消息分为UDP发送和接收两个部分的消息，<code>{id}</code>为UDP组件的id，<code>{type}</code>类型可以选择为<code>_send</code>或<code>_subscribe</code>
     </p>
 </div>
-
-```json
-"topic": "/network/udp/{id}/{type}"
-```
-
 订阅接收到的消息
+
+使用websocket订阅
 
 ```json
 {
@@ -664,23 +1013,39 @@ messaging:
 }
 ```
 
+使用MQTT订阅
+
+```kotlin
+/network/udp/{id}/_subscribe
+```
+
+<br>
+
 订阅发送的消息
+
+使用websocket订阅
 
 ```json
 {
     "type": "sub",
     "topic": "/network/tcp/client/{id}/_send",
     "parameter": {
-        //请求的数据，16进制以0x开头
+        //请求的数据，如果为16进制则以0x开头
         "request":"data"
     },
     "id": "request-id"
 }
 ```
 
+使用MQTT订阅
+
+```
+/network/tcp/client/{id}/_send?request={data}
+```
+
 <br>
 
-#### 订阅WebSocket客户端调试消息
+#### <font id='websocket-client'>订阅WebSocket客户端调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -688,17 +1053,53 @@ messaging:
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        订阅此主题的消息分为订阅时的消息和推送时的消息两部分，当<code>{pubsub}</code>为<code>_subscribe</code>时是订阅组件在订阅时产生的消息，否则为订阅组件在发布时产生的消息。<code>{id}</code>为WebSocket客户端组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
+        订阅此主题的消息分为订阅时的消息和推送时的消息两部分，当<code>{pubsub}</code>为<code>_subscribe</code>时是订阅该id的组件在订阅时产生的消息，否则为发布时产生的消息。<code>{id}</code>为WebSocket客户端组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
     </p>
 </div>
 
+订阅时的消息
+
+使用websocket订阅
+
 ```json
-"topic": "/network/websocket/client/{id}/{pubsub}/{type}"
+{
+    "type": "sub",
+    "topic": "/network/websocket/client/{id}/_subscribe/{type}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```
+/network/websocket/client/{id}/_subscribe/{type}
 ```
 
 <br>
 
-#### 订阅WebSocket服务调试消息
+发送时的消息
+
+使用websocket订阅
+
+```json
+{
+    "type": "sub",
+    "topic": "/network/websocket/client/{id}/_publish/{type}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```
+/network/websocket/client/{id}/_publish/{type}
+```
+
+<br>
+
+#### <font id='websocket-server'>订阅WebSocket服务调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -709,12 +1110,7 @@ messaging:
        <code>{id}</code>为WebSocket服务组件的id
     </p>
 </div>
-
-```json
-"topic": "/network/websocket/server/{id}/_subscribe"
-```
-
-订阅消息
+使用websocket订阅
 
 ```json
 {
@@ -728,27 +1124,9 @@ messaging:
 }
 ```
 
-#### 平台回复消息格式
+使用MQTT订阅
 
-```json
-{
-	"payload":{}, //实际收到的消息内容, 与订阅的主题相关
-	"requestId": "request-id", //与订阅请求的id一致
-	"topic": "/device/demo-device/test0/offline", //topic,实际产生数据的topic
-	"type": "result" //类型 result:订阅结果 complete:结束订阅 error:发生错误 
-}
-```
-
-<br>
-
-#### 取消订阅
-
-向websocket发送消息，格式为：
-
-```json
-{
-    "type":"unsub",//固定为unsub
-     "id": "request-id" //与订阅请求id一致
-}
+```kotlin
+/network/websocket/server/{id}/_subscribe?response={data}
 ```
 
