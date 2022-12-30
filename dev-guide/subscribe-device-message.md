@@ -196,7 +196,7 @@ eventBus
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   <p>当资产绑定了维度之后，其相关的topic会进行重构，1.0的租户维度现被组织维度代替</p>
+   <p>当资产绑定了维度之后，其相关的topic会进行重构，具体topic可见下面列表，1.0的租户维度现被组织维度代替</p>
 <p> 
 
 </p>

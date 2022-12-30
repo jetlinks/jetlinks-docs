@@ -1,5 +1,6 @@
-## 后端部署
-
+#   后端部署及相关问题
+jetlinks的单机版和微服务版的后端部署会存在一些差异，本文档会分别说明两者部署的流程及遇到的问题
+## JetLinks Pro(单机版)
 ### 使用docker部署后端
 
 1. 使用maven命令将项目打包  
@@ -8,21 +9,14 @@
 ```shell script
 ./mvnw clean package -Dmaven.test.skip=true
 ```
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-打包完成之后，会在/jetlinks-standalone/target路径下生成jetlinks-standalone.jar文件
-</div>
-
 2. 使用docker构建镜像
+
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-请自行准备docker镜像仓库，此处以registry.cn-shenzhen.aliyuncs.com阿里云仓库为例。
+请自行准备docker镜像仓库，此处以阿里云仓库为例。
 </div>
 
 ```shell script
@@ -42,60 +36,14 @@ docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standal
 $ docker push registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-standalone:2.0.0
 ```
 4. 查看镜像是否推送成功
-   ![create ssh keys2](./images/java-image.png)
+   ![java image](./images/java-image.png)
 
 5. 创建docker-compose文件
 
+替换掉前后端的镜像仓库地址
 ```bash
 version: '2'
 services:
-  redis:
-    image: redis:5.0.4
-    container_name: jetlinks-ce-redis
-     ports:
-       - "6379:6379"
-    volumes:
-      - "redis-volume:/data"
-    command: redis-server --appendonly yes --requirepass "JetLinks@redis"
-    environment:
-      - TZ=Asia/Shanghai
-  elasticsearch:
-    image: elasticsearch:6.8.11
-    container_name: jetlinks-ce-elasticsearch
-    environment:
-      ES_JAVA_OPTS: -Djava.net.preferIPv4Stack=true -Xms1g -Xmx1g
-      transport.host: 0.0.0.0
-      discovery.type: single-node
-      bootstrap.memory_lock: "true"
-      discovery.zen.minimum_master_nodes: 1
-      discovery.zen.ping.unicast.hosts: elasticsearch
-    volumes:
-      - elasticsearch-volume:/usr/share/elasticsearch/data
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-  kibana:
-    image: kibana:6.8.11
-    container_name: jetlinks-ce-kibana
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-    links:
-      - elasticsearch:elasticsearch
-    ports:
-      - "5602:5601"
-    depends_on:
-      - elasticsearch
-  postgres:
-    image: postgres:11-alpine
-    container_name: jetlinks-ce-postgres
-    volumes:
-      - "postgres-volume:/var/lib/postgresql/data"
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_PASSWORD: jetlinks
-      POSTGRES_DB: jetlinks
-      TZ: Asia/Shanghai
   ui:
     image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
     container_name: jetlinks-ce-ui
@@ -211,3 +159,231 @@ $ java -jar jetlinks-standalone.jar
 请根据情况调整jvm参数等信息.
 
 </div>
+
+## JetLinks Cloud(微服务版)
+
+### 打包源码、构建镜像、推送到仓库
+1. 登录到阿里云仓库
+```shell
+#请自行准备docker镜像仓库，这里以阿里云镜像仓库为例
+$ docker login --username=aliyun0245896286 registry.cn-hangzhou.aliyuncs.com
+Password: 
+Login Succeeded
+```
+2. 运行打包脚本
+
+在项目根路径执行
+```shell
+$ ./build-and-push-docker.sh 
+```
+脚本文件具体内容如下
+```shell
+#!/usr/bin/env bash
+servers="$1"
+if [ -z "$servers" ]||[ "$servers" = "all" ];then
+servers="api-gateway-service,authentication-service,iot-service,file-service"
+fi
+
+IFS=","
+arr=($a)
+
+version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+echo "start build : $servers : $version"
+## 使用maven打包
+./mvnw -Dmaven.test.skip=true \
+-Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")" \
+-Dgit-commit-id="$(git rev-parse HEAD)" \
+-Pmedia -T 12 \
+clean package
+if [ $? -ne 0 ];then
+    echo "构建失败!"
+else
+
+#四个微服务分别构建镜像并推送到仓库
+for s in ${servers}
+do
+ cd "./micro-services/${s}" || exit
+ dockerImage="registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/$s:$version"
+ echo "build $s docker image $dockerImage"
+ docker build -t "$dockerImage" . && docker push "$dockerImage"
+ cd ../../
+done
+
+fi
+```
+3. 查看是否推送成功
+   ![java image](./images/cloud-images.png)
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+项目打包失败并出现以下错误
+
+```shell
+[WARNING] Error injecting: org.springframework.boot.maven.RepackageMojo
+java.lang.TypeNotPresentException: Type org.springframework.boot.maven.RepackageMojo not present
+```
+解决:指定`api-gateway-service`、`authentication-service`、`iot-service`和`file-service`四个模块`pom`文件中`maven`的版本，使`maven`版本和`spring boot`版本保持一致，例如:
+```shell
+<plugin>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-maven-plugin</artifactId>
+   <version>${spring.boot.version}</version>
+</plugin>
+```
+
+</div>
+5. 创建docker-compose文件
+
+将每个服务的镜像地址替换为之前推送的镜像仓库地址
+
+将中间件的host地址替换为服务器的ip地址
+
+```shell
+version: '2'
+services:
+  nacos:
+    image: nacos/nacos-server:v2.1.0
+    container_name: jetlinks-nacos
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - ./data/nacos/logs/:/home/nacos/logs
+    #      - ./data/nacos/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "8848:8848"
+  api-gateway-service:
+    image: registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/api-gateway-service:2.0.0-SNAPSHOT
+    ports:
+      - 8801:8801
+    environment:
+      - "spring.cloud.nacos.discovery.server-addr=192.168.66.171:8848"
+      - "spring.cloud.nacos.discovery.register-enabled=true"
+      - "TZ=Asia/Shanghai"
+      - "JAVA_OPTS=-Xms1g -Xms1g -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/application/static/upload/dump.hprof"  # jvm参数，根据情况调整
+      - "hsweb.file.upload.static-location=http://192.168.66.171:9000/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+      - "spring.r2dbc.url=r2dbc:postgresql://192.168.66.171:5432/jetlinks-cloud-2.0" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.elasticsearch.urls=elasticsearch:9200"
+      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+      - "spring.redis.host=192.168.66.171"
+      - "spring.redis.port=6379"
+      - "spring.redis.password="
+      - "logging.level.io.r2dbc=warn" #定义日志级别
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=debug"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+  authentication-service:
+    image: registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/authentication-service:2.0.0-SNAPSHOT
+    ports:
+      - 8100:8100
+    environment:
+      - "TZ=Asia/Shanghai"
+      - "spring.cloud.nacos.discovery.server-addr=192.168.66.171:8848"
+      - "spring.cloud.nacos.discovery.register-enabled=true"
+      - "JAVA_OPTS=-Xms1g -Xms1g -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/application/static/upload/dump.hprof"  # jvm参数，根据情况调整
+      - "hsweb.file.upload.static-location=http://192.168.66.171:9000/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+      - "spring.r2dbc.url=r2dbc:postgresql://192.168.66.171:5432/jetlinks-cloud-2.0" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.elasticsearch.urls=elasticsearch:9200"
+      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+      - "spring.redis.host=192.168.66.171"
+      - "spring.redis.port=6379"
+      - "spring.redis.password="
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=debug"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+  file-service:
+    image: registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/file-service:2.0.0-SNAPSHOT
+    ports:
+      - 8300:8300
+    environment:
+    - "spring.cloud.nacos.discovery.server-addr=192.168.66.171:8848"
+    - "spring.cloud.nacos.discovery.register-enabled=true"
+    - "TZ=Asia/Shanghai"
+    - "JAVA_OPTS=-Xms1g -Xms1g -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/application/static/upload/dump.hprof"  # jvm参数，根据情况调整
+    - "hsweb.file.upload.static-location=http://192.168.66.171:9000/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+    - "spring.r2dbc.url=r2dbc:postgresql://192.168.66.171:5432/jetlinks-cloud-2.0" #数据库连接地址
+    - "spring.r2dbc.username=postgres"
+    - "spring.r2dbc.password=jetlinks"
+    - "spring.elasticsearch.urls=elasticsearch:9200"
+    - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+    - "spring.redis.host=192.168.66.171"
+    - "spring.redis.port=6379"
+    - "spring.redis.password="
+    - "logging.level.io.r2dbc=warn"
+    - "logging.level.org.springframework.data=warn"
+    - "logging.level.org.springframework=warn"
+    - "logging.level.org.jetlinks=debug"
+    - "logging.level.org.hswebframework=warn"
+    - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+    volumes:
+    - "./data/upload:/application/upload"
+  iot-service:
+    image: registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/iot-service:2.0.0-SNAPSHOT
+    ports:
+      - 8200:8200
+    environment:
+      - "spring.cloud.nacos.discovery.server-addr=192.168.66.171:8848"
+      - "spring.cloud.nacos.discovery.register-enabled=true"
+      - "TZ=Asia/Shanghai"
+      - "JAVA_OPTS=-Xms1g -Xms4g -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/application/static/upload/dump.hprof"  # jvm参数，根据情况调整
+      - "hsweb.file.upload.static-location=http://192.168.66.171:9000/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+      - "spring.r2dbc.url=r2dbc:postgresql://192.168.66.171:5432/jetlinks-cloud-2.0" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.elasticsearch.urls=elasticsearch:9200"
+      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+      - "spring.redis.host=192.168.66.171"
+      - "spring.redis.port=6379"
+      - "spring.redis.password="
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=debug"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+    volumes:
+    - "./data/dumps:/dumps"
+```
+6.运行docker-compose文件
+
+```shell script
+# 进入docker compose文件路径下
+cd ./micro-services/
+docker-compose up -d
+```
+### jar包方式
+1. 使用maven命令将项目打包  
+   在代码根目录执行：
+```shell 
+./mvnw clean package -Dmaven.test.skip=true
+```
+2.将四个服务的jar包上传到需要部署的服务器上。
+
+jar包文件地址: 
+
+`micro-services/api-gateway-service/target/applicatione.jar`
+
+`micro-services/authentication-service/target/applicatione.jar`
+
+`micro-services/file-service/target/applicatione.jar`
+
+`micro-services/iot-service/target/applicatione.jar`
+
+3.使用java命令运行jar包，以api-gateway为例
+```shell
+cd ./micro-services/api-gateway-service/target/
+#运行jar包并将日志存在.txt文件中
+nohup java -jar demo.jar >api-gateway.txt &
+```
