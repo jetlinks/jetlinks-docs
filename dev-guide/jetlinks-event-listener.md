@@ -1,6 +1,6 @@
 # 实体变更后触发自己的业务流程
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -10,13 +10,13 @@
  Spring Event 自定义事件链，实用性很强的一种设计，可以应用于业务剥离，复杂场景解耦、代码独立等，是事件驱动模型的核心，并且可以处理1对多，点对点，发布订阅的场景
 </div>
 
-#### 指导介绍
+## 指导介绍
 
- <p>1.<a href="#1">通用CRUD事件</a></p>
- <p>2.<a href="#2">授权相关事件</a></p>
- <p>3.<a href="#3">用户管理相关</a></p>
- <p>4.<a href="#4">数据权限相关(企业版)</a></p>
- <p>5.<a href="#5">设备管理相关</a></p>
+ <p>1.<a href="/dev-guide/jetlinks-event-listener.html#通用crud事件">通用CRUD事件</a></p>
+ <p>2.<a href="/dev-guide/jetlinks-event-listener.html#授权相关事件">授权相关事件</a></p>
+ <p>3.<a href="/dev-guide/jetlinks-event-listener.html#用户管理相关">用户管理相关</a></p>
+ <p>4.<a href="/dev-guide/jetlinks-event-listener.html#数据权限相关-企业版">数据权限相关(企业版)</a></p>
+ <p>5.<a href="/dev-guide/jetlinks-event-listener.html#设备管理相关">设备管理相关</a></p>
 
 
 <div class='explanation info'>
@@ -43,7 +43,7 @@ public Void this.sendNotify(List<DeviceInstanceEntity> entities){
         }
 ```
 
-#### 核心接口说明
+## 核心接口说明
 
 核心接口org.hswebframework.web.event.AsyncEvent
 
@@ -51,7 +51,7 @@ public Void this.sendNotify(List<DeviceInstanceEntity> entities){
 |------- |--------|----------|------------|
 |`publish(ApplicationEventPublisher eventPublisher)` | `Mono<Void>` | `ApplicationEventPublisher eventPublisher`|通知所有与此注册的匹配的侦听器 |
 
-### <font id="1">通用CRUD事件</font>
+## 通用CRUD事件
 
 <div class='explanation info'>
   <p class='explanation-title-warp'>
@@ -76,7 +76,7 @@ EntityPrepareCreateEvent 实体类创建预处理事件,可在这个阶段修�
         EntityDeletedEvent 实体类删除事件,可用于记录日志等操作,对应操作delete
 ```
 
-EntityCreatedEvent
+### EntityCreatedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -84,13 +84,14 @@ EntityCreatedEvent
   </p>
  EntityCreatedEvent 实体类创建事件,可用于记录日志等操作,对应操作insert
 </div>
-EntityCreatedEvent的事件监听：
+
+#### EntityCreatedEvent的事件监听：
 
 ```
 org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityCreatedEvent<NotifySubscriberEntity> entity)
 ```
 
-EntitySavedEvent
+### EntitySavedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -98,13 +99,14 @@ EntitySavedEvent
   </p>
  EntitySavedEvent 实体类保存事件,可用于记录日志等操作,对应操作save
 </div>
-EntitySavedEvent的事件监听：
+
+#### EntitySavedEvent的事件监听：
 
 ```
 org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntitySavedEvent<NotifySubscriberEntity> entity)
 ```
 
-EntityDeletedEvent
+### EntityDeletedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -112,13 +114,14 @@ EntityDeletedEvent
   </p>
 EntityDeletedEvent 实体类删除事件,可用于记录日志等操作,对应操作delete
 </div>
-EntityDeletedEvent的事件监听：
+
+#### EntityDeletedEvent的事件监听：
 
 ```
 org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityDeletedEvent<NotifySubscriberEntity> entity)
 ```
 
-EntityModifyEvent
+### EntityModifyEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -126,13 +129,14 @@ EntityModifyEvent
   </p>
 EntityModifyEvent 实体类修改事件,可用于记录日志等操作,对应操作update
 </div>
-EntityModifyEvent的事件监听：
+
+#### EntityModifyEvent的事件监听：
 
 ```
 org.jetlinks.pro.notify.manager.service.NotifySubscriberService.handleEvent(EntityModifyEvent<NotifySubscriberEntity> entity)
 ```
 
-### <font id="2">授权相关事件</font>
+## 授权相关事件
 
 <div class='explanation info'>
   <p class='explanation-title-warp'>
@@ -150,7 +154,7 @@ AuthorizationDecodeEvent 认证解密事件，可用于自定义用户名密码
 
 ```
 
-AuthorizationDecodeEvent
+### AuthorizationDecodeEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -158,19 +162,20 @@ AuthorizationDecodeEvent
   </p>
 AuthorizationDecodeEvent 认证解密事件，可用于自定义用户名密码加密解密
 </div>
-###### AuthorizationDecodeEvent的事件发布：
+
+#### AuthorizationDecodeEvent的事件发布：
 
 ```
 org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter)
 ```
 
-###### AuthorizationDecodeEvent的事件监听：
+#### AuthorizationDecodeEvent的事件监听：
 
 ```
 org.jetlinks.pro.auth.captcha.CaptchaController.handleAuthEvent(AuthorizationDecodeEvent event)
 ```
 
-AuthorizationBeforeEvent
+### AuthorizationBeforeEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -178,19 +183,20 @@ AuthorizationBeforeEvent
   </p>
 AuthorizationBeforeEvent 认证前触发，可用于校验其他参数，比如验证码
 </div>
-AuthorizationBeforeEvent的事件发布：
+
+#### AuthorizationBeforeEvent的事件发布：
 
 ```
 org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter)
 ```
 
-AuthorizationBeforeEvent的事件监听：
+#### AuthorizationBeforeEvent的事件监听：
 
 ```java
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-AuthorizationSuccessEvent
+### AuthorizationSuccessEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -198,19 +204,20 @@ AuthorizationSuccessEvent
   </p>
 AuthorizationSuccessEvent 认证通过时触发，可用于认证通过后，自定义一些信息给前端返回
 </div>
-AuthorizationSuccessEvent的事件发布：
+
+#### AuthorizationSuccessEvent的事件发布：
 
 ```
 org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>> parameter)
 ```
 
-AuthorizationSuccessEvent的事件监听：
+#### AuthorizationSuccessEvent的事件监听：
 
 ```
 org.jetlinks.pro.standalone.authorize.LoginEvent.handleLoginSuccess
 ```
 
-AuthorizationFailedEvent
+### AuthorizationFailedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -218,19 +225,20 @@ AuthorizationFailedEvent
   </p>
 AuthorizationFailedEvent 认证失败时触发，可用于自定义失败时的处理逻辑
 </div>
-AuthorizationFailedEvent的事件发布:
+
+#### AuthorizationFailedEvent的事件发布:
 
 ```
 org.hswebframework.web.authorization.basic.web.AuthorizationController.doLogin(Mono<Map<String, Object>>
 ```
 
-AuthorizationFailedEvent的事件监听：
+#### AuthorizationFailedEvent的事件监听：
 
 ```java
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-### <font id="3">用户管理相关</font>
+## 用户管理相关
 
 <div class='explanation info'>
   <p class='explanation-title-warp'>
@@ -248,7 +256,7 @@ UserCreatedEvent 用户创建事件
         ClearUserAuthorizationCacheEvent 清空用户权限缓存信息事件,可用发送此事件来清理用户权限缓存
 ```
 
-UserCreatedEvent
+### UserCreatedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -256,19 +264,20 @@ UserCreatedEvent
   </p>
 UserCreatedEvent 用户创建事件
 </div>
-UserCreatedEvent的事件发布：
+
+#### UserCreatedEvent的事件发布：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.doAdd(UserEntity userEntity)
 ```
 
-UserCreatedEvent的事件监听：
+#### UserCreatedEvent的事件监听：
 
 ```
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-UserDeletedEvent
+### UserDeletedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -276,20 +285,21 @@ UserDeletedEvent
   </p>
 UserDeletedEvent 用户删除事件
 </div>
-UserDeletedEvent的事件发布：
+
+#### UserDeletedEvent的事件发布：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.deleteUser(String userId)
 
 ```
 
-UserDeletedEvent的事件监听：
+#### UserDeletedEvent的事件监听：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService.handleUserDeleteEntity(UserDeletedEvent event)
 ```
 
-UserModifiedEvent
+### UserModifiedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -297,20 +307,21 @@ UserModifiedEvent
   </p>
 UserModifiedEvent 用户修改事件
 </div>
-UserModifiedEvent的事件发布：
+
+#### UserModifiedEvent的事件发布：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveUserService.doUpdate(UserEntity old, UserEntity newer)
 
 ```
 
-UserModifiedEvent的事件监听：
+#### UserModifiedEvent的事件监听：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.RemoveUserTokenWhenUserDisabled.handleStateChangeEvent(UserModifiedEvent event)
 ```
 
-ClearUserAuthorizationCacheEvent
+### ClearUserAuthorizationCacheEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -318,19 +329,20 @@ ClearUserAuthorizationCacheEvent
   </p>
 ClearUserAuthorizationCacheEvent 清空用户权限缓存信息事件,可用发送此事件来清理用户权限缓存
 </div>
-ClearUserAuthorizationCacheEvent的事件发布：
+
+#### ClearUserAuthorizationCacheEvent的事件发布：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultDimensionUserService.clearUserCache(List<DimensionUserEntity> entities)
 ```
 
-ClearUserAuthorizationCacheEvent的事件监听：
+#### ClearUserAuthorizationCacheEvent的事件监听：
 
 ```
 org.hswebframework.web.system.authorization.defaults.service.DefaultReactiveAuthenticationManager.handleClearAuthCache(ClearUserAuthorizationCacheEvent event)
 ```
 
-### <font id="4">数据权限相关(企业版)</font>
+## 数据权限相关(企业版)
 
 ```java
 AssetsBindEvent 资产绑定事件
@@ -340,7 +352,7 @@ AssetsBindEvent 资产绑定事件
         TenantMemberUnBindEvent 租户成员解绑事件
 ```
 
-AssetsBindEvent
+### AssetsBindEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -348,19 +360,20 @@ AssetsBindEvent
   </p>
 AssetsBindEvent 资产绑定事件
 </div>
-AssetsBindEvent的事件发布：
+
+#### AssetsBindEvent的事件发布：
 
 ```
 `org.jetlinks.pro.assets.CompositeAssetBindManager.bindAssets(@Nonnull Publisher<AssetBindRequest> requestFlux)
 ```
 
-AssetsBindEvent的事件监听：
+#### AssetsBindEvent的事件监听：
 
 ```
 org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindEvent(AssetsBindEvent event)
 ```
 
-AssetsUnBindEvent
+### AssetsUnBindEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -368,19 +381,20 @@ AssetsUnBindEvent
   </p>
 AssetsUnBindEvent 资产解绑事件
 </div>
-AssetsUnBindEvent的事件发布：
+
+#### AssetsUnBindEvent的事件发布：
 
 ```
 org.jetlinks.pro.assets.CompositeAssetBindManager.unbindAssets(@Nonnull Publisher<AssetUnbindRequest> requestFlux)
 ```
 
-AssetsUnBindEvent的事件监听：
+#### AssetsUnBindEvent的事件监听：
 
 ```
 org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindEvent(AssetsUnBindEvent event)
 ```
 
-AssetsUnBindAllEvent
+### AssetsUnBindAllEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -388,19 +402,20 @@ AssetsUnBindAllEvent
   </p>
 AssetsUnBindAllEvent 全部资产解绑事件
 </div>
-AssetsUnBindAllEvent的事件发布：
+
+#### AssetsUnBindAllEvent的事件发布：
 
 ```
 org.jetlinks.pro.assets.CompositeAssetBindManager.unbindAllAssets(@Nonnull String assetType,@Nonnull Collection<?> assetId)
 ```
 
-AssetsUnBindAllEvent的事件监听：
+#### AssetsUnBindAllEvent的事件监听：
 
 ```
 org.jetlinks.pro.device.service.DeviceTenantSynchronizer.handleUnBindAllEvent(AssetsUnBindAllEvent event)
 ```
 
-TenantMemberBindEvent
+### TenantMemberBindEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -408,19 +423,20 @@ TenantMemberBindEvent
   </p>
 TenantMemberBindEvent 租户成员绑定事件
 </div>
-TenantMemberBindEvent的事件发布：
+
+#### TenantMemberBindEvent的事件发布：
 
 ```
 org.jetlinks.pro.auth.service.TenantMemberService.bindMembers(String tenantId, Flux<BindMemberRequest> bind)
 ```
 
-TenantMemberBindEvent的事件监听：
+#### TenantMemberBindEvent的事件监听：
 
 ```java
-平台暂无实现，用户可以使用@EventListener注解自定义实现监听
+平台暂无实现,用户可以使用@EventListener注解自定义实现监听
 ```
 
-TenantMemberUnBindEvent
+### TenantMemberUnBindEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -428,19 +444,20 @@ TenantMemberUnBindEvent
   </p>
 TenantMemberUnBindEvent 租户成员解绑事件
 </div>
-TenantMemberUnBindEvent的事件发布：
+
+#### TenantMemberUnBindEvent的事件发布：
 
 ```
 org.jetlinks.pro.auth.service.TenantMemberService.unbindMembers(String tenantId, Flux<String> bindIdStream)
 ```
 
-TenantMemberUnBindEvent的事件监听:
+#### TenantMemberUnBindEvent的事件监听:
 
 ```java
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-### <font id="5">设备管理相关</font>
+## 设备管理相关
 
 ```java
 DeviceDeployedEvent:设备激活时触发
@@ -449,7 +466,7 @@ DeviceDeployedEvent:设备激活时触发
         DeviceProductDeployEvent:产品激活时触发
 ```
 
-DeviceDeployedEvent
+### DeviceDeployedEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -457,20 +474,21 @@ DeviceDeployedEvent
   </p>
 DeviceDeployedEvent: 设备激活时触发
 </div>
-DeviceDeployedEvent的事件发布：
+
+#### DeviceDeployedEvent的事件发布：
 
 ```
 org.jetlinks.pro.device.service.LocalDeviceInstanceService.deploy(Flux<DeviceInstanceEntity> flux,
                                        Function<? super Throwable, ? extends Mono<DeviceInstanceEntity>> fallback)
 ```
 
-DeviceDeployedEvent的事件监听：
+#### DeviceDeployedEvent的事件监听：
 
 ```
 org.jetlinks.pro.device.service.DeviceGroupService.handleDeviceDeploy(DeviceDeployedEvent event)
 ```
 
-DeviceUnregisterEvent
+### DeviceUnregisterEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -478,19 +496,20 @@ DeviceUnregisterEvent
   </p>
 DeviceUnregisterEvent: 设备注销时触发
 </div>
-DeviceUnregisterEvent的事件发布：
+
+#### DeviceUnregisterEvent的事件发布：
 
 ```
 org.jetlinks.pro.device.service.LocalDeviceInstanceService.unregisterDevice(Publisher<String> ids)
 ```
 
-DeviceUnregisterEvent的事件监听：
+#### DeviceUnregisterEvent的事件监听：
 
 ```java
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-DeviceAutoRegisterEvent
+### DeviceAutoRegisterEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -498,19 +517,20 @@ DeviceAutoRegisterEvent
   </p>
 DeviceAutoRegisterEvent: 设备自动注册时触发,可返回是否允许自动注册
 </div>
-DeviceAutoRegisterEvent的事件发布：
+
+#### DeviceAutoRegisterEvent的事件发布：
 
 ```
 org.jetlinks.pro.device.service.DeviceMessageBusinessHandler.doAutoRegister(DeviceRegisterMessage message)
 ```
 
-DeviceAutoRegisterEvent的事件监听：
+#### DeviceAutoRegisterEvent的事件监听：
 
 ```java
 平台暂无实现，用户可以使用@EventListener注解自定义实现监听
 ```
 
-DeviceProductDeployEvent
+### DeviceProductDeployEvent
 <div class='explanation info'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -518,13 +538,14 @@ DeviceProductDeployEvent
   </p>
 DeviceProductDeployEvent: 产品激活时触发
 </div>
-DeviceProductDeployEvent的事件发布：
+
+#### DeviceProductDeployEvent的事件发布：
 
 ```
 org.jetlinks.pro.device.service.LocalDeviceProductService.deploy(String id)
 ```
 
-DeviceProductDeployEvent的事件监听：
+#### DeviceProductDeployEvent的事件监听：
 
 ```
 org.jetlinks.pro.device.events.handler.DeviceProductDeployHandler.handlerEvent(DeviceProductDeployEvent event)
