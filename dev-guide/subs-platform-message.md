@@ -1,6 +1,6 @@
 # 订阅平台相关消息
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -12,23 +12,20 @@
     </p>
 </div>
 
-<br>
 
-#### 指导介绍
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-      <p>1. 使用Websocket或者MQTT的方式连接到平台</p>
-      <p>2. 了解具体的订阅格式以及如何订阅</p>
-      <p>3. 找到想要订阅的topic订阅特定主题拿到平台数据</p>
-</div>
+## 指导介绍
 
-<br>
+<p>1. <a href='/dev-guide/subs-platform-message.html#如何连接到平台'>使用Websocket或者MQTT的方式连接到平台</a></p>
+<p>2. <a href='/dev-guide/subs-platform-message.html#如何订阅平台消息'>如何进行订阅</a></p>
+<p>3. <a href='/dev-guide/subs-platform-message.html#平台回复消息格式'>平台回复消息格式</a></p>
+<p>4. <a href='/dev-guide/subs-platform-message.html#如何取消订阅'>取消订阅</a></p>
+<p>5. <a href='/dev-guide/subs-platform-message.html#开始订阅消息'>找到想要订阅的topic订阅特定主题拿到平台数据</a></p>
 
-#### 如何连接到平台
+
+
+
+## 如何连接到平台
 
 1、使用websocket进行连接
 
@@ -75,9 +72,9 @@ messaging:
 
 ![通过MQTT连接到平台](./images/mqtt-link-to-platform.png)
 
-<br>
 
-#### 如何订阅平台消息
+
+## 如何订阅平台消息
 
 1、使用Websocket订阅
 
@@ -122,9 +119,9 @@ messaging:
 
 ![MQTT订阅主题](./images/mqtt-sub-message.png)
 
-<br>
 
-#### 平台回复消息格式
+
+## 平台回复消息格式
 
 websocket回复消息格式：
 
@@ -145,9 +142,7 @@ MQTT回复消息格式
 
 
 
-<br>
-
-#### 如何取消订阅
+## 如何取消订阅
 
 websocket发送消息，格式为：
 
@@ -162,9 +157,9 @@ websocket发送消息，格式为：
 
 MQTT如何取消?
 
-<br>
 
-#### 开始订阅消息
+
+## 开始订阅消息
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>

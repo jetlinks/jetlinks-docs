@@ -1,6 +1,6 @@
 # 自定义规则引擎节点
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -10,25 +10,36 @@
     当规则引擎中的节点没有适合自身系统业务时，可以通过代码自定义规则引擎节点
 </div>
 
-#### 指导介绍
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <p><a href="#1">1. 创建自定义节点后端代码，实现业务系统自定义节点功能</a> </p>
-  <p><a href="#2">2. 配置自定义节点html</a></p>
-  <p><a href="#3">3. 如何在平台操作使用自定义节点</a></p>
-  <p><a href="#4">4. 规则引擎常见名词说明</a></p>
-  <p><a href="#5">5. 自定义节点实现国际化支持</a></p>
+## 指导介绍
 
-</div>
+  <p>1. <a href="/dev-guide/rule-engine.html#自定义节点">创建自定义节点后端代码，实现业务系统自定义节点功能</a> </p>
+  <p>2. <a href="/dev-guide/rule-engine.html#配置自定义节点html">配置自定义节点html</a></p>
+  <p>3. <a href="/dev-guide/rule-engine.html#在平台操作使用自定义节点">如何在平台操作使用自定义节点</a></p>
+  <p>4. <a href="/dev-guide/rule-engine.html#规则引擎常见名词说明">规则引擎常见名词说明</a></p>
+  <p>5. <a href="/dev-guide/rule-engine.html#自定义节点如何实现国际化">自定义节点实现国际化支持</a></p>
 
 
-### <font id="1">自定义节点</font>
+
+## 问题指引
+
+<table>
+<tr>
+    <td><a href="/dev-guide/rule-engine.html#配置完成后规则引擎编辑器内未显示该节点">配置完成后规则引擎编辑器内未显示该节点</a></td>
+    <td><a href="/dev-guide/rule-engine.html#无法取得自定义节点中配置的参数">无法取得自定义节点中配置的参数</a></td>
+</tr>
+<tr>
+   <td><a href="/dev-guide/rule-engine.html#启动自定义规则时提示no-scheduler-for-custom">启动自定义规则时提示no-scheduler-for-custom</a></td>
+    <td><a href="/dev-guide/rule-engine.html#editorresource注解中的helper参数路径动态化时如何使用">@EditorResource注解中的helper参数路径动态化时如何使用</a></td>
+</tr>
+</table>
+
+
+
+## 自定义节点
 
 1、创建一个类实现接口<code>TaskExecutorProvider</code>,提供自定义节点的任务执行器
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -37,8 +48,6 @@
    <p>需要使用<code>@Component</code>注解将任务执行器的自定义实现类加入容器</p>
    <p>在任务执行器的自定义实现类中，需要提供一个内部类实现<code>FunctionTaskExecutor</code>,用于执行自定义节点任务</p>
 </div>
-
-
 
 ```java
 @AllArgsConstructor
@@ -115,9 +124,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 
 
-<br>
-
-###  <font id="2">配置自定义节点html</font>
+##  配置自定义节点html
 
 1、在resources资源路径下<code>rule-engine.editor.common</code>下创建一个<code>2-custom-node.html</code>文件
 
@@ -192,7 +199,9 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 ![自定义规则引擎节点](./images/custom-node-in-rule-engine.png)
 
-###  <font id="3">在平台操作使用自定义节点</font>
+
+
+##  在平台操作使用自定义节点
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -204,8 +213,6 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
       <p>定时任务(配置cron表达式)--->自定义节点(配置数据)--->reactorQl(订阅自定义节点数据)--->函数(打印日志)</p>
     </p>
 </div>
-
-
 1、在规则引擎编辑器中放置如下组件
 
 ![组件编排](./images/custom-rule-engine-config.png)
@@ -235,7 +242,8 @@ reactorQL配置
 ![执行结果](./images/custom-rule-engine-result.png)
 
 
-###  <font id="4">规则引擎常见名词说明</font>
+
+##  规则引擎常见名词说明
 
 **RuleModel(规则模型)**:由多个`RuleNode(规则节点)`,`RuleLink(规则连线)`组成
 
@@ -259,10 +267,10 @@ reactorQL配置
 
 **RuleData(规则数据)**: 任务执行过程中的数据实例
 
-<br>
 
 
-###  <font id="5">自定义节点如何实现国际化</font>
+
+##  自定义节点如何实现国际化
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -329,11 +337,11 @@ reactorQL配置
 
 
 
-
-
-#### <font id="5">常见问题</font>
+## 常见问题
 
 *对开发过程中出现的问题进行总结*
+
+### 配置完成后规则引擎编辑器内未显示该节点
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -348,7 +356,8 @@ reactorQL配置
     </p>
 </div>
 
-<br>
+
+### 无法取得自定义节点中配置的参数
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -356,14 +365,16 @@ reactorQL配置
     <span class='explanation-title font-weight'>问题2</span>
   </p>
     <p>
-        Q：后台取不到在该自定义节点中填入的值
+        Q：后台无法取得自定义节点中配置的参数
     </p>
     <p>
         A：首先判断与前端页面中规定的名称是否对的上，再确认前端在进行<code>id</code>绑定时是否添加<code>node-input-</code>的前缀
     </p>
 </div>
 
-<br>
+
+
+### 启动自定义规则时提示no scheduler for custom
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -378,6 +389,9 @@ reactorQL配置
     </p>
 </div>
 
+
+### @EditorResource注解中的helper参数路径动态化时如何使用
+
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -389,11 +403,9 @@ reactorQL配置
     <p>
         A：除了使用<code>{local}</code>外，还可以使用<code>{language}</code>和<code>{country}</code>
      <p>1. <code>{language}</code>启动时会被en、zh或者其他语言代码替代，对应的资源路径应为：<code>rule-engine/i18n/{语言}/common/custom-node.html</code></p>
-     <p>2. <code>{country}</code>启动时会被CN、US或者其他国家代码替代，对应的资源路径应为：<code>rule-engine/i18n/{国家}/common/custom-node.html</code></p>
-     <p>3. <code>{local}</code>启动时会被zh-CN、en-US或者其他语言-国家代码替代，对应的资源路径应为：<code>rule-engine/i18n/{语言-地区}
+     <p>2. <code>{country}</code>启动时会被CN、US或者其他地区代码替代，对应的资源路径应为：<code>rule-engine/i18n/{地区}/common/custom-node.html</code></p>
+     <p>3. <code>{local}</code>启动时会被zh-CN、en-US或者其他语言-地区代码替代，对应的资源路径应为：<code>rule-engine/i18n/{语言-地区}
 /common/custom-node.html</code>
 </p>
     </p>
 </div>
-
-
