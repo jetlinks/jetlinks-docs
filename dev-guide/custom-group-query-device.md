@@ -1,6 +1,6 @@
-### 自定义模块如何分组查询产品设备信息
+# 自定义模块如何分组查询产品设备信息
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -10,20 +10,16 @@
     JetLinks平台未提供分组查询，用户可以使用stream流的方式实现业务数据分组
 </div>
 
-#### 指导介绍
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-     <p>1. <a href="#1" >自定义实体类主要字段说明</a></p>
-     <p>2. <a href="#2" >自定义模块service说明</a></p>
-     <p>3. <a href="#3" >自定义模块controller说明及方法使用</a></p>
-</div>
+## 指导介绍
+
+  <p>1. <a href="/dev-guide/custom-group-query-device.html#自定义实体类主要字段说明">自定义实体类主要字段说明</a></p>
+  <p>2. <a href="/dev-guide/custom-group-query-device.html#自定义模块service说明">自定义模块service说明</a></p>
+  <p>3. <a href="/dev-guide/custom-group-query-device.html#自定义模块controller说明及方法使用">自定义模块controller说明及方法使用</a></p>
 
 
 
-### <font id="1">自定义实体类主要字段说明</font>
+
+### 自定义实体类主要字段说明
 
 `org.example.mydemo.entity.CustomProductEntity`
 
@@ -48,7 +44,7 @@ CustomDevcieEntity类中包含的字段有：deviceId(设备ID)、deviceName(设
 
 
 
-### <font id="2">自定义模块service说明</font>
+## 自定义模块service说明
 
 `org.example.mydemo.service.CustomProductService`
 
@@ -66,7 +62,7 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 }
 ```
 
-#### <font id="3">自定义模块controller说明及方法使用</font>
+## 自定义模块controller说明及方法使用
 
 `org.example.mydemo.web.CustomProDeviceController`
 

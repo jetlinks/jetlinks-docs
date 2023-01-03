@@ -1,24 +1,36 @@
 # 在JetLinks上构建自己的业务功能
 
-- <a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE'>
-  自定义模块项目</a>  
-- <a target='_self' href='/dev-guide/custom-crud.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E4%B8%AD%E7%BC%96%E5%86%99%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E9%80%BB%E8%BE%91%E4%BB%A3%E7%A0%81'>
-  自定义模块中编写增删改查逻辑代码</a>
-- <a target='_self' href='/dev-guide/custom-use-es.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
-  自定义模块如何使用es</a>
-- <a target='_self' href='/dev-guide/custom-use-redis.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98'>
-  自定义模块如何引入使用redis缓存</a>
-- <a target='_self' href='/dev-guide/custom-use-eventbus.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
-  自定义模块如何使用eventBus</a>  
-- <a target='_self' href='/dev-guide/custom-group-query-device.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E4%BA%A7%E5%93%81%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF'>
-  自定义模块如何分组查询产品设备信息</a>
-- <a target='_self' href='/dev-guide/custom-use-sqlexecutor.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8sqlexecutor'>
-  自定义模块如何使用sqlExecutor</a>
+## 文档指引
+<table>
+<tr>
+    <td><a target='_self' href='/dev-guide/custom-code-guide.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE'>自定义模块项目</a></td>
+    <td><a target='_self' href='/dev-guide/custom-code-crud.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E4%B8%AD%E7%BC%96%E5%86%99%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E9%80%BB%E8%BE%91%E4%BB%A3%E7%A0%81'>自定义模块中编写增删改查逻辑代码</a></td>
+</tr>
+<tr>
+    <td><a target='_self' href='/dev-guide/custom-use-es.
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>自定义模块如何使用es</a></td>
+    <td><a target='_self' href='/dev-guide/custom-use-redis.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98'>
+  自定义模块如何引入使用redis缓存</a></td>
+</tr>
+<tr>
+    <td><a target='_self' href='/dev-guide/custom-use-eventbus.
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
+  自定义模块如何使用eventBus</a> </td>
+    <td><a target='_self' href='/dev-guide/custom-group-query-device.
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E4%BA%A7%E5%93%81%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF'>
+  自定义模块如何分组查询产品设备信息</a></td>
+</tr>
+<tr>
+   <td><a target='_self' href='/dev-guide/custom-use-sqlexecutor.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8sqlexecutor'>
+  自定义模块如何使用sqlExecutor</a></td>
+</tr>
+
+</table>
 
 
-### 自定义模块项目
+# 自定义模块项目
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -32,32 +44,37 @@
 
 </div>
 
-#### 指导介绍
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+## 指导介绍
+
   </p>
-     <p>1. <a href="#1" >如何创建自定义Maven项目</a></p>
-     <p>2. <a href="#2" >如何将自定义模块加入JetLinks平台</a></p>
-     <p>3. <a href="#3" >如何确认模块被引入</a></p>
-     <p>4. <a href="#4" >常见问题说明</a></p>
-</div>
+     <p>1. <a href="/dev-guide/custom-code-guide.html#创建自定义maven项目" >如何创建自定义Maven项目</a></p>
+     <p>2. <a href="/dev-guide/custom-code-guide.html#将自定义模块加入jetlinks平台" >如何将自定义模块加入JetLinks平台</a></p>
+     <p>3. <a href="/dev-guide/custom-code-guide.html#如何确认模块被引入" >如何确认模块被引入</a></p>
+  </p>
+
+## 问题指引
+<table>
+<tr>
+    <td><a target='_self' href='/dev-guide/custom-code-guide.html#自定义接口如何加入swagger'>自定义接口如何加入swagger</a></td>
+    <td><a target='_self' href='/dev-guide/custom-code-guide.html#自定义的接口不想被平台鉴权拦截'>自定义的接口不想被平台鉴权拦截</a></td>
+</tr>
+</table>
 
 
 
-### <font id="1">创建自定义Maven项目</font>
-#### 1. 创建项目图示
+
+## 创建自定义Maven项目
+### 1. 创建项目图示
 
 ![创建新的Maven项目](./images/code-guide-1-1.png)
 
-#### 2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
+### 2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
 
 ![项目未加入JetLinks平台内时](./images/code-guide-1-2.png)
 
-### <font id="2">将自定义模块加入JetLinks平台</font>
+## 将自定义模块加入JetLinks平台
 
-#### 1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
+### 1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
 
 ![在pom文件内声明模块信息](./images/code-guide-1-3.png)
 示例代码:
@@ -82,7 +99,7 @@
 </modules>
 ```
 
-#### 2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
+### 2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
 
 ![在pom文件内声明模块信息](./images/code-guide-1-4.png)
 
@@ -102,12 +119,12 @@
 </profile>
 ```
 
-#### 3. reimport项目
+### 3. reimport项目
 
 以上两步操作完成之后需要使用Maven窗口的`reimport`即 `Reload ALL Maven Project`按钮，重新引入模块依赖，此时模块被加入jetlinks-pro项目下
 ![在pom文件内声明模块信息](./images/code-guide-1-5.png)
 
-#### 4. 加入子模块声明后，修改自定义项目pom文件内容
+### 4. 加入子模块声明后，修改自定义项目pom文件内容
 
 示例代码：
 
@@ -160,7 +177,7 @@
 
 ```
 
-### <font id="3">如何确认模块被引入</font>
+## 如何确认模块被引入
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -259,8 +276,9 @@ Process finished with exit code 0
 
 </div>
 
-### <font id="4">常见问题</font>
+## 常见问题
 
+### 自定义接口如何加入swagger
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -304,7 +322,7 @@ springdoc:
 
 
 
-
+### 自定义的接口不想被平台鉴权拦截
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
