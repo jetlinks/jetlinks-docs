@@ -124,8 +124,8 @@ error Found incompatible module.
 网址:`https://cr.console.aliyun.com/cn-hangzhou/instances`
 2. 开通镜像服务
 
-   ![create ssh keys2](./images/open-image.png)
-   ![create ssh keys2](./images/registry-password.png)
+   ![open-image](./images/open-image.png)
+   ![registry-password](./images/registry-password.png)
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -138,10 +138,10 @@ error Found incompatible module.
 
 3. 创建命名空间
 
-   ![create ssh keys2](./images/registry-name.png)
+   ![registry-name](./images/registry-name.png)
 
 4. 创建镜像仓库
-   ![create ssh keys2](./images/registry-create.png)
+   ![registry-create](./images/registry-create.png)
 
 #### 推送镜像到仓库
 
