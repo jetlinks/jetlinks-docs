@@ -1,16 +1,25 @@
-### 自定义模块如何使用es
+# 自定义模块如何使用es
 
-#### 指导介绍
+## 指导介绍
 
-  <p>1. <a href="#1" >如何引入平台elasticsearch相关模块</a></p>
-  <p>2. <a href="#2" >如何构建elasticsearch索引模板</a></p>
-  <p>3. <a href="#3" >平台如何使用elasticsearch</a></p>
-  <p>4. <a href="#4" >平台elasticSearch相关核心方法说明</a></p>
-  <p>5. <a href="#5" >常见问题说明</a></p>
+  <p>1. <a href="/dev-guide/custom-use-es.html#在自定义的项目中引入平台es的模块" >如何引入平台elasticsearch相关模块</a></p>
+  <p>2. <a href="/dev-guide/custom-use-es.html#如何构建elasticsearch索引模板" >如何构建elasticsearch索引模板</a></p>
+  <p>3. <a href="/dev-guide/custom-use-es.html#平台如何使用elasticsearch" >平台如何使用elasticsearch</a></p>
 
-### <font id="1">在自定义的项目中引入平台es的模块</font>
+## 问题指引
 
-#### 1.`properties`
+<table>
+  <tr>
+   <td>
+    <a href="/dev-guide/custom-use-es.html#成功创建模板和索引-无法存入数据" >成功创建模板和索引-无法存入数据</a>
+   </td>
+  </tr>
+
+</table>
+
+## 在自定义的项目中引入平台es的模块
+
+### 1.`properties`
 
 ```
 <properties>
@@ -21,36 +30,37 @@
 </properties>
 ```
 
-#### 2.引入依赖：
+### 2.引入依赖：
 
 ```java
   <dependency>
-    <groupId>org.jetlinks.pro</groupId>
-    <artifactId>elasticsearch-component</artifactId>
-    <version>${jetlinks.version}</version>
-    <scope>compile</scope>
-  </dependency>
+<groupId>org.jetlinks.pro</groupId>
+<artifactId>elasticsearch-component</artifactId>
+<version>${jetlinks.version}</version>
+<scope>compile</scope>
+</dependency>
 ```
 
-### <font id="2">如何构建elasticsearch索引模板</font>
+## 如何构建elasticsearch索引模板
 
-#### 1.构建枚举类，定义索引模板名称
+### 1.构建枚举类，定义索引模板名称
 
 代码：
 
   ```java
   package org.example.mydemo.enums;
-  import org.jetlinks.pro.elastic.search.index.ElasticIndex;
 
-  @Getter
-  @AllArgsConstructor
-  public enum CustomIndexEnum implements ElasticIndex {
-  custom("custom");
-  private String index;
-  }
+import org.jetlinks.pro.elastic.search.index.ElasticIndex;
+
+@Getter
+@AllArgsConstructor
+public enum CustomIndexEnum implements ElasticIndex {
+    custom("custom");
+    private String index;
+}
   ```
 
-#### 2.创建配置类，程序启动时会根据以下配置创建索引模板
+### 2.创建配置类，程序启动时会根据以下配置创建索引模板
 
 代码：
 
@@ -72,15 +82,16 @@ public class Configurations implements CommandLineRunner {
                 new DefaultElasticSearchIndexMetadata(CustomIndexEnum.custom.getIndex())
                         //添加自定义模板属性
                         .addProperty("device_id", new StringType())
-                        .addProperty("type",  new StringType())
+                        .addProperty("type", new StringType())
                         .addProperty("timestamp", new DateTimeType())
         ).subscribe();
     }
 }
    ```
-### <font id="3">平台如何使用elasticsearch</font>
 
-#### 1.在controller层引入`ElasticSearchService`服务
+## 平台如何使用elasticsearch
+
+### 1.在controller层引入`ElasticSearchService`服务
 
 在`org.example.mydemo.web.CustomController`中引入`elasticSearchService`
 
@@ -88,11 +99,10 @@ public class Configurations implements CommandLineRunner {
  private final ElasticSearchService elasticSearchService;
 ```
 
-####  2.es相关简单代码示例
+### 2.es相关简单代码示例
 
 ```java
 package org.example.mydemo.web;
-
 
 
 @RestController
@@ -119,12 +129,12 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
         //保存到数据库
         return customService.insert(entity)
-                .filter(number -> number > 0)
-                //将成功保存到数据库的数据存储到自定义的es索引中
-                .flatMap(number -> elasticSearchService
-                        .save(CustomIndexEnum.custom.getIndex(), entity)
-                        .thenReturn(entity)
-                );
+                            .filter(number -> number > 0)
+                            //将成功保存到数据库的数据存储到自定义的es索引中
+                            .flatMap(number -> elasticSearchService
+                                    .save(CustomIndexEnum.custom.getIndex(), entity)
+                                    .thenReturn(entity)
+                            );
     }
 
     /**
@@ -138,7 +148,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     public Mono<Long> countData(@PathVariable String _index, @Parameter QueryParamEntity queryParam) {
         return elasticSearchService.count(_index, queryParam);
     }
-    
+
     /**
      * 根据参数，分页查询索引中的数据
      * @param _index 索引名称
@@ -148,7 +158,7 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
     @PostMapping("/{_index}/query")
     @QueryAction
     public Mono<PagerResult<CustomEntity>> queryPagerData(@PathVariable String _index, QueryParamEntity queryParam) {
-     //从es中得到的查询结果会存入map，被自定义实体类(CustomEntity)的of方法转换，返回给调用者
+        //从es中得到的查询结果会存入map，被自定义实体类(CustomEntity)的of方法转换，返回给调用者
         return elasticSearchService
                 .queryPager(_index, queryParam, map -> CustomEntity.of(map));
     }
@@ -165,18 +175,16 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 
 ```java
     /**
-     * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
-     * @param map  传入参数
-     * @return
-     */
-    public static CustomEntity of(Map<String, Object> map) {
-        return  JSONObject.parseObject(JSONObject.toJSONString(map), CustomEntity.class);
-    }
+ * 使用JSONObject的parseObject的方法将传入参数转为 CustomEntity对象
+ * @param map  传入参数
+ * @return
+ */
+public static CustomEntity of(Map<String, Object> map){
+        return JSONObject.parseObject(JSONObject.toJSONString(map),CustomEntity.class);
+        }
 ```
 
-
-
-### <font id="4">`ElasticSearchService`的核心方法</font>
+## `ElasticSearchService`的核心方法
 
 | 核心方法                                                     | 返回值                | 参数                                                         | 描述           |
 | ------------------------------------------------------------ | --------------------- | ------------------------------------------------------------ | -------------- |
@@ -193,9 +201,9 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
 | `save(String index, Collection<T> payload)`                  | `Mono<Void>`          | String index-索引<br/> `Collection<T>` payload-保存的数据集合 | 保存数据       |
 | `save(String index, Publisher<T> data)`                      | `Mono<Void>`          | String index-索引<br/> `Publisher<T>` data-保存的数据流      | 保存数据       |
 
+## 常见问题
 
-
-#### <font id="5">常见问题</font>
+### 成功创建模板和索引，无法存入数据
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
