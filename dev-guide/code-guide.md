@@ -110,7 +110,7 @@
 - 数据上报服务器
 - <a target='_self' href='/dev-guide/push-to-message-middleware.html'>
    设备数据推送到消息中间件</a>
-- <a target='_self' href='/dev-guide/mqtt-subs.html'>
+- <a target='_self' href='/dev-guide/subs-platform-message.html'>
    订阅平台相关消息</a>
 - 调用平台历史数据接口
 
