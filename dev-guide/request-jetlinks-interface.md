@@ -1,6 +1,6 @@
 # 第三方平台请求JetLinks服务接口
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -11,9 +11,14 @@
 </div>
 
 
-<br>
+## 指导介绍
 
-#### 创建第三方平台
+  <p>1. <a href='/dev-guide/request-jetlinks-interface.html#创建第三方平台'>创建第三方平台。</a></p>
+  <p>2. <a href='/dev-guide/request-jetlinks-interface.html#获取平台签名及token'>获取平台签名及Token。</a></p>
+
+
+
+## 创建第三方平台
 
 首先进入平台：选择平台上方的[系统管理]---选择左侧[应用管理]---点击新增按钮
 
@@ -26,15 +31,12 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
+    <p>
+       appId和secureKey需要提供给客户端开发者，角色是多个用户的集合，角色中创建的用户可以使用用户名密码登录到系统中。IP白名单是只允许填写的ip进行访问
+    </p>
 </div>
 
-
 ![创建第三方平台1](./images/add-third-api-1.png)
-
-<br>
-
-#### 赋权
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -43,15 +45,13 @@
   </p>
   大部分情况下只需要勾选设备相关权限即可
 </div>
-
-
 赋权操作在[系统管理]---[角色管理]---选择对应的角色后在页面内进行权限分配
 
 ![选择权限](./images/select-auth.png)
 
-<br>
 
-#### 获取平台签名及Token
+
+## 获取平台签名及Token
 
 1、使用签名的方式
 
@@ -64,14 +64,11 @@
   </p>
          <p>
              1. 图中Signature函数为客户端设置的签名方式，支持MD5和SHA256<br>
-    </p>
-         <p>
              2. 发起请求的签名信息都需要放到请求头中，而不是请求体<br>
-    </p>
-         <p>
              3. OpenApi对开发是透明的，开发只需要关心权限控制即可。OpenAPI和后台接口使用的是相同的权限控制API，因此开发一个OpenAPI接口就是写一个WebFlux Controller。<a href='https://doc.jetlinks.cn/dev-guide/crud.html#web' target='_blank'>查看使用方式</a>
     </p>
 </div>
+
 
 
 ![使用签名的方式](./images/use-sign.png)
@@ -85,9 +82,10 @@
   </p>
   <p>
       平台使用签名来校验客户端请求的完整性以及合法性。
-    </p>
     Demo中测试包org.jetlinks.demo.openapi下的测试类已测试通过平台已有的openApi接口，Demo中使用签名的方式接入。<a href='https://github.com/jetlinks/jetlinks-openapi-demo' target='_blank'>下载Demo示例</a>
+    </p>
 </div>
+
 
 
 
@@ -121,6 +119,8 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
 {"status":200,result:[]}
 ```
 
+<br>
+
 使用POST方式：
 
 <div class='explanation primary'>
@@ -132,10 +132,6 @@ X-Sign: c23faa3c46784ada64423a8bba433f25
       如果POST请求的contentType类型为APPLICATION_FORM_URLENCODED，则加密方式可以参见GET的方式。如果为其他类型则会将参数转换成<code>ByteBuffer</code>进行计算。
     </p>
 </div>
-
-
-
-
 <p>appId为<code>testId</code>，SecureKey为：<code>testSecure</code>，客户端请求接口<code>/api/v1/device/dev0001/log/_query</code>，参数为<code>{"pageSize":20,"pageIndex":0}</code>，签名方式为<code>md5</code>，使用md5()后得到<code>ed6c0149e9e6d8875064df475240ed5d</code></p>
 
 示例：
@@ -158,8 +154,6 @@ X-Sign: d41d8cd98f00b204e9800998ecf8427e
 {"status":200,result:[]}
 ```
 
-
-
 <br>
 
 验签
@@ -171,10 +165,6 @@ X-Sign: d41d8cd98f00b204e9800998ecf8427e
   </p>
   需要使用使用和签名相同的算法，不需要对响应结果排序
 </div>
-
-
-
-
 示例：
 
 ```java
@@ -200,8 +190,6 @@ if(sign.equalsIgnoreCase(signHeader)){
   </p>
   通过请求接口<code>/api/v1/token</code>来获取<code>X-Access-Token</code>，之后可以使用此token来发起api请求
 </div>
-
-
 
 申请token
 
