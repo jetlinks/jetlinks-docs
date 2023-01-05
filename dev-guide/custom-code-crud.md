@@ -23,17 +23,10 @@
     <td><a target='_self' href='/dev-guide/custom-code-crud.html#启动报错-提示找不到reactiverepository'>启动报错-提示找不到reactiverepository</a></td>
      <td><a target='_self' href='/dev-guide/custom-code-crud.html#服务重启时-提示错误-实体类的表已经存在'>服务重启时，提示错误：实体类的表已经存在</a></td>
 </tr>
-</table>
-
-## 警告
-<table>
 <tr>
    <td><a target='_self' href='/dev-guide/custom-code-crud.html#响应式返回值类型不应该为object、必须指出明确的返回类型'>响应式返回值类型不应该为object、必须指出明确的返回类型</a></td>
 </tr>
 </table>
-
-
-
 
 ## 模块整体构造结构图 
 
@@ -387,7 +380,7 @@ font-weight">"org.example.xxx.entity"</span>})</p>
     <p>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.
 example.xxx.entity.**"</span>})</p>
    原因：<br/>
-    平台*使用ClassUtils.getPackageName(type)获取全类名称,@EnableEasyormRepository注解底层使用的是AntPathMatcher匹配机制，在AntPathMatcher匹配规则中a.b.c不能和a.b.c.*匹配
+    平台使用ClassUtils.getPackageName(type)获取全类名称,@EnableEasyormRepository注解底层使用的是AntPathMatcher匹配机制，在AntPathMatcher匹配规则中a.b.c不能和a.b.c.*匹配
   </p>
  </p>
 </div>

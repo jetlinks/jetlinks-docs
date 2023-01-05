@@ -10,16 +10,13 @@
     当规则引擎中的节点没有适合自身系统业务时，可以通过代码自定义规则引擎节点
 </div>
 
-
 ## 指导介绍
 
   <p>1. <a href="/dev-guide/rule-engine.html#自定义节点">创建自定义节点后端代码，实现业务系统自定义节点功能</a> </p>
   <p>2. <a href="/dev-guide/rule-engine.html#配置自定义节点html">配置自定义节点html</a></p>
   <p>3. <a href="/dev-guide/rule-engine.html#在平台操作使用自定义节点">如何在平台操作使用自定义节点</a></p>
   <p>4. <a href="/dev-guide/rule-engine.html#规则引擎常见名词说明">规则引擎常见名词说明</a></p>
-  <p>5. <a href="/dev-guide/rule-engine.html#自定义节点如何实现国际化">自定义节点实现国际化支持</a></p>
-
-
+  <p>5. <a href="/dev-guide/rule-engine.html#自定义节点实现国际化支持">自定义节点实现国际化支持</a></p>
 
 ## 问题指引
 
@@ -32,9 +29,11 @@
    <td><a href="/dev-guide/rule-engine.html#启动自定义规则时提示no-scheduler-for-custom">启动自定义规则时提示no-scheduler-for-custom</a></td>
     <td><a href="/dev-guide/rule-engine.html#editorresource注解中的helper参数路径动态化时如何使用">@EditorResource注解中的helper参数路径动态化时如何使用</a></td>
 </tr>
+<tr>
+   <td><a href="/dev-guide/rule-engine.html#配置了jvm参数-在浏览器中-国际化相关配置不生效">配置了jvm参数-在浏览器中-国际化相关配置不生效</a></td>
+</tr>
+
 </table>
-
-
 
 ## 自定义节点
 
@@ -92,7 +91,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
         //定义节点重新加载时执行的方法
         @Override
         public void reload() {
-          //从前端页面配置中获取相应的字段
+          //根据context上下文，获取自定义节点html文件中的id值，get("属性名")：属性名自定义html中的属性名相对应
           this.id = (String) getContext().getJob().getConfiguration().get("id");
           this.name = (String) getContext().getJob().getConfiguration().get("name");
         }
@@ -121,8 +120,36 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
     }
 }
 ```
+2、上述示例一些简单说明
 
+<table>
+  <tr>
+    <td>ExecutionContext context</td>
+    <td>context – 上下文</td>
+  </tr>
+ <tr>
+    <td><code>this.id = (String) getContext().getJob().getConfiguration().get("id")</code></td>
+    <td>根据context上下文，获取自定义节点html文件中的id值</td>
+  </tr>
+ <tr>
+    <td>RuleData input</td>
+    <td>规则数据</td>
+  </tr>
+</table>
 
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    RuleData:规则数据
+</div>
+
+| 核心参数|类型|描述|
+|--|-------|------|
+|  id |   String   |  数据ID    |
+|  contextId |   String   |  上下文ID,在一条数据创建时生成,在传递过程中此ID不变    |
+|  data |   Object   |  真实数据   |
 
 ##  配置自定义节点html
 
@@ -245,51 +272,128 @@ reactorQL配置
 
 ##  规则引擎常见名词说明
 
-**RuleModel(规则模型)**:由多个`RuleNode(规则节点)`,`RuleLink(规则连线)`组成
+<table>
+    <tr>
+        <td>RuleModel(规则模型)</td>
+        <td>由多个RuleNode(规则节点),RuleLink(规则连线)组成</td>
+    </tr>
+     <tr>
+        <td>RuleNode(规则节点)</td>
+        <td>规则节点描述具体执行的逻辑</td>
+    </tr>
+     <tr>
+        <td>RuleLink(规则连线)</td>
+        <td>用于将多个节点连接起来,将上一个节点的输出结果作为下一个节点的输入结果.</td>
+    </tr>
+     <tr>
+        <td>Input(输入)</td>
+        <td>规则节点的数据输入,可以是上游节点的输出数据，也可以通过自身html配置</td>
+    </tr>
+     <tr>
+        <td>Output(输出)</td>
+        <td>规则节点的数据输出,将数据流向下游节点</td>
+    </tr>
+     <tr>
+        <td>Scheduler(调度器)</td>
+        <td>负责将模型转为任务(Job),并进行任务调度到Worker</td>
+    </tr>
+     <tr>
+        <td>Worker(工作器)</td>
+        <td>负责执行,维护任务.</td>
+    </tr>
+     <tr>
+        <td>ExecutionContext(执行上下文)</td>
+        <td>启动任务时的上下文,通过上下文获取输入输出配置信息等进行任务处理.</td>
+    </tr>
+   <tr>
+        <td>TaskExecutor(任务执行器)</td>
+        <td>具体执行任务逻辑的实现</td>
+    </tr>
+   <tr>
+        <td>TaskExecutorProvider(任务执行器提供商)</td>
+        <td>用于根据模型配置以及上下文创建任务执行器.</td>
+    </tr>
+   <tr>
+        <td>RuleData(规则数据)</td>
+        <td>任务执行过程中的数据实例</td>
+    </tr>
+</table>
 
-**RuleNode(规则节点)**: 规则节点描述具体执行的逻辑
 
-**RuleLink(规则连线)**: 用于将多个节点连接起来,将上一个节点的输出结果作为下一个节点的输入结果.
-
-**Input(输入)**: 规则节点的数据输入
-
-**Output(输出)**: 规则节点的数据输出
-
-**Scheduler(调度器)**: 负责将模型转为任务(`Job`),并进行任务调度到`Worker`
-
-**Worker(工作器)**: 负责执行,维护任务.
-
-**ExecutionContext(执行上下文)**: 启动任务时的上下文,通过上下文获取输入输出配置信息等进行任务处理.
-
-**TaskExecutor(任务执行器)**: 具体执行任务逻辑的实现
-
-**TaskExecutorProvider(任务执行器提供商)**: 用于根据模型配置以及上下文创建任务执行器.
-
-**RuleData(规则数据)**: 任务执行过程中的数据实例
-
-
-
-
-##  自定义节点如何实现国际化
+##  自定义节点实现国际化支持
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
-    <p>可以配置jvm参数切换主时区</p>
+    <p>可以配置参数切换主时区</p>
 </div>
 
+### 以美国地区示例：
 ```java
- 以美国时区示例：
    //en:代表语言
   -Duser.language=en
    //US:代表国家
   -Duser.region=US
 
 ```
+#### 1.jar方式：
+  在启动时加上参数：
+```java
+-Duser.language=en -Duser.region=US
+```
+#### 2.docker镜像方式
+docker-compose.yaml文件对应镜像的environment参数加上如下配置：
+```yaml
+ - "JAVA_OPTS=-Duser.language=en -Duser.region=US"
+```
+ 
 
-替换MyCustomExecutorProvider注解中的helper
+### editor国际化
+
+#### 获取node-red国际化文件  [node-red国际化文件](https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/editor-client/locales).
+
+#### 将平台的`jetlinks-pro\jetlinks-manager\rule-engine-manager\src\main\resources\static\rule-editor\locales`目录整理成如下结构
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+    <p>文档中的zh-CN目录JSON文件，为原来平台<code>jetlinks-pro\jetlinks-manager\rule-engine-manager\src\main\resources\static
+\rule-editor\locales</code>目录下JSON文件</p>
+<p>en-US下node-red.json文件是对zh-CN目录node-red.json文件的翻译</p>
+</div>
+
+![locale结构图](./images/custom-rule-engine-locales.png)
+
+
+#### 利用代码块中资源加载路劲替换接口中原有加载路劲
+
+1.`org.jetlinks.pro.rule.engine.web.editor.RuleEngineEditorController/locales/editor`
+```java
+static/rule-editor/locales/"+Locale.getDefault().toString().replace("_","-")+"/editor.json").getInputStream()
+```
+
+2.`org.jetlinks.pro.rule.engine.web.editor.RuleEngineEditorController/locales/infotips`
+```java
+static/rule-editor/locales/"+Locale.getDefault().toString().replace("_","-")+"/infotips.json").getInputStream()
+```
+
+3.`org.jetlinks.pro.rule.engine.web.editor.RuleEngineEditorController/locales/jsonata`
+```java
+static/rule-editor/locales/"+Locale.getDefault().toString().replace("_","-")+"/jsonata.json").getInputStream()
+```
+
+4.`org.jetlinks.pro.rule.engine.web.editor.RuleEngineEditorController/locales/node-red`
+```java
+InputStream stream = new ClassPathResource("static/rule-editor/locales/"+Locale.getDefault().toString().replace("_","-")+"/node-red.json").getInputStream()
+```
+
+### helper国际化
+
+#### 1.替换MyCustomExecutorProvider注解中的helper
 ```java
 @EditorResource(
     id = "custom",
@@ -313,7 +417,7 @@ reactorQL配置
 
 
 
-3.创建I18n en-US相关的html文件
+### 3.创建I18n en-US相关的html文件
 
 `rule-engine/i18n/en-US/common/2-custom-node.html`
 
@@ -331,7 +435,7 @@ reactorQL配置
 ```
 
 
-4.helper国际化html文档结构图如下：
+### 4.helper国际化html文档结构图如下：
 
 ![i18n文档结构图](./images/i18n-01.png)
 
@@ -405,6 +509,24 @@ reactorQL配置
      <p>1. <code>{language}</code>启动时会被en、zh或者其他语言代码替代，对应的资源路径应为：<code>rule-engine/i18n/{语言}/common/custom-node.html</code></p>
      <p>2. <code>{country}</code>启动时会被CN、US或者其他地区代码替代，对应的资源路径应为：<code>rule-engine/i18n/{地区}/common/custom-node.html</code></p>
      <p>3. <code>{local}</code>启动时会被zh-CN、en-US或者其他语言-地区代码替代，对应的资源路径应为：<code>rule-engine/i18n/{语言-地区}
+/common/custom-node.html</code>
+</p>
+    </p>
+</div>
+
+### 配置了jvm参数，在浏览器中：国际化相关配置不生效？
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题5</span>
+  </p>
+    <p>
+        Q：配置了jvm参数，在浏览器中：国际化相关配置不生效？
+    </p>
+    <p>
+        A：对应得浏览器也应该设置相应语言才会生效，如chrome浏览器，需要<code>settings-Languages-Preferred languages</code>
+设置浏览器首选语言
 /common/custom-node.html</code>
 </p>
     </p>
