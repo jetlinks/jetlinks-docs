@@ -16,11 +16,11 @@
 
 ## 指导介绍
 
-<p>1. <a href='/dev-guide/subs-platform-message.html#如何连接到平台'>使用Websocket或者MQTT的方式连接到平台</a></p>
-<p>2. <a href='/dev-guide/subs-platform-message.html#如何订阅平台消息'>如何进行订阅</a></p>
+<p>1. <a href='/dev-guide/subs-platform-message.html#如何连接到平台'>连接到平台</a></p>
+<p>2. <a href='/dev-guide/subs-platform-message.html#如何订阅平台消息'>使用Websocket或MQTT订阅</a></p>
 <p>3. <a href='/dev-guide/subs-platform-message.html#平台回复消息格式'>平台回复消息格式</a></p>
 <p>4. <a href='/dev-guide/subs-platform-message.html#如何取消订阅'>取消订阅</a></p>
-<p>5. <a href='/dev-guide/subs-platform-message.html#开始订阅消息'>找到想要订阅的topic订阅特定主题拿到平台数据</a></p>
+<p>5. <a href='/dev-guide/subs-platform-message.html#开始订阅消息'>平台内可订阅的topic列表</a></p>
 
 
 
@@ -244,7 +244,7 @@ MQTT如何取消?
 使用MQTT的方式
 
 ```kotlin
-/network/coap/server/{id}/_subscribe?request=request-params-string
+/network/coap/server/{id}/_subscribe?request={request-params-string}
 ```
 
 <br>
@@ -268,12 +268,10 @@ MQTT如何取消?
 使用MQTT的方式
 
 ```kotlin
-/network/coap/client/{id}/_send?request=request-params-string
+/network/coap/client/{id}/_send?request={request-params-string}
 ```
 
 
-
-<br>
 
 #### <font id='dashboard'>订阅仪表盘相关消息</font>
 
@@ -298,9 +296,10 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>警告</span>
   </p>
 	<p>
-        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中的一个，如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
+        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中一个且与前后位置相一致，例如<code>jvmMonitor</code>这一行数据中，<code>memory</code>后只能选取<code>info</code>而不能选择<code>usage</code>；如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
     </p>
 </div>
+
 可以订阅的主题有
 
 
@@ -311,8 +310,6 @@ MQTT如何取消?
 | `systemMonitor`   | `memory`<br>`cpu`  | `info`<br>`usage`                                            | `realTime`          | 系统信息     |
 | `device`          | `session`          | `online`                                                     | `agg`               | 设备在线信息 |
 | `network`         | `traffic`          | `traffic`                                                    | `network`           | 网络信息     |
-
-<br>
 
 使用Websocket订阅
 
@@ -377,6 +374,12 @@ MQTT如何取消?
         <code>type</code>类型可以为<code>state-sync</code>(批量同步设备状态)或者<code>deploy</code>(批量发布设备)
     </p>
 </div>
+
+
+| parameter | 参数说明     |
+| --------- | ------------ |
+| `query`   | 动态查询条件 |
+
 使用websocket订阅
 
 
@@ -393,9 +396,11 @@ MQTT如何取消?
 
 使用MQTT订阅
 
-//TODO
+```kotlin
+/device-batch/{type}?query={"where":"productId is my-product"}
+```
 
-<br>
+
 
 #### <font id='device-current-state'>订阅设备当前状态消息</font>
 
@@ -408,6 +413,11 @@ MQTT如何取消?
         订阅某一个设备的状态信息，无法使用通配符
     </p>
 </div>
+
+
+| parameter  | 参数说明 |
+| ---------- | -------- |
+| `deviceId` | 设备id   |
 
 使用websocket订阅
 
@@ -442,6 +452,11 @@ MQTT如何取消?
        <code>taskId</code>可以到数据库中的<code>jetlinks</code>数据库下的<code>dev_firmware_upgrade_task</code>表中找到
     </p>
 </div>
+
+
+| parameter | 参数说明 |
+| --------- | -------- |
+| `taskId`  | 任务id   |
 
 使用websocket订阅
 
@@ -478,6 +493,13 @@ MQTT如何取消?
     </p>
 </div>
 
+
+| parameter     | 参数说明                                                     |
+| ------------- | ------------------------------------------------------------ |
+| `messageType` | 消息类型，可选参数有<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能) |
+| `properties`  | 产品或设备实际的属性                                         |
+| `headers`     | 头信息，通常为`async`，确定是否是异步                        |
+
 使用websocket订阅
 
 
@@ -486,10 +508,11 @@ MQTT如何取消?
     //固定为sub
     "type": "sub", 
     "topic": "/device-message-sender/{productId}/{deviceId}", 
+    //根据不同的消息,参数也不同. 具体见: 平台统一消息定义
     "parameter": {
         // 消息类型
         "messageType":"READ_PROPERTY",
-        //根据不同的消息,参数也不同. 具体见: 平台统一消息定义
+        //想要设备回复的属性id标识，此处为读取设备温度，要求设备回复当前温度值
         "properties":["temperature"],
         //头信息
         "headers":{
@@ -504,6 +527,14 @@ MQTT如何取消?
 
 <br>
 
+使用MQTT订阅
+
+```kotlin
+/device-message-sender/{productId}/{deviceId}?messageType={messageType}&properties[0]=temperature&header={"async":false}
+```
+
+
+
 #### <font id='device-message'>订阅设备消息</font>
 
 <div class='explanation primary'>
@@ -515,8 +546,6 @@ MQTT如何取消?
 与消息网关中的设备topic一致，(<a href='http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic' target='blank'>查看topic列表</a>)。 消息负载(<code>payload</code>)将与<a  href='http://doc.jetlinks.cn/function-description/device_message_description.html#平台统一设备消息定义' target='blank'>设备消息类型</a>一致。
     </p>
 </div>
-
-
 以订阅产品为`product_test`下的设备`device_test_01`的属性上报信息为例
 
 向websocket发送订阅信息
@@ -568,6 +597,15 @@ MQTT如何取消?
 
 #### <font id='virtual-property'>订阅虚拟属性调试消息</font>
 
+
+
+| parameter     | 参数说明                                                    |
+| ------------- | ----------------------------------------------------------- |
+| `virtualId`   | 虚拟id，通常为`当前时间戳-virtual-property`，可以自定义命名 |
+| `property`    | 产品或设备物模型中定义的虚拟属性                            |
+| `virtualRule` | 定义计算出该虚拟属性的具体规则                              |
+| `properties`  | 计算出虚拟属性需要用的值                                    |
+
 使用websocket订阅
 
 ```json
@@ -575,16 +613,38 @@ MQTT如何取消?
     "type": "sub",
     "topic": "/virtual-property-debug",
     "parameter": {
-        "virtualId":"virtualId",
-        "properties": {
-            
+        //虚拟id
+        "virtualId":"Kelvin",
+        //产品物模型中定义的虚拟属性
+        "property":"virtual_temperature",
+        //定义规则
+        "virtualRule": {
+            //固定为script
+            "type":"script",
+            //计算的规则
+            "script":"return $recent(\"temperature\")+273.15"
         },
+        //真实属性 计算虚拟属性时需要用到的值
+        "properties":[
+            {
+                "id":"temperature",
+                "type":"float",
+                "current":100,
+                "last":""
+            }
+        ]    
     },
     "id": "request-id"
 }
 ```
 
-<br>
+使用MQTT订阅
+
+```kotlin
+/virtual-property-debug?virtualId=Kelvin&property=virtual_temperature&properties[0].id=temperature&properties[0].type=float&properties[0].current=100&virtualRule={"type":"script"%2C"script":"return $recent(\"temperature\")%2B273.15"}
+```
+
+
 
 #### <font id='http'>订阅HTTP调试消息</font>
 
@@ -619,7 +679,7 @@ MQTT如何取消?
 
 ```kotlin
 //获取id方式同上
-/network/http/server/{id}/_subscribe?response={response-params-string}request-params-string
+/network/http/server/{id}/_subscribe?response={response-params-string}
 ```
 
 <br>
@@ -646,7 +706,7 @@ MQTT如何取消?
 
 ```kotlin
 //获取id方式同上
-/network/http/server/{id}/_subscribe?request={request-params-string}request-params-string
+/network/http/server/{id}/_subscribe?request={request-params-string}
 ```
 
 <br>
