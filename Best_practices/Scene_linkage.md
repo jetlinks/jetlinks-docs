@@ -6,7 +6,7 @@
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>注意</span>
   </p>
- 场景联动规则仅支持以<span style='font-weight:600'>产品物模型</span>进行配置，不支持以<span style='font-weight:600'>设备物模型</span>进行配置。
+ 设备触发-触发规则中选择<span style='font-weight:600'>单个固定设备</span>时，支持以设备物模型进行配置。其他情况仅支持以<span style='font-weight:600'>产品物模型</span>进行配置。
 </div>
 
 ## 手动触发
@@ -31,6 +31,9 @@
 ![](./img/manual-preservation.png)
 4.在**场景联动**列表页点击**手动触发**，执行空调开机动作。
 ![](./img/click-manual.png)
+5.在设备**日志管理**中可查看具体日志数据。
+![](./img/manual-log.png)
+
 
 ## 定时触发
 适用于定时向具体下发指令执行规定动作。支持按周、按月、按Corn表达式3种方式配置频率。</br>
@@ -55,18 +58,22 @@
 ![](./img/timing-action2.png)
 5.点击页面底部**保存**。
 ![](./img/timing-preservation.png)
+6.场景触发后，可在设备**日志管理**中可查看具体日志数据。
+![](./img/manual-log.png)
 
 ## 设备触发
 适用于多个不同设备间执行动作的联动。</br>
-**例如**：打开智能门设备的时候，打开空调。
+**例如**：打开智能门设备的时候，打开空调，若空调打开失败，则给空调的设备负责人发送邮件通知。
 
 #### 前置条件
-1.已经创建好智能门、空调产品。参见[创建产品](../Device_access/Create_product3.1.md)</br>
+1.已经创建好智能门、空调产品。参见[创建产品](../Device_access/Create_product3.1.md)。</br>
 2.已经创建好智能门设备、空调设备。参见[创建设备](../Device_access/Create_Device3.2.md)。</br>
 3.通过MQTT协议将设备接入平台。参见[设备接入](../Best_practices/Device_access.md)。</br>
 4.物模型中已经定义了空调产品具有开机功能。配置示例如下：
 ![](./img/tls-star.png)
 ![](./img/tls-on.png)
+5.已在**关系配置**中配置了**设备负责人**。并给空调设备绑定了对应的负责人。参见[系统设置-关系配置](../System_settings/System_settings.md)。</br>
+6.已在**通知管理**中配置了邮件通知模板与邮件通知配置。参见[通知管理](../Best_practices/Notification_management.md)。
 
 
 #### 操作步骤
@@ -78,5 +85,20 @@
 ![](./img/218.png)
 4.**串行**动作中，点击添加执行动作，选择**设备输出**，产品选择**空调**，然后选择需要执行动作的**具体设备**，再选择**功能调用**，选择**开机**，设置值为true，然后点击**确定**。
 ![](./img/219.png)
-5.点击页面底部**保存**。
+5.**串行**动作中，点击添加执行动作，选择**消息通知**，通知方式选择**邮件**，然后选择**通知配置**、**通知模板**，填写**模板变量**（可选，基于模板配置动态显示），收信人字段选择**关系用户-设备负责人**，然后点击**确定**。
+![](./img/device-notice.png)
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+ 若引用的通知模板中已固定了收信人，则模板变量中将不再显示该字段。
+</div>
+
+6.点击动作1与动作2之间的**添加过滤条件**按钮，参数选择**动作1-执行是否成功**，操作符选择**等于**，值选择**否**。
+![](./img/Conditional-filtering.png)
+7.点击页面底部**保存**。
 ![](./img/220.png)
+8.场景触发后，可在设备**日志管理**中可查看具体日志数据。
+![](./img/manual-log.png)
