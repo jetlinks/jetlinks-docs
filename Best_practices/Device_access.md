@@ -171,6 +171,8 @@
 ![](./img/property-read.png)
 MQTTX会收到平台下发指令消息
 ![](./img/mqttx-property-read.png)
+
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -465,17 +467,20 @@ docker run -d --name emqx -p 18083:18083 -p 1883:1883 emqx/emqx:latest
 
 `如服务在本机电脑启用，TCP服务网络组件填写参数参考下图填写即可`
 
-![](./img/tcp-server-network.png)
+![](./img/tcp-server-network.jpg)
 
 **网络组件填写参数说明**
 
 | 参数        | 说明   |  
-| --------   | -----:  | 
+| --------   | :-----  | 
 | 本地地址      | TCP绑定到服务器上的网卡地址,绑定到所有网卡:0.0.0.0   |   
 | 本地端口        |   监听指定端口的请求   |  
 | 远程地址        |   对外提供访问的地址,内网环境时填写服务器的内网IP地址   |  
 | 公网端口        |   对外提供访问端口   |  
 | 粘拆包规则        |    处理TCP粘拆包的方式    | 
+| 长度        |    从0开始，读取N个字节的数据值来标识TCP消息内容长度    | 
+| 偏移量        |    使用"长度"字段解析TCP消息内容长度时的偏移量    | 
+| 大小端        |  使用大端或小端来解析TCP消息内容长度   | 
 
 2.进入**协议管理**菜单，上传协议包。</br>
 
@@ -663,10 +668,16 @@ $ ./run-cli.sh
 ```
 
 3. 出现如下界面表示TCP设备连接成功，并正在上报数据
-![](./img/tcp-device-simulator-connect.png)
+![](./img/tcp-device-simulator-connect.jpg)
 
 
-
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+如设备连接未成功，可以尝试更新最新版本的官方协议包后。重新连接
+</div>
 
 
 ## HTTP接入
