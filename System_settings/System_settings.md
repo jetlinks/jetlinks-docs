@@ -576,7 +576,7 @@
           </tr>
             <tr>
             <td>token地址</td>
-            <td>认证成功后设置token到header中的地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/api/oauth2/token</td>
+            <td>设置token令牌的地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/api/oauth2/token</td>
           </tr>
           <tr>
             <td>回调地址</td>
