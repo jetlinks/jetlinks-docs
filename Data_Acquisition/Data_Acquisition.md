@@ -122,11 +122,11 @@
       </table>
 
 #### 编辑
-与**Modbus TCP**操作逻辑相同。
+参考**Modbus TCP**操作逻辑。
 #### 启用/禁用
-与**Modbus TCP**操作逻辑相同。
+参考**Modbus TCP**操作逻辑。
 #### 删除
-与**Modbus TCP**操作逻辑相同。
+参考**Modbus TCP**操作逻辑。
 
 
 ## 采集器
@@ -378,10 +378,10 @@
 
 
 #### 编辑点位
-与**Modbus TCP**点位操作逻辑相同。
+参考**Modbus TCP**点位操作逻辑。
 #### 启用/禁用
-与**Modbus TCP**点位操作逻辑相同。
+参考**Modbus TCP**点位操作逻辑。
 #### 删除
-与**Modbus TCP**点位操作逻辑相同。
+参考**Modbus TCP**点位操作逻辑。
 
 

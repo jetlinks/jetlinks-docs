@@ -58,7 +58,7 @@
 适用于将官方开发的其他应用与物联网平台相互集成，例如将可视化平台集成至物联网平台，或者将物联网平台集成至可视化平台。本文以将可视化平台集成至物联网平台为例。
 
 #### 前置条件
-1、可视化平台与物联网平台已成功部署，物联网平台的地址为：V1.jetlinks.cn
+1、可视化平台与物联网平台已成功部署，物联网平台的地址为：V1.jetlinks.cn，可视化平台地址为：https://view.jetlinks.cn
 
 ### 操作步骤
 1.**登录**Jetlinks物联网平台，进入**系统管理>应用管理**菜单，点击**新增**。</br>
@@ -121,19 +121,19 @@
         <tbody>
           <tr>
             <td>接口地址</td>
-            <td>访问API服务的地址，填写示例如截图：https://v1 .jetlinks.cn/ietlinks</td>
+            <td>访问API服务的地址，填写示例如截图：https://V1.jetlinks.cn/ietlinks</td>
           </tr>
           <tr>
             <td>授权地址</td>
-            <td>认证授权地址，填写示例如截图：https://v1.jetlinks.cn/#/oauth</td>
+            <td>认证授权地址，填写示例如截图：https://V1.jetlinks.cn/#/oauth</td>
           </tr>
           <tr>
             <td>token地址</td>
-            <td>身份认证地址，填写示例如截图：https://v1.jetlinks.cn/jetlinks/oauth2/token</td>
+            <td>身份认证地址，填写示例如截图：https://V1.jetlinks.cn/jetlinks/oauth2/token</td>
           </tr>
           <tr>
             <td>回调地址</td>
-            <td>授权之后跳转到具体页面的回调地址，填写示例如截图：https://v1.jetlinks.cn</td>
+            <td>授权之后跳转到具体页面的回调地址，填写示例如截图：https://V1.jetlinks.cn</td>
           </tr>
           <tr>
             <td>appid</td>
@@ -141,7 +141,7 @@
           </tr>
           <tr>
             <td>appKey</td>
-            <td>填写对应物联网平台应用的API服务中生成的appKey，填写示例如截图：appkeypkHr7DZ36KRTWitmMksDTab3XxW4raBK</td>
+            <td>填写对应物联网平台应用的API服务中生成的appKey，填写示例如截图：pkHr7DZ36KRTWitmMksDTab3XxW4raBK</td>
           </tr>
         </tbody>
       </table>
@@ -280,7 +280,7 @@
 ![](./img/ding-app.png)
 2.**登录**Jetlinks物联网平台，进入**系统管理>应用管理**菜单，点击**新增**。</br>
 ![](./img/287.png)
-3.选择**微信网站应用**，勾选**单点登录**配置，填写相关配置后点击**保存**。
+3.选择**钉钉企业内部应用**，勾选**单点登录**配置，填写相关配置后点击**保存**。
 ![](./img/ding-app1.png)
 
 <table class='table'>
@@ -302,7 +302,7 @@
         </tbody>
       </table>
 
-  4.进入物联网平台首页，页面底部将出现**微信登录的icon**，点击icon，进行**微信登录**。
+  4.进入物联网平台首页，页面底部将出现**钉钉登录的icon**，点击icon，进行**钉钉登录**。
   ![](./img/304.png)
   ![](./img/306.png)
 

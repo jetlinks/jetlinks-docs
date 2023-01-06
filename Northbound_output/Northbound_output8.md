@@ -65,7 +65,7 @@
         </tbody>
       </table>
 
-将物联网平台数据北向输出到DuerOS平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br>
+<!-- 将物联网平台数据北向输出到DuerOS平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br> -->
 
 #### 编辑
 ##### 操作步骤
@@ -161,7 +161,7 @@
         </tbody>
       </table>
 
-将物联网平台数据北向输出到阿里云物联网平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br>
+<!-- 将物联网平台数据北向输出到阿里云物联网平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br> -->
 
 ##### 后续步骤
 1.进入**设备实例信息**页面，填写阿里云桥接入配置，建立平台设备与与阿里云设备的映射关系。
