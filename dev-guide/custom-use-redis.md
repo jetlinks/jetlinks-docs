@@ -1,20 +1,20 @@
-### 自定义模块如何引入使用redis缓存
+# 自定义模块如何引入使用redis缓存
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
+## 指导介绍
+  <p>1. <a href="/dev-guide/custom-use-redis.html#在pom文件中引入redis相关依赖">在pom文件中引入redis相关依赖</a></p>
+  <p>2. <a href="/dev-guide/custom-use-redis.html#平台如何使用redis" >平台如何使用redis</a></p>
 
-  <p>1. <a href="#1" >在pom文件中引入redis相关依赖</a></p>
-  <p>2. <a href="#2" >平台如何使用redis,提供存存储和获取示例</a></p>
-  <p>3. <a href="#3" >常见问题说明</a></p>
+## 问题指引
+<table>
+   <tr>
+     <td>
+     <a href="/dev-guide/custom-use-redis.html#redis注入不成功-no-qualifying-bean" >redis注入不成功-No qualifying bean</a>
+   </td>
+   </tr>
+</table>
 
-</div>
 
-
-
-### <font id="1">在pom文件中引入redis相关依赖</font>
+## 在pom文件中引入redis相关依赖
 
 
 ```java
@@ -24,8 +24,8 @@
     </dependency>
 ```
 
-### <font id="2"> 平台如何使用redis</font>
-#### 1.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
+##  平台如何使用redis
+### 1.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
 
 ```java
 以下redis二选一进行使用
@@ -35,9 +35,9 @@
     private final ReactiveRedisTemplate<Object,Object> redis;
 ```
 
-#### 2.相关代码示例
+### 2.相关代码示例
 
-1.将数据存入`redis`:自定义模块的web层：`org.example.mydemo.web.CustomController`
+#### 1.将数据存入`redis`:自定义模块的web层：`org.example.mydemo.web.CustomController`
 
 ```java
  public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
@@ -55,7 +55,7 @@
     }
 ```
 
-2.事件订阅：`org.example.mydemo.event.CustomEventHandler`
+#### 2.事件订阅：`org.example.mydemo.event.CustomEventHandler`
 
 ```java
 @Getter
@@ -93,7 +93,7 @@ public class CustomEventHandler implements CommandLineRunner {
 }
 ```
 
-3.获取redis中的数据，可以使用stream根据业务条件字段分组
+#### 3.获取redis中的数据，可以使用stream根据业务条件字段分组
 
 ```java
 /**
@@ -116,8 +116,9 @@ public class CustomEventHandler implements CommandLineRunner {
     }
 ```
 
-### <font id="3">常见问题</font>
+## 常见问题
 
+### redis注入不成功？No qualifying bean?
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>

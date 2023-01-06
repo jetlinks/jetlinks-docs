@@ -1,4 +1,4 @@
-### 自定义模块如何引入消息总线
+# 自定义模块如何引入消息总线
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -8,22 +8,24 @@
    EventBus是一个基于发布者/订阅者模式的事件总线框架。发布者/订阅者模式，也就是观察者模式，其定义了对象之间的一种一对多的依赖关系
 </div>
 
-#### 指导介绍
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
+## 指导介绍
 
-  <p>1. <a href="#1" >如何引入eventBus</a></p>
-  <p>2. <a href="#2" >如何使用eventBus</a></p>
-  <p>3. <a href="#3" >常见问题</a></p>
+  <p>1. <a href="/dev-guide/custom-use-eventbus.html#如何引入eventbus" >如何引入eventBus</a></p>
+  <p>2. <a href="/dev-guide/custom-use-eventbus.html#如何使用eventbus" >如何使用eventBus</a></p>
 
-</div>
 
-### <font id="1">如何引入eventBus</font>
+## 问题指引
+<table>
+  <tr>
+    <td>
+      <a href="/dev-guide/custom-use-eventbus.html#每次重启程序后-只能在首次发布并订阅-第二次不成功">每次重启程序后-只能在首次发布并订阅-第二次不成功</a>
+   </td>
+  </tr>
+</table>
 
-#### 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
+##  如何引入eventBus
+
+### 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
 
 ```java
     //引入消息总线
@@ -31,9 +33,9 @@
     private final EventBus eventBus;
 ```
 
-###  <font id="2">如何使用eventBus</font>
+##  如何使用eventBus
 
-#### 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
+### 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
 ```java
      /**
      * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
@@ -55,7 +57,7 @@
 
 ```
 
-#### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
+### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
 
 
 ```java
@@ -98,14 +100,15 @@ public class CustomEventHandler implements CommandLineRunner {
     
 ```
 
-### <font id="3">常见问题</font>
+## <font id="3">常见问题</font>
 
+### 每次重启程序后，只能在首次发布并订阅，第二次不成功
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
-<p>Q：每次重启服务后的第一次才能成功存储数据，第二次存储不成功，且使用doOnError()无错误信息提示</p>
+<p>Q：每次重启程序后，只能在首次发布并订阅，第二次不成功，且使用doOnError()无错误信息提示</p>
 <p>A：检查自己的代码是否有断流，如：then()会返回了空流,导致上诉问题的出现</p>
 </div>
 

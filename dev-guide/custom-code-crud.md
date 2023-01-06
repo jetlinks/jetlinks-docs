@@ -1,7 +1,6 @@
-### 自定义模块中编写增删改查逻辑代码
+# 自定义模块中编写增删改查逻辑代码
 
-#### 应用场景
-
+## 应用场景
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -10,27 +9,35 @@
    <p>在自定义模块中，根据业务需求，实现业务的逻辑代码</p>
 </div>
 
-#### 指导介绍
-
-   <p>1. <a href="#5" >模块整体构造结构图</a></p>
-   <p>2. <a href="#6" >自定义模块entity、service、controller层说明</a></p>
-   <p>3. <a href="#7" >如何将自定义模块下的包交给spring管理和开启实体扫描</a></p>
-   <p>3. <a href="#8" >核心类、接口、方法说明</a></p>
-   <p>4. <a href="#9" >DSL语法</a></p>
-   <p>5. <a href="#10" >常见问题说明</a></p>
+## 指导介绍
+  <p>1. <a href="/dev-guide/custom-code-crud.html#模块整体构造结构图" >模块整体构造结构图</a></p>
+   <p>2. <a href="/dev-guide/custom-code-crud.html#自定义模块entity、service、controller层说明" >自定义模块entity、service、controller层说明</a></p>
+   <p>3. <a href="/dev-guide/custom-code-crud.html#将自定义模块下的包交给spring管理和开启实体扫描" >如何将自定义模块下的包交给spring管理和开启实体扫描</a></p>
+   <p>4. <a href="/dev-guide/custom-code-crud.html#核心类、接口、方法说明" >核心类、接口、方法说明</a></p>
+   <p>5. <a href="/dev-guide/custom-code-crud.html#dsl语法示例" >DSL语法示例</a></p>
 
 
+## 问题指引
+<table>
+<tr>
+    <td><a target='_self' href='/dev-guide/custom-code-crud.html#启动报错-提示找不到reactiverepository'>启动报错-提示找不到reactiverepository</a></td>
+     <td><a target='_self' href='/dev-guide/custom-code-crud.html#服务重启时-提示错误-实体类的表已经存在'>服务重启时，提示错误：实体类的表已经存在</a></td>
+</tr>
+<tr>
+   <td><a target='_self' href='/dev-guide/custom-code-crud.html#响应式返回值类型不应该为object、必须指出明确的返回类型'>响应式返回值类型不应该为object、必须指出明确的返回类型</a></td>
+</tr>
+</table>
 
-### <font id="5">模块整体构造结构图 </font>
+## 模块整体构造结构图 
 
 简单的业务系统目录结构如下图：
 
 ![自定义项目目录结构](./images/code-guide-1-6.png)
 
 
-### <font id="6">自定义模块entity、service、controller层说明</font>
+## 自定义模块entity、service、controller层说明
 
-#### 1. entity层 ：`org.example.mydemo.entity.CustomEntity`
+### 1. entity层 ：`org.example.mydemo.entity.CustomEntity`
 
 ```java
 package org.example.mydemo.entity;
@@ -100,7 +107,7 @@ public class CustomEntity extends GenericEntity<String> implements
 
 ```
 
-#### 2.Service层 ：`org.example.mydemo.service.CustomService`
+### 2.Service层 ：`org.example.mydemo.service.CustomService`
 
   ```java
 package org.example.mydemo.service;
@@ -110,7 +117,7 @@ package org.example.mydemo.service;
  }
   ```
 
-#### 3.web层：`org.example.mydemo.web.CustomController`
+### 3.web层：`org.example.mydemo.web.CustomController`
 
   ```java
   package com.example.mydemo.web;
@@ -137,8 +144,8 @@ public class CustomController implements ReactiveServiceCrudController<CustomEnt
   ```
 
 
-### <font id="7">将自定义模块下的包交给spring管理和开启实体扫描</font>
-#### 在`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`上加入自定义项目的扫描路径
+##  将自定义模块下的包交给spring管理和开启实体扫描
+### 在`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`上加入自定义项目的扫描路径
 
 代码：
 ```java
@@ -177,8 +184,8 @@ public class JetLinksApplication {
 }
 
 ```
-### <font id="8">核心类、接口、方法说明</font>
-#### 1. 核心类说明
+## 核心类、接口、方法说明
+### 1. 核心类说明
 
 | 类名                            | 说明                                              |
 |-------------------------------|-------------------------------------------------|
@@ -186,7 +193,7 @@ public class JetLinksApplication {
 | `GenericEntity<PK>`             | 实体类需要继承该类，需要声明实体id数据类型                          |
 | `GenericReactiveCrudService<E, K>`    | 业务层实体需要继承该类，该类有默认的crud方法的实现                     |
 
-#### 2. 核心接口说明
+### 2. 核心接口说明
 
 `<E>` 实体类类型 `<K>` 主键类型
 
@@ -196,7 +203,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 |------- |--------|----------|------------|
 |`getRepository()` |`ReactiveRepository<E, K>`|无|`响应式实体操作仓库`|
 
-#### 3.核心方法（响应式参数）
+### 3.核心方法（响应式参数）
 
 | 方法名                                                       | 返回值             | 参数值                                                       | 说明             |
 | ------------------------------------------------------------ | ------------------ | ------------------------------------------------------------ | ---------------- |
@@ -208,10 +215,10 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 | `insert(Publisher<E> entityPublisher)`                       | `Mono<Integer>`    | `Publisher<E>` entityPublisher-保存数据流                    | 异步保存数据     |
 | `count(Mono<? extends QueryParamEntity> queryParamMono)`     | `Mono<Integer>`    | `Mono<? extends QueryParamEntity>` queryParamMono-查询参数流 | 查询记录数       |
 
-#### 4.核心方法（非响应式参数）
+### 4.核心方法（非响应式参数）
 
 
-##### 1、动态DSL接口相关
+#### 1、动态DSL接口相关
 
 | 方法名           | 返回值              | 参数值 | 说明                                                         |
 | ---------------- | ------------------- | ------ | ------------------------------------------------------------ |
@@ -219,7 +226,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 | `createUpdate()` | `ReactiveUpdate<E>` | 无     | 创建一个DSL动态更新接口,可使用DSL方式进行链式调用来构造动态更新条件 |
 | `createDelete()` | `ReactiveDelete`    | 无     | 创建一个DSL动态删除接口,可使用DSL方式进行链式调用来构造动态删除条件 |
 
-##### 2、其他简单方法
+#### 2、其他简单方法
 
 | 方法名                                        | 返回值                 | 参数值                                       | 说明                                         |
 | --------------------------------------------- | ---------------------- | -------------------------------------------- | -------------------------------------------- |
@@ -235,9 +242,8 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-### <font id="9">DSL语法</font>
-
-#### 1、相关代码示例
+## DSL语法示例
+### 1、相关代码示例
 
 ```java
 /**
@@ -321,7 +327,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-#### 2.核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
+### 2.核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveUpdate`
 
 | 方法名                                                       | 返回值              | 参数值                                                       | 说明                                                         |
 | ------------------------------------------------------------ | ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -330,7 +336,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-#### 3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
+### 3、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveDelete`
 
 | 方法名                                                       | 返回值           | 参数                                                         |                                                              |
 | ------------------------------------------------------------ | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -339,7 +345,7 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-#### 4、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
+### 4、核心接口`org.hswebframework.ezorm.rdb.mapping.ReactiveQuery<T>`
 
 | 方法名       | 返回值          | 参数值 | 说明                                                        |
 | ------------ | --------------- | ------ | ----------------------------------------------------------- |
@@ -349,55 +355,61 @@ service层接口`org.hswebframework.web.crud.service.ReactiveCrudService<E, K>`
 
 
 
-### <font id="10">常见问题</font>
+## 常见问题
+
+
+### 启动报错，提示找不到`ReactiveRepository`
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
+   <p>
+   Q：启动报错，<code>Field repository in org.hswebframework.web.crud.service.GenericReactiveCrudService required a bean of 
+type 'org.hswebframework.ezorm.rdb.mapping.ReactiveRepository' that could not be found.？</code>
   </p>
-
-  <p>
-   Q：启动报错，Field repository in org.hswebframework.web.crud.service.GenericReactiveCrudService required a bean of type 
-   'org.hswebframework.ezorm.rdb.mapping.ReactiveRepository' that could not be found.？
-  </p >
-  <p>
-    A：检查`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`的 @EnableEasyormRepository注解的实体扫描包
-  如：@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.*"</span>})</p >
-     <p>
-     应改为：<br/><li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title 
-font-weight">"org.example.xxx.entity"</span>})</li>
+   <p>
+    A：检查<code>`org.jetlinks.pro.standalone`的启动类`JetLinksApplication`的 @EnableEasyormRepository注解的实体扫描包
+  如：@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.
+xxx.entity.*"</span>})</code>
+   </p>
+   <p>
+     应改为：<br/><p>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title 
+font-weight">"org.example.xxx.entity"</span>})</p>
     或者：<br/>
-    <li>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.example.xxx.entity.**"</span>})</li>
+    <p>@EnableEasyormRepository({"org.jetlinks.pro.**.entity",<span class="explanation-title font-weight">"org.
+example.xxx.entity.**"</span>})</p>
    原因：<br/>
     平台使用ClassUtils.getPackageName(type)获取全类名称,@EnableEasyormRepository注解底层使用的是AntPathMatcher匹配机制，在AntPathMatcher匹配规则中a.b.c不能和a.b.c.*匹配
   </p>
+ </p>
 </div>
 
+
+###  服务重启时-提示错误：实体类的表已经存在
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题2</span>
   </p>
-
   <p>
-   Q：第二次启动应用程序时，提示错误：某实体类的表已经存在？
+   Q：服务重启时-提示错误：实体类的表已经存在？
   </p>
   <p>
    A：<code>@Table(name = "xxx")</code>的<code>name</code>属性值中不能存在任何大写字母
   </p>
-
 </div>
 
-
+### 响应式返回值类型不应该为Object、必须指出明确的返回类型
 <div class='explanation error'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>危险</span>
   </p>
-  <p><li>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </li></p>
-  <p><li>响应式使用@RequestBody注解的参数必须使用流包裹。</li></p>
-  <p><li>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</li></p>
-  <p><li>如果不会写响应式，建议最好独立项目不要与JetLinks混合使用非响应式，可能会导致项目出现阻塞。</li></p>
+  <p>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </p>
+  <p>响应式使用@RequestBody注解的参数必须使用流包裹。</p>
+  <p>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</p>
+  <p>如果不会写响应式，建议最好独立项目不要与JetLinks混合使用非响应式，可能会导致项目出现阻塞。</p>
 
 </div>
+

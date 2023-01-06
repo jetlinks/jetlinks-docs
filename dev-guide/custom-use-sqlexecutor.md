@@ -1,6 +1,6 @@
-### 自定义模块如何使用sqlexecutor
+# 自定义模块如何使用sqlexecutor
 
-#### 应用场景
+## 应用场景
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -10,17 +10,23 @@
   用户可以在JetLinks平台代码中使用原生sql操作数据库
 </div>
 
-#### 指导介绍
 
-  <p>1. <a href="#1" >如何引入平台sqlExecutor</a></p>
-  <p>2. <a href="#2" >平台如何使用sqlExecutor,提供简单SQL语句使用示例</a></p>
-  <p>3. <a href="#3" >ReactiveSqlExecutor的核心方法说明</a></p>
-  <p>4. <a href="#4" >平台查询结果包装器大全</a></p>
-  <p>5. <a href="#5" >常见问题说明</a></p>
+## 指导介绍
+  <p>1. <a href="/dev-guide/custom-use-sqlexecutor.html#如何引入平台sqlexecutor">如何引入平台sqlExecutor</a></p>
+  <p>2. <a href="/dev-guide/custom-use-sqlexecutor.html#平台如何使用sqlexecutor" >平台如何使用sqlExecutor</a></p>
+  <p>3. <a href="/dev-guide/custom-use-sqlexecutor.html#reactivesqlexecutor的核心方法说明" >reactivesqlexecutor的核心方法说明</a></p>
+  <p>4. <a href="/dev-guide/custom-use-sqlexecutor.html#平台查询结果包装器大全" >平台查询结果包装器大全</a></p>
 
+## 问题指引
+<table>
+   <tr>
+     <td>
+     <a href="/dev-guide/custom-use-sqlexecutor.html#自定义sql的参数在平台内部封装完整sql时参数值丢失-参数变为null">自定义sql的参数在平台内部封装完整sql时参数值丢失-参数变为null</a>
+   </td>
+   </tr>
+</table>
 
-
-### <font id="1">如何引入平台sqlExecutor</font>
+## 如何引入平台sqlExecutor,本文以ReactiveSqlExecutor为例
  在自定义的service：`org.example.mydemo.service.CustomDeviceService`中引入平台的`sqlExecutor`
 ```java
 @Service
@@ -31,7 +37,7 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 }
 ```
 
-### <font id="2">平台如何使用sqlExecutor</font>
+## 平台如何使用sqlExecutor
 
 ```java
 /**
@@ -68,8 +74,8 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
      */
     public Flux<Map<String, Object>> getData(CustomDevcieEntity customDevcieEntity) {
         return sqlExecutor
-            .select("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}",
-                    customDevcieEntity)
+            .select("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}"
+                   , customDevcieEntity)
             ;
     }
 
@@ -83,14 +89,16 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
     public Flux<Map<String, Object>> getData2(CustomDevcieEntity customDevcieEntity) {
         return sqlExecutor
             .select(SqlRequests
-                        .of("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}", customDevcieEntity), ResultWrappers.map())
+                        .of("select `id`,`device_id`,`device_name`,`product_id`,`product_name` from custom_device_entity where id=#{id}"
+                            ,customDevcieEntity)
+                            ,ResultWrappers.map())
             ;
     }
 ```
 
 
 
-### <font id="3">ReactiveSqlExecutor的核心方法说明</font>
+## ReactiveSqlExecutor的核心方法说明
  `org.hswebframework.ezorm.rdb.executor.reactive.ReactiveSqlExecutor`:响应式SQL执行器,用于响应式执行SQL操作
 
 ### 核心方法
@@ -104,19 +112,18 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 
 
 
-###  <font id="4">平台查询结果包装器大全</font> 
+##  平台查询结果包装器大全
 
-```
-<div class='explanation info'>
+<div class='explanation primary'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   ResultWrappers:通用查询结果包装器大全
+  ResultWrappers:通用查询结果包装器大全
 </div>
-```
 
-#### 核心方法
+
+### 核心方法
 
 | 核心方法                                                     | 返回值                                                       | 参数                                                         | 描述                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -135,12 +142,13 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 | `consumer(ResultWrapper<E, ?> wrapper, Consumer<E> consumer, Runnable onCompleted)` | `<E> ResultWrapper<E, Integer> `                             | `ResultWrapper<E, ?>` wrapper-行结果包装器</br> `Consumer<E>` consumer-行结果消费者</br>Runnable onCompleted-当全部执行完成后执行的任务 | 创建不收集结果,只消费行结果的包装器,并支持全部消费完后,执行指定的任务 |
 | `convert(ResultWrapper<E, R> wrapper, Function<R, C> converter)` | `<E, R, C> ResultWrapper<E, C>`                              | `ResultWrapper<E, R>` wrapper-原始包装器</br>` Function<R, C> `converter-结果转换器 | 创建转换结果的包装器                                         |
 
-### <font id="5">常见问题</font>
+## <font id="5">常见问题</font>
 
+### 自定义sql的参数在平台内部封装完整sql时参数值丢失，参数变为null
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 <p>Q：使用sqlExecutor时，业务层参数值存在，后续平台封装过程中参数值丢失？</p>
-<p>A：传入参数值时需按照JSON格式方式传递</p></div>
+<p>A：传入参数值时按照JSON对象格式方式传递</p></div>
