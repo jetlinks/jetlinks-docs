@@ -112,7 +112,7 @@ module.exports = {
                     ['/Best_practices/Scene_linkage.md', '场景联动'],
                     ['/Best_practices/Alarm_Center.md', '告警中心'],
                     // ['/Best_practices/Rule_engine.md', '规则引擎'],
-                    ['/Best_practices/Northbound_output.md', '北向输出'],
+                    // ['/Best_practices/Northbound_output.md', '北向输出'],
                     ['/Best_practices/Notification_management.md', '通知管理'],
                     ['/Best_practices/National_standard_cascade.md', '国标级联'],
                     ['/Best_practices/application_management.md', '应用管理'],

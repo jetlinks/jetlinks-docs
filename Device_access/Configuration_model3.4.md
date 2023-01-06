@@ -167,7 +167,7 @@
             4. double：双精度浮点型。需定义单位、精度。<br>
             5. text：字符串。需定义字符串的数据长度。<br>
             6. boolean：布尔型。采用true或false来定义布尔值，例如true-关；false-开。<br>
-            7. date：时间戳。默认格式为String类型的UTC时间戳，单位：毫秒。<br>
+            7. date：时间型。默认yyyy-MM-DD HH:mm:ss。<br>
             8. enum：枚举型。定义枚举项的参数值和参数描述，例如1-加热模式、2-制冷模式等。<br>
             9. array：数组。需声明数组内元素的数据类型，可选择int32、float、double、text或object。需确保同一个数组元素类型相同。数组内可包含1-128个元素。<br>
             10. object：JSON对象。定义一个JSON结构体，新增JSON参数项，例如定义灯的颜色是由Red、Green、Blue三个参数组成的结构体。<br>
@@ -234,7 +234,7 @@
             4. double：双精度浮点型。需定义单位、精度。<br>
             5. text：字符串。需定义字符串的数据长度。<br>
             6. boolean：布尔型。采用true或false来定义布尔值，例如true-关；false-开。<br>
-            7. date：时间戳。默认格式为String类型的UTC时间戳，单位：毫秒。<br>
+            7. date：时间型。默认yyyy-MM-DD HH:mm:ss。<br>
             8. enum：枚举型。定义枚举项的参数值和参数描述，例如1-加热模式、2-制冷模式等。<br>
             9. array：数组。需声明数组内元素的数据类型，可选择int32、float、double、text或object。需确保同一个数组元素类型相同。数组内可包含1-128个元素。<br>
             10. object：JSON对象。定义一个JSON结构体，新增JSON参数项，例如定义灯的颜色是由Red、Green、Blue三个参数组成的结构体。<br>
@@ -301,7 +301,7 @@
             4. double：双精度浮点型。需定义单位、精度。<br>
             5. text：字符串。需定义字符串的数据长度。<br>
             6. boolean：布尔型。采用true或false来定义布尔值，例如true-关；false-开。<br>
-            7. date：时间戳。默认格式为String类型的UTC时间戳，单位：毫秒。<br>
+            7. date：时间型。默认yyyy-MM-DD HH:mm:ss。<br>
             8. enum：枚举型。定义枚举项的参数值和参数描述，例如1-加热模式、2-制冷模式等。<br>
             9. array：数组。需声明数组内元素的数据类型，可选择int32、float、double、text或object。需确保同一个数组元素类型相同。数组内可包含1-128个元素。<br>
             10. object：JSON对象。定义一个JSON结构体，新增JSON参数项，例如定义灯的颜色是由Red、Green、Blue三个参数组成的结构体。<br>
