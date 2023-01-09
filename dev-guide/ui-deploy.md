@@ -5,8 +5,26 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <p>本文档部署环境为Centos7，提供了两种部署方式分别为源码部署和docker部署，可根据实际情况选择对应的部署方式。</p>
+  <p>本文档部署环境为Centos7，提供了两种部署方式分别为源码部署和docker部署，可根据实际情况选择对应的部署方式。社区版、企业版和微服务版共用一个前端，部署方式统一参照本文档。</p>
 </div>
+
+## 指导介绍
+1. <a href="/dev-guide/ui-deploy.html#打包前端镜像">使用命令打包前端镜像</a>
+2. <a href="/dev-guide/ui-deploy.html#修改nginx文件">修改nginx文件，使用源码方式启动</a>
+3. <a href="/dev-guide/ui-deploy.html#创建阿里云镜像仓库">创建阿里云镜像仓库</a>
+4. <a href="/dev-guide/ui-deploy.html#推送镜像到仓库">推送镜像到仓库，使用镜像方式启动</a>
+
+## 问题指引
+<table>
+<tr>
+    <td><a href="/dev-guide/pull-code.html#permission-denied-please-try-again">`yarn install`时出现版本`node`版本不兼容的报错</a></td>
+    <td><a href="/dev-guide/pull-code.html#拉取代码git抛出无权限异常">拉取代码git抛出无权限异常</a></td>
+</tr>
+<tr>
+   <td><a href="/dev-guide/pull-code.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>
+    <td><a href="/dev-guide/pull-code.html#下载完源码后maven编译失败">下载完源码后maven编译失败</a></td>
+</tr>
+</table>
 
 ## 源码方式部署
 
@@ -16,8 +34,8 @@
 - yarn 1.22.19
 
 ### 操作步骤
-
-1. 获取源代码
+#### 拉取源代码
+1. 拉取源代码
 
 ```shell
 $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
@@ -31,6 +49,7 @@ $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
   <p>前端源码是开源的且无额外的仓库，源码克隆下来之后，需要将分支从master切换到2.0分支。</p>
 </div>
 
+#### 打包前端镜像
 2. 使用yarn打包,并将打包后生成的dist文件复制到项目的docker目录下（命令在项目根目录下执行）
 
 3. 执行下方命令
@@ -39,6 +58,7 @@ $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
 yarn install
 yarn build 
 ```
+#### 修改nginx文件
 4. 将打包的`dist`资源文件，上传至服务器上。
 
 5. 使用`pwd`查看`dist`目录的绝对路径。
