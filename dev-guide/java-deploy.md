@@ -74,7 +74,8 @@ hsweb:
 #### 使用maven命令打包
 
 1. 使用maven命令将项目打包，在代码根目录执行：
-<p>linux或者macOS环境下打包:</p>
+
+linux或者macOS环境下打包:
 ```shell script
 ./mvnw clean package -Dmaven.test.skip=true
 ```
@@ -94,16 +95,15 @@ jar包文件地址: `jetlinks-standalone/target/jetlinks-standalone.jar`
 
  ```shell
 #启动时，使用默认配置文件
-
-java -jar jetlinks-standalone.jar 
-
-# 启动时，修改配置文件中的参数
-
-java -jar jetlinks-standalone.jar {--spring.elasticsearch.embedded.enabled=true}
-
-#启动时，指定外部配置文件
-
+java -jar jetlinks-standalone.jar
+# 启动时，修改配置文件中的参数，格式如下
+java -jar jetlinks-standalone.jar {--配置文件中的参数}
+#命令示例
+java -jar jetlinks-standalone.jar --spring.elasticsearch.embedded.enabled=true
+#启动时，指定外部配置文件，格式如下
 java -jar jetlinks-standalone.jar --spring.config.location={外部配置文件全路径}
+#命令示例
+java -jar jetlinks-standalone.jar --spring.config.location=D:\code\jetlinks-pro\jetlinks-standalone\src\main\resources\application.yml
 ```
 
 
@@ -114,7 +114,7 @@ java -jar jetlinks-standalone.jar --spring.config.location={外部配置文件�
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  <p>构建docker镜像有两种方式，第一种使用命令分别进行打包，构建及推送，第二种使用脚本进行统一的打包，构建和推送</p>
+  构建docker镜像有两种方式，第一种使用命令分别进行打包，构建及推送，第二种使用脚本进行统一的打包，构建和推送
 </div>
 
 
@@ -160,7 +160,8 @@ docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/jetlinks-demo/jetlinks-st
 $ docker push registry.cn-shenzhen.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0
 ```
 4. 查看镜像是否推送成功
-<p>比较本地生成的digest和镜像仓库推送的digest是否一致，若保持一致则说明推送成功。</p>
+
+比较本地生成的digest和镜像仓库推送的digest是否一致，若保持一致则说明推送成功。
 
 ```shell
 $ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0
@@ -207,16 +208,22 @@ else
   docker build -t "$dockerImage" . && docker push "$dockerImage"
 fi
 ```
+执行脚本`./build-and-push-docker.sh`
 
 3. 查看镜像是否推送成功
-   比较本地生成的digest和镜像仓库推送的digest是否一致，若保持一致则说明推送成功。
+
+比较本地生成的digest和镜像仓库推送的digest是否一致，若保持一致则说明推送成功。
+
+本地digest:`2.0.0-SNAPSHOT: digest: sha256:50f11e067b1dee64a5369d6da08e07b0e46980a05f3a189485bb1d28f7961e8e size: 3259`
+
+镜像仓库digest: ![java image sh](./images/java-image-sh.png)
 
 
-#### 修改docker配置文件
+#### 使用docker启动项目
 
-1. 创建docker-compose文件
+1. 修改docker-compose文件
 
-替换掉前后端的镜像仓库地址
+替换后端的镜像仓库地址，修改中间件 
 ```bash
 version: '2'
 services:
@@ -329,6 +336,13 @@ services:
 ```
 
 #### 将镜像和配置文件传入服务器
+导入镜像文件
+```shell
+#导入命令格式
+docker load -i [镜像名.tar]
+#导入命令示例
+docker load -i jetlinks-standalone.tar 
+```
 
 使用命令启动项目 `docker-compose up -d`
 
@@ -380,13 +394,13 @@ spring:
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-1. 若使用默认配置文件启动项目则需要优先修改配置文件，若使用外部配置文件启动项目可之后再修改配置文件
+若使用默认配置文件启动项目则需要优先修改配置文件，若使用外部配置文件启动项目可之后再修改配置文件
 </div>
+
 
 3. 创建打包脚本
 
-在项目根路径创建打包脚本`build.sh `，脚本内容如下：
+在项目根路径创建打包脚本`build.sh `脚本内容如下：
 ```shell
 #!/usr/bin/env bash
 servers="$1"
@@ -408,7 +422,7 @@ if [ $? -ne 0 ];then
     echo "构建失败!"
 fi
 ```
-2. 执行打包脚本
+4. 执行打包脚本
 
 在项目根路径执行
 ```shell
@@ -416,7 +430,7 @@ $ ./build.sh
 ```
 
 
-3. 将四个服务的jar包上传到需要部署的服务器上。
+5. 将四个服务的jar包上传到需要部署的服务器上。
 
 jar包文件地址:
 ```
@@ -428,7 +442,7 @@ micro-services/iot-service/target/applicatione.jar
 
 
 
-4. 使用java命令运行jar包，以api-gateway为例
+6. 使用java命令运行jar包，以api-gateway为例
 ```shell
 cd ./micro-services/api-gateway-service/target/
 #启动时，使用默认配置文件
@@ -436,13 +450,13 @@ java -jar jetlinks-applicatione.jar
 # 启动时，修改配置文件中的参数，格式如下
 java -jar jetlinks-applicatione.jar {--配置文件中的参数}
 #命令示例
-java -jar jetlinks-applicatione.jar {--spring.elasticsearch.embedded.enabled=true}
+java -jar jetlinks-applicatione.jar --spring.elasticsearch.embedded.enabled=true
 #启动时，指定外部配置文件，格式如下
 java -jar jetlinks-applicatione.jar --spring.config.location={外部配置文件全路径}
 #命令示例
 java -jar jetlinks-applicatione.jar --spring.config.location=D:\code\jetlinks-cloud-2.0\micro-services\api-gateway-service\src\main\resources\application.yml
 ```
-```
+
 
 ### 使用docker部署
 
@@ -453,6 +467,7 @@ $ docker login --username={usrname} registry.cn-hangzhou.aliyuncs.com
 Password: 
 Login Succeeded
 ```
+
 2. 运行打包脚本
 
 在项目根路径执行
@@ -499,7 +514,7 @@ fi
 
 
 
-</div>
+
 5. 创建docker-compose文件
 
 将每个服务的镜像地址替换为之前推送的镜像仓库地址
