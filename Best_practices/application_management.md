@@ -10,8 +10,6 @@
 </div>
 
 ## 指导介绍
-
-## 指导介绍
   <p>1. <a href="/Best_practices/application_management.html#名词解释" >名词解释</a></p>
   <p>2. <a href="/Best_practices/application_management.html#内部独立应用" >内部独立应用</a></p>
   <p>3. <a href="/Best_practices/application_management.html#内部集成应用" >内部集成应用</a></p>
@@ -22,6 +20,7 @@
 
 ## 问题指引
    <p>1. <a href="/Best_practices/application_management.html#存在错误-无效的登录回调地址" >存在错误,无效的登录回调地址</a></p>
+   <p>2. <a href="Best_practices/application_management.html#单点登录时-前端出现invalid-character" >单点登录时-前端出现invalid-character</a></p>
 
 ## 名称解释
 
@@ -123,7 +122,15 @@
  接入方式选择API服务时将在对应应用的卡片中出现赋权、查看API按钮。
 </div>
 
-## 单点登录（本文档以Gitee为例）
+## 单点登录
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+   本案例以Gitee举例
+</div>
+
 ### 操作步骤
 #### 1.登录Gitee-账号设置-第三方应用-点击创建应用
 
@@ -132,7 +139,7 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   应用回调地址中的appId为平台应用的id，先随意填写，创建平台应用后需要进行更改
+   应用回调地址中的{appId}参数为平台应用的id，先随意填写，创建平台应用后需要进行更改
 </div>
 
    ![创建第三方应用](./img/application-management-sso-01.png)
@@ -151,6 +158,14 @@
   
   [Gitee文档相关资料](https://gitee.com/api/v5/swagger#/getV5User)
   可以获取oAuth文档：授权地址、token地址和API文档：获取授权用户的资料地址
+  如果用户使用自己的与万物系统，可以参照自己的系统定义操作
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  单点登录的scope配置多个gitee权限时，需要在输入法切换成英文的状态下，使用分号（;）进行分割
+</div>
 
    ![我的应用](./img/application-management-sso-03.png)
    ![我的应用](./img/application-management-sso-04.png)
@@ -182,3 +197,15 @@
   </p>
 <p>Q：存在错误,无效的登录回调地址</p>
 <p>A：查看Gitee回调地址是否是代理地址(即：前端端口9000/api方式/）</p></div>
+
+### 单点登录时，前端出现<code>Invalid character '；'</code>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：<code>{"message":"Invalid character '；' for QUERY_PARAM in \"user_info；projects；pull_requests\"","status":400,
+"code":"illegal_argument","timestamp":1673317514494}</code></p>
+<p>A：单点登录的scope配置多个权限范围时，需要输入法在英文的状态前提下，输入分号</p></div>
+
