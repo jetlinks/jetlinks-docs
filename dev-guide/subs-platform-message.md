@@ -35,9 +35,10 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket统一接口为：<code>/messaging/{token}</code>， <code>{token}</code>可通过登录系统或者使用OpenAPI获取。
+        websocket统一接口为：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code>，其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
     </p>
 </div>
+
 
 
 
@@ -46,8 +47,8 @@
 ```javascript
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
 let ws = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
-ws.onclose=function(e){console.log(e)};
-ws.onmessage=function(e){console.log(e.data)}
+ws.onclose = function(e){console.log(e)};
+ws.onmessage = function(e){console.log(e.data)}
 ```
 
 也可以使用Postman进行连接
@@ -224,6 +225,10 @@ MQTT如何取消?
     </p>
 </div>
 1、订阅CoAP服务调试消息
+
+| parameter | 参数说明                                                     |
+| --------- | ------------------------------------------------------------ |
+| `request` | CoAP协议通讯的相关参数类似于HTTP,可以使用`CREATE 2.02\nContent-Format: application/json\n\n{"success":true}`当作`request`传入 |
 
 使用Websocket的方式
 
@@ -762,7 +767,14 @@ MQTT如何取消?
 {
     "type": "sub",
     "topic": "/network/mqtt/client/{id}/_publish/{type}",
-    "parameter": {},
+    "parameter": {
+        //推送的数据 类型根据topic中的{type}决定 此处为JSON
+        "data":{
+            "data":123
+        },
+        //推送的topic
+        "topic":"/test"
+    },
     "id": "request-id"
 }
 ```
@@ -770,7 +782,7 @@ MQTT如何取消?
 使用MQTT订阅
 
 ```kotlin
-/network/mqtt/client/{id}/_publish/{type}
+/network/mqtt/client/{id}/_publish/{type}?data={需要推送的数据}
 ```
 
 <br>
