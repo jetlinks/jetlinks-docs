@@ -14,7 +14,7 @@
 
   <p>1. <a href="/dev-guide/rule-engine.html#自定义节点">创建自定义节点后端代码，实现业务系统自定义节点功能</a> </p>
   <p>2. <a href="/dev-guide/rule-engine.html#配置自定义节点html">配置自定义节点html</a></p>
-  <p>3. <a href="/dev-guide/rule-engine.html#在平台操作使用自定义节点">如何在平台操作使用自定义节点</a></p>
+  <p>3. <a href="/dev-guide/rule-engine.html#在平台操作使用自定义节点">在平台操作使用自定义节点</a></p>
   <p>4. <a href="/dev-guide/rule-engine.html#规则引擎常见名词说明">规则引擎常见名词说明</a></p>
   <p>5. <a href="/dev-guide/rule-engine.html#自定义节点实现国际化支持">自定义节点实现国际化支持</a></p>
 
@@ -287,7 +287,7 @@ reactorQL配置
     </tr>
      <tr>
         <td>Input(输入)</td>
-        <td>规则节点的数据输入,可以是上游节点的输出数据，也可以通过自身html配置</td>
+        <td>规则节点的数据输入,可以是上游节点的输出数据，也可以是通过自身html配置的数据</td>
     </tr>
      <tr>
         <td>Output(输出)</td>
@@ -334,7 +334,7 @@ reactorQL配置
 ```java
    //en:代表语言
   -Duser.language=en
-   //US:代表国家
+   //US:代表地区
   -Duser.region=US
 
 ```
@@ -344,7 +344,16 @@ reactorQL配置
 -Duser.language=en -Duser.region=US
 ```
 #### 2.docker镜像方式
-docker-compose.yaml文件对应镜像的environment参数加上如下配置：
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+     <p>镜像可以使用平台提供的后端的镜像(JetLinks)</p>
+     <p> 也可以自己将应用程序打成镜像包,参考：<a href="/dev-guide/java-deploy.html">使用docker部署后端</a></p>
+</div>
+
+在后端`docker-compose.yaml`文件中`jetlinks`镜像的`environment`参数上加如下配置：
 ```yaml
  - "JAVA_OPTS=-Duser.language=en -Duser.region=US"
 ```
