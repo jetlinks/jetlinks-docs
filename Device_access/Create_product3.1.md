@@ -1,6 +1,5 @@
 # 创建产品
 
-
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -11,21 +10,11 @@
 
 ## 指导介绍
 
-[//]: # (  <p>1. <a href="/System_settings/System_application_management.html#新增" >新增</a></p>)
+  <p>1. <a href="/Device_access/Create_product3.1.html#创建单个产品" >创建单个产品</a></p>
 
-[//]: # (  <p>2. <a href="/System_settings/System_application_management.html#编辑" >编辑</a></p>)
+## 创建单个产品
 
-[//]: # (  <p>3. <a href="/System_settings/System_application_management.html#启用-禁用" >启用/禁用</a></p>)
-
-[//]: # (  <p>4. <a href="/System_settings/System_application_management.html#删除" >删除</a></p>)
-
-
-<div class='divider'></div>
-
-
-### 创建单个产品
-
-#### 操作步骤
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>产品**，点击**新增**。</br>
 3.在**新建**弹框中，根据设备实际情况，按照页面提示填写信息，然后单击**确定**。</br>
@@ -68,7 +57,7 @@
           </tbody>
 </table>
 
-#### 后续操作
+### 后续操作
 1.配置设备接入方式。</br>
 2.进入产品详情页，选择**设备接入**tab，根据实际情况选择设备接入网关。</br>
 ![](./img/05.png)

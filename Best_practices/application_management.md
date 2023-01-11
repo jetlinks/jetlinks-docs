@@ -185,8 +185,15 @@
   ![我的应用](./img/application-management-sso-09.png)
 
 
-## 常见问题
+## 页面集成和Api服务
+### 操作步骤
+#### 1.登录JetLinks平台-系统管理-应用管理-新增
 
+
+### 流程图
+![页面集成和api服务配置流程](./img/application_management_page_api_flow_chart.png)
+
+## 常见问题
 
 ### 存在错误,无效的登录回调地址
 

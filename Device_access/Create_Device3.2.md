@@ -1,12 +1,20 @@
-
 # 创建设备
 
-<div class='divider'></div>
-产品是设备的集合，通常指一组具有相同功能的设备。创建产品完成，并启用产品后，需在产品下添加设备。您可在物联网平台上，同时创建一个或多个设备。
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+ 产品是设备的集合，通常指一组具有相同功能的设备。创建产品完成，并启用产品后，需在产品下添加设备。您可在物联网平台上，同时创建一个或多个设备。
+</div>
 
-### 创建单个设备
+## 指导介绍
 
-#### 操作步骤
+  <p>1. <a href="/Device_access/Create_Device3.2.html#创建单个设备" >创建单个设备</a></p>
+  <p>1. <a href="/Device_access/Create_Device3.2.html#批量创建设备" >批量创建设备</a></p>
+
+## 创建单个设备
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>设备**，点击**新增**。</br>
 3.在新增弹框中，输入设备信息，点击**确定**。</br>
@@ -39,9 +47,9 @@
        </tbody>
 </table>
 
-### 批量创建设备
+## 批量创建设备
 
-#### 操作步骤
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>设备**，点击**批量操作>批量导入设备**。</br>
 ![](./img/08.png)
