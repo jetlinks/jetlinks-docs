@@ -21,6 +21,10 @@
     <td><a href="/dev-guide/pull-code.html#拉取代码git抛出无权限异常">拉取代码git抛出无权限异常</a></td>
 </tr>
 <tr>
+    <td><a href="/dev-guide/pull-code.html#移除无权限的子模块">移除无权限的子模块</a></td>
+    <td><a href="/dev-guide/pull-code.html#git子模块在submodule文件内声明却无法拉取代码">git子模块在submodule文件内声明却无法拉取代码</a></td>
+</tr>
+<tr>
    <td><a href="/dev-guide/pull-code.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>
     <td><a href="/dev-guide/pull-code.html#下载完源码后maven编译失败">下载完源码后maven编译失败</a></td>
 </tr>
@@ -290,6 +294,8 @@ $ git push gitee master
 
 </div>
 
+
+
 1. 要测试是否可以通过 HTTPS 端口使用 SSH，请运行以下 SSH 命令。
 
 ```shell
@@ -355,5 +361,40 @@ User git
 
   <p>Q：Maven项目启动过程中出现jar包引入失败。</p>
   <p>A：一般是由于自行设置了配置文件的mirrors镜像加速地址，注释或者使用纯净的<b class='explanation-title font-weight'>settings.xml</b>配置文件。</p>
+
+</div>
+
+### 移除无权限的子模块
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题5</span>
+  </p>
+
+  <p>Q：移除无权限（make sure you have the correct access rights）的子模块。</p>
+  <p>A：git rm -f [submoduleName],</p>
+   <img src="images/submodule1.png">
+</div>
+
+示例：
+```shell
+git rm -f expands-components/jetlinks-lwm2m
+```
+
+### git子模块在submodule文件内声明却无法拉取代码
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题6</span>
+  </p>
+
+  <p>Q：git子模块在submodule文件内声明却clone代码至本地。</p>
+  <p>A：解决方案是移除该模块后再重新添加模块。</p>
+
+示例：
+```shell
+git rm -f expands-components/expands-components/jetlinks-media
+git submodule add --force git@github.com:jetlinks-v2/jetlinks-media.git expands-components/jetlinks-media
+```
 
 </div>
