@@ -1,20 +1,26 @@
 # 应用管理
 
-
-
-
 应用管理将多个应用系统的登录简化为一次登录，实现多处访问、集中管控的业务场景。
-
-
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-
-本功能仅在企业版中提供。
-
+   本功能仅在企业版中提供。
 </div>
+
+## 指导介绍
+  <p>1. <a href="/Best_practices/application_management.html#名词解释" >名词解释</a></p>
+  <p>2. <a href="/Best_practices/application_management.html#内部独立应用" >内部独立应用</a></p>
+  <p>3. <a href="/Best_practices/application_management.html#内部集成应用" >内部集成应用</a></p>
+  <p>4. <a href="/Best_practices/application_management.html#微信网站应用" >微信网站应用</a></p>
+  <p>5. <a href="/Best_practices/application_management.html#第三方应用" >第三方应用</a></p>
+  <p>6. <a href="/Best_practices/application_management.html#单点登录" >单点登录</a></p>
+
+
+## 问题指引
+   <p>1. <a href="/Best_practices/application_management.html#存在错误-无效的登录回调地址" >存在错误,无效的登录回调地址</a></p>
+   <p>2. <a href="Best_practices/application_management.html#单点登录时-前端出现invalid-character" >单点登录时-前端出现invalid-character</a></p>
 
 ## 名称解释
 
@@ -56,6 +62,7 @@
           </tr>
              </tbody>
         </table>
+
 
 ## 内部独立应用
 适用于将官方开发的其他应用集成至jetlinks物联网平台，并且后端各自独立运行。本文以接入view可视化大屏系统为例。
@@ -114,3 +121,91 @@
   </p>
  接入方式选择API服务时将在对应应用的卡片中出现赋权、查看API按钮。
 </div>
+
+## 单点登录
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+   本案例以Gitee举例
+</div>
+
+### 操作步骤
+#### 1.登录Gitee-账号设置-第三方应用-点击创建应用
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   应用回调地址中的{appId}参数为平台应用的id，先随意填写，创建平台应用后需要进行更改
+</div>
+
+   ![创建第三方应用](./img/application-management-sso-01.png)
+#### 2.创建好的gitee应用会提供Client ID和Client Serect
+
+   ![我的应用](./img/application-management-sso-02.png)
+
+#### 3.创建平台第三方应用的单点登陆
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   下面两张图为同一个页面，client_id和client_secret为Gitee应用中的client ID和client Secret
+</div>
+  
+  [Gitee文档相关资料](https://gitee.com/api/v5/swagger#/getV5User)
+  可以获取oAuth文档：授权地址、token地址和API文档：获取授权用户的资料地址
+  如果用户使用自己的与万物系统，可以参照自己的系统定义操作
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  单点登录的scope配置多个gitee权限时，需要在输入法切换成英文的状态下，使用分号（;）进行分割
+</div>
+
+   ![我的应用](./img/application-management-sso-03.png)
+   ![我的应用](./img/application-management-sso-04.png)
+#### 4.在应用管理中找到创建的第三方应用，点击编辑，在浏览器URL路劲的最后一个参数id值代替Gitee中回调地址中的appId
+
+  ![我的应用](./img/application-management-sso-05.png)
+  ![我的应用](./img/application-management-sso-06.png)
+#### 5.根据图示进行单点登录
+  ![我的应用](./img/application-management-sso-07.png)
+#### 6.单点登录成功
+  ![我的应用](./img/application-management-sso-08.png)
+  
+### 流程图
+  ### 创建Gitee应用
+![我的应用](./img/application-management-sso-10.png)
+  ### 创建平台应用
+  ![我的应用](./img/application-management-sso-09.png)
+
+
+## 常见问题
+
+
+### 存在错误,无效的登录回调地址
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：存在错误,无效的登录回调地址</p>
+<p>A：查看Gitee回调地址是否是代理地址(即：前端端口9000/api方式/）</p></div>
+
+### 单点登录时，前端出现<code>Invalid character '；'</code>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+<p>Q：<code>{"message":"Invalid character '；' for QUERY_PARAM in \"user_info；projects；pull_requests\"","status":400,
+"code":"illegal_argument","timestamp":1673317514494}</code></p>
+<p>A：单点登录的scope配置多个权限范围时，需要输入法在英文的状态前提下，输入分号</p></div>
+
