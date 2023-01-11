@@ -1,7 +1,27 @@
-
 # 创建产品
+
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+ 产品是设备的集合，通常是一组具有相同功能定义的设备集合。例如，产品指同一个型号的产品，设备就是该型号下的某个设备。使用物联网平台接入设备前，您需在物联网平台控制台创建产品。本文介绍创建产品的具体操作。 
+</div>
+
+## 指导介绍
+
+[//]: # (  <p>1. <a href="/System_settings/System_application_management.html#新增" >新增</a></p>)
+
+[//]: # (  <p>2. <a href="/System_settings/System_application_management.html#编辑" >编辑</a></p>)
+
+[//]: # (  <p>3. <a href="/System_settings/System_application_management.html#启用-禁用" >启用/禁用</a></p>)
+
+[//]: # (  <p>4. <a href="/System_settings/System_application_management.html#删除" >删除</a></p>)
+
+
 <div class='divider'></div>
-产品是设备的集合，通常是一组具有相同功能定义的设备集合。例如，产品指同一个型号的产品，设备就是该型号下的某个设备。使用物联网平台接入设备前，您需在物联网平台控制台创建产品。本文介绍创建产品的具体操作。
+
 
 ### 创建单个产品
 

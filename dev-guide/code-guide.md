@@ -25,7 +25,6 @@
    后端部署</a>
 
 ### 公共实例入门教程
-
 - 创建产品和设备
 - 设备接入和上报数据
 - 数据存储时序数据库
@@ -37,26 +36,40 @@
 ## 使用
 
 ### 系统管理
-
-- 用户管理
-- 组织管理
-- 角色管理
-- 菜单管理
-- 权限管理
-- 关系配置
-- 数据源管理
-- API配置
-- 应用管理
+- <a target='_self' href='/System_settings/System_user_management.html'>
+  用户管理</a>
+- <a target='_self' href='/System_settings/System_org_management.html'>
+  组织管理</a>
+- <a target='_self' href='/System_settings/System_role_management.html'>
+  角色管理</a>
+- <a target='_self' href='/System_settings/System_menu_management.html'>
+  菜单管理</a>
+- <a target='_self' href='/System_settings/System_authentication_management.html'>
+  权限管理</a>
+- <a target='_self' href='/System_settings/System_relation_configuration.html'>
+  关系配置</a>
+- <a target='_self' href='/System_settings/System_datasource_management.html'>
+  数据源管理</a>
+- <a target='_self' href='/System_settings/System_api_configuration.html'>
+  API配置</a>
+- <a target='_self' href='/System_settings/System_application_management.html'>
+  应用管理</a>
 
 ### 设备管理
 
-- 创建产品
-- 创建设备
-- 物模型
-- 设备功能
-- 设备诊断
+- <a target='_self' href='/Device_access/Create_product3.1.html'>
+  创建产品</a>
+- <a target='_self' href='/Device_access/Create_Device3.2.html'>
+  创建设备</a>
+- <a target='_self' href='/device_management/product4.1_thing_model.html'>
+  物模型</a>
+- <a target='_self' href='/device_management/product4.1_device_function.html'>
+   设备功能</a>
+- <a target='_self' href='/device_management/product4.1_device_diagnose.html'>
+   设备诊断</a>
 - 在线解析
-- 网关设备和网关子设备
+- <a target='_self' href='/Device_access/Create_gateways_and_sub_devices3.3.html'>
+  网关设备和网关子设备</a>
 
 ### 数据采集
 
@@ -75,25 +88,35 @@
 - 数据格式
 
 ### 告警中心
-
-- 基础配置
-- 告警配置
-- 告警记录
+- <a target='_self' href='/Alarm_Center/Alarm_base_configuration.html'>
+  基础配置</a>
+- <a target='_self' href='/Alarm_Center/Alarm_configuration.html'>
+  告警配置</a>
+- <a target='_self' href='/Alarm_Center/Alarm_records.html'>
+  告警记录</a>
 
 ### 运维管理
-
-- 设备接入网关
-- 协议管理
-- 日志管理
-- 网络组件
-- 证书管理
-- 流媒体服务
-- 远程升级
+- <a target='_self' href='/Mocha_ITOM/Device_access_gateway.html'>
+  设备接入网关</a>
+- <a target='_self' href='/Mocha_ITOM/protocol_management.html'>
+  协议管理</a>
+- <a target='_self' href='/Mocha_ITOM/log_management.html'>
+  日志管理</a>
+- <a target='_self' href='/Mocha_ITOM/network_components.html'>
+  网络组件</a>
+- <a target='_self' href='/Mocha_ITOM/certificate_management.html'>
+  证书管理</a>
+- <a target='_self' href='/Mocha_ITOM/streaming_media_service.html'>
+  流媒体服务</a>
+- <a target='_self' href='/Mocha_ITOM/remote_upgrade.html'>
+  远程升级</a>
 
 ### 北向输出
 
-- DuerOS
-- 阿里云
+- <a target='_self' href='/Northbound_output/Northbound_output8_DuerOS.html'>
+  DuerOS</a>
+- <a target='_self' href='/Northbound_output/Northbound_output8_aliyun.html'>
+  阿里云</a>
 
 ### 通知管理
 
@@ -102,9 +125,12 @@
 
 ### 视频中心
 
-- 视频设备
-- 分屏展示
-- 国标级联
+- <a target='_self' href='/Video_Center/Video_equipment10_device.html'>
+  视频设备</a>
+- <a target='_self' href='/Video_Center/Split_screen.html'>
+  分屏展示</a>
+- <a target='_self' href='/Video_Center/National_standard_cascade.html'>
+  国标级联</a>
 
 ### 数据流转
 
@@ -121,7 +147,8 @@
 
 - <a target='_self' href='/dev-guide/request-jetlinks-interface.html'>
    调用API</a>
-- 应用集成
+- <a target='_self' href='/dev-guide/application-integration.html'>
+   应用集成</a>
 - 单点登录
 - API列表
 
