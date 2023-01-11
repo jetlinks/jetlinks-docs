@@ -1,17 +1,45 @@
 
 # ReactorQL
 
+## 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       需要处理实时数据、聚合计算实时数据、跨数据源联合数据处理的业务场景
+    </p>
+</div>
+
+
+
+
+## 指导介绍
+
+<p>1. <a href='/dev-guide/diy-term-builder.html#创建自定义sql片段类'>// TODO</a></p>
+
+## 问题指引
+
+<table>
+<tr>
+    <td><a href="/dev-guide/diy-term-builder.html#在后端使用自定义sql条件时未生效">// TODO</a></td>
+    <td><a href="/dev-guide/diy-term-builder.html#如何查看构建的自定义SQL语句">// TODO</a></td>
+    </tr>
+</table>
+
+
+
+## 概述
+
 JetLinks封装了一套使用SQL来进行实时数据处理的工具包<a target='_blank' href='https://github.com/jetlinks/reactor-ql'>查看源代码</a>。
 通过将SQL翻译为<a target='_blank' href='https://projectreactor.io/'>reactor</a>来进行数据处理。
 规则引擎中的`数据转发`以及可视化规则中的`ReactorQL节点`均使用此工具包实现。
 默认情况下，SQL中的表名就是事件总线中的`topic`。如：`select * from "/device/*/*/message/property/*"`，
 表示订阅`/device/*/*/message/property/*`下的实时消息。
 
-## 场景
 
-1. 处理实时数据
-2. 聚合计算实时数据
-3. 跨数据源联合数据处理
 
 ## SQL例子
 
@@ -287,7 +315,7 @@ select * from device.properties.history(
     where timestamp between now()-86400000 and now()
     group by interval('1d')
 )
- ```
+```
 
 ```sql
 -- 订阅实时数据,然后查询对应设备的历史数据
@@ -342,7 +370,7 @@ select * from device.properties.latest(
 ```
 
 ### device.tags
- 
+
  获取设备标签信息
 
  ```sql
