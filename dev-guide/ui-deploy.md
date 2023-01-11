@@ -17,13 +17,10 @@
 ## 问题指引
 <table>
 <tr>
-    <td><a href="/dev-guide/pull-code.html#permission-denied-please-try-again">`yarn install`时出现版本`node`版本不兼容的报错</a></td>
-    <td><a href="/dev-guide/pull-code.html#拉取代码git抛出无权限异常">拉取代码git抛出无权限异常</a></td>
+    <td><a href="/dev-guide/ui-deploy.html#出现node版本不兼容的报错">出现node版本不兼容的报错</a></td>
+    <td><a href="/dev-guide/ui-deploy.html#启动前端失败报502状态码">启动前端失败报502状态码</a></td>
 </tr>
-<tr>
-   <td><a href="/dev-guide/pull-code.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>
-    <td><a href="/dev-guide/pull-code.html#下载完源码后maven编译失败">下载完源码后maven编译失败</a></td>
-</tr>
+
 </table>
 
 ## 源码方式部署
@@ -52,18 +49,16 @@ $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
 #### 打包前端镜像
 2. 使用yarn打包,并将打包后生成的dist文件复制到项目的docker目录下（命令在项目根目录下执行）
 
-3. 执行下方命令
-
 ```shell
 yarn install
 yarn build 
 ```
 #### 修改nginx文件
-4. 将打包的`dist`资源文件，上传至服务器上。
+3. 将打包的`dist`资源文件，上传至服务器上。
 
-5. 使用`pwd`查看`dist`目录的绝对路径。
+4. 使用`pwd`查看`dist`目录的绝对路径。
 
-6. 修改nginx.conf配置文件，nginx配置参考:
+5. 修改nginx.conf配置文件，nginx配置参考:
 
 ```conf
 server {
@@ -104,37 +99,14 @@ server {
 }
 ```
 
-7. 启动nginx服务。
-
-### 常见问题
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-`yarn install`时出现版本`node`版本不兼容的报错。
-
+6. 启动nginx服务。
 ```shell
-error react-dev-utils@12.0.1: The engine "node" is incompatible with this module. Expected version ">=14". Got "12.18.1"
-error Found incompatible module.
+#进入nginx下的sbin文件，sbin路径根据实际情况进行替换,示例如下
+cd /usr/local/nginx/sbin
+./nginx
 ```
 
-使用`yarn install --ignore-engines`命令忽略，再重新执行`yarn build`命令打包资源文件。
 
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-  <p>Q：如访问前端时发现接口出现502状态码？</p>
-  <p>A：502、504状态码一般是后端服务异常、或者nginx配置文件内的<span class='explanation-title font-weight'>proxy_pass</span>不正确导致的。</p>
-</div>
 
 ### 使用docker部署前端
 
@@ -172,10 +144,10 @@ error Found incompatible module.
 docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0 ./docker
 ```
 
-<div class='explanation info'>
+<div class='explanation primary'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
   </p>
   <p>如需提交自己的仓库，请自行更换自己的仓库地址。</p>
 </div>
@@ -218,7 +190,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2
 docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0
 ```
 
-<div class='explanation warning'>
+<div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
@@ -227,3 +199,80 @@ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-s
 <span class='explanation-title font-weight'>API_BASE_PATH</span>请使用ipv4地址，使用locahost或者127.0.0.1会因docker地址解析错误而启动镜像失败。</p>
 </div>
 
+### 使用docker离线部署前端
+
+1. 将打包生成的dist文件传入根目录下的docker文件下
+2. 创建前端镜像文件，命令如下:
+```shell
+docker build -t jetlinks-ui:2.0.0 .
+```
+3. 导出前端镜像文件，命令如下:
+
+```shell
+#命令格式
+docker save -o [命名].tar [镜像名:版本号]
+#命令示例
+docker save -o jetlinks-ui.tar jetlinks-ui:2.0.0
+```
+4. 修改docker-compose文件
+```yaml
+version: '2'
+services:
+  ui:
+    image: jetlinks-ui:2.0.0 #根据自己构建的镜像名:版本号替换
+    container_name: jetlinks-ce-ui-2.0
+    ports:
+      - 9000:80
+    environment:
+      - "API_BASE_PATH=http://192.168.66.171:8844/" #API根路径 此处需要修改，改为后端实际部署服务器ip地址以及后端端口号
+    volumes:
+      - "./data/upload:/usr/share/nginx/html/upload"
+```
+5. 将镜像文件和docker-compose文件传入服务器
+6. 导入镜像文件
+```shell
+#导入命令格式
+docker load -i [镜像名.tar]
+#导入命令示例
+docker load -i jetlinks-ui.tar 
+```
+7.查看是否镜像导入成功
+```shell
+[root@localhost ~]# docker images
+REPOSITORY                                                    TAG               IMAGE ID       CREATED        SIZE
+jetlinks-ui-antd                                              2.0.0             b5b3c833c060   4 weeks ago    187MB
+```
+8.启动前端
+```shell
+docker-compose up -d
+```
+
+### 常见问题
+
+#### 出现node版本不兼容的报错
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+
+Q:`yarn install`时出现`node`版本不兼容的报错。
+
+```shell
+error react-dev-utils@12.0.1: The engine "node" is incompatible with this module. Expected version ">=14". Got "12.18.1"
+error Found incompatible module.
+```
+
+A：使用`yarn install --ignore-engines`命令忽略，再重新执行`yarn build`命令打包资源文件。
+
+</div>
+
+#### 启动前端失败报502状态码
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+  <p>Q：如访问前端时发现接口出现502状态码？</p>
+  <p>A：502、504状态码一般是后端服务异常、或者nginx配置文件内的<span class='explanation-title font-weight'>proxy_pass</span>不正确导致的。</p>
+</div>
