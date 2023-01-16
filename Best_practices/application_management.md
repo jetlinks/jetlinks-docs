@@ -158,7 +158,7 @@
   
   [Gitee文档相关资料](https://gitee.com/api/v5/swagger#/getV5User)
   可以获取oAuth文档：授权地址、token地址和API文档：获取授权用户的资料地址
-  如果用户使用自己的与万物系统，可以参照自己的系统定义操作
+  如果用户要使用自己的业务系统，可以参照自己的系统定义操作
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
