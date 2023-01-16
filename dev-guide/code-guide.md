@@ -67,8 +67,10 @@
 
 - <a target='_self' href='/dev-guide/rule-editor.html'>
   规则编排</a>
-- 场景联动
-- 数据流转
+- <a target='_self' href='/dev-guide/scene-link.html'>
+  场景联动</a>
+- <a target='_self' href='/dev-guide/data-flow.html'>
+  数据流转</a>
 - 数据流转方案对比
 - 设置数据流转规则
 - reactorQL表达式

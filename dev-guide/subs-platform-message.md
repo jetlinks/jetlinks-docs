@@ -35,10 +35,10 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket统一接口为：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code>，其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
+        通过前端地址连接：<code>ws://前端服务地址:前端服务端口号/api/messaging/{token}?:X_Access_Token={token}</code><br>
+        通过后端地址连接：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code><br>其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
     </p>
 </div>
-
 
 
 
@@ -59,7 +59,7 @@ ws.onmessage = function(e){console.log(e.data)}
 
 2、使用MQTT进行连接
 
-在`jetlinks-standalone`中的`application.yml`配置文件中开启使用MQTT订阅平台消息的配置
+在`jetlinks-standalone`模块中找到`application.yml`配置文件并开启使用MQTT订阅平台消息的配置
 
 ```yaml
 messaging:
