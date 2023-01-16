@@ -60,6 +60,6 @@
 适用于官方边缘网关盒子，以及盒子代理的子设备接入平台。
 
 ### 操作步骤
-接入方式详细操作步骤，请参见[最佳实践](../Best_practices/Device_access.md)。
+接入方式详细操作步骤，请参见[最佳实践-设备接入](../Best_practices/Device_access.md)。
 
 </div>

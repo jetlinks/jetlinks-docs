@@ -248,13 +248,7 @@
 2.在左侧导航栏，选择**运维管理>协议管理**，进入协议管理列表页。</br>
 3.点击具体协议的**删除**按钮，然后点击**确定**。</br>
 ![](./img/del.png)
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
- 正常状态下的协议不支持删除。
-</div>
+
 
 ## 日志管理
 记录访问日志与系统日志记录，支撑查看和排查系统异常。
@@ -498,7 +492,7 @@ MQTT客户端参数说明
             <td>订阅前缀</td>
             <td>当连接的服务为EMQ时,可能需要使用共享的订阅前缀,如:$queue或$share。</td>
            <tr>
-            <td>DTLS</td>
+            <td>TLS</td>
             <td>是否开启DTLS，用于数据加密配置。</td>
           </tr>
             <tr>
@@ -550,7 +544,7 @@ MQTT服务参数说明
             <td>对外提供访问的端口。</td>
           </tr>
            <tr>
-            <td>DTLS</td>
+            <td>TLS</td>
             <td>是否开启DTLS，用于数据加密配置。</td>
           </tr>
             <tr>

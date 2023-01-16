@@ -60,7 +60,7 @@
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>注意</span>
   </p>
- 场景联动规则仅支持以<span style='font-weight:600'>产品物模型</span>进行配置，不支持以<span style='font-weight:600'>设备物模型</span>进行配置。
+ 场景联动规则仅当选择单个设备时支持以<span style='font-weight:600'>设备物模型</span>进行配置，其他情况均以<span style='font-weight:600'>产品物模型</span>进行配置。
 </div>
 
 #### 新增
