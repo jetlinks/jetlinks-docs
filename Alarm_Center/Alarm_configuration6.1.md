@@ -39,6 +39,14 @@
 4.点击关联场景联动，根据业务需要绑定对应的场景联动规则。
 ![](./img/scene.png)
 
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+当类型为设备、产品、组织时，只显示设备触发的场景数据；类型为其他时，不做过滤。
+</div>
+
 #### 编辑
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
