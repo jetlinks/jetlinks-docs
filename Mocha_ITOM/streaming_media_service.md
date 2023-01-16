@@ -1,5 +1,19 @@
-## 流媒体服务
+# 流媒体服务
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 管理系统内用于视频流播放的流媒体服务配置。
+
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/Mocha_ITOM/streaming_media_service.html#新增">新增</a></p>
+  <p>2. <a href="/Mocha_ITOM/streaming_media_service.html#编辑">编辑</a></p>
+  <p>3. <a href="/Mocha_ITOM/streaming_media_service.html#删除">删除</a></p>
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -11,8 +25,8 @@
 
 </div>
 
-#### 新增
-##### 操作步骤
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>流媒体服务**，进入列表页。</br>
 ![](./img/78.png)
@@ -59,8 +73,8 @@
   若系统中存在多个流媒体服务，播放视频时会进行随机调用。
 </div>
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>流媒体服务**，进入列表页。</br>
 3.点击具体流媒体服务的**编辑**按钮，进入流媒体详情页。</br>
@@ -68,8 +82,8 @@
 ![](./img/80.png)
 
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>流媒体服务**，进入列表页。</br>
 3.点击具体流媒体服务的**删除**按钮，然后点击**确定**。</br>

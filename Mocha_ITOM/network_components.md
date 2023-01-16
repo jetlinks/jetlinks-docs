@@ -1,8 +1,23 @@
-## 网络组件
+# 网络组件
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 管理设备与平台通信的网络组件，Jetlinks物联网平台支持UDP、TCP服务、WebSocket服务、MQTT客户端、HTTP服务、MQTT服务、CoAP服务等类型。
 
-#### 新增
-##### 操作步骤
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/Mocha_ITOM/network_components.html#新增">新增</a></p>
+  <p>2. <a href="/Mocha_ITOM/network_components.html#编辑">编辑</a></p>
+  <p>3. <a href="/Mocha_ITOM/network_components.html#启用-禁用">启用/禁用</a></p>
+  <p>4. <a href="/Mocha_ITOM/network_components.html#删除">删除</a></p>
+
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>网络组件**，进入列表页。</br>
 ![](./img/67.png)
@@ -351,8 +366,8 @@ CoAP服务参数说明
 </table>
 
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>网络组件**，进入列表页。</br>
 ![](./img/67.png)
@@ -360,15 +375,15 @@ CoAP服务参数说明
 ![](./img/70.png)
 4.编辑所需要修改的网络组件配置参数，然后点击**保存**。</br>
 
-#### 启用/禁用
-##### 操作步骤
+## 启用/禁用
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>网络组件**，进入列表页。</br>
 3.点击具体网络组件的**启用/禁用**按钮，然后点击**确定**。</br>
 ![](./img/72.png)
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>网络组件**，进入列表页。</br>
 3.点击具体网络组件的**删除**按钮，然后点击**确定**。</br>

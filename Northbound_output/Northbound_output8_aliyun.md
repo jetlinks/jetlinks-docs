@@ -1,5 +1,4 @@
-## 阿里云
-
+# 阿里云
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -10,8 +9,16 @@
 
 </div>
 
-#### 新增
-##### 操作步骤
+## 指导介绍
+
+  <p>1. <a href="/Northbound_output/Northbound_output8_aliyun.html#新增">新增</a></p>
+  <p>2. <a href="/Northbound_output/Northbound_output8_aliyun.html#编辑">编辑</a></p>
+  <p>3. <a href="/Northbound_output/Northbound_output8_aliyun.html#启用-禁用">启用/禁用</a></p>
+  <p>4. <a href="/Northbound_output/Northbound_output8_aliyun.html#删除">删除</a></p>
+
+
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>阿里云**，进入列表页。</br>
 ![](./img/110.png)
@@ -63,7 +70,7 @@
         </tbody>
       </table>
 
-##### 后续步骤
+### 后续步骤
 1.进入**设备实例信息**页面，填写阿里云桥接入配置，建立平台设备与与阿里云设备的映射关系。
 ![](./img/115.png)
 <div class='explanation primary'>
@@ -74,23 +81,23 @@
   设备所属产品与阿里云平台产品映射后，平台产品所属设备的实例信息页面将新增阿里云桥接入配置。
 </div>
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>阿里云**，进入列表页。</br>
 3.点击具体数据的**编辑**按钮，进入详情页编辑配置信息，然后点击**保存**按钮。</br>
 ![](./img/112.png)
 
-#### 启用/禁用
-##### 操作步骤
+## 启用/禁用
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>阿里云**，进入列表页。</br>
 3.点击具体数据的**启用/禁用**按钮，然后点击**确定**。</br>
 ![](./img/113.png)
 
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>阿里云**，进入列表页。</br>
 3.点击具体数据的**删除**按钮，然后点击**确定**。</br>

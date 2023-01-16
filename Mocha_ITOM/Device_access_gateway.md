@@ -1,8 +1,25 @@
-## 设备接入网关
+# 设备接入网关
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 设备接入网关聚合了设备接入Jetlinks物联网平台的所需的相关配置信息，支持自定义接入、视频类设备接入、云平台接入、通道类设备接入等方式。
 
-#### 新增
-##### 操作步骤
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/Mocha_ITOM/Device_access_gateway.html#新增">新增</a></p>
+  <p>2. <a href="/Mocha_ITOM/Device_access_gateway.html#编辑">编辑</a></p>
+  <p>3. <a href="/Mocha_ITOM/Device_access_gateway.html#启用-禁用">启用/禁用</a></p>
+  <p>4. <a href="/Mocha_ITOM/Device_access_gateway.html#删除">删除</a></p>
+
+
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>设备接入网关**，进入设备接入网关列表页。</br>
 ![](./img/55.png)
@@ -12,8 +29,8 @@
 4.按步骤填写所需的网关参数，填写完成后，点击**保存**。</br>
 ![](./img/57.png)
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>设备接入网关**，进入设备接入网关列表页。</br>
 3.点击具体网关的**编辑**按钮，进入详情页步骤条第一步。</br>
@@ -28,16 +45,16 @@
   <li>设备接入网关被产品引用后，不可修改协议。</li>
 </div>
 
-#### 启用/禁用
-##### 操作步骤
+## 启用/禁用
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>设备接入网关**，进入设备接入网关列表页。</br>
 3.点击具体网关的**启用/禁用**按钮，然后点击**确定**。</br>
 ![](./img/58.png)
 
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>设备接入网关**，进入设备接入网关列表页。</br>
 3.点击具体网关的**删除**按钮，然后点击**确定**。</br>
