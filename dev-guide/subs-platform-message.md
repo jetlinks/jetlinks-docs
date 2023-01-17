@@ -46,14 +46,28 @@
 
 ```javascript
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
-let ws = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
-ws.onclose = function(e){console.log(e)};
-ws.onmessage = function(e){console.log(e.data)}
+
+//通过前端服务连接
+let ws_front = new WebSocket("ws://192.168.66.203:9000/messaging/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
+
+//通过后端服务连接
+let ws_back = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
+
+ws_front.onclose = function(e){console.log(e)};
+ws_front.onmessage = function(e){console.log(e.data)}
 ```
 
-也可以使用Postman进行连接
+可以使用Postman进行连接
+
+通过后端服务连接
 
 ![通过Websocket连接到平台](./images/websocket-link-to-platform.png)
+
+通过前端服务连接
+
+![通过前端服务连接到websocket](./images/websocket-link-to-platform-front.png)
+
+
 
 <br>
 

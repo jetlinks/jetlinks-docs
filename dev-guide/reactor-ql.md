@@ -1,4 +1,5 @@
 
+
 # ReactorQL
 
 ## 应用场景
@@ -18,16 +19,16 @@
 
 ## 指导介绍
 
-<p>1. <a href='/dev-guide/diy-term-builder.html#创建自定义sql片段类'>// TODO</a></p>
+<p>1. <a href='/dev-guide/reactor-ql.html#概述'>概述</a></p>
 
-## 问题指引
+<p>2. <a href='/dev-guide/reactor-ql.html#使用指引'>使用指引</a></p>
 
-<table>
-<tr>
-    <td><a href="/dev-guide/diy-term-builder.html#在后端使用自定义sql条件时未生效">// TODO</a></td>
-    <td><a href="/dev-guide/diy-term-builder.html#如何查看构建的自定义SQL语句">// TODO</a></td>
-    </tr>
-</table>
+<p>3. <a href='/dev-guide/reactor-ql.html#使用样例'>使用样例</a></p>
+
+<p>4. <a href='/dev-guide/reactor-ql.html#sql支持列表'>SQL支持列表</a></p>
+
+<p>5. <a href='/dev-guide/reactor-ql.html#拓展函数'>拓展函数</a></p>
+
 
 
 
@@ -41,29 +42,33 @@ JetLinks封装了一套使用SQL来进行实时数据处理的工具包<a target
 
 
 
-## SQL例子
+## 使用指引
+
+<p>1、登录JetLinks平台</p>
+
+<p>2、选择<b>物联网</b>-><b>规则引擎</b>-><b>规则编排</b>，选择存在的一个规则后进入<b>规则引擎编辑器</b></p>
+
+![ReactorQL使用](./images/use-reactor-ql.png)
+
+<p>3、拖动<b>ReactorQL</b>组件并进行编辑</p>
+
+![编辑ReactorQL](./images/edit-reactor-ql.png)
+
+
+
+## 使用样例
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-聚合处理实时数据时，必须使用`interval`函数或者`_window`函数。
-
+    <p>
+        聚合处理实时数据时，必须使用<code>interval</code>函数或者<code>_window</code>函数。
+   </p>
 </div>
 
-当温度大于40度时，将数据转发到下一步。
+ 当温度大于40度时，将数据转发到下一步。
 
 ```sql
 select 
@@ -272,10 +277,12 @@ SQL中的`this`表示主表当前的数据。如果存在嵌套属性的时候�
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>警告</span>
   </p>
-
-由于使用es存储设备数据，此数据并不是完全实时的
-
+    <p>
+        由于使用es存储设备数据，此数据并不是完全实时的
+    </p>
 </div>
+
+
 
 ```sql
 select 
