@@ -80,12 +80,14 @@
 
 - <a target='_self' href='/dev-guide/rule-editor.html'>
   规则编排</a>
-- 场景联动
-- <a target='_self' href='/Alarm_Center/data-flow.html'>
+- <a target='_self' href='/dev-guide/scene-link.html'>
+  场景联动</a>
+- <a target='_self' href='/dev-guide/data-flow.html'>
   数据流转</a>
 - 数据流转方案对比
 - 设置数据流转规则
-- reactorQL表达式
+- <a target='_self' href='/dev-guide/reactor-ql.html'>
+  ReactorQL表达式</a>
 - 数据格式
 
 ### 告警中心

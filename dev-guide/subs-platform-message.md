@@ -35,10 +35,10 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket统一接口为：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code>，其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
+        通过前端地址连接：<code>ws://前端服务地址:前端服务端口号/api/messaging/{token}?:X_Access_Token={token}</code><br>
+        通过后端地址连接：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code><br>其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
     </p>
 </div>
-
 
 
 
@@ -46,20 +46,34 @@
 
 ```javascript
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
-let ws = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
-ws.onclose = function(e){console.log(e)};
-ws.onmessage = function(e){console.log(e.data)}
+
+//通过前端服务连接
+let ws_front = new WebSocket("ws://192.168.66.203:9000/messaging/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
+
+//通过后端服务连接
+let ws_back = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
+
+ws_front.onclose = function(e){console.log(e)};
+ws_front.onmessage = function(e){console.log(e.data)}
 ```
 
-也可以使用Postman进行连接
+可以使用Postman进行连接
+
+通过后端服务连接
 
 ![通过Websocket连接到平台](./images/websocket-link-to-platform.png)
+
+通过前端服务连接
+
+![通过前端服务连接到websocket](./images/websocket-link-to-platform-front.png)
+
+
 
 <br>
 
 2、使用MQTT进行连接
 
-在`jetlinks-standalone`中的`application.yml`配置文件中开启使用MQTT订阅平台消息的配置
+在`jetlinks-standalone`模块中找到`application.yml`配置文件并开启使用MQTT订阅平台消息的配置
 
 ```yaml
 messaging:
