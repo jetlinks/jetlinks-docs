@@ -1,14 +1,29 @@
-### 物模型
+# 物模型
 
-#### 新增
-##### 操作步骤
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+ 物模型是对设备在云端的功能描述，包括设备的属性、功能、事件和标签。物联网平台通过定义一种物的描述语言来描述物模型，称之为TSL（即 Thing Specification Language），采用JSON格式，您可以根据TSL组装上报设备的数据
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/device_management/product4.1_thing_model.html#新增" >新增</a></p>
+  <p>2. <a href="/device_management/product4.1_thing_model.html#编辑" >编辑</a></p>
+  <p>3. <a href="/device_management/product4.1_thing_model.html#删除" >删除</a></p>
+  <p>4. <a href="/device_management/product4.1_thing_model.html#快速导入" >快速导入</a></p>
+
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>产品**，点击**查看**，切换至物模型tab页，并点击**新增**按钮。</br>
 ![](./img/21.png)
 3.在**新建**抽屉中，根据设备实际情况，按照页面提示填写信息，然后单击右上角**保存**。</br>
 ![](./img/22.png)
 
-##### 属性参数说明
+### 属性参数说明
 
 <table class='table'>
         <thead>
@@ -75,7 +90,7 @@
           </tbody>
 </table>
 
-##### 功能参数说明
+### 功能参数说明
 
 <table class='table'>
         <thead>
@@ -120,7 +135,7 @@
 </tbody>
 </table>
 
-##### 事件参数说明
+### 事件参数说明
 <table class='table'>
         <thead>
             <tr>
@@ -158,7 +173,7 @@
 </tbody>
 </table>
 
-##### 标签参数说明
+### 标签参数说明
 <table class='table'>
         <thead>
             <tr>
@@ -199,8 +214,8 @@
 </tbody>
 </table>
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>产品**，点击**查看**，切换至物模型tab页，选择具体属性，点击**编辑**按钮。</br>
 ![](./img/23.png)
@@ -215,14 +230,14 @@
  标识和来源均不可编辑。
 </div>
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>产品**，点击**查看**，切换至物模型tab页，选择具体属性，点击**删除**按钮。</br>
 ![](./img/25.png)
 
-#### 快速导入
-##### 操作步骤
+## 快速导入
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>产品**，选择具体产品，点击**查看**，切换至物模型tab页，点击页面右上角**快速导入**按钮。</br>
 3.在**导入物模型**弹框中，选择导入方式，并根据导入方式，选择需要导入的物模型，然后点击**确定**。</br>

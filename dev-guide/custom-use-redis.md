@@ -2,7 +2,7 @@
 
 ## 指导介绍
   <p>1. <a href="/dev-guide/custom-use-redis.html#在pom文件中引入redis相关依赖">在pom文件中引入redis相关依赖</a></p>
-  <p>2. <a href="/dev-guide/custom-use-redis.html#平台如何使用redis" >平台如何使用redis</a></p>
+  <p>2. <a href="/dev-guide/custom-use-redis.html#在平台使用redis" >在平台使用redis</a></p>
 
 ## 问题指引
 <table>
@@ -24,7 +24,7 @@
     </dependency>
 ```
 
-##  平台如何使用redis
+##  在平台使用redis
 ### 1.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
 
 ```java

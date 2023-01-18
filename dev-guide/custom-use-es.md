@@ -1,10 +1,10 @@
-# 自定义模块如何使用es
+# 自定义模块如何使用elasticsearch
 
 ## 指导介绍
 
-  <p>1. <a href="/dev-guide/custom-use-es.html#在自定义的项目中引入平台es的模块" >如何引入平台elasticsearch相关模块</a></p>
-  <p>2. <a href="/dev-guide/custom-use-es.html#如何构建elasticsearch索引模板" >如何构建elasticsearch索引模板</a></p>
-  <p>3. <a href="/dev-guide/custom-use-es.html#平台如何使用elasticsearch" >平台如何使用elasticsearch</a></p>
+  <p>1. <a href="/dev-guide/custom-use-es.html#自定义项目引入平台elasticsearch模块" >自定义的项目引入平台elasticsearch模块</a></p>
+  <p>2. <a href="/dev-guide/custom-use-es.html#构建elasticsearch索引模板" >构建elasticsearch索引模板</a></p>
+  <p>3. <a href="/dev-guide/custom-use-es.html#使用平台elasticsearch" >使用平台elasticsearch</a></p>
 
 ## 问题指引
 
@@ -17,7 +17,7 @@
 
 </table>
 
-## 在自定义的项目中引入平台es的模块
+## 自定义项目引入平台elasticsearch模块
 
 ### 1.`properties`
 
@@ -41,7 +41,7 @@
 </dependency>
 ```
 
-## 如何构建elasticsearch索引模板
+## 构建elasticsearch索引模板
 
 ### 1.构建枚举类，定义索引模板名称
 
@@ -89,7 +89,7 @@ public class Configurations implements CommandLineRunner {
 }
    ```
 
-## 平台如何使用elasticsearch
+## 使用平台elasticsearch
 
 ### 1.在controller层引入`ElasticSearchService`服务
 
