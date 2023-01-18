@@ -196,32 +196,16 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   <p>1.保存集成:点击保存，弹出集成菜单，选择菜单进行集成</p>
-   <p>2.后续集成：应用管理-应用卡片-其他-集成菜单，进行集成</p>
+   <p>保存集成:点击保存，弹出集成菜单，选择菜单进行集成;如果保存时没有增加菜单，可以先关掉集成界面，后续在：应用管理-应用卡片-其他-集成菜单，进行菜单集成</p>
 </div>
 
-#### 2.在JetLinks官方仓库获取工具类，[获取官方openApi](https://github.com/jetlinks)用于生成请求头信息 
+#### 2.在JetLinks官方仓库获取代码包[jetlinks-openapi-demo](https://github.com/jetlinks),用于生成请求头信息 
 ![openAPi截图](./img/page-api-02.png)
 
-#### 3.根据创建应用的appId和secureKey、body获取请求token接口所需要的请求头参数
-```java
-X-Timestamp=86b28ceed782be270442f786f4bdca11
-X-Client-Id=CSbK8M2Mdc6jsKAx
-X-Sign=6a057b7a4bd387d73acb58d1f04c3984
-body:{"expires":-1},此处body为JSON格式参数
-```
-根据请求头参数,调用获取平台token接口地址：（post）http://ip:端口/token
-![获取token](./img/page-api-take-token.png)
+#### 3.根据appId和secureKey、body获取请求token，详情参见：[第三方平台请求JetLinks服务接口](/dev-guide/request-jetlinks-interface.html)
+根据请求头参数,调用获取平台token接口地址：（post）http://ip:9000(默认)/api/token
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  端口号有两种写法：
-<p>1.前端调用：http://ip:前端端口号/api/menu</p>
-<p>2.后端调用：http://ip:后端端口号/api/menu</p>
-</div>
+![获取token](./img/page-api-take-token.png)
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -239,8 +223,6 @@ body:{"expires":-1},此处body为JSON格式参数
 #### 4.根据token,调用生成菜单接口地址：（post）http://ip:端口号/menu
 
 ![生成菜单menu](./img/page-api-create-menu.png)
-
-
 
 #### 5.选择集成菜单
 //todo  目前前端出现问题
@@ -261,7 +243,7 @@ body:{"expires":-1},此处body为JSON格式参数
     <span class='explanation-title font-weight'>问题1</span>
   </p>
 <p>Q：存在错误,无效的登录回调地址</p>
-<p>A：查看Gitee回调地址是否是代理地址(即：前端端口9000/api方式/）</p></div>
+<p>A：查看Gitee回调地址是否是代理地址(即：（默认前端端口）9000/api/）</p></div>
 
 ### 单点登录时，前端出现<code>Invalid character '；'</code>
 
