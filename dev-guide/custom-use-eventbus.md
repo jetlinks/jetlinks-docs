@@ -10,8 +10,8 @@
 
 ## 指导介绍
 
-  <p>1. <a href="/dev-guide/custom-use-eventbus.html#如何引入eventbus" >如何引入eventBus</a></p>
-  <p>2. <a href="/dev-guide/custom-use-eventbus.html#如何使用eventbus" >如何使用eventBus</a></p>
+  <p>1. <a href="/dev-guide/custom-use-eventbus.html#引入平台eventbus" >引入平台eventBus</a></p>
+  <p>2. <a href="/dev-guide/custom-use-eventbus.html#使用平台eventbus" >使用平台eventBus</a></p>
 
 
 ## 问题指引
@@ -23,7 +23,7 @@
   </tr>
 </table>
 
-##  如何引入eventBus
+##  引入平台eventBus
 
 ### 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
 
@@ -33,7 +33,7 @@
     private final EventBus eventBus;
 ```
 
-##  如何使用eventBus
+##  使用平台eventBus
 
 ### 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
 ```java

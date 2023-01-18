@@ -1,5 +1,20 @@
-## 远程升级
+# 远程升级
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
 远程升级及空中下载技术，通过JetLinks物联网平台的远程升级功能，可对分布在各地的IoT设备进行远程升级。
+
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/Mocha_ITOM/remote_upgrade.html#新增">新增</a></p>
+  <p>2. <a href="/Mocha_ITOM/remote_upgrade.html#升级任务">升级任务</a></p>
+  <p>3. <a href="/Mocha_ITOM/remote_upgrade.html#编辑">编辑</a></p>
+  <p>4. <a href="/Mocha_ITOM/remote_upgrade.html#删除">删除</a></p>
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -11,8 +26,8 @@
 
 </div>
 
-#### 新增
-##### 操作步骤
+## 新增
+### 操作步骤
 1.**登录**JetLinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>远程升级**，进入列表页。</br>
 3.点击**新增**按钮，在弹框页填写相关信息，然后点击**确定**。
@@ -64,15 +79,15 @@
         </tbody>
       </table>
 
-#### 升级任务
-##### 操作步骤
+## 升级任务
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>远程升级**，进入列表页。</br>
 3.点击具体数据的**升级任务**按钮，进入列表页。</br>
 4.点击**新增**按钮，在弹框页填写任务信息，然后点击确定。</br>
 ![](./img/91.png)
 
-##### 后续操作
+### 后续操作
 1.点击**查看**按钮，查看升级进度。</br>
 ![](./img/92.png)
 2.点击**批量重试**按钮，对升级失败的升级进行再次下方升级指令。
@@ -93,13 +108,13 @@
 存在等待升级状态的设备时显示停止按钮，存在已停止状态的设备时显示继续升级按钮。
 </div>
 
-#### 编辑
+## 编辑
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>远程升级**，进入列表页。</br>
 3.点击具体数据的**编辑**按钮，在弹框页中编辑相关信息，然后点击**确定**。</br>
 ![](./img/93.png)
 
-#### 删除
+## 删除
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**运维管理>远程升级**，进入列表页。</br>
 3.点击具体数据的**删除**按钮，然后点击**确定**。</br>

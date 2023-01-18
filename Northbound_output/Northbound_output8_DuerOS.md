@@ -1,5 +1,4 @@
-## DuerOS
-
+# DuerOS
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -10,8 +9,15 @@
 
 </div>
 
-#### 新增
-##### 操作步骤
+## 指导介绍
+
+  <p>1. <a href="/Northbound_output/Northbound_output8_DuerOS.html#新增">新增</a></p>
+  <p>2. <a href="/Northbound_output/Northbound_output8_DuerOS.html#编辑">编辑</a></p>
+  <p>3. <a href="/Northbound_output/Northbound_output8_DuerOS.html#启用-禁用">启用/禁用</a></p>
+  <p>4. <a href="/Northbound_output/Northbound_output8_DuerOS.html#删除">删除</a></p>
+
+## 新增
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>DuerOS**，进入列表页。</br>
 ![](./img/105.png)
@@ -60,8 +66,8 @@
         </tbody>
       </table>
 
-#### 编辑
-##### 操作步骤
+## 编辑
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>DuerOS**，进入列表页。</br>
 3.选择具体配置的**编辑**按钮，进入详情页编辑配置信息，然后点击**保存**按钮。</br>
@@ -74,15 +80,15 @@
   产品不支持编辑，同一个产品只能配置一个映射规则。
 </div>
 
-#### 启用/禁用
-##### 操作步骤
+## 启用/禁用
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>DuerOS**，进入列表页。</br>
 3.选择具体配置的**启用/禁用**按钮，然后点击**确定**。</br>
 ![](./img/108.png)
 
-#### 删除
-##### 操作步骤
+## 删除
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**北向输出>DuerOS**，进入列表页。</br>
 3.选择具体配置的**删除**按钮，然后点击**确定**。</br>

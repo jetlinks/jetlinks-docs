@@ -1,7 +1,20 @@
-### 设备诊断
+# 设备诊断
 
-#### 连接状态诊断
-##### 操作步骤
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  
+</div>
+
+## 指导介绍
+
+  <p>1. <a href="/device_management/product4.1_device_diagnose.html#连接状态诊断">连接状态诊断</a></p>
+
+
+## 连接状态诊断
+### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
 2.在左侧导航栏，选择**设备管理>设备**，点击**查看**，切换至设备诊断tab页。</br>
 3.根据系统自动诊断结果，对**异常**或**可能存在异常**的检查项进行处理。</br>

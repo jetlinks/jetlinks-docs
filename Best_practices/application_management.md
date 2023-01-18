@@ -16,6 +16,7 @@
   <p>4. <a href="/Best_practices/application_management.html#微信网站应用" >微信网站应用</a></p>
   <p>5. <a href="/Best_practices/application_management.html#第三方应用" >第三方应用</a></p>
   <p>6. <a href="/Best_practices/application_management.html#单点登录" >单点登录</a></p>
+  <p>7. <a href="/Best_practices/application_management.html#页面集成和api服务配置" >页面集成和Api服务配置</a></p>
 
 
 ## 问题指引
@@ -185,9 +186,73 @@
   ![我的应用](./img/application-management-sso-09.png)
 
 
+## 页面集成和Api服务配置
+### 操作步骤
+#### 1.登录JetLinks平台-系统管理-应用管理-新增-填写相关信息
+ ![相关信息填写](./img/page-api-01.png)
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   <p>1.保存集成:点击保存，弹出集成菜单，选择菜单进行集成</p>
+   <p>2.后续集成：应用管理-应用卡片-其他-集成菜单，进行集成</p>
+</div>
+
+#### 2.在JetLinks官方仓库获取工具类，[获取官方openApi](https://github.com/jetlinks)用于生成请求头信息 
+![openAPi截图](./img/page-api-02.png)
+
+#### 3.根据创建应用的appId和secureKey、body获取请求token接口所需要的请求头参数
+```java
+X-Timestamp=86b28ceed782be270442f786f4bdca11
+X-Client-Id=CSbK8M2Mdc6jsKAx
+X-Sign=6a057b7a4bd387d73acb58d1f04c3984
+body:{"expires":-1},此处body为JSON格式参数
+```
+根据请求头参数,调用获取平台token接口地址：（post）http://ip:端口/token
+![获取token](./img/page-api-take-token.png)
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+  端口号有两种写法：
+<p>1.前端调用：http://ip:前端端口号/api/menu</p>
+<p>2.后端调用：http://ip:后端端口号/api/menu</p>
+</div>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   X-Timestamp平台默认为当前时间5分钟以内，可以在平台<code>org.jetlinks.pro.openapi.interceptor.OpenApiFilter</code>进行更改
+</div>
+
+```java
+ private Duration timestampMaxInterval = Duration.ofMinutes(5);
+```
+##### 更多token相关信息参见：[第三方平台请求JetLinks服务接口](/dev-guide/request-jetlinks-interface.html)
+
+#### 4.根据token,调用生成菜单接口地址：（post）http://ip:端口号/menu
+
+![生成菜单menu](./img/page-api-create-menu.png)
+
+
+
+#### 5.选择集成菜单
+//todo  目前前端出现问题
+#### 6.选择集成菜单
+//todo  赋权
+#### 7.给当前账号分配新创建的菜单权限：角色管理-编辑-权限分配
+![菜单权限分配](./img/page-menu-permission.png)
+
+### 流程图
+![页面集成和api服务配置流程](./img/application_management_page_api_flow_chart.png)
+
 ## 常见问题
-
-
 ### 存在错误,无效的登录回调地址
 
 <div class='explanation warning'>
