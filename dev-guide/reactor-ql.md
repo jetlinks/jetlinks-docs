@@ -1,5 +1,38 @@
 
+
 # ReactorQL
+
+## 应用场景
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       需要处理实时数据、聚合计算实时数据、跨数据源联合数据处理的业务场景
+    </p>
+</div>
+
+
+
+
+## 指导介绍
+
+<p>1. <a href='/dev-guide/reactor-ql.html#概述'>概述</a></p>
+
+<p>2. <a href='/dev-guide/reactor-ql.html#使用指引'>使用指引</a></p>
+
+<p>3. <a href='/dev-guide/reactor-ql.html#使用样例'>使用样例</a></p>
+
+<p>4. <a href='/dev-guide/reactor-ql.html#sql支持列表'>SQL支持列表</a></p>
+
+<p>5. <a href='/dev-guide/reactor-ql.html#拓展函数'>拓展函数</a></p>
+
+
+
+
+## 概述
 
 JetLinks封装了一套使用SQL来进行实时数据处理的工具包<a target='_blank' href='https://github.com/jetlinks/reactor-ql'>查看源代码</a>。
 通过将SQL翻译为<a target='_blank' href='https://projectreactor.io/'>reactor</a>来进行数据处理。
@@ -7,35 +40,35 @@ JetLinks封装了一套使用SQL来进行实时数据处理的工具包<a target
 默认情况下，SQL中的表名就是事件总线中的`topic`。如：`select * from "/device/*/*/message/property/*"`，
 表示订阅`/device/*/*/message/property/*`下的实时消息。
 
-## 场景
 
-1. 处理实时数据
-2. 聚合计算实时数据
-3. 跨数据源联合数据处理
 
-## SQL例子
+## 使用指引
+
+<p>1、登录JetLinks平台</p>
+
+<p>2、选择<b>物联网</b>-><b>规则引擎</b>-><b>规则编排</b>，选择存在的一个规则后进入<b>规则引擎编辑器</b></p>
+
+![ReactorQL使用](./images/use-reactor-ql.png)
+
+<p>3、拖动<b>ReactorQL</b>组件并进行编辑</p>
+
+![编辑ReactorQL](./images/edit-reactor-ql.png)
+
+
+
+## 使用样例
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-聚合处理实时数据时，必须使用`interval`函数或者`_window`函数。
-
+    <p>
+        聚合处理实时数据时，必须使用<code>interval</code>函数或者<code>_window</code>函数。
+   </p>
 </div>
 
-当温度大于40度时，将数据转发到下一步。
+ 当温度大于40度时，将数据转发到下一步。
 
 ```sql
 select 
@@ -244,10 +277,12 @@ SQL中的`this`表示主表当前的数据。如果存在嵌套属性的时候�
     <span class='iconfont icon-jinggao explanation-icon'></span>
     <span class='explanation-title font-weight'>警告</span>
   </p>
-
-由于使用es存储设备数据，此数据并不是完全实时的
-
+    <p>
+        由于使用es存储设备数据，此数据并不是完全实时的
+    </p>
 </div>
+
+
 
 ```sql
 select 
@@ -287,7 +322,7 @@ select * from device.properties.history(
     where timestamp between now()-86400000 and now()
     group by interval('1d')
 )
- ```
+```
 
 ```sql
 -- 订阅实时数据,然后查询对应设备的历史数据
@@ -342,7 +377,7 @@ select * from device.properties.latest(
 ```
 
 ### device.tags
- 
+
  获取设备标签信息
 
  ```sql

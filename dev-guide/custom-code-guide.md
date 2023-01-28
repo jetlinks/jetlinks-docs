@@ -8,7 +8,7 @@
 </tr>
 <tr>
     <td><a target='_self' href='/dev-guide/custom-use-es.
-html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>自定义模块如何使用es</a></td>
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8elasticsearch'>自定义模块如何使用elasticsearch</a></td>
     <td><a target='_self' href='/dev-guide/custom-use-redis.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%BC%95%E5%85%A5%E4%BD%BF%E7%94%A8redis%E7%BC%93%E5%AD%98'>
   自定义模块如何引入使用redis缓存</a></td>
 </tr>
@@ -47,9 +47,9 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7
 ## 指导介绍
 
   </p>
-     <p>1. <a href="/dev-guide/custom-code-guide.html#创建自定义maven项目" >如何创建自定义Maven项目</a></p>
-     <p>2. <a href="/dev-guide/custom-code-guide.html#将自定义模块加入jetlinks平台" >如何将自定义模块加入JetLinks平台</a></p>
-     <p>3. <a href="/dev-guide/custom-code-guide.html#如何确认模块被引入" >如何确认模块被引入</a></p>
+     <p>1. <a href="/dev-guide/custom-code-guide.html#创建自定义maven项目" >创建自定义Maven项目</a></p>
+     <p>2. <a href="/dev-guide/custom-code-guide.html#将自定义模块加入jetlinks平台" >自定义模块加入JetLinks平台</a></p>
+     <p>3. <a href="/dev-guide/custom-code-guide.html#确认模块是否被引入" >确认模块是否被引入</a></p>
   </p>
 
 ## 问题指引
@@ -177,7 +177,7 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7
 
 ```
 
-## 如何确认模块被引入
+## 确认模块是否被引入
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 

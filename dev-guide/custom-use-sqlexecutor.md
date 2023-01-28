@@ -12,8 +12,8 @@
 
 
 ## 指导介绍
-  <p>1. <a href="/dev-guide/custom-use-sqlexecutor.html#如何引入平台sqlexecutor">如何引入平台sqlExecutor</a></p>
-  <p>2. <a href="/dev-guide/custom-use-sqlexecutor.html#平台如何使用sqlexecutor" >平台如何使用sqlExecutor</a></p>
+  <p>1. <a href="/dev-guide/custom-use-sqlexecutor.html#引入平台sqlexecutor">引入平台sqlExecutor</a></p>
+  <p>2. <a href="/dev-guide/custom-use-sqlexecutor.html#使用平台sqlexecutor" >使用平台sqlExecutor</a></p>
   <p>3. <a href="/dev-guide/custom-use-sqlexecutor.html#reactivesqlexecutor的核心方法说明" >reactivesqlexecutor的核心方法说明</a></p>
   <p>4. <a href="/dev-guide/custom-use-sqlexecutor.html#平台查询结果包装器大全" >平台查询结果包装器大全</a></p>
 
@@ -26,7 +26,7 @@
    </tr>
 </table>
 
-## 如何引入平台sqlExecutor,本文以ReactiveSqlExecutor为例
+## 引入平台sqlexecutor
  在自定义的service：`org.example.mydemo.service.CustomDeviceService`中引入平台的`sqlExecutor`
 ```java
 @Service
@@ -37,7 +37,7 @@ public class CustomDeviceService extends GenericReactiveCrudService<CustomDevcie
 }
 ```
 
-## 平台如何使用sqlExecutor
+## 使用平台sqlExecutor
 
 ```java
 /**

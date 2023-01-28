@@ -35,7 +35,8 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        websocket统一接口为：<code>/messaging/{token}</code>， <code>{token}</code>可通过登录系统或者使用OpenAPI获取。
+        通过前端地址连接：<code>ws://前端服务地址:前端服务端口号/api/messaging/{token}?:X_Access_Token={token}</code><br>
+        通过后端地址连接：<code>ws://后台服务地址:后台服务端口号/messaging/{token}</code><br>其中<code>{token}</code>可通过登录系统或者使用OpenAPI获取。
     </p>
 </div>
 
@@ -45,20 +46,34 @@
 
 ```javascript
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
-let ws = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
-ws.onclose=function(e){console.log(e)};
-ws.onmessage=function(e){console.log(e.data)}
+
+//通过前端服务连接
+let ws_front = new WebSocket("ws://192.168.66.203:9000/messaging/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
+
+//通过后端服务连接
+let ws_back = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
+
+ws_front.onclose = function(e){console.log(e)};
+ws_front.onmessage = function(e){console.log(e.data)}
 ```
 
-也可以使用Postman进行连接
+可以使用Postman进行连接
+
+通过后端服务连接
 
 ![通过Websocket连接到平台](./images/websocket-link-to-platform.png)
+
+通过前端服务连接
+
+![通过前端服务连接到websocket](./images/websocket-link-to-platform-front.png)
+
+
 
 <br>
 
 2、使用MQTT进行连接
 
-在`jetlinks-standalone`中的`application.yml`配置文件中开启使用MQTT订阅平台消息的配置
+在`jetlinks-standalone`模块中找到`application.yml`配置文件并开启使用MQTT订阅平台消息的配置
 
 ```yaml
 messaging:
@@ -224,6 +239,10 @@ MQTT如何取消?
     </p>
 </div>
 1、订阅CoAP服务调试消息
+
+| parameter | 参数说明                                                     |
+| --------- | ------------------------------------------------------------ |
+| `request` | CoAP协议通讯的相关参数类似于HTTP,可以使用`CREATE 2.02\nContent-Format: application/json\n\n{"success":true}`当作`request`传入 |
 
 使用Websocket的方式
 
@@ -762,7 +781,14 @@ MQTT如何取消?
 {
     "type": "sub",
     "topic": "/network/mqtt/client/{id}/_publish/{type}",
-    "parameter": {},
+    "parameter": {
+        //推送的数据 类型根据topic中的{type}决定 此处为JSON
+        "data":{
+            "data":123
+        },
+        //推送的topic
+        "topic":"/test"
+    },
     "id": "request-id"
 }
 ```
@@ -770,7 +796,7 @@ MQTT如何取消?
 使用MQTT订阅
 
 ```kotlin
-/network/mqtt/client/{id}/_publish/{type}
+/network/mqtt/client/{id}/_publish/{type}?data={需要推送的数据}
 ```
 
 <br>
