@@ -200,7 +200,7 @@ websocket发送消息，格式为：
 | ------------------------------------------------------------ | ---------------------------------------------------- |
 | `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
 | `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
-| `/rule-engine/device/alarm/*/*/*`                            | <a href='#device-alarm'>告警相关消息</a>             |
+| `/alarm/*/*/*`                                               | <a href='#device-alarm'>告警相关消息</a>             |
 | `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
 | `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
 | `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
