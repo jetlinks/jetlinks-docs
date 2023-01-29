@@ -48,7 +48,7 @@
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
 
 //通过前端服务连接
-let ws_front = new WebSocket("ws://192.168.66.203:9000/messaging/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
+let ws_front = new WebSocket("ws://192.168.66.203:9000/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
 
 //通过后端服务连接
 let ws_back = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
@@ -168,10 +168,6 @@ websocket发送消息，格式为：
 }
 ```
 
-//TODO
-
-MQTT如何取消?
-
 
 
 ## 开始订阅消息
@@ -197,7 +193,6 @@ MQTT如何取消?
     </p>
 </div>
 
-<br>
 
 #### 可订阅的相关主题
 
@@ -205,7 +200,7 @@ MQTT如何取消?
 | ------------------------------------------------------------ | ---------------------------------------------------- |
 | `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
 | `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
-| `/rule-engine/device/alarm/*/*/*`                            | <a href='#device-alarm'>设备告警相关消息</a>         |
+| `/rule-engine/device/alarm/*/*/*`                            | <a href='#device-alarm'>告警相关消息</a>             |
 | `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
 | `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
 | `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
@@ -349,7 +344,7 @@ MQTT如何取消?
 
 <br>
 
-#### <font id='device-alarm'>订阅设备告警相关消息</font>
+#### <font id='device-alarm'>订阅告警相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -357,9 +352,16 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        设备告警相关消息，<code>{productId}</code>产品id，<code>{deviceId}</code>设备id，<code>{alarmId}</code>设备告警id
+        告警相关消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
     </p>
 </div>
+
+| `targetType` | 说明                                                         |
+| :----------: | :----------------------------------------------------------- |
+|  `product`   | 当`targetType`为`product`时，则对应的`targetId`为产品id      |
+|   `device`   | <p>当`targetType`为`device`时，则对应的`targetId`为设备id</p> |
+|    `org`     | <p>当`targetType`为`org`时，则对应的`targetId`为组织id，此时平台回复的报文格式中`bingdings`会增加一个`{"id":"组织id","type":"org"}`的组织信息；如果当前用户存在多个组织，则每个组织均会订阅到该次告警信息，`bingdings`中则为对应组织的信息（组织<b>分配的资产中有当前产品及该产品下对应的设备</b>才能订阅到此次告警信息）</p> |
+|   `other`    | <p>当`targetType`为`other`时，平台回复的报文格式中则不会存在`sourceId`,`sourceName`,`sourceType`三个字段，此时的`targetId`则为想要订阅的告警配置的`id`</p> |
 
 使用websocket订阅
 
@@ -367,20 +369,51 @@ MQTT如何取消?
 ```json
 	{
         "type": "sub",
-        "topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+        "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
         "parameter": {},
         "id": "request-id"
 	}
-
 ```
 
 使用MQTT订阅
 
 ```kotlin
-/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}
+/alarm/{targetType}/{targetId}/{alarmId}
 ```
 
-<br>
+平台回复消息具体格式
+
+```json
+{
+    "payload": {
+        "alarmConfigId": "1614934749509095424",//告警配置id
+        "alarmConfigName": "设备告警",//告警配置名
+        //告警具体信息
+        "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
+        "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
+        "alarmTime": 1674884438091,//告警发生时间
+        "bindings": [
+            {
+                "id": "1199596756811550720",
+                "type": "user"
+            }
+        ],
+        "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
+        "level": 1,//告警等级
+        "sourceId": "1614931520184422400",//源id，此处为设备id
+        "sourceName": "场景联动设备",//源名字，此处为设备名
+        "sourceType": "device",//源类型，此处为设备
+        "targetId": "1614931310716686336",//目标id,此处为产品id
+        "targetName": "场景联动产品",//目标名，此处为产品名
+        "targetType": "product"//目标类型，此处为产品
+    },
+    "requestId": "request-id",//本次订阅的id
+    "topic": "/alarm/product/1614931310716686336/1614934749509095424",//订阅的topic
+    "type": "result"//结果类型
+}
+```
+
+
 
 #### <font id='device-bash'>订阅设备批量操作消息</font>
 
