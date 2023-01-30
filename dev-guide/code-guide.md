@@ -123,8 +123,10 @@
 
 ### 通知管理
 
-- 通知配置
-- 通知模板
+- <a target='_self' href='/dev-guide/notification-config.html'>
+  通知配置</a>
+- <a target='_self' href='/dev-guide/notification-template.html'>
+  通知模板</a>
 
 ### 视频中心
 
