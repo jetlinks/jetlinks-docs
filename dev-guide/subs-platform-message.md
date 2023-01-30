@@ -170,8 +170,6 @@ websocket发送消息，格式为：
 
 
 
-
-
 ## 开始订阅消息
 
 <div class='explanation primary'>
@@ -195,7 +193,6 @@ websocket发送消息，格式为：
     </p>
 </div>
 
-<br>
 
 #### 可订阅的相关主题
 
@@ -329,7 +326,6 @@ websocket发送消息，格式为：
 ![MQTT订阅dashboard数据](./images/mqtt-sub-dashboard.png)
 
 
-
 #### <font id='device-alarm'>订阅告警相关消息</font>
 
 <div class='explanation primary'>
@@ -359,13 +355,44 @@ websocket发送消息，格式为：
         "parameter": {},
         "id": "request-id"
 	}
-
 ```
 
 使用MQTT订阅
 
 ```kotlin
 /alarm/{targetType}/{targetId}/{alarmId}
+```
+
+平台回复消息具体格式
+
+```json
+{
+    "payload": {
+        "alarmConfigId": "1614934749509095424",//告警配置id
+        "alarmConfigName": "设备告警",//告警配置名
+        //告警具体信息
+        "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
+        "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
+        "alarmTime": 1674884438091,//告警发生时间
+        "bindings": [
+            {
+                "id": "1199596756811550720",
+                "type": "user"
+            }
+        ],
+        "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
+        "level": 1,//告警等级
+        "sourceId": "1614931520184422400",//源id，此处为设备id
+        "sourceName": "场景联动设备",//源名字，此处为设备名
+        "sourceType": "device",//源类型，此处为设备
+        "targetId": "1614931310716686336",//目标id,此处为产品id
+        "targetName": "场景联动产品",//目标名，此处为产品名
+        "targetType": "product"//目标类型，此处为产品
+    },
+    "requestId": "request-id",//本次订阅的id
+    "topic": "/alarm/product/1614931310716686336/1614934749509095424",//订阅的topic
+    "type": "result"//结果类型
+}
 ```
 
 ![MQTT订阅设备告警信息](./images/mqtt-sub-alarm.png)
