@@ -48,7 +48,7 @@
 // 如果认证失败,会立即返回消息: {"message":"认证失败","type":"authError"},并断开连接
 
 //通过前端服务连接
-let ws_front = new WebSocket("ws://192.168.66.203:9000/messaging/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
+let ws_front = new WebSocket("ws://192.168.66.203:9000/api/messaging/d25db4e910caaef90c57ed7c8c45f922?:X_Access_Token=d25db4e910caaef90c57ed7c8c45f922");
 
 //通过后端服务连接
 let ws_back = new WebSocket("ws://192.168.66.203:8844/messaging/d25db4e910caaef90c57ed7c8c45f922");
@@ -168,10 +168,6 @@ websocket发送消息，格式为：
 }
 ```
 
-//TODO
-
-MQTT如何取消?
-
 
 
 ## 开始订阅消息
@@ -197,7 +193,6 @@ MQTT如何取消?
     </p>
 </div>
 
-<br>
 
 #### 可订阅的相关主题
 
@@ -205,9 +200,10 @@ MQTT如何取消?
 | ------------------------------------------------------------ | ---------------------------------------------------- |
 | `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
 | `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
-| `/rule-engine/device/alarm/*/*/*`                            | <a href='#device-alarm'>设备告警相关消息</a>         |
+| `/alarm/*/*/*`                                               | <a href='#device-alarm'>告警相关消息</a>             |
 | `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
 | `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
+| `/debug/device/*/trace`                                      | <a href='#device-debug-trace'>设备诊断消息</a>       |
 | `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
 | `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a>      |
 | `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>           |
@@ -235,14 +231,15 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        订阅此主题分为CoAP客户端和CoAP服务端，当订阅主题以<code>/network/coap/server</code>开头时订阅为CoAP服务，否则为CoAP客户端
+        当订阅主题以<code>/network/coap/server</code>开头时订阅为CoAP服务，如果订阅CoAP客户端则不会返回任何消息
     </p>
 </div>
+
 1、订阅CoAP服务调试消息
 
 | parameter | 参数说明                                                     |
 | --------- | ------------------------------------------------------------ |
-| `request` | CoAP协议通讯的相关参数类似于HTTP,可以使用`CREATE 2.02\nContent-Format: application/json\n\n{"success":true}`当作`request`传入 |
+| `request` | CoAP协议通讯的相关参数类似于HTTP，如果未传入则默认使用`CREATE 2.02\nContent-Format: application/json\n\n{\"success\":true}`当作`request` |
 
 使用Websocket的方式
 
@@ -266,29 +263,7 @@ MQTT如何取消?
 /network/coap/server/{id}/_subscribe?request={request-params-string}
 ```
 
-<br>
-
-2、订阅CoAP客户端调试消息
-
-使用Websocket的方式
-
-```json
-	//获取id方式同上
-	{
-        "type": "sub",
-        "topic": "/network/coap/client/{id}/_send",
-        "parameter": {
-            "request":"request-params-string"
-        },
-        "id": "request-id"
-	}
-```
-
-使用MQTT的方式
-
-```kotlin
-/network/coap/client/{id}/_send?request={request-params-string}
-```
+![MQTT订阅CoAP调试信息](./images/mqtt-sub-coap-debug.png)
 
 
 
@@ -315,20 +290,21 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>警告</span>
   </p>
 	<p>
-        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中一个且与前后位置相一致，例如<code>jvmMonitor</code>这一行数据中，<code>memory</code>后只能选取<code>info</code>而不能选择<code>usage</code>；如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
+        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中一个且与前后位置相一致，例如<code>systemMonitor</code>这一行数据中，<code>stats</code>后只能选取<code>info</code>而不能选择<code>traffic</code>；如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
     </p>
 </div>
+
 
 可以订阅的主题有
 
 
-| 仪表盘(dashboard) | 仪表盘对象(object) | 监控指标(measurement)                                        | 指标维度(dimension) | 说明         |
-| ----------------- | ------------------ | ------------------------------------------------------------ | ------------------- | ------------ |
-| `gatewayMonitor`  | `deviceGateway`    | `connected`<br>`disconnected`<br>`sent_message`<br>`rejected`<br>`connection`<br>`received_message` | `agg`,`history`     | 网关消息     |
-| `jvmMonitor`      | `memory`<br>`cpu`  | `info`<br>`usage`                                            | `realTime`          | jvm信息      |
-| `systemMonitor`   | `memory`<br>`cpu`  | `info`<br>`usage`                                            | `realTime`          | 系统信息     |
-| `device`          | `session`          | `online`                                                     | `agg`               | 设备在线信息 |
-| `network`         | `traffic`          | `traffic`                                                    | `network`           | 网络信息     |
+| 仪表盘(dashboard) | 仪表盘对象(object)                 | 监控指标(measurement)                                        | 指标维度(dimension)                                          | 说明     |
+| ----------------- | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
+| `gatewayMonitor`  | `deviceGateway`                    | `connected`<br>`disconnected`<br>`sent_message`<br>`rejected`<br>`connection`<br>`received_message` | `agg`,`history`                                              | 网关消息 |
+| `alarm`           | `record`                           | `trend`<br>`rank`                                            | `agg`                                                        | 告警信息 |
+| `systemMonitor`   | `stats`<br>`network`               | `info`<br>`traffic`                                          | `realTime,history`<br>`agg`                                  | 系统信息 |
+| `device`          | `session`<br>`message`<br>`status` | `online`<br>`quantity`<br>`change,record`                    | `agg`<br>`realTime,agg`<br>`realTime,agg`<br>`current,aggOnline` | 设备信息 |
+| `collector`       | `pointData`                        | `quantity`                                                   | `realTime,agg`                                               | 点位信息 |
 
 使用Websocket订阅
 
@@ -347,9 +323,10 @@ MQTT如何取消?
 /dashboard/{dashboard}/{object}/{measurement}/{dimension}
 ```
 
-<br>
+![MQTT订阅dashboard数据](./images/mqtt-sub-dashboard.png)
 
-#### <font id='device-alarm'>订阅设备告警相关消息</font>
+
+#### <font id='device-alarm'>订阅告警相关消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -357,9 +334,16 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        设备告警相关消息，<code>{productId}</code>产品id，<code>{deviceId}</code>设备id，<code>{alarmId}</code>设备告警id
+        告警相关消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
     </p>
 </div>
+
+| `targetType` | 说明                                                         |
+| :----------: | :----------------------------------------------------------- |
+|  `product`   | 当`targetType`为`product`时，则对应的`targetId`为产品id      |
+|   `device`   | <p>当`targetType`为`device`时，则对应的`targetId`为设备id</p> |
+|    `org`     | <p>当`targetType`为`org`时，则对应的`targetId`为组织id，此时平台回复的报文格式中`bingdings`会增加一个`{"id":"组织id","type":"org"}`的组织信息；如果当前用户存在多个组织，则每个组织均会订阅到该次告警信息，`bingdings`中则为对应组织的信息（组织<b>分配的资产中有当前产品及该产品下对应的设备</b>才能订阅到此次告警信息）</p> |
+|   `other`    | <p>当`targetType`为`other`时，平台回复的报文格式中则不会存在`sourceId`,`sourceName`,`sourceType`三个字段，此时的`targetId`则为想要订阅的告警配置的`id`</p> |
 
 使用websocket订阅
 
@@ -367,20 +351,53 @@ MQTT如何取消?
 ```json
 	{
         "type": "sub",
-        "topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+        "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
         "parameter": {},
         "id": "request-id"
 	}
-
 ```
 
 使用MQTT订阅
 
 ```kotlin
-/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}
+/alarm/{targetType}/{targetId}/{alarmId}
 ```
 
-<br>
+平台回复消息具体格式
+
+```json
+{
+    "payload": {
+        "alarmConfigId": "1614934749509095424",//告警配置id
+        "alarmConfigName": "设备告警",//告警配置名
+        //告警具体信息
+        "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
+        "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
+        "alarmTime": 1674884438091,//告警发生时间
+        "bindings": [
+            {
+                "id": "1199596756811550720",
+                "type": "user"
+            }
+        ],
+        "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
+        "level": 1,//告警等级
+        "sourceId": "1614931520184422400",//源id，此处为设备id
+        "sourceName": "场景联动设备",//源名字，此处为设备名
+        "sourceType": "device",//源类型，此处为设备
+        "targetId": "1614931310716686336",//目标id,此处为产品id
+        "targetName": "场景联动产品",//目标名，此处为产品名
+        "targetType": "product"//目标类型，此处为产品
+    },
+    "requestId": "request-id",//本次订阅的id
+    "topic": "/alarm/product/1614931310716686336/1614934749509095424",//订阅的topic
+    "type": "result"//结果类型
+}
+```
+
+![MQTT订阅设备告警信息](./images/mqtt-sub-alarm.png)
+
+
 
 #### <font id='device-bash'>订阅设备批量操作消息</font>
 
@@ -418,6 +435,8 @@ MQTT如何取消?
 ```kotlin
 /device-batch/{type}?query={"where":"productId is my-product"}
 ```
+
+![MQTT订阅批量操作](./images/mqtt-sub-batch.png)
 
 
 
@@ -458,7 +477,40 @@ MQTT如何取消?
 /device-current-state?deviceId={deviceId}
 ```
 
-<br>
+![MQTT订阅设备当前状态](./images/mqtt-sub-device_current_state.png)
+
+
+
+#### <font id='device-debug-trace'>设备诊断消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       订阅某一个设备的诊断消息
+    </p>
+</div>
+
+使用websocket订阅
+
+```json
+{
+    "type": "sub",
+    "topic": "/debug/device/{deviceId}/trace",
+    "parameter": {
+     
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+
+
+
 
 #### <font id='device-firm'>订阅推送设备固件更新消息</font>
 
@@ -498,7 +550,9 @@ MQTT如何取消?
 /device-current-state?taskId={taskId}
 ```
 
-<br>
+![MQTT订阅固件升级](./images/mqtt-sub-task.png)
+
+
 
 #### <font id='device-send-message'>订阅设备消息发送</font>
 
@@ -549,8 +603,10 @@ MQTT如何取消?
 使用MQTT订阅
 
 ```kotlin
-/device-message-sender/{productId}/{deviceId}?messageType={messageType}&properties[0]=temperature&header={"async":false}
+/device-message-sender/{productId}/{deviceId}?messageType={messageType}&properties[0]=temperature&headers={"async":false}
 ```
+
+![MQTT订阅设备发送消息](./images/mqtt-sub-device_send_message.png)
 
 
 
@@ -562,10 +618,13 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-与消息网关中的设备topic一致，(<a href='http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic' target='blank'>查看topic列表</a>)。 消息负载(<code>payload</code>)将与<a  href='http://doc.jetlinks.cn/function-description/device_message_description.html#平台统一设备消息定义' target='blank'>设备消息类型</a>一致。
+与消息网关中的设备<code>topic</code>一致，具体想要订阅的<code>topic</code>可以参考<a href='http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic' target='blank'>topic列表</a>。 消息负载(<code>payload</code>)与<a  href='http://doc.jetlinks.cn/function-description/device_message_description.html#平台统一设备消息定义' target='blank'>设备消息类型</a>一致。
     </p>
 </div>
-以订阅产品为`product_test`下的设备`device_test_01`的属性上报信息为例
+
+
+
+以订阅产品为`product_test`下的设备`device_test_01`的属性上报消息为例
 
 向websocket发送订阅信息
 
@@ -613,6 +672,12 @@ MQTT如何取消?
 ```
 
 <br>
+
+使用MQTT订阅
+
+![MQTT订阅设备消息举例](./images/mqtt-sub-device-message.png)
+
+
 
 #### <font id='virtual-property'>订阅虚拟属性调试消息</font>
 
@@ -663,6 +728,8 @@ MQTT如何取消?
 /virtual-property-debug?virtualId=Kelvin&property=virtual_temperature&properties[0].id=temperature&properties[0].type=float&properties[0].current=100&virtualRule={"type":"script"%2C"script":"return $recent(\"temperature\")%2B273.15"}
 ```
 
+![MQTT订阅虚拟属性调试](./images/mqtt-sub-virtual-property.png)
+
 
 
 #### <font id='http'>订阅HTTP调试消息</font>
@@ -673,9 +740,10 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        订阅此主题分为HTTP客户端和HTTP服务端，当订阅主题以<code>/network/http/server</code>开头时订阅为HTTP服务，否则为HTTP客户端
+        订阅此主题分为HTTP客户端和HTTP服务端，当订阅主题以<code>/network/http/server</code>开头时订阅为HTTP服务，否则为HTTP客户端。
     </p>
 </div>
+
 订阅HTTP服务
 
 使用websocket订阅
@@ -687,7 +755,7 @@ MQTT如何取消?
     "type": "sub",
     "topic": "/network/http/server/{id}/_subscribe",
     "parameter": {
-        //请求参数字符串
+        //请求参数字符串,如果未传入则默认为"HTTP/1.1 200 OK\nContent-Type application/json\n\n{\"success\":true}"
         "response":"response-params-string"
     },
     "id": "request-id"
@@ -700,6 +768,8 @@ MQTT如何取消?
 //获取id方式同上
 /network/http/server/{id}/_subscribe?response={response-params-string}
 ```
+
+![mqtt订阅HTTPserver调试消息](./images/mqtt-sub-http_server.png)
 
 <br>
 
@@ -728,7 +798,7 @@ MQTT如何取消?
 /network/http/server/{id}/_subscribe?request={request-params-string}
 ```
 
-<br>
+
 
 #### <font id='mqtt-client'>订阅MQTT客户端调试消息</font>
 
@@ -754,7 +824,7 @@ MQTT如何取消?
     "type": "sub",
     "topic": "/network/mqtt/client/{id}/_subscribe/{type}",
     "parameter": {
-        //想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔
+        //想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔;如果未传入则默认是订阅所有主题
         "topics":"topics"
     },
     "id": "request-id"
@@ -764,9 +834,13 @@ MQTT如何取消?
 使用MQTT订阅
 
 ```kotlin
-//想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔
+//想要订阅的topic集合，如果是多个topic，之间用\n换行符分隔;如果未传入则默认是订阅所有主题
 /network/mqtt/client/{id}/_subscribe/{type}?topics={topics}
 ```
+
+![mqtt订阅mqtt客户端订阅消息](./images/mqtt-sub-mqtt-client_subscribe.png)
+
+
 
 <br>
 
@@ -799,7 +873,9 @@ MQTT如何取消?
 /network/mqtt/client/{id}/_publish/{type}?data={需要推送的数据}
 ```
 
-<br>
+![mqtt订阅mqtt客户端推送消息](./images/mqtt-sub-mqtt-client_publish.png)
+
+
 
 #### <font id='mqtt-server'>订阅MQTT服务调试消息</font>
 
@@ -832,7 +908,9 @@ MQTT如何取消?
 /network/mqtt/server/{id}/_subscribe/{type}
 ```
 
-<br>
+![mqtt订阅mqtt服务调试消息](./images/mqtt-sub-mqtt-server.png)
+
+
 
 #### <font id='notifications'>订阅通知消息</font>
 
@@ -864,7 +942,9 @@ MQTT如何取消?
 /notifications
 ```
 
-<br>
+![MQTT订阅通知消息](./images/mqtt-sub-notifications.png)
+
+
 
 #### <font id='rule-engine'>订阅规则引擎执行相关消息</font>
 
@@ -897,11 +977,19 @@ MQTT如何取消?
 	},
 	"requestId": "request-id", //订阅请求的ID
 	"topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
-	"type": "result" //为comlete是则表示订阅结束.
+	"type": "result" //为complete是则表示订阅结束.
 }
 ```
 
-<br>
+使用mqtt订阅
+
+```kotlin
+/rule-engine/**
+```
+
+![mqtt订阅规则引擎消息](./images/mqtt-sub-rule-engine.png)
+
+
 
 #### <font id='scene'>订阅场景联动消息</font>
 
@@ -914,6 +1002,7 @@ MQTT如何取消?
        <code>{sceneId}</code>为场景联动id
     </p>
 </div>
+
 使用websocket订阅
 
 
@@ -932,7 +1021,9 @@ MQTT如何取消?
 /scene/{sceneId}
 ```
 
-<br>
+![mqtt订阅场景联动消息](./images/mqtt-sub-scene.png)
+
+
 
 #### <font id='simulator'>订阅模拟器消息</font>
 
@@ -964,7 +1055,9 @@ MQTT如何取消?
 /network/simulator/{id}/{sessionId}
 ```
 
-<br>
+![mqtt订阅模拟器消息](./images/mqtt-sub-simulator.png)
+
+
 
 #### <font id='tcp-client'>订阅TCP客户端调试消息</font>
 
@@ -1068,7 +1161,7 @@ MQTT如何取消?
 /network/tcp/server/{id}/_subscribe?response={data}
 ```
 
-<br>
+
 
 #### <font id='udp'>订阅UDP调试消息</font>
 
@@ -1100,6 +1193,10 @@ MQTT如何取消?
 /network/udp/{id}/_subscribe
 ```
 
+![mqtt订阅udp调试消息](./images/mqtt-sub-udp_subscribe.png)
+
+
+
 <br>
 
 订阅发送的消息
@@ -1124,7 +1221,9 @@ MQTT如何取消?
 /network/tcp/client/{id}/_send?request={data}
 ```
 
-<br>
+![mqtt订阅udp调试消息](./images/mqtt-sub-udp-send.png)
+
+
 
 #### <font id='websocket-client'>订阅WebSocket客户端调试消息</font>
 
@@ -1157,6 +1256,10 @@ MQTT如何取消?
 /network/websocket/client/{id}/_subscribe/{type}
 ```
 
+![mqtt新增websocket客户端订阅调试消息](./images/mqtt-sub-websocket_client_subscribe.png)
+
+
+
 <br>
 
 发送时的消息
@@ -1178,7 +1281,9 @@ MQTT如何取消?
 /network/websocket/client/{id}/_publish/{type}
 ```
 
-<br>
+![mqtt订阅websocket推送调试消息](./images/mqtt-sub-websocket_client_publish.png)
+
+
 
 #### <font id='websocket-server'>订阅WebSocket服务调试消息</font>
 
@@ -1188,9 +1293,10 @@ MQTT如何取消?
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-       <code>{id}</code>为WebSocket服务组件的id
+       <code>{id}</code>为WebSocket服务组件的id，如果未传入<code>response</code>则默认为空
     </p>
 </div>
+
 使用websocket订阅
 
 ```json
@@ -1211,3 +1317,4 @@ MQTT如何取消?
 /network/websocket/server/{id}/_subscribe?response={data}
 ```
 
+![mqtt订阅websocket服务调试消息](./images/mqtt-sub-websocket-server.png)

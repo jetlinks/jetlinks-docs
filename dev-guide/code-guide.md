@@ -40,6 +40,7 @@
 - 规则引擎说明
 - 平台核心类及接口说明
 - 集群管理
+- 集群管理
 - <a target='_self' href='/dev-guide/custom-code-guide.html'>
    在JetLinks上构建自己的业务模块？</a>
 - <a target='_self' href='/dev-guide/jetlinks-event-listener.html'>
