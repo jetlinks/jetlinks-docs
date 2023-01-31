@@ -123,9 +123,9 @@
 
 ### 通知管理
 
-- <a target='_self' href='/dev-guide/notification-config.html'>
+- <a target='_self' href='/dev-guide/notification-manage.html#通知配置'>
   通知配置</a>
-- <a target='_self' href='/dev-guide/notification-template.html'>
+- <a target='_self' href='/dev-guide/notification-manage.html#通知模板'>
   通知模板</a>
 
 ### 视频中心
