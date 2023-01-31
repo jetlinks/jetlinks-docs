@@ -1,8 +1,25 @@
-# 介绍
-## JetLinks 开发手册
+# JetLinks开发手册
+## 概述
 JetLinks 基于java8，spring-boot 2.7，webflux，netty，vert.x等开发，
 是一个全响应式(<a target='_blank' href='https://github.com/reactor'>reactor</a>)的物联网基础平台。
-使用 `maven多模块`，实现组件化开发。可按需引入需要的模块。
+使用 `maven多模块`，实现组件化开发，可按需引入需要的模块。由于JetLinks平台是基础物联网平台，
+平台提供的业务功能可以满足70%~80%左右的通用场景功能，但仍难满足用户所有的需求，因此为了解决部分场景不足的问题，
+平台支持用户自行在现有代码基础上进行二次开发。本章节介绍如何在JetLinks上构建自己的业务系统或者基于JetLinks做开发。
+
+## 使用说明
+
+<div class='explanation info'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+
+  <p>由于JetLinks是持续迭代的项目，对于早期版本1.13及以前的版本不再进行bug维护，建议升级至最新版本。</p>
+  <p>如1.x版本建议更新至最新1.20版本，2.0版本则建议更新至最新的代码。</p>
+
+</div>
+
+
 
 ## 技术选型
 <table class='table'>
@@ -56,66 +73,126 @@ JetLinks 基于java8，spring-boot 2.7，webflux，netty，vert.x等开发，
         </tbody>
       </table>
 
-## 配置
 
-JetLinks基于`SpringBoot`, 配置方式与SpringBoot完全一致：`application.yml`
+[//]: # (## 配置)
 
-主要配置项:
+[//]: # ()
+[//]: # (JetLinks基于`SpringBoot`, 配置方式与SpringBoot完全一致：`application.yml`)
 
-```yaml
-    spring:
-      redis:  # redis配置 ,spring-data-redis
-        host: localhost 
-        port: 6379
-      r2dbc:  # 数据库配置
-        url: r2dbc:postgresql://localhost:5432/jetlinks
-        username: postgres
-        password: jetlinks
-      elasticsearch: # elasticsearch 配置
-        uris: localhost:9200
-        socket-timeout: 10s
-        connection-timeout: 15s
-        webclient:
-          max-in-memory-size: 100MB
-    easyorm:
-      default-schema: public # 数据库默认的schema
-      dialect: postgres #数据库方言,支持h2,mysql,postgres,sqlserver
-    hsweb:
-      file:
-        upload: # 文件上传
-            static-file-path: ./static/upload   # 静态文件保存目录
-            static-location: http://localhost:8848/upload   #静态文件下载路径
-    system:
-      config:
-        scopes:
-          - id: front
-            name: 前端配置
-            public-access: true
-          - id: paths
-            name: 访问路径配置
-            public-access: true
-            properties:
-              - key: base-path
-                name: 接口根路径
-                default-value: http://localhost:9000/api
-              - key: sso-redirect
-                name: sso回调路径
-                default-value: http://localhost:9000
-              - key: sso-bind
-                name: sso用户绑定路径
-                default-value: http://localhost:9000/#/account/center/bind
-              - key: sso-token-set
-                name: sso登陆成功后Token设置路径
-                default-value: http://localhost:9000/api/token-set.html
-          - id: amap
-            name: 高德地图配置
-            public-access: false
-            properties:
-              - key: apiKey # 配置id
-                name: 高德地图ApiKey # 名称
-    network:
-      resources: # 可用网络资源配置
-        - 1883-1890
-        - 8800-8810
-        - 5060-5061
-```
+[//]: # ()
+[//]: # (主要配置项:)
+
+[//]: # ()
+[//]: # (```yaml)
+
+[//]: # (    spring:)
+
+[//]: # (      redis:  # redis配置 ,spring-data-redis)
+
+[//]: # (        host: localhost )
+
+[//]: # (        port: 6379)
+
+[//]: # (      r2dbc:  # 数据库配置)
+
+[//]: # (        url: r2dbc:postgresql://localhost:5432/jetlinks)
+
+[//]: # (        username: postgres)
+
+[//]: # (        password: jetlinks)
+
+[//]: # (      elasticsearch: # elasticsearch 配置)
+
+[//]: # (        uris: localhost:9200)
+
+[//]: # (        socket-timeout: 10s)
+
+[//]: # (        connection-timeout: 15s)
+
+[//]: # (        webclient:)
+
+[//]: # (          max-in-memory-size: 100MB)
+
+[//]: # (    easyorm:)
+
+[//]: # (      default-schema: public # 数据库默认的schema)
+
+[//]: # (      dialect: postgres #数据库方言,支持h2,mysql,postgres,sqlserver)
+
+[//]: # (    hsweb:)
+
+[//]: # (      file:)
+
+[//]: # (        upload: # 文件上传)
+
+[//]: # (            static-file-path: ./static/upload   # 静态文件保存目录)
+
+[//]: # (            static-location: http://localhost:8848/upload   #静态文件下载路径)
+
+[//]: # (    system:)
+
+[//]: # (      config:)
+
+[//]: # (        scopes:)
+
+[//]: # (          - id: front)
+
+[//]: # (            name: 前端配置)
+
+[//]: # (            public-access: true)
+
+[//]: # (          - id: paths)
+
+[//]: # (            name: 访问路径配置)
+
+[//]: # (            public-access: true)
+
+[//]: # (            properties:)
+
+[//]: # (              - key: base-path)
+
+[//]: # (                name: 接口根路径)
+
+[//]: # (                default-value: http://localhost:9000/api)
+
+[//]: # (              - key: sso-redirect)
+
+[//]: # (                name: sso回调路径)
+
+[//]: # (                default-value: http://localhost:9000)
+
+[//]: # (              - key: sso-bind)
+
+[//]: # (                name: sso用户绑定路径)
+
+[//]: # (                default-value: http://localhost:9000/#/account/center/bind)
+
+[//]: # (              - key: sso-token-set)
+
+[//]: # (                name: sso登陆成功后Token设置路径)
+
+[//]: # (                default-value: http://localhost:9000/api/token-set.html)
+
+[//]: # (          - id: amap)
+
+[//]: # (            name: 高德地图配置)
+
+[//]: # (            public-access: false)
+
+[//]: # (            properties:)
+
+[//]: # (              - key: apiKey # 配置id)
+
+[//]: # (                name: 高德地图ApiKey # 名称)
+
+[//]: # (    network:)
+
+[//]: # (      resources: # 可用网络资源配置)
+
+[//]: # (        - 1883-1890)
+
+[//]: # (        - 8800-8810)
+
+[//]: # (        - 5060-5061)
+
+[//]: # (```)
