@@ -24,7 +24,6 @@
 - <a target='_self' href='/dev-guide/java-deploy.html'>
    后端部署</a>
 
-[//]: # (### 公共实例入门教程)
 
 [//]: # (- 创建产品和设备)
 
