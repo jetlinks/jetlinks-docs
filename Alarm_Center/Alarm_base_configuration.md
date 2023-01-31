@@ -11,7 +11,6 @@
 ## 指导介绍
 
   <p>1. <a href="/Alarm_Center/Alarm_base_configuration.html#告警级别配置">告警级别配置</a></p>
-  <p>2. <a href="/Alarm_Center/Alarm_base_configuration.html#数据流转配置">数据流转配置</a></p>
 
 ## 告警级别配置
 ### 操作步骤
@@ -19,4 +18,5 @@
 2.在左侧导航栏，选择**告警中心>基础配置**，进入详情页。</br>
 3.填写告警级别配置信息，然后点击**保存**。</br>
 ![](./img/88.png)
+
 

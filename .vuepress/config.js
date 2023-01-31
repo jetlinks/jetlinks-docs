@@ -133,7 +133,7 @@ module.exports = {
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
                     ['/dev-guide/start.md', '介绍'],
-                    ['/dev-guide/specification', '规范'],
+                    ['/dev-guide/specification', '开发规范'],
                     ['/dev-guide/reactor.md', '响应式'],
                     ['/dev-guide/crud.md', '增删改查'],
                     ['/dev-guide/custom-sql-term.md', '自定义通用SQL条件'],

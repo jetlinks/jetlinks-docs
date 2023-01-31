@@ -1,24 +1,38 @@
 # 响应式
 
+## 概述
 JetLinks使用<a target='_blank' href='https://github.com/reactor'>Project Reactor</a>作为响应式编程框架，从网络层（`webflux`，`vert.x`）到持久层（`r2dbc`，`elastic`）全部
 封装为`非阻塞`、`响应式`调用。
 
 响应式可以理解为`观察者模式`，通过`订阅`和`发布`数据流中的数据对数据进行处理。 
 `Project Reactor`提供了强大的API，简化多线程和异步编程开发，降低了对数据各种处理方式的复杂度。如果你已经大量使用了`java8 stream api`，使用`reactor`将很容易上手。
 
-<div class='explanation primary'>
+<div class='explanation info'>
   <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
+ <span class='explanation-title font-weight'>响应式</span>与 <span class='explanation-title font-weight'>传统编程（命令式）</span>最大的区别是：
 
-`响应式`与`传统编程`最大的区别是：
+<span class='explanation-title font-weight'>响应式</span>中的方法调用是在<span class='explanation-title font-weight'>构造</span>一个流
+以及<span class='explanation-title font-weight'>处理流中数据</span>的逻辑。当<span class='explanation-title font-weight'>流</span>中产生了数据(<span class='explanation-title font-weight'>发布、订阅</span>)，才会执行构造好的逻辑。
 
-`响应式`中的方法调用是在`构造`一个流以及`处理流中数据`的逻辑。当`流`中产生了数据(`发布、订阅`)，才会执行构造好的逻辑。
-
-`传统编程`则是直接执行逻辑获取结果。
+<span class='explanation-title font-weight'>命令式</span>则是直接执行逻辑获取结果。
 
 </div>
+
+
+## 问题指引
+<table>
+<tr>
+    <td><a href="/dev-guide/reactor.html#我写的操作看上去是正确的-但是没有执行">我写的操作看上去是正确的,但是没有执行？</a></td>
+    <td><a href="/dev-guide/reactor.html#想要获取流中的元素">想要获取流中的元素</a></td>
+</tr>
+<tr>
+    <td><a href="/dev-guide/reactor.html#我需要在非响应式方法中使用响应式怎么办">我需要在非响应式方法中使用响应式怎么办？</a></td>
+    <td><a href="/dev-guide/reactor.html#如何调试响应式">如何调试响应式</a></td>
+</tr>
+</table>
 
 ## 优点
 
@@ -212,12 +226,12 @@ return request
 
 </div>
 
+## 常见问题
+#### 我写的操作看上去是正确的,但是没有执行.
 
-## FAQ: 我写的操作看上去是正确的,但是没有执行.
+有4种可能：`上游流为空或异常`，`多个流未组合在一起`，`在不支持响应式的地方使用了响应式`
 
-有3种可能：`上游流为空`，`多个流未组合在一起`，`在不支持响应式的地方使用了响应式`
-
-### 1. 上游流为空
+##### 1. 上游流为空或异常
 
 例:
 ```java{6-7}
@@ -241,7 +255,7 @@ public Mono<Response> handleRequest(Request request){
   </p>
 
 当`findOldData`返回的流为空时，下游的`flatMap`等需要`操作流中元素的操作符`是不会执行的。
-可以通过`switchIfEmpty`操作符来处理空流的情况。
+可以通过`switchIfEmpty`操作符来处理空流的情况，当`findOldData`返回的流中发生了异常时，可以通过`onErrorResume`操作符捕获异常流。
 例如:
 ```java
  return this
@@ -257,7 +271,7 @@ public Mono<Response> handleRequest(Request request){
 
 </div>
 
-### 2. 多个流未组合在一起
+##### 2. 多个流未组合在一起
 
 例:
 
@@ -299,7 +313,7 @@ public Mono<Result> handleRequest(Request request){
 
 </div>
 
-### 3. 在不支持响应式的地方使用响应式
+##### 3. 在不支持响应式的地方使用响应式
 
 ```java{6-7}
 public Mono<Result> handleRequest(Request request){
@@ -336,7 +350,7 @@ return service
 
 </div>
 
-## FAQ: 我想获取流中的元素怎么办
+#### 想要获取流中的元素
 
 不要试图从流中获取数据出来，而是先思考需要对流中元素做什么。
 需要对流中的数据进行操作时，都应该使用操作符来处理，根据`Flux或者Mono`提供的操作符API进行组合操作。比如：
@@ -369,7 +383,7 @@ return repository
 
 ```
 
-## FAQ: 我需要在非响应式方法中使用响应式怎么办
+#### 我需要在非响应式方法中使用响应式怎么办
 
 如果需要阻塞获取结果，可以使用`flux.block(timeout)`
 
@@ -395,6 +409,12 @@ public void handleRequest(Request request){
 }
 ```
 
+### 如何调试响应式 
+//todo
+我们在分析传统代码的时候，在哪里打了断点，就能看到直观的调用堆栈，来搞清楚，谁调用了这个代码，之前对参数做了什么修改，等等。但是在响应式编程中，这个问题就很麻烦.
+
+1. 通过打开全局 Operator 堆栈追踪
+   设置reactor.trace.operatorStacktrace这个环境变量为 true，即启动参数中加入 -Dreactor.trace.operatorStacktrace=true，这样启动全局 Operator 堆栈追踪。
 
 ## 相关资料
 
