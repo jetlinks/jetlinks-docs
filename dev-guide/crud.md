@@ -1,5 +1,11 @@
 # 增删改查
+## 概述
 JetLinks 使用<a target='_blank' href='https://github.com/hs-web/hsweb-easy-orm'>hsweb-easyorm</a>实现响应式的ORM。 
+
+## 文档推荐
+
+- <a href="/dev-guide/custom-code-crud.html" target="_blank">自定义模块中使用增删改查</a>
+
 
 ## DAO
 
