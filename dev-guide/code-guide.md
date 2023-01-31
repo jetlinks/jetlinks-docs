@@ -167,7 +167,8 @@
    主动从设备获取属性、事件如何操作？</a>
 - <a target='_self' href='/dev-guide/sort-link.html'>
    短连接、低功耗类设备接入平台 </a>
-- IoT设备身份认证
+- <a target='_self' href='/dev-guide/IoT_device_identity_authentication.html'>
+   IoT设备身份认证</a>
 - 设备真实状态检测
 
 ### 常见问题
