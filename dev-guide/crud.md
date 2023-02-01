@@ -2,11 +2,6 @@
 ## 概述
 JetLinks 使用<a target='_blank' href='https://github.com/hs-web/hsweb-easy-orm'>hsweb-easyorm</a>实现响应式的ORM。 
 
-## 文档推荐
-
-- <a href="/dev-guide/custom-code-crud.html" target="_blank">自定义模块中使用增删改查</a>
-
-
 ## DAO
 
 `easyorm`封装了`r2dbc`实现了动态DDL、DSL动态条件等便捷操作。实现一个增删改查只需要2步。
@@ -219,4 +214,8 @@ public class CompanyDimensionProvider implements DimensionProvider {
     }
 }
 ```
+
+## 文档推荐
+
+- <a href="/dev-guide/custom-code-crud.html" target="_blank">自定义模块中使用增删改查</a>
 

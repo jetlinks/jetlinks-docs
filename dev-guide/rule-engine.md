@@ -1,29 +1,107 @@
-# 自定义规则引擎节点
+# 规则引擎
 
-## 应用场景
+## 概述
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    当规则引擎中的节点没有适合自身系统业务时，可以通过代码自定义规则引擎节点
-</div>
+规则引擎是使用预定义的语义模块编写业务决策。接受数据输入，解释业务规则，并根据业务规则做出业务决策，
+对于处理复杂的事件具有灵活配置和高度定制化的。
+通过规则可以让项目下的设备相互联动，以设备上报数据或者定时器作为触发器并通过一些过滤及计算模块进行业务判断，最终控制其他设备进行联动操作。
+JetLinks平台在此基础上还扩展了一些网络节点，方便开发者使用这些节点订阅外部数据或转发平台内部数据。
+
+
+## 名词说明
+
+<table>
+    <tr>
+        <td>RuleModel(规则模型)</td>
+        <td>由多个RuleNode(规则节点),RuleLink(规则连线)组成</td>
+    </tr>
+     <tr>
+        <td>RuleNode(规则节点)</td>
+        <td>规则节点描述具体执行的逻辑</td>
+    </tr>
+     <tr>
+        <td>RuleLink(规则连线)</td>
+        <td>用于将多个节点连接起来,将上一个节点的输出结果作为下一个节点的输入结果.</td>
+    </tr>
+     <tr>
+        <td>Input(输入)</td>
+        <td>规则节点的数据输入,可以是上游节点的输出数据，也可以是通过自身html配置的数据</td>
+    </tr>
+     <tr>
+        <td>Output(输出)</td>
+        <td>规则节点的数据输出,将数据流向下游节点</td>
+    </tr>
+     <tr>
+        <td>Scheduler(调度器)</td>
+        <td>负责将模型转为任务(Job),并进行任务调度到Worker</td>
+    </tr>
+     <tr>
+        <td>Worker(工作器)</td>
+        <td>负责执行,维护任务.</td>
+    </tr>
+     <tr>
+        <td>ExecutionContext(执行上下文)</td>
+        <td>启动任务时的上下文,通过上下文获取输入输出配置信息等进行任务处理.</td>
+    </tr>
+   <tr>
+        <td>TaskExecutor(任务执行器)</td>
+        <td>具体执行任务逻辑的实现</td>
+    </tr>
+   <tr>
+        <td>TaskExecutorProvider(任务执行器提供商)</td>
+        <td>用于根据模型配置以及上下文创建任务执行器.</td>
+    </tr>
+   <tr>
+        <td>RuleData(规则数据)</td>
+        <td>任务执行过程中的数据实例</td>
+    </tr>
+</table>
+
+## 规则模型数据结构
+
+//todo 结构是否变更查阅代码后修改
+
+```text
+//规则模型
+RuleModel{ 
+    events:[ RuleLink ]     # 事件连接点,用于自定义规则事件的处理规则
+    nodes:[ RuleNodeModel ] # 所有节点信息，包含事件节点
+}
+//节点模型
+RuleNodeModel{
+    executor: ""            # 节点执行器标识
+    configuration: { Map }  # 节点配置
+    events:[ RuleLink ]     # 事件连接点,用于自定义节点事件的处理规则
+    inputs:[ RuleLink ]     # 输入连接点
+    outputs:[ RuleLink ]    # 输出连接点
+}
+//连接点，将2个规则节点关联
+RuleLink{
+    type: ""                # 类型，为事件节点连接时值为对应当事件标识
+    condition: Condition    # 连接条件
+    source: RuleNodeModel   # 连接节点
+    target: RuleNodeModel   # 被连接节点
+}
+//条件
+Condition{
+    type: ""                # 条件类型。如: expression
+    configuration: { Map }  # 条件配置
+}
+```
 
 ## 指导介绍
 
-  <p>1. <a href="/dev-guide/rule-engine.html#自定义节点">创建自定义节点后端代码，实现业务系统自定义节点功能</a> </p>
-  <p>2. <a href="/dev-guide/rule-engine.html#配置自定义节点html">配置自定义节点html</a></p>
-  <p>3. <a href="/dev-guide/rule-engine.html#在平台操作使用自定义节点">在平台操作使用自定义节点</a></p>
-  <p>4. <a href="/dev-guide/rule-engine.html#规则引擎常见名词说明">规则引擎常见名词说明</a></p>
-  <p>5. <a href="/dev-guide/rule-engine.html#自定义节点实现国际化支持">自定义节点实现国际化支持</a></p>
+  <p>1. <a href="/dev-guide/rule-engine.html#自定义规则节点">自定义规则节点</a> </p>
+  <p>2. <a href="/dev-guide/rule-engine.html#配置自定义规则web节点">配置自定义规则web节点</a></p>
+  <p>3. <a href="/dev-guide/rule-engine.html#规则编排使用自定义规则节点">规则编排使用自定义规则节点</a></p>
+  <p>4. <a href="/dev-guide/rule-engine.html#自定义规则节点实现i18n国际化支持">自定义规则节点实现i18n国际化支持</a></p>
 
 ## 问题指引
 
 <table>
 <tr>
     <td><a href="/dev-guide/rule-engine.html#配置完成后规则引擎编辑器内未显示该节点">配置完成后规则引擎编辑器内未显示该节点</a></td>
-    <td><a href="/dev-guide/rule-engine.html#无法取得自定义节点中配置的参数">无法取得自定义节点中配置的参数</a></td>
+    <td><a href="/dev-guide/rule-engine.html#无法取得自定义规则节点中配置的参数">无法取得自定义规则节点中配置的参数</a></td>
 </tr>
 <tr>
    <td><a href="/dev-guide/rule-engine.html#启动自定义规则时提示no-scheduler-for-custom">启动自定义规则时提示no-scheduler-for-custom</a></td>
@@ -31,13 +109,14 @@
 </tr>
 <tr>
    <td><a href="/dev-guide/rule-engine.html#配置了jvm参数-在浏览器中-国际化相关配置不生效">配置了jvm参数-在浏览器中-国际化相关配置不生效</a></td>
+<td></td>
 </tr>
 
 </table>
 
-## 自定义节点
+## 自定义规则节点
 
-1、创建一个类实现接口<code>TaskExecutorProvider</code>,提供自定义节点的任务执行器
+1、创建一个类实现接口<code>TaskExecutorProvider</code>,提供自定义规则节点的任务执行器
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -45,7 +124,7 @@
     <span class='explanation-title font-weight'>说明</span>
   </p>
    <p>需要使用<code>@Component</code>注解将任务执行器的自定义实现类加入容器</p>
-   <p>在任务执行器的自定义实现类中，需要提供一个内部类实现<code>FunctionTaskExecutor</code>,用于执行自定义节点任务</p>
+   <p>在任务执行器的自定义实现类中，需要提供一个内部类实现<code>FunctionTaskExecutor</code>,用于执行自定义规则节点任务</p>
 </div>
 
 ```java
@@ -91,7 +170,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
         //定义节点重新加载时执行的方法
         @Override
         public void reload() {
-          //根据context上下文，获取自定义节点html文件中的id值，get("属性名")：属性名自定义html中的属性名相对应
+          //根据context上下文，获取自定义规则节点html文件中的id值，get("属性名")：属性名自定义html中的属性名相对应
           this.id = (String) getContext().getJob().getConfiguration().get("id");
           this.name = (String) getContext().getJob().getConfiguration().get("name");
         }
@@ -129,7 +208,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
   </tr>
  <tr>
     <td><code>this.id = (String) getContext().getJob().getConfiguration().get("id")</code></td>
-    <td>根据context上下文，获取自定义节点html文件中的id值</td>
+    <td>根据context上下文，获取自定义规则节点html文件中的id值</td>
   </tr>
  <tr>
     <td>RuleData input</td>
@@ -151,7 +230,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 |  contextId |   String   |  上下文ID,在一条数据创建时生成,在传递过程中此ID不变    |
 |  data |   Object   |  真实数据   |
 
-##  配置自定义节点html
+##  配置自定义规则web节点
 
 1、在resources资源路径下<code>rule-engine.editor.common</code>下创建一个<code>2-custom-node.html</code>文件
 
@@ -214,7 +293,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 ```html
 <script type="text/html" data-help-name="custom">
-  <p>自定义节点</p>
+  <p>自定义规则节点</p>
   <p>需要填入id</p>
   <p>需要填入name</p>
 </script>
@@ -228,7 +307,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 
 
-##  在平台操作使用自定义节点
+##  规则编排使用自定义规则节点
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -237,7 +316,7 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
   </p>
     <p>
      以如下图规则模型所示：
-      <p>定时任务(配置cron表达式)--->自定义节点(配置数据)--->reactorQl(订阅自定义节点数据)--->函数(打印日志)</p>
+      <p>定时任务(配置cron表达式)--->自定义规则节点(配置数据)--->reactorQl(订阅自定义规则节点数据)--->函数(打印日志)</p>
     </p>
 </div>
 1、在规则引擎编辑器中放置如下组件
@@ -250,9 +329,9 @@ public class MyCustomExecutorProvider implements TaskExecutorProvider {
 
 ![定时任务配置](./images/custom-cron-config.png)
 
-自定义节点配置
+自定义规则节点配置
 
-![自定义节点配置](./images/custom-node-config.png)
+![自定义规则节点配置](./images/custom-node-config.png)
 
 reactorQL配置
 
@@ -268,59 +347,7 @@ reactorQL配置
 
 ![执行结果](./images/custom-rule-engine-result.png)
 
-
-
-##  规则引擎常见名词说明
-
-<table>
-    <tr>
-        <td>RuleModel(规则模型)</td>
-        <td>由多个RuleNode(规则节点),RuleLink(规则连线)组成</td>
-    </tr>
-     <tr>
-        <td>RuleNode(规则节点)</td>
-        <td>规则节点描述具体执行的逻辑</td>
-    </tr>
-     <tr>
-        <td>RuleLink(规则连线)</td>
-        <td>用于将多个节点连接起来,将上一个节点的输出结果作为下一个节点的输入结果.</td>
-    </tr>
-     <tr>
-        <td>Input(输入)</td>
-        <td>规则节点的数据输入,可以是上游节点的输出数据，也可以是通过自身html配置的数据</td>
-    </tr>
-     <tr>
-        <td>Output(输出)</td>
-        <td>规则节点的数据输出,将数据流向下游节点</td>
-    </tr>
-     <tr>
-        <td>Scheduler(调度器)</td>
-        <td>负责将模型转为任务(Job),并进行任务调度到Worker</td>
-    </tr>
-     <tr>
-        <td>Worker(工作器)</td>
-        <td>负责执行,维护任务.</td>
-    </tr>
-     <tr>
-        <td>ExecutionContext(执行上下文)</td>
-        <td>启动任务时的上下文,通过上下文获取输入输出配置信息等进行任务处理.</td>
-    </tr>
-   <tr>
-        <td>TaskExecutor(任务执行器)</td>
-        <td>具体执行任务逻辑的实现</td>
-    </tr>
-   <tr>
-        <td>TaskExecutorProvider(任务执行器提供商)</td>
-        <td>用于根据模型配置以及上下文创建任务执行器.</td>
-    </tr>
-   <tr>
-        <td>RuleData(规则数据)</td>
-        <td>任务执行过程中的数据实例</td>
-    </tr>
-</table>
-
-
-##  自定义节点实现国际化支持
+##  自定义规则节点实现i18n国际化支持
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -462,7 +489,7 @@ InputStream stream = new ClassPathResource("static/rule-editor/locales/"+Locale.
     <span class='explanation-title font-weight'>问题1</span>
   </p>
     <p>
-        Q：自定义节点配置完成后，规则引擎编辑器内左侧组件中未出现该节点
+        Q：自定义规则节点配置完成后，规则引擎编辑器内左侧组件中未出现该节点
     </p>
     <p>
         A：确认后台代码自定义的类中<code>@EditorResource</code>注解内的<code>id</code>是否与前端页面中的<code>RED.nodes.registerType</code>第一个参数名对应
@@ -470,7 +497,7 @@ InputStream stream = new ClassPathResource("static/rule-editor/locales/"+Locale.
 </div>
 
 
-### 无法取得自定义节点中配置的参数
+### 无法取得自定义规则节点中配置的参数
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -478,7 +505,7 @@ InputStream stream = new ClassPathResource("static/rule-editor/locales/"+Locale.
     <span class='explanation-title font-weight'>问题2</span>
   </p>
     <p>
-        Q：后台无法取得自定义节点中配置的参数
+        Q：后台无法取得自定义规则节点中配置的参数
     </p>
     <p>
         A：首先判断与前端页面中规定的名称是否对的上，再确认前端在进行<code>id</code>绑定时是否添加<code>node-input-</code>的前缀
