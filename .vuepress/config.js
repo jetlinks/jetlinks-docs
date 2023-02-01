@@ -45,6 +45,7 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
+                    ['/dev-guide/pull-code.md', '源码获取'],
                     ['/install-deployment/start-with-source.md', '本地源码启动'],
                     ['/install-deployment/docker-start.md', '使用docker启动'],
                     // ['/install-deployment/ide-docker-start.md', '开发环境最佳实践'],
