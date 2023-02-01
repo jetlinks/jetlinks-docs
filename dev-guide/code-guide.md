@@ -82,7 +82,7 @@
 - <a target='_self' href='/dev-guide/sort-link.html'>
    短连接、低功耗类设备接入平台 </a>
 - <a target='_self' href='/dev-guide/IoT_device_identity_authentication.html'>
-   IoT设备身份认证</a>
+   设备身份认证</a>
 - 设备真实状态检测
 
 ## 数据流转
@@ -92,6 +92,11 @@
 - <a target='_self' href='/dev-guide/subs-platform-message.html'>
    订阅平台相关消息</a>
 - 调用平台历史数据接口
+
+
+
+
+
 
 [//]: # (## 系统压力测试)
 
