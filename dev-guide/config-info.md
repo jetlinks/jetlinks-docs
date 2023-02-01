@@ -533,6 +533,7 @@ hsweb:
 
 ## 配置文件示例
 ```yaml
+# authentication-service目录下的application.yml配置文件
 server:
   port: 8100
   max-http-header-size: 200KB
@@ -739,6 +740,7 @@ captcha:
 
 ## 配置文件示例
 ```yaml
+# file-service目录下的application.yml配置文件
 server:
   port: 8300
   max-http-header-size: 200KB
@@ -851,6 +853,7 @@ file:
 
 ## 配置文件示例
 ```yaml
+# iot-service目录下的application.yml配置文件
 server:
   port: 8200
   max-http-header-size: 200KB
