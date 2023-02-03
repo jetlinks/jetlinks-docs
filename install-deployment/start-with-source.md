@@ -34,22 +34,22 @@
 </tr>
 <tr>
    <td><a href="/install-deployment/start-with-source.html#使用mysql后项目启动报sslhandshakeexception">使用mysql后项目启动报SSLHandshakeException</a></td>
-   <td><a href="/install-deployment/start-with-source.html#使用docker部署es时accessdeniedexception异常">使用docker部署es时accessdeniedexception异常</a></td>
-</tr>
-<tr>
    <td><a href="/install-deployment/start-with-source.html#首次启动时抛出表已存在异常">首次启动时抛出表已存在异常</a></td>
-   <td><a href="/install-deployment/start-with-source.html#启动时抛出noauth-authentication-required">启动时抛出"NOAUTH Authentication required"</a></td>
 </tr>
 <tr>
+   <td><a href="/install-deployment/start-with-source.html#启动时抛出noauth-authentication-required">启动时抛出"NOAUTH Authentication required"</a></td>
    <td><a href="/install-deployment/start-with-source.html#windows运行jar抛出win32exception">windows运行jar抛出win32exception</a></td>
-   <td><a href="/install-deployment/start-with-source.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>
+</tr>
+<tr>
+   <td><a href="/install-deployment/start-with-source.html#启动前端登录后无导航和菜单信息">启动前端登录后无导航和菜单信息</a></td>
+   <td><a href="/install-deployment/start-with-source.html#更多部署问题">更多部署问题</a></td>
 </tr>
 </table>
 
 ## 获取源码
 
 1. 进入<a href='https://gitee.com/jetlinks/jetlinks-community'>Gitee</a>
-2. Star仓库，此处以社区版为例，企业版源码获取移步<a href="/dev-guide/pull-code.html">帮助文档</a>。
+2. Star仓库，此处以社区版为例，企业版源码请移步<a href="/dev-guide/pull-code.html">源码获取</a>。
    ![star.png](./images/star.png)
 3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`2.0`为最新的开发分支.其他分支为对应的版本.
    ![download.png](./images/download.jpg)
@@ -431,35 +431,6 @@ $ mvnw.cmd clean package '-Dmaven.test.skip=true'
   <p>A：关闭mysql的SSL连接认证。在连接地址上加入  <span class='explanation-title font-weight'>问题</span></p>
 </div>
 
-#### 使用docker部署ES时AccessDeniedException异常
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
-  </p>
-
-  <p>Q：docker中启动ES报错：AccessDeniedException: /usr/share/elasticsearch/data/nodes</p>
-
-```bash
-ElasticsearchException[failed to bind service]; nested: AccessDeniedException[/usr/share/elasticsearch/data/nodes];
-Likely root cause: java.nio.file.AccessDeniedException: /usr/share/elasticsearch/data/nodes
-        at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:90)
-        at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
-        at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
-        at java.base/sun.nio.fs.UnixFileSystemProvider.createDirectory(UnixFileSystemProvider.java:396)
-        at java.base/java.nio.file.Files.createDirectory(Files.java:694)
-        at java.base/java.nio.file.Files.createAndCheckIsDirectory(Files.java:801)
-        at java.base/java.nio.file.Files.createDirectories(Files.java:787)
-```
-  <p>A：对ES挂载目录进行授权，命令如下。重启es服务节点和后端应用。</p>
-
-```bash
-sudo chmod 777 -R elasticsearch
-```
-
-</div>
-
 #### 启动时抛出NOAUTH Authentication required
 
 <div class='explanation warning'>
@@ -486,7 +457,7 @@ sudo chmod 777 -R elasticsearch
   <p>A：修改<span class='explanation-title font-weight'>spring.reactor.debug-agent.enabled</span>参数为false。</p>
 </div>
 
-#### 上传协议包抛出无法加载协议异常
+#### 启动前端登录后无导航和菜单信息
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
@@ -494,8 +465,31 @@ sudo chmod 777 -R elasticsearch
     <span class='explanation-title font-weight'>问题</span>
   </p>
 
-  <p>Q：上传协议包抛出无法加载协议异常</p>
-  <p>A: 原因一：目录名称使用中文进行命名！使用中文命名目录，当系统查找协议包时在查找中文目录名称时转义失败，抛出无法加载协议的异常。</p>
-   <p>原因二：协议内未找到主入口类<span class='explanation-title font-weight'>（implements ProtocolSupportProvider的类）</span>。</p>
-
+  <p>Q：启动前端登录后顶部无导航和左侧菜单信息，如下图。</p>
+  <img src="./images/no-menu.png">
+  <p>A：前端编译时使用yarn命令，npm命令下载依赖包时会存在资源无法下载问题。已编译过的需要删除node_modules和package-lock.json文件后再使用yarn命令编译启动</p>
 </div>
+
+
+[//]: # (#### 上传协议包抛出无法加载协议异常)
+
+[//]: # ()
+[//]: # (<div class='explanation warning'>)
+
+[//]: # (  <p class='explanation-title-warp'>)
+
+[//]: # (    <span class='iconfont icon-bangzhu explanation-icon'></span>)
+
+[//]: # (    <span class='explanation-title font-weight'>问题</span>)
+
+[//]: # (  </p>)
+
+[//]: # ()
+[//]: # (  <p>Q：上传协议包抛出无法加载协议异常</p>)
+
+[//]: # (  <p>A: 原因一：目录名称使用中文进行命名！使用中文命名目录，当系统查找协议包时在查找中文目录名称时转义失败，抛出无法加载协议的异常。</p>)
+
+[//]: # (   <p>原因二：协议内未找到主入口类<span class='explanation-title font-weight'>（implements ProtocolSupportProvider的类）</span>。</p>)
+
+[//]: # ()
+[//]: # (</div>)
