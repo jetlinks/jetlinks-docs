@@ -1,5 +1,7 @@
 ## 代码仓库说明
 
+## 概述
+本文档主要是列出平台涉及的单体版和微服务版的代码仓库地址以及平台模块说明和项目的目录结构信息。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -12,10 +14,6 @@
 前端界面分支为`2.0`
 
 </div>
-
-
-
-
 
 ### IOT平台模块说明
 
@@ -96,8 +94,6 @@
 </div>
 
 
-
-
 ### 可视化模块说明
 
 
@@ -111,6 +107,17 @@
 |数据库服务 |<a href="https://github.com/jetlinks-v2/view-database">view-database</a>   |数据库数据源支持  |
 |报表 |<a href="https://github.com/jetlinks-v2/view-report">view-report</a>   |支持报表数据解析  |
 
+### 扩展模块说明
+
+| 模块名称                        | 仓库名称 | 说明                    |
+| ---------------------------- | ------ |  ------------------------- |
+| 阿里云平台接入                   | jetlinks-aliyun-bridge-gateway      | 将平台的设备接入到阿里云，实现设备操控                       |
+| 电信CTWing平台接入            | jetlinks-ctwing     | 接入CTWing平台的设备到本平台                         |
+| 小度平台接入               | jetlinks-dueros      |  使用小度音响控制平台的设备                         |
+| 移动OneNet平台接入              | jetlinks-onenet      |  接入OneNet平台的设备到本平台                         |
+| GBT/28181视频设备接入       | jetlinks-media      |   使用GBT/28181接入视频设备，实现直播、录像、云台控制等                        |
+|  Modbus/TCP           | jetlinks-modbus      |     支持Modbus/TCP协议数采                      |
+| OPC UA            | jetlinks-opc-ua      | 支持OPC UA协议数采                        |
 
 
 ### IOT项目代码结构
