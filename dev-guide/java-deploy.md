@@ -19,9 +19,26 @@
 </tr>
 </table>
 
+## 文档指引
+<table>
+<tr>
+   <td><a href="/dev-guide/java-deploy.html#单机版jar包部署">JetLinks单机版jar包部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#单机版docker在线部署">JetLinks单机版docker在线部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#单机版docker离线部署">JetLinks单机版docker离线部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#单机版集群部署">JetLinks单机版集群部署</a></td>
+
+</tr>
+<tr>
+    <td><a href="/dev-guide/java-deploy.html#微服务版jar包部署">JetLinks微服务版jar包部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#微服务版docker在线部署">JetLinks微服务版docker在线部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#微服务版docker离线部署">JetLinks微服务版docker离线部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#微服务版集群部署">JetLinks微服务版集群部署</a></td>
+</tr>
+</table>
+
 ## JetLinks Pro(单机版)
 
-### 使用jar包部署
+### 单机版jar包部署
 
 #### 配置文件
 
@@ -107,7 +124,7 @@ java -jar jetlinks-standalone.jar --spring.config.location=D:\code\jetlinks-pro\
 ```
 
 
-### 使用docker部署
+### 单机版docker在线部署
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -262,7 +279,7 @@ services:
 docker-compose up -d
 ```
 
-### 使用docker离线部署
+### 单机版docker离线部署
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -346,11 +363,285 @@ docker load -i jetlinks-standalone.tar
 
 使用命令启动项目 `docker-compose up -d`
 
+### 单机版集群部署
+
+1. 拉取`JetLinks pro`源码
+```shell
+ $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
+```
+具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
+
+2. 修改配置文件
+
+ 修改示例可参考<a href="/dev-guide/config-info.html#jetlinks-pro-单机版集群">配置文件示例</a>
+
+3. 构造镜像并推送到镜像仓库
+使用项目根路径下的`build-and-push-docker.sh`脚本来构建、推送镜像，脚本具体内容如下
+```shell
+#!/usr/bin/env bash
+# 这个的镜像仓库地址需要替换为自己的镜像仓库地址
+dockerImage="registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)"
+./mvnw -Dmaven.test.skip=true \
+#以下的子模块若不需要打包可自行删除
+-Pmedia -Pedge -Pctwing -Ponenet -Pdueros -Paliyun-bridge -Popc-ua -Pmodbus \
+-Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")" \
+-Dgit-commit-id="$(git rev-parse HEAD)" \
+-Pmedia -T 12 \
+clean package
+if [ $? -ne 0 ];then
+    echo "构建失败!"
+else
+  cd ./jetlinks-standalone || exit
+  docker build -t "$dockerImage" . && docker push "$dockerImage"
+fi
+```
+4. 检查本地生成的dist和镜像仓库中的dist是否一致
+```shell
+$ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0
+The push refers to repository [registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone]
+187cb63c5a7d: Layer already exists
+29c7de453b8e: Layer already exists
+144903481aa9: Layer already exists
+849ea2764450: Layer already exists
+f49d20b92dc8: Layer already exists
+fe342cfe5c83: Layer already exists
+630e4f1da707: Layer already exists
+9780f6d83e45: Layer already exists
+2.0.0: digest: sha256:43d5c8582793f2b352bebb481c50c731d81701735f880478e6d05061c985ca5e size: 3259
+```
+![java image](./images/java-image.png)
+
+5. 修改docker-compose配置文件
+配置文件在源码`/dist`路径下，详细配置如下
+```yaml
+version: '2'
+services:
+  redis:
+    image: redis:5.0.4
+    container_name: jetlinks-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./data/redis:/data"
+    command: redis-server --appendonly yes --requirepass "JetLinks@redis"
+    environment:
+      - TZ=Asia/Shanghai
+  elasticsearch:
+    image: elasticsearch:6.8.10
+    container_name: jetlinks-elasticsearch
+    environment:
+      ES_JAVA_OPTS: "-Djava.net.preferIPv4Stack=true -Xms2g -Xmx2g"
+      TZ: Asia/Shanghai
+      transport.host: 0.0.0.0
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      discovery.zen.minimum_master_nodes: 1
+      discovery.zen.ping.unicast.hosts: elasticsearch
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+  kibana:
+    image: kibana:6.8.10
+    container_name: jetlinks-kibana
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+  postgres:
+    image: postgres:11-alpine
+    container_name: jetlinks-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./data/postgres:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_PASSWORD: jetlinks
+      POSTGRES_DB: jetlinks
+      TZ: Asia/Shanghai
+  ui:
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+    container_name: jetlinks-pro-ui
+    ports:
+      - 9000:80
+    environment:
+      - "API_BASE_PATH=http://jetlinks:8844/" #API根路径
+    volumes:
+      - "./data/upload:/usr/share/nginx/html/upload"
+    depends_on:
+      - jetlinks
+  jetlinks:
+#    image: registry.cn-shenzhen.aliyuncs.com/jetlinks-pro/jetlinks-standalone:2.0.0-SNAPSHOT
+    image: registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0-SNAPSHOT
+    container_name: jetlinks-pro
+    ports:
+      - 8844:8844 # API端口
+      - 1883:1883 # MQTT端口
+      - 11883:11883 # 通过openAPI使用mqtt订阅平台消息
+      - 8100-8110:8100-8110 # 预留端口
+      - 8200-8210:8200-8210/udp # udp端口
+    volumes:
+      - "./data:/application/data" # 临时保存协议目录
+      - "./data/upload:/application/static/upload"  # 持久化上传的文件
+    environment:
+      - "TZ=Asia/Shanghai"
+#      - "JAVA_OPTS=-Xms4G -Xmx4G -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/application/static/upload/dump.hprof"  # jvm参数，根据情况调整
+      - "hsweb.file.upload.static-location=http://127.0.0.1:9000/upload"  #上传的静态文件访问根地址,为本机的IP或者域名。需要前后端都能访问。
+      - "spring.r2dbc.url=r2dbc:postgresql://postgres:5432/jetlinks" #数据库连接地址
+      - "spring.r2dbc.username=postgres"
+      - "spring.r2dbc.password=jetlinks"
+      - "spring.elasticsearch.uris=elasticsearch:9200"
+      #        - "spring.elasticsearch.username=admin"
+      #        - "spring.elasticsearch.password=admin"
+      - "spring.reactor.debug-agent.enabled=false" #设置为false能提升性能
+      - "spring.redis.host=redis"
+      - "spring.redis.port=6379"
+      - "spring.redis.password=JetLinks@redis"
+      - "logging.level.io.r2dbc=warn"
+      - "logging.level.org.springframework.data=warn"
+      - "logging.level.org.springframework=warn"
+      - "logging.level.org.jetlinks=warn"
+      - "logging.level.org.hswebframework=warn"
+      - "logging.level.org.springframework.data.r2dbc.connectionfactory=warn"
+    links:
+      - redis:redis
+      - postgres:postgres
+      - elasticsearch:elasticsearch
+    depends_on:
+      - elasticsearch
+      - postgres
+      - redis
+```
+常见修改说明
+
+| 标识名                         | 更改示例                                                                               | 说明               |
+|-----------------------------|------------------------------------------------------------------------------------|------------------|
+| jetlinks.image              | registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0-SNAPSHOT | 镜像仓库地址请自行更换      |
+| jetlinks.environment        | - "hsweb.file.upload.static-location=http://192.168.66.171:9000/upload"            | 换为后端部署服务器的ipv4地址 |
+
+7. 将docker-compose配置文件分别上传到每台服务器
+8. 使用`docker-compose up -d`命令创建并启动容器
+9. 验证是否启动成功`docker ps -a`
+
+STATUS为up为容器启动成功，STATUS为Exited为容器启动失败
+```shell
+$ docker ps -a
+CONTAINER ID   IMAGE                                                                                COMMAND                  CREATED          STATUS        
+               PORTS                                                                                                                NAMES
+f303fc2fbd67   registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0-SNAPSHOT   "./docker-entrypoint…"   23 seconds ago   Up 16 seconds 
+               0.0.0.0:1883->1883/tcp, 0.0.0.0:8100-8110->8100-8110/tcp, 0.0.0.0:8845->8845/tcp, 0.0.0.0:8200-8210->8200-8210/udp   jetlinks-pro
+4e883fed1d0d   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0                     "/docker-entrypoint.…"   4 days ago       Up 7 minutes  
+               0.0.0.0:9000->80/tcp                                                                                                 jetlinks-pro-ui
+84a9379e3944   kibana:7.17.3                                                                        "/bin/tini -- /usr/l…"   3 weeks ago      Up 8 minutes  
+               0.0.0.0:5601->5601/tcp                                                                                               jetlinks-kibana      
+6366d9063dd0   elasticsearch:7.17.3                                                                 "/bin/tini -- /usr/l…"   3 weeks ago      Up 7 minutes  
+               0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp                                                                       jetlinks-elasticsearch
+7bc603f1e897   postgres:11-alpine                                                                   "docker-entrypoint.s…"   6 weeks ago      Up 7 minutes  
+               0.0.0.0:5432->5432/tcp                                                                                               jetlinks-postgres       
+4bdba77584ce   redis:5.0.4                                                                          "docker-entrypoint.s…"   2 months ago     Up 7 minutes  
+               0.0.0.0:6379->6379/tcp                                                                                               jetlinks-redis
+```
+
+容器启动失败示例如下
+```shell
+c0ac281c2877   registry.cn-hangzhou.aliyuncs.com/synbop/emqttd:2.3.6          "/opt/emqttd/start.sh"   4 days ago       Exited (137) 2days ago        emq                                         
+```
+11. 配置nginx.conf文件，示例如下
+```yaml
+events {
+    worker_connections  1024;
+}
+
+http {
+# api接口服务(后端)
+upstream apiserver {
+    server 192.168.66.171:8844;
+    server 192.168.66.177:8844
+    server 192.168.66.178:8844
+}
+
+# 前端服务
+upstream webserver {
+  server 192.168.66.171:9000;
+}
+
+# 文件服务
+upstream fileserver {
+  server 192.168.66.171:8844;
+}
+
+server {
+
+  listen       8080;
+  server_name  localhost;
+
+  location ^~/upload/ {
+    proxy_pass http://fileserver;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  location ^~/jetlinks/file/static {
+    proxy_pass http://fileserver/file/static;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_send_timeout      30m;
+    proxy_read_timeout      30m;
+    client_max_body_size    100m;
+  }
+
+  location ^~/jetlinks/ {
+    proxy_pass http://apiserver/;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_connect_timeout   1;
+    proxy_buffering off;
+    chunked_transfer_encoding off;
+    proxy_cache off;
+    proxy_send_timeout      30m;
+    proxy_read_timeout      30m;
+    client_max_body_size    100m;
+  }
+
+  location / {
+    proxy_pass http://webserver/;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+}
+```
+
+12. 启动nginx
+```shell
+whereis nginx #查询nginx文件夹具体位置
+cd ./usr/local/sbin #切换到sbin目录下
+./nginx #启动nginx
+```
+
+13. 验证是否集群成功
+
+在网络组件-独立配置下拉框中是否有两个节点，有则说明配置成功
+
 
 
 ## JetLinks Cloud(微服务版)
 
-### 使用jar包部署
+### 微服务版jar包部署
 
 1. 修改配置文件
 ```yaml
@@ -458,7 +749,7 @@ java -jar jetlinks-applicatione.jar --spring.config.location=D:\code\jetlinks-cl
 ```
 
 
-### 使用docker部署
+### 微服务版docker在线部署
 
 1. 登录到阿里云仓库
 ```shell
@@ -591,7 +882,7 @@ cd ./micro-services/
 docker-compose up -d
 ```
 
-### 使用docker离线部署
+### 微服务版docker离线部署
 在根目录创建镜像打包脚本build-docker.sh，脚本内容如下
 ```shell
 #!/usr/bin/env bash
@@ -708,6 +999,135 @@ services:
 
 使用命令启动项目 `docker-compose up -d`
 
+### 微服务版集群部署
+
+1. 拉取`JetLinks Cloud`源码
+```shell
+ $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
+```
+具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
+
+2. 修改配置文件
+
+修改示例可参考<a href="/dev-guide/config-info.html#jetlinks-pro-单机版集群">配置文件示例</a>
+
+3. 构造镜像并推送到镜像仓库
+   使用项目根路径下的`build-and-push-docker.sh`脚本来构建、推送镜像，脚本具体内容如下
+```shell
+#!/usr/bin/env bash
+servers="$1"
+if [ -z "$servers" ]||[ "$servers" = "all" ];then
+servers="api-gateway-service,authentication-service,iot-service,file-service"
+fi
+
+IFS=","
+arr=($a)
+
+version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+echo "start build : $servers : $version"
+## 使用maven打包
+./mvnw -Dmaven.test.skip=true \
+-Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")" \
+-Dgit-commit-id="$(git rev-parse HEAD)" \
+-Pmedia -T 12 \
+clean package
+if [ $? -ne 0 ];then
+    echo "构建失败!"
+else
+
+#四个微服务分别构建镜像并推送到仓库
+for s in ${servers}
+do
+ cd "./micro-services/${s}" || exit
+ dockerImage="registry.cn-hangzhou.aliyuncs.com/jetlinks-ljs/$s:$version"
+ echo "build $s docker image $dockerImage"
+ docker build -t "$dockerImage" . && docker push "$dockerImage"
+ cd ../../
+done
+fi
+```
+4. 检查本地生成的dist和镜像仓库中的dist是否一致
+
+2. 配置nginx.config文件
+```yaml
+events {
+    worker_connections  1024;
+}
+
+http {
+# api接口服务(后端)
+upstream apiserver {
+    server 192.168.66.171:8800;
+    server 192.168.66.177:8800;
+}
+
+# 前端服务
+upstream webserver {
+  server 192.168.66.171:9000;
+}
+
+# 文件服务
+upstream fileserver {
+  server 192.168.66.171:8800;
+}
+
+server {
+
+  listen       8080;
+  server_name  localhost;
+
+  location ^~/upload/ {
+    proxy_pass http://fileserver;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  location ^~/jetlinks/file/static {
+    proxy_pass http://fileserver/file/static;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_send_timeout      30m;
+    proxy_read_timeout      30m;
+    client_max_body_size    100m;
+  }
+
+  location ^~/jetlinks/ {
+    proxy_pass http://apiserver/;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_connect_timeout   1;
+    proxy_buffering off;
+    chunked_transfer_encoding off;
+    proxy_cache off;
+    proxy_send_timeout      30m;
+    proxy_read_timeout      30m;
+    client_max_body_size    100m;
+  }
+
+  location / {
+    proxy_pass http://webserver/;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP  $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+}
+```
+6. 启动nginx
+```shell
+whereis nginx #查询nginx文件夹具体位置
+cd ./usr/local/sbin #切换到sbin目录下
+./nginx #启动nginx
+```
+
 ## 常见问题
 
 ### 打包命令导致打包出错
@@ -760,4 +1180,20 @@ java.lang.TypeNotPresentException: Type org.springframework.boot.maven.Repackage
 选中JetLinks-pro项目，修改整个项目换行符：
 ![java-docker-error](./images/config-LF.png)
 
+### 权限管理中权限数据不完整
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题4</span>
+  </p>
+执行打包命令时出现下面的错误，是因为打包命令不正确导致的，请检查打包命令和文档是否一致
+</div>
 
+### 点击登录按钮无法进入首页，跳转到登录页面
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题5</span>
+  </p>
+解决: 检查每个节点、每个服务是否连接的同一个redis服务，redis服务是否持久化成功。
+</div>
