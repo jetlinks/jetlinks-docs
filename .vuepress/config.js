@@ -109,6 +109,7 @@ module.exports = {
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children:[
                     ['/Best_practices/Device_access.md', '设备接入'],
+                    //['/Best_practices/data-parse.md', '数据解析'],
                     ['/Best_practices/Scene_linkage.md', '场景联动'],
                     ['/Best_practices/Alarm_Center.md', '告警中心'],
                     // ['/Best_practices/Rule_engine.md', '规则引擎'],
