@@ -40,18 +40,16 @@
    <td><a href="/install-deployment/start-with-source.html#启动时抛出noauth-authentication-required">启动时抛出"NOAUTH Authentication required"</a></td>
    <td><a href="/install-deployment/start-with-source.html#windows运行jar抛出win32exception">windows运行jar抛出win32exception</a></td>
 </tr>
-
-[//]: # (<tr>)
-
-[//]: # (   <td><a href="/install-deployment/start-with-source.html#上传协议包抛出无法加载协议异常">上传协议包抛出无法加载协议异常</a></td>)
-
-[//]: # (</tr>)
+<tr>
+   <td><a href="/install-deployment/start-with-source.html#启动前端登录后无导航和菜单信息">启动前端登录后无导航和菜单信息</a></td>
+   <td><a href="/install-deployment/start-with-source.html#更多部署问题">更多部署问题</a></td>
+</tr>
 </table>
 
 ## 获取源码
 
 1. 进入<a href='https://gitee.com/jetlinks/jetlinks-community'>Gitee</a>
-2. Star仓库，此处以社区版为例，企业版源码获取移步<a href="/dev-guide/pull-code.html">帮助文档</a>。
+2. Star仓库，此处以社区版为例，企业版源码请移步<a href="/dev-guide/pull-code.html">源码获取</a>。
    ![star.png](./images/star.png)
 3. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`2.0`为最新的开发分支.其他分支为对应的版本.
    ![download.png](./images/download.jpg)
@@ -458,6 +456,20 @@ $ mvnw.cmd clean package '-Dmaven.test.skip=true'
    <img src="./images/win32exception.png">
   <p>A：修改<span class='explanation-title font-weight'>spring.reactor.debug-agent.enabled</span>参数为false。</p>
 </div>
+
+#### 启动前端登录后无导航和菜单信息
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+
+  <p>Q：启动前端登录后顶部无导航和左侧菜单信息，如下图。</p>
+  <img src="./images/no-menu.png">
+  <p>A：前端编译时使用yarn命令，npm命令下载依赖包时会存在资源无法下载问题。已编译过的需要删除node_modules和package-lock.json文件后再使用yarn命令编译启动</p>
+</div>
+
 
 [//]: # (#### 上传协议包抛出无法加载协议异常)
 
