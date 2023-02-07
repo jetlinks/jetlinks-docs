@@ -1,8 +1,18 @@
 # 配置文件说明
 
-## JetLinks Pro(单机版)
+## 文档指引
+<table>
+<tr>
+   <td><a href="/dev-guide/config-info.html#jetlinks-pro配置文件示例">JetLinks-Pro配置文件示例</a></td>
+    <td><a href="/dev-guide/config-info.html#jetlinks-cloud配置文件示例">JetLinks-Cloud配置文件示例</a></td>
 
-### 配置文件示例
+</tr>
+</table>
+
+
+## JetLinks-Pro配置文件示例
+
+配置文件地址:`jetlinks-standalone/src/main/resources/application.yml`
 ```yaml
 server:
   port: 8844
@@ -379,7 +389,7 @@ network:
 | springdoc.swagger-ui.packages-to-scan | - org.jetlinks.pro.device                                                            | 扫描更多接口可在此处配置                     |
 | network.resources                     | - 7000-7100                                                                          | 预留更多端口可在此处配置                     |
 
-## JetLinks Pro(单机版集群)
+## JetLinks-Pro集群
 
 ### 配置文件示例
 ```yaml
@@ -771,18 +781,20 @@ network:
 | clickhouse.enabled                    | ture                                                                                 | 开启clickhouse                     |
 | clickhouse.restful.url                | http://192.168.66.171:8123                                                           | clickhouse所在服务器的ipv4地址           |
 | hswb.file.upload.static-location      | http://192.168.66.171:8844/upload                                                    | jetlinks所在服务器的ipv4地址及jetlinks端口号 |
-| jetlinks.server-id                    | master${spring.application.name}:${server.port}                                      | 要求每个节点的server-id不一致              |
+| jetlinks.server-id                    | master${spring.application.name}: ${server.port}                                     | 要求每个节点的server-id不一致              |
 | jetlinks.cluster.seeds                | - 192.168.66.171:18844 </br>  - 192.168.66.177:18844  </br>  - 192.168.66.178:18844  | 配置每台服务器的ipv4地址和集群端口              |
 | logging.level.org.jetlinks            | warn                                                                                 | 修改日志级别可在此处配置                     |
 | springdoc.swagger-ui.packages-to-scan | - org.jetlinks.pro.device                                                            | 扫描更多接口可在此处配置                     |
 | network.resources                     | - 7000-7100                                                                          | 预留更多端口可在此处配置                     |
 
 
-## JetLinks Pro(微服务版)
+## JetLinks-Cloud配置文件示例
 
-### 配置文件示例
+### api-gateway-service服务
+配置文件所在路径下:
+
+`jetlinks-cloud\micro-services\api-gateway-service\src\main\resources\application.yml`
 ```yaml
-# api-gateway-service目录下的application.yml配置文件
 server:
   port: 8800
   max-http-header-size: 100KB
@@ -919,13 +931,13 @@ hsweb:
 |----------------------------------------|------------------------------------------------------------------------------|----------------------------------|
 | server.url                             | http://192.168.66.171: ${server.port}                                        | 微服务部署服务器的ipv4地址                  |
 | spring.cloud.gateway.routes.predicates | /edge/**                                                                     | 若需要扩展模块，需要在此处填写此模块的接口路径          |
-| jetlinks.server-id                     | master${spring.application.name\}\:\$\{server.port}                          | 若需要集群部署，则需要保证每个微服务的service-id不一致 |
+| jetlinks.server-id                     | master${spring.application.name\}: ${server.port}                            | 若需要集群部署，则需要保证每个微服务的service-id不一致 |
 | jetlinks.cluster.external-host         | 192.168.66.171                                                               | 微服务部署服务器的ipv4地址                  |
 | jetlinks.cluster.seeds                 | 192.168.66.171:18800 </br>  192.168.66.177:18800 </br>  192.168.66.178:18800 | 每个微服务部署服务器的ipv4地址和集群节点端口         |
 
-## 配置文件示例
+### authentication-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\authentication-service\src\main\resources\application.yml`
 ```yaml
-# authentication-service目录下的application.yml配置文件
 server:
   port: 8100
   max-http-header-size: 200KB
@@ -1130,7 +1142,8 @@ captcha:
 
 
 
-## 配置文件示例
+## file-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\file-service\src\main\resources\application.yml`
 ```yaml
 # file-service目录下的application.yml配置文件
 server:
@@ -1239,13 +1252,13 @@ file:
 | easyprm.default-schema            | jetlinks                                                                             | 改为mysql数据库名              |
 | easyprm.dialect                   | mysql                                                                                | mysql数据库方言，固定值           |
 | hsweb.file.upload.static-location | http://192.168.66.171: ${server.port}/upload                                         | 微服务部署服务器的ipv4地址及端口号      |
-| jetlinks.server-id                | master${spring.application.name\}\:\$\{server.port}                                  | 与api服务参数保持一致             |
+| jetlinks.server-id                | master${spring.application.name\}: ${server.port}                                    | 与api服务参数保持一致             |
 | jetlinks.cluster.external-host    | 192.168.66.171                                                                       | 与api服务参数保持一致             |
 | jetlinks.cluster.seeds            | 192.168.66.171:18800 </br>  192.168.66.177:18800 </br>  192.168.66.178:18800         | 与api服务参数保持一致             |
 
-## 配置文件示例
+## iot-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\iot-service\src\main\resources\application.yml`
 ```yaml
-# iot-service目录下的application.yml配置文件
 server:
   port: 8200
   max-http-header-size: 200KB
@@ -1551,66 +1564,3 @@ trace:
 | network.resources                     | - 7000-7100                                                                          | 预留更多端口可在此处配置                     |
 
 
-```java
-//此处将具体代码实现放入
-//1.对关键部分代码进行步骤梳理及注释说明
-//2.对核心部分代码用醒目的文字进行说明，说明内容包括但不限于设计思想、设计模式等
-```
-
-#### 核心类说明
-
-| 类名 | 方法名 | 返回值 | 说明 |
-|----------------| -------------------------- |--------|---------------------------|-------------------|
-| DeviceOperator | getSelfConfig() |`Mono<Value>` | 从缓存中获取设备自身的配置，如果不存在则返回`Mono.empty()`|
-
-#### 常见问题
-
-*对开发过程中出现的问题进行总结*
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
-
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-
-  <li>产品在正常状态时，按钮显示为禁用；产品在启用状态时，按钮显示为启用。</li>
-  <li>产品禁用后，设备无法再接入。但不影响已经接入的设备。</li>
-
-</div>
-
-<div class='explanation error'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>危险</span>
-  </p>
-
-
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-
-</div>
-
-<div class='explanation info'>
-  <p class='explanation-title-warp'> 
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>提示</span>
-  </p>
-若设备限制数量不能满足您的业务需求，请
-<a>提交工单</a>
-说明您的需求。
-</div>

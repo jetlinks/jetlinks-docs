@@ -25,7 +25,7 @@
 | 小度平台接入               | <a href="https://github.com/jetlinks-v2/jetlinks-dueros">jetlinks-dueros</a>      |  使用小度音响控制平台的设备                         |
 | 移动OneNet平台接入              | <a href="https://github.com/jetlinks-v2/jetlinks-onenet">jetlinks-onenet</a>      |  接入OneNet平台的设备到本平台                         |
 | GBT/28181视频设备接入       | <a href="https://github.com/jetlinks-v2/jetlinks-media">jetlinks-media</a>      |   使用GBT/28181接入视频设备，实现直播、录像、云台控制等                        |
-|  Modbus/TCP           | <a href="https://github.com/jetlinks-v2/jetlinks-modbus">jetlinks-modbus</a>      |     支持Modbus/TCP协议数采                      |
+| Modbus/TCP           | <a href="https://github.com/jetlinks-v2/jetlinks-modbus">jetlinks-modbus</a>      |     支持Modbus/TCP协议数采                      |
 | OPC UA            | <a href="https://github.com/jetlinks-v2/jetlinks-opc-ua">jetlinks-opc-ua</a>      | 支持OPC UA协议数采                        |
 | 组件库                   | <a href="https://github.com/jetlinks-v2/jetlinks-components">jetlinks-components</a>      | 组件库,容纳JetLinks众多组件功能                   |
 | api组件            | <a href="https://github.com/jetlinks-v2/jetlinks-components/tree/master/api-component">api-component</a>      | 提供第三方平台访问API基础支持                       |

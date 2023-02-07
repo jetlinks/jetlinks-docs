@@ -10,11 +10,14 @@
 | ---------------------------- | ------ |  -------------------------  |
 | ElasticSearch-行式存储        | ✅      |  ✅                         |
 | ElasticSearch-列式存储        | ✅      |  ✅                         |
+| TDEngine-行式存储             | ✅      |  ✅                         |
 | TDEngine-列式存储             | ✅      |  ✅                         |
 | InfluxDB-行式存储             | ✅      |  ⭕                         |
 | InfluxDB-列式存储             | ✅      |  ⭕                         |
 | ClickHouse-行式存储           | ✅      |  ⭕                        |
-| ClickHouse-行式存储           | ✅      |  ⭕                         |
+| ClickHouse-列式存储           | ✅      |  ⭕                         |
+| Cassandra-行式存储           | ✅      |  ⭕                        |
+| Cassandra-列式存储           | ✅      |  ⭕                         |
 
 ## 存储策略说明
 
@@ -328,7 +331,7 @@ jetlinks:
     <span class='explanation-title font-weight'>警告</span>
   </p>
 
-开启后，设备的属性、事件的最新值将记录到表`dev_lsg_{productId}`中。主键`id`为设备ID。
+开启后，设备的属性、事件的最新值将记录到表`dev_lst_{productId}`中。主键`id`为设备ID。
 开启此功能可能降低系统的吞吐量。频繁写入数据库会加大IO的负荷。
 
 </div>
