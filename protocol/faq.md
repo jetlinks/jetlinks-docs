@@ -1,5 +1,6 @@
 # 协议开发常见问题
 
+
 ## 如何在协议包中获取spring中的bean
 
 注意,协议包中的类`不支持`spring自动注入,可以通过从`ServiceContext`中获取bean,如:

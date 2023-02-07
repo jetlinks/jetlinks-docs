@@ -2,6 +2,17 @@
 ## 基础配置
 对系统的名称、风格、登录页、LOGO等基础信息进行维护管理。</br>
 
+
+| 配置项     | 说明   |  
+| --------   | -----  | 
+| 系统名称      | 此项数据值将展示到系统左上角   |   
+| 主题色        |   此项数据值将会修改系统主题色   |   
+| 高德API key        | 正确的填写此项值后，系统将会展示与高德地图相关的功能，如设备地理位置    |
+| base-path        | 前端访问服务端数据接口的地址。格式：{http/https}: //{前端所在服务器IP地址}:{前端暴露的服务端口}/api    | 
+| 系统logo        | 此项数据值将作为系统logo展示    |  
+| 浏览器页签        | 此项数据值将作浏览器中物联网平台窗口的页签展示    | 
+| 登陆背景图        | 此项数据值讲作为系统登录的背景图    |
+
 #### 基础信息配置
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -37,6 +48,50 @@
   <li>点击角色组织右侧的添加icon，将会在浏览器打开新tab页，添加完成后将自动关闭对应的tab页，并将添加的信息回填到当前页的下拉框中。</li>
   <li>用户具有多个角色时，拥有多个角色权限的并集。</li>
 </div>
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>姓名</td>
+            <td>为用户命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>用户名</td>
+            <td>设置账号的用户名信息，该字段将用于登录系统。用户名在系统内具有唯一性。</td>
+          </tr>
+          <tr>
+            <td>密码</td>
+            <td>密码不低于8位，最多64位；密码必须包含大小写字母+数字。</td>
+          </tr>
+          <tr>
+            <td>确认密码</td>
+            <td>再次输入密码，2次输入的密码必须一致。</td>
+          </tr>
+          <tr>
+            <td>角色</td>
+            <td>为当前用户账号绑定角色，系统将基于角色进行菜单权限分配，非必填。</td>
+          </tr>
+          <tr>
+            <td>组织</td>
+            <td>为当前用户账号绑定组织，系统将基于组织进行数据权限分配。非必填。</td>
+          </tr>
+           <tr>
+            <td>手机号</td>
+            <td>填写该用户的手机号信息，非必填。</td>
+          </tr>
+           <tr>
+            <td>邮箱</td>
+            <td>填写该用户的邮箱信息，非必填。</td>
+          </tr>
+          </tbody>
+</table>
+
 
 
 #### 编辑
@@ -116,9 +171,9 @@
 
 ##### 后续步骤
 1.资产解绑</br>
-勾选需要解绑的资产数据或点击具体资产的解绑按钮，可进行**批量解绑**或**单个解绑**。</br>
+勾选需要解绑的资产数据或点击具体资产的**解绑**按钮，可进行**批量解绑**或**单个解绑**。</br>
 2.编辑资产权限</br>
-点击具体资产的**编辑**按钮，在弹框页面编辑资产数据权限。</br>
+勾选需要解绑的资产数据或点击具体资产的**编辑**按钮，可进行**批量编辑**或**单个编辑**。</br>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -152,13 +207,35 @@
 4.点击具体角色的**编辑**按钮，进入详情页，勾选所需的菜单、操作、数据权限，然后点击**保存**。</br>
 ![](./img/162.png)
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为角色命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>说明</td>
+            <td>角色备注说明信息，非必填。</td>
+          </tr>
+          <tr>
+            <td>权限分配</td>
+            <td>为角色分配菜单、操作、数据权限。
+            <div class='explanation info no-border'>
     <span class='explanation-title font-weight'>说明</span>
-  </p>
+    <ul>
 勾选父菜单会自动关联勾选下属子菜单，以及子菜单中的所有操作权限。数据权限默认是选择<span style='font-weight:600'>自己创建的</span>数据。
-</div>
+    </ul>
+  </div>
+            </td>
+          </tr>
+          </tbody>
+</table>
 
 ##### 后续步骤
 1.绑定用户</br>
@@ -206,8 +283,74 @@
 菜单的数据权限由后端代码控制，若后端代码不支持数据权限，即使前端页面配置为支持数据权限也无法生效。
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为菜单命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>编码</td>
+            <td>菜单唯一编码。</td>
+          </tr>
+          <tr>
+            <td>页面地址</td>
+            <td>菜单对应的页面路由地址。</td>
+          </tr>
+          <tr>
+            <td>排序</td>
+            <td>菜单排序，展示时将按照升序排列。</td>
+          </tr>
+         <tr>
+            <td>权限配置</td>
+            <td>配置菜单的操作权限、数据权限。
+            <li>不支持：菜单内的数据不支持权限隔离，拥有菜单权限即可查看菜单页面内的所有数据。</li>
+            <li>支持：菜单内的数据支持权限隔离，可基于组织实现数据隔离。</li>
+            <li>间接控制：此菜单内的数据基于其他菜单的数据权限控制。</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
 4.（可选操作）点击切换至**按钮管理**tab，点击**新增**按钮，在弹框页面填写按钮权限信息，然后点击**保存**。</br>
 ![](./img/167.png)
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为按钮命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>编码</td>
+            <td>菜单内按钮的唯一编码。
+                        <div class='explanation info no-border'>
+    <span class='explanation-title font-weight'>说明</span>
+    <ul>
+按钮是一个抽象概念，可以基于实际业务以及代码的实际情况，将tab页权限以按钮权限的方式进行配置。
+    </ul>
+  </div>
+            </td>
+          </tr>
+          <tr>
+            <td>权限</td>
+            <td>为菜单内的按钮分配操作权限。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 菜单配置
 ##### 操作步骤
@@ -265,6 +408,29 @@
 标识必须与代码中的标识ID一致，否则配置将不生效。
 </div>
 
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>标识</td>
+            <td>权限控制唯一标识，系统内具有唯一性。标识必须与代码中的标识ID一致，否则配置将不生效。</td>
+          </tr>
+          <tr>
+            <td>名称</td>
+            <td>为权限命名，最多可输入64个字符。
+            </td>
+          </tr>
+          <tr>
+            <td>操作类型</td>
+            <td>定义权限中的具体操作类型。填写时需与代码中定义的操作类型一致。</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 导入
 ##### 操作步骤
@@ -313,6 +479,48 @@
 
 </div>
 
+#### 名称解释
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>应用</td>
+            <td>
+            <li>内部独立应用</li>
+            内部独立应用适用于将官方开发的其他应用与物联网平台相互集成，例如将可视化平台集成至物联网平台，或者将物联网平台集成至可视化平台。以实现多处访问、集中管控的业务场景。
+             <li>内部集成应用</li>
+            内部集成应用适用于将官方开发的其他应用与物联网平台相互集成，例如将可视化平台集成至物联网平台，或者将物联网平台集成至可视化平台。以实现多处访问、集中管控的业务场景。
+            <li>微信网站应用</li>
+            适用于通过微信账户登录jetlinks物联网平台。
+           <li>钉钉企业内部应用</li>
+           适用于通过钉钉账户登录jetlinks物联网平台。
+           <li>第三方应用</li>
+           适用于第三方应用与物联网平台相互集成。例如将公司业务管理系统集成至物联网平台，或者将物联网平台集成至业务管理系统。以实现多处访问、集中管控的业务场景。
+            </td>
+          </tr>
+          <tr>
+            <td>接入方式</td>
+            <td>
+            <li>页面集成</li>
+            将其他应用系统的页面集成至jetlinks物联网平台。集成时通常需要配置API服务。（内部集成时无需配置）
+            <li>API客户端</li>
+            将jetlinks物联网平台作为客户端集成到其他应用系统中，其他应用系统可通过Oauth2的方式访问物联网平台。
+             <li>API服务</li>
+             将jetlinks物联网API能力提供给其他应用，其他应用可通过接口的方式直接使用API能力。
+             <li>单点登录</li>
+             使用第三方应用账户登录jetlinks物联网平台。
+            </td>
+          </tr>
+             </tbody>
+        </table>
+
+### 内部独立应用
 #### 新增
 ##### 操作步骤
 1.**登录**Jetlinks物联网平台。</br>
@@ -320,19 +528,150 @@
 ![](./img/174.png)
 3.点击**新增**按钮，进入详情页，选择应用类型，基于类型填写相关配置项，然后点击**确定**。</br>
 ![](./img/175.png)
+
+##### 页面集成
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接入地址</td>
+            <td>访问其它平台的前端页面的地址</td>
+          </tr>
+           <tr>
+            <td>路由方式</td>
+            <td><li>hash：使用URL的hash来模拟一个完整的URL, 其显示的网络路径中会有 “#” 号</li>
+            <li>history：路径中不包含“#”。依赖于Html5 的 history api</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API客户端
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接口地址</td>
+            <td>访问API服务的地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/api</td>
+          </tr>
+          <tr>
+            <td>授权地址</td>
+            <td>认证授权地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/#/oauth</td>
+          </tr>
+            <tr>
+            <td>token地址</td>
+            <td>设置token令牌的地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/api/oauth2/token</td>
+          </tr>
+          <tr>
+            <td>回调地址</td>
+            <td>授权完成后跳转到具体页面的回调地址。{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}</td>
+          </tr>
+          <tr>
+            <td>appid</td>
+            <td>应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>appKey</td>
+            <td>应用唯一标识的密钥</td>
+          </tr>
+           <tr>
+            <td>请求头</td>
+            <td>根据不同应用的调用规范，自定义请求头内容</td>
+          </tr>
+           <tr>
+            <td>参数</td>
+            <td>根据不同应用的调用规范，自定义请求参数</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API服务
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>appid</td>
+            <td>应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>secureKey</td>
+            <td>应用唯一标识匹配的秘钥</td>
+          </tr>
+          <tr>
+            <td>回调地址</td>
+            <td>授权完成后跳转到API客户端页面的回调地址。格式：{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}</td>
+          </tr>
+          <tr>
+            <td>角色</td>
+            <td>为应用用户分配角色，根据绑定的角色，进行系统菜单赋权</td>
+          </tr>
+          <tr>
+            <td>组织</td>
+            <td>为应用用户配所属组织，根据绑定的组织，进行数据隔离</td>
+          </tr>
+        </tbody>
+      </table>
+
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-第三方应用的API服务中，APPId和secureKey需要提供给客户端开发者。 
+第三方应用的API服务中，Appid和secureKey需要提供给客户端开发者。 同时系统将自动新增一个第三方平台类型的用户，APPid为用户名，secureKey为密码。
 </div>
 
 ##### 后续操作
-1.当应用的接入方式勾选了**API服务**时，可以对该应用进行API赋权操作。鼠标移入**其他**按钮，点击隐藏的**赋权**按钮，进入赋权页面，勾选对应的API权限，然后点击**保存**。
+1.当应用的接入方式勾选了**API服务**时，可以对该应用进行API赋权操作。鼠标移入应用列表卡片的**其他**按钮，点击隐藏的**赋权**按钮，进入赋权页面，勾选对应的API权限，然后点击**保存**。
 ![](./img/176.png)
 2.当应用的接入方式勾选了**API服务**时，可查看该应用的API权限。鼠标移入**其他**按钮，点击隐藏的**查看API**按钮，进入详情页面。</br>
-3.当应用的接入方式勾选了**页面集成**时，可以对该应用进行集成菜单配置。鼠标移入**其他**按钮，点击隐藏的**集成菜单**按钮，在弹框页中，勾选对应的API权限，然后点击**保存**。</br>
+3.当应用的接入方式勾选了**页面集成**时，可以对该应用进行集成菜单配置。鼠标移入**其他**按钮，点击隐藏的**集成菜单**按钮，在弹框页中，勾选需要集成的菜单，然后点击**保存**。</br>
+
+##### 单点登录
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>授权地址</td>
+            <td>oauth2授权地址。格式：{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/#/oauth</td>
+          </tr>
+          <tr>
+            <td>回调地址</td>
+            <td>授权完成后跳转到具体页面的回调地址。{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}</td>
+          </tr>
+           <tr>
+            <td>appid</td>
+            <td>应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>appKey</td>
+            <td>应用唯一标识的密钥</td>
+          </tr>
+           <tr>
+            <td>自动创建用户</td>
+            <td>第三方用户第一次授权登录系统时，无需进入授权绑定页面。系统默认创建一个新用户与之绑定</td>
+          </tr>
+        </tbody>
+      </table>
 
 #### 编辑
 ##### 操作步骤
@@ -340,7 +679,6 @@
 2.点击顶部**系统管理**，在左侧导航栏，选择**应用管理**，进入列表页。</br>
 3.点击具体数据的**编辑**按钮，在页面中编辑应用信息，然后点击**确定**。</br>
 ![](./img/177.png)
-
 
 #### 启用/禁用
 ##### 操作步骤
@@ -355,6 +693,336 @@
 2.点击顶部**系统管理**，在左侧导航栏，选择**第三方平台**，进入列表页。</br>
 3.点击具体第三方平台的**删除**按钮，然后点击**确定**
 ![](./img/180.png)
+
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>注意</span>
+  </p>
+
+删除接入方式包含API服务类型的应用时，将同步删除用户管理菜单中对应的用户；删除用户管理菜单中的第三方平台用户时，将同步删除与之关联的应用。
+
+</div>
+
+
+### 内部集成应用
+#### 新增
+##### 操作步骤
+1.**登录**Jetlinks物联网平台。</br>
+2.点击顶部**系统管理**，在左侧导航栏，选择**应用管理**，进入列表页。</br>
+![](./img/174.png)
+3.点击**新增**按钮，进入详情页，选择应用类型，基于类型填写相关配置项，然后点击**确定**。</br>
+![](./img/nbjc.png)
+
+##### 页面集成
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接入地址</td>
+            <td>访问其它平台的前端页面的地址</td>
+          </tr>
+           <tr>
+            <td>路由方式</td>
+            <td><li>hash：使用URL的hash来模拟一个完整的URL, 其显示的网络路径中会有 “#” 号</li>
+            <li>history：路径中不包含“#”。依赖于Html5 的 history api</li>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API客户端
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接口地址</td>
+            <td>访问API服务的地址。格式{http/https}://{JetLinks前端所在服务器IP地址}:{JetLinks前端暴露的服务端口}/api</td>
+          </tr>
+        </tbody>
+      </table>
+
+#### 编辑
+参见**内部独立应用**的编辑逻辑。
+#### 启用/禁用
+参见**内部独立应用**的启用/禁用逻辑
+#### 删除
+参见**内部独立应用**的删除逻辑
+
+
+### 微信网站应用
+#### 新增
+##### 操作步骤
+1.**登录**Jetlinks物联网平台。</br>
+2.点击顶部**系统管理**，在左侧导航栏，选择**应用管理**，进入列表页。</br>
+![](./img/174.png)
+3.点击**新增**按钮，进入详情页，选择应用类型，基于类型填写相关配置项，然后点击**确定**。</br>
+![](./img/wxwz.png)
+
+##### 单点登录
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>appid</td>
+            <td>应用的唯一标识</td>
+          </tr>
+          <tr>
+            <td>appSecret</td>
+            <td>应用唯一标识的秘钥</td>
+          </tr>
+           <tr>
+            <td>自动创建用户</td>
+            <td>第三方用户第一次授权登录系统时，无需进入授权绑定页面。系统默认创建一个新用户与之绑定</td>
+          </tr>
+        </tbody>
+      </table>
+
+#### 编辑
+参见**内部独立应用**的编辑逻辑。
+#### 启用/禁用
+参见**内部独立应用**的启用/禁用逻辑
+#### 删除
+参见**内部独立应用**的删除逻辑
+
+
+### 钉钉企业内部应用
+#### 新增
+##### 操作步骤
+1.**登录**Jetlinks物联网平台。</br>
+2.点击顶部**系统管理**，在左侧导航栏，选择**应用管理**，进入列表页。</br>
+![](./img/174.png)
+3.点击**新增**按钮，进入详情页，选择应用类型，基于类型填写相关配置项，然后点击**确定**。</br>
+![](./img/dd.png)
+
+##### 单点登录
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>appid</td>
+            <td>应用的唯一标识</td>
+          </tr>
+          <tr>
+            <td>appSecret</td>
+            <td>应用唯一标识的秘钥</td>
+          </tr>
+           <tr>
+            <td>自动创建用户</td>
+            <td>第三方用户第一次授权登录系统时，无需进入授权绑定页面。系统默认创建一个新用户与之绑定</td>
+          </tr>
+        </tbody>
+      </table>
+
+#### 编辑
+参见**内部独立应用**的编辑逻辑。
+#### 启用/禁用
+参见**内部独立应用**的启用/禁用逻辑
+#### 删除
+参见**内部独立应用**的删除逻辑
+
+### 第三方应用
+#### 新增
+##### 操作步骤
+1.**登录**Jetlinks物联网平台。</br>
+2.点击顶部**系统管理**，在左侧导航栏，选择**应用管理**，进入列表页。</br>
+![](./img/174.png)
+3.点击**新增**按钮，进入详情页，选择应用类型，基于类型填写相关配置项，然后点击**确定**。</br>
+![](./img/dsf.png)
+
+##### 页面集成
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接入地址</td>
+            <td>访问其它平台的前端页面的地址</td>
+          </tr>
+           <tr>
+            <td>路由方式</td>
+            <td><li>hash：使用URL的hash来模拟一个完整的URL, 其显示的网络路径中会有 “#” 号</li>
+            <li>history：路径中不包含“#”。依赖于Html5 的 history api</li>
+            </td>
+          </tr>
+           <tr>
+            <td>参数</td>
+            <td>根据不同应用的调用规范，自定义请求参数</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API客户端
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>接口地址</td>
+            <td>访问第三方平台接口的地址</td>
+          </tr>
+          <tr>
+            <td>认证方式</td>
+            <td>配置身份认证方式，现支持Oauth2</td>
+          </tr>
+            <tr>
+            <td>授权地址</td>
+            <td>认证授权地址</td>
+          </tr>
+          <tr>
+            <td>请求方式</td>
+            <td>配置请求方式</td>
+          </tr>
+          <tr>
+            <td>client_id</td>
+            <td>应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>client_secret</td>
+            <td>应用唯一标识的密钥</td>
+          </tr>
+           <tr>
+            <td>请求头</td>
+            <td>根据不同应用的调用规范，自定义请求头内容</td>
+          </tr>
+           <tr>
+            <td>参数</td>
+            <td>根据不同应用的调用规范，自定义请求参数</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### API服务
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>appid</td>
+            <td>第三方应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>secureKey</td>
+            <td>第三方应用唯一标识匹配的秘钥</td>
+          </tr>
+          <tr>
+            <td>角色</td>
+            <td>为应用用户分配角色，根据绑定的角色，进行系统菜单赋权</td>
+          </tr>
+          <tr>
+            <td>组织</td>
+            <td>为应用用户配所属组织，根据绑定的组织，进行数据隔离</td>
+          </tr>
+           <tr>
+            <td>redirectUrl</td>
+            <td>授权完成后跳转到API客户端页面的回调地址</td>
+          </tr>
+           <tr>
+            <td>IP白名单</td>
+            <td>白名单中的客户端可访问API服务</td>
+          </tr>
+        </tbody>
+      </table>
+
+##### 单点登录
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+           <tr>
+            <td>认证方式</td>
+            <td>配置身份认证方式，现支持Oauth2</td>
+          </tr>
+           <tr>
+            <td>scope</td>
+            <td>限制用户访问应用程序的权限</td>
+          </tr>
+           <tr>
+            <td>client_id</td>
+            <td>应用唯一标识</td>
+          </tr>
+          <tr>
+            <td>client_secret</td>
+            <td>应用唯一标识的密钥</td>
+          </tr>
+           <tr>
+            <td>授权地址</td>
+            <td>oauth2授权地址</td>
+          </tr>
+           <tr>
+            <td>token地址</td>
+            <td>设置token令牌的地址</td>
+          </tr>
+           <tr>
+            <td>logo</td>
+            <td>设置第三方应用的logo，不配置时使用系统默认logo</td>
+          </tr>
+           <tr>
+            <td>用户信息地址</td>
+            <td>设置获取用户信息的地址</td>
+          </tr>
+           <tr>
+            <td>用户ID</td>
+            <td>填写从用户信息接口返回数据中的用户ID字段，示例:result.id</td>
+          </tr>
+           <tr>
+            <td>用户名</td>
+            <td>填写从用户信息接口返回数据中的用户名字段，示例:result.name</td>
+          </tr>
+           <tr>
+            <td>头像</td>
+            <td>填写从用户信息接口返回数据中的头像字段，示例:result.avatar</td>
+          </tr>
+           <tr>
+            <td>自动创建用户</td>
+            <td>第三方用户第一次授权登录系统时，无需进入授权绑定页面。系统默认创建一个新用户与之绑定</td>
+          </tr>
+        </tbody>
+      </table>
+
+#### 编辑
+参见**内部独立应用**的编辑逻辑。
+#### 启用/禁用
+参见**内部独立应用**的启用/禁用逻辑
+#### 删除
+参见**内部独立应用**的删除逻辑
+
 
 ## 关系配置
 自定义系统内，各类数据资产之间的**关系**。该关系可用于系统其他功能进行调用，例如设备与用户的关系可用于场景联动引用。
@@ -407,7 +1075,7 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-禁用状态下，管理按钮不可点击。
+禁用状态下，管理按钮不可点击。RabbitMQ类型暂不支持管理功能。
 </div>
 
 #### 启用/禁用

@@ -336,8 +336,8 @@ type为complete时标识本此订阅已结束，通常是订阅有限数据流�
 
 ### 订阅设备消息
 
-与消息网关中的设备topic一致，<a href='../device_message_description.md#设备消息对应事件总线topic'>查看topic列表</a>。
-消息负载(`payload`)将与<a href='../device_message_description.md#平台统一设备消息定义'>设备消息类型</a>一致。
+与消息网关中的设备topic一致,[查看topic列表](/function-description/device_message_description.md#设备消息对应事件总线topic)。
+消息负载(`payload`)将与,[设备消息类型](/function-description/device_message_description.md#设备消息对应事件总线topic)一致。
 
 ### 发送设备指令
 
@@ -595,8 +595,8 @@ messaging:
 
 ### 订阅设备消息
 
-与消息网关中的设备topic一致，<a href='../device_message_description.md#设备消息对应事件总线topic'>查看topic列表</a>。
-消息负载(`payload`)将与<a href='../device_message_description.md#平台统一设备消息定义'>设备消息类型</a>一致。
+与消息网关中的设备topic一致,[查看topic列表](/function-description/device_message_description.md#设备消息对应事件总线topic)。
+消息负载(`payload`)将与,[设备消息类型](/function-description/device_message_description.md#设备消息对应事件总线topic)一致。
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>

@@ -329,6 +329,6 @@ rpcManager.registerService(apiImpl);
 ```java
  return rpcManager
     // 获取所有节点，也可以获取一个节点，具体参照RpcManager源码    
-    .getServices(ApiImpl.class)
+    .getServices(Api.class)
     .flatMap(serivce -> serivce.service().doSomething());
 ```
