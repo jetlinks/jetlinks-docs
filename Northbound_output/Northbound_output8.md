@@ -3,6 +3,7 @@
 北向输出功能用于将平台的**设备**以及**设备上报数据**，通过可视化配置的方式，**北向**输出给其他系统。</br>
 
 ## DuerOS
+将平台的设备以及设备上报数据北向输出到DuerOS平台，以实现DuerOS平台可以控制物联网平台的设备。例如小度音响可以通过DuerOS平台对物联网平台中的设备进行语音控制。
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -43,7 +44,7 @@
           </tr>
           <tr>
             <td>动作</td>
-            <td>DuerOS根据设备类型，拟定的动作。</td>
+            <td>DuerOS平台根据设备类型，规定的具体动作。</td>
           </tr>
          <tr>
             <td>操作</td>
@@ -63,6 +64,8 @@
           </tr>
         </tbody>
       </table>
+
+<!-- 将物联网平台数据北向输出到DuerOS平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br> -->
 
 #### 编辑
 ##### 操作步骤
@@ -94,7 +97,7 @@
 
 
 ## 阿里云
-
+将平台的设备以及设备上报数据北向输出到阿里云物联网平台，以实现阿里云物联网平台可以控制JetLinks物联网平台中的设备。
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
@@ -158,6 +161,8 @@
         </tbody>
       </table>
 
+<!-- 将物联网平台数据北向输出到阿里云物联网平台，需分别在物联网平台、DuerOS平台进行配置，详细的操作步骤，请参见：[最佳实践-北向输出](../Best_practices/Northbound_output.md)。</br> -->
+
 ##### 后续步骤
 1.进入**设备实例信息**页面，填写阿里云桥接入配置，建立平台设备与与阿里云设备的映射关系。
 ![](./img/115.png)
@@ -166,7 +171,7 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-  设备所属产品与阿里云平台产品映射后，平台产品所属设备的实例信息页面将新增阿里云桥接入配置。
+  设备所属产品与阿里云平台产品映射后，平台产品下属设备的实例信息页面将新增阿里云桥接入配置。
 </div>
 
 #### 编辑 

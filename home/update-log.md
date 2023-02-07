@@ -76,11 +76,13 @@ network:
 14. 优化集群通信性能,增加`FluxCluster`支持(集群下对`Flux`进行窗口计算等).(Pro)
 15. 增加持久化缓冲工具,数据持久化到本地.用于批量写库,失败重试等操作,减少写入速度不够时的内存占用.(Pro)
 16. 增加断路器`CircuitBreaker`功能,减少由于配置错误或者数据变化导致一些动态逻辑大量错误引起系统崩溃的可能性.(Pro)
-17. 新增系统初始化配置功能.
-18. 新增API开放范围可视化配置.
-19. 新增第三方登录功能.
-20. 优化[基础配置](/Personal_Center/Personal_Center.html#基础配置)。添加背景图、页签、base-path和高德地图API Key的设置.
-21. 新增[应用管理](/Personal_Center/Personal_Center.html#应用管理)功能。支持提供平台API接口服务给第三应用；集成第三方应用到本平台；提供SSO单点登陆；OAuth2认证
+17. 新增系统初始化配置功能。
+18. 新增API开放范围可视化配置。
+19. 新增第三方登录功能。
+20. 优化[基础配置](/Personal_Center/Personal_Center.html#基础配置)。添加背景图、页签、base-path和高德地图API Key的设置。
+21. 新增[应用管理](/Personal_Center/Personal_Center.html#应用管理)功能。支持提供平台API接口服务给第三应用；集成第三方应用到本平台；提供SSO单点登陆；OAuth2认证。(Pro)
+22. 新增MODBUS/TCP数采支持。(Pro)
+23. 新增熔断、降频处理机制。(Pro)
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>

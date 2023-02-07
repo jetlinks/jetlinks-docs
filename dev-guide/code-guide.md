@@ -23,6 +23,8 @@
    中间件部署</a>
 - <a target='_self' href='/dev-guide/java-deploy.html'>
    后端部署</a>
+- <a target='_self' href='/dev-guide/colony-deploy.html'>
+   集群部署</a>
 
 ## 开发
 
