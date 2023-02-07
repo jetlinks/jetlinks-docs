@@ -6,7 +6,9 @@ JetLinks 基于java8，spring-boot 2.7，webflux，netty，vert.x等开发，
 平台提供的业务功能可以满足70%~80%左右的通用场景功能，但仍难满足用户所有的需求，因此为了解决部分场景不足的问题，
 平台支持用户自行在现有代码基础上进行二次开发。本章节介绍如何在JetLinks上构建自己的业务系统或者基于JetLinks做开发。
 
-## 使用说明
+## 先决条件
+
+假设您已经能掌握Java基础、Maven使用、lamda表达式、响应式编程等基础。
 
 <div class='explanation info'>
   <p class='explanation-title-warp'>
@@ -16,7 +18,40 @@ JetLinks 基于java8，spring-boot 2.7，webflux，netty，vert.x等开发，
 
   <p>由于JetLinks是持续迭代的项目，对于早期版本1.13及以前的版本不再进行bug维护，建议升级至最新版本。</p>
   <p>如1.x版本建议更新至最新1.20版本，2.0版本则建议更新至最新的代码。</p>
-
+ <p class='explanation-title font-weight'>补充：关于JetLinks代码分支信息</p>
+  <table>
+    <thead>
+    <td></td>
+    <td>版本</td>
+    <td>分支</td>
+    </thead>
+    <tr>
+    <td>后端2.0</td>
+    <td>2.0</td>
+    <td>全部模块:master分支</td>
+    </tr>
+    <tr>
+    <td>后端1.20</td>
+    <td>1.20</td>
+    <td>jetlinks-pro:develop-1.20分支、jetlinks-standalone:develop_1.20分支，其余子模块:master分支</td>
+    </tr>
+    <tr>
+    <td>后端1.20以前</td>
+    <td>1.x</td>
+    <td>全部模块:1.x分支</td>
+    </tr>
+    <tr>
+    <td>前端2.0</td>
+    <td>2.0</td>
+    <td>2.0分支</td>
+    </tr>
+   <tr>
+    <td>前端1.x</td>
+    <td>1.x</td>
+    <td>master分支</td>
+    </tr>
+</table>
+    
 </div>
 
 
@@ -72,7 +107,6 @@ JetLinks 基于java8，spring-boot 2.7，webflux，netty，vert.x等开发，
           </tr>
         </tbody>
       </table>
-
 
 [//]: # (## 配置)
 

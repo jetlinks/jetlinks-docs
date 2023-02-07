@@ -1,4 +1,4 @@
-# 订阅平台相关消息
+# 订阅平台内部消息
 
 ## 应用场景
 
@@ -194,36 +194,36 @@ websocket发送消息，格式为：
 </div>
 
 
-#### 可订阅的相关主题
+#### 平台内部主题
 
-| 匹配Topic                                                    | 说明                                                 |
-| ------------------------------------------------------------ | ---------------------------------------------------- |
-| `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
-| `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
-| `/alarm/*/*/*`                                               | <a href='#device-alarm'>告警相关消息</a>             |
-| `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
+| 匹配Topic                                                    | 说明                                           |
+| ------------------------------------------------------------ | ---------------------------------------------- |
+| `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试消息</a>             |
+| `/dashboard/**`                                              | <a href='#dashboard'>仪表盘消息</a>           |
+| `/alarm/*/*/*`                                               | <a href='#device-alarm'>告警消息</a>         |
+| `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>        |
 | `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
-| `/debug/device/*/trace`                                      | <a href='#device-debug-trace'>设备诊断消息</a>       |
-| `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
-| `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a>      |
-| `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>           |
-| `/virtual-property-debug`                                    | <a href='#virtual-property'>虚拟属性调试</a>         |
-| `/network/http/client/*/_send`<br>`/network/http/server/*/_subscribe` | <a href='#http'>HTTP调试</a>                         |
-| `/network/mqtt/client/*/_subscribe/*`<br>`/network/mqtt/client/*/_publish/*` | <a href='#mqtt-client'>MQTT客户端调试</a>            |
-| `/network/mqtt/server/*/_subscribe/*`                        | <a href='#mqtt-server'>MQTT服务调试</a>              |
-| `/notifications`                                             | <a href='#notifications'>通知推送</a>                |
-| `/rule-engine/**`                                            | <a href='#rule-engine'>规则引擎</a>                  |
-| `/scene/*`                                                   | <a href='#scene'>场景联动事件</a>                    |
-| `/network/simulator/**`                                      | <a href='#simulator'>模拟器消息订阅</a>              |
-| `/network/tcp/client/*/_send`<br>`/network/tcp/client/*/_subscribe` | <a href='#tcp-client'>TCP客户端调试</a>              |
-| `/network/tcp/server/*/_subscribe`                           | <a href='#tcp-server'>TCP服务调试</a>                |
-| `/network/udp/*/_send`<br>`/network/udp/*/_subscribe`        | <a href='#udp'>UDP调试</a>                           |
-| `/network/websocket/client/*/_subscribe/*`<br>`/network/websocket/client/*/_publish/*` | <a href='#websocket-client'>WebSocket客户端调试</a>  |
-| `/network/websocket/server/*/_subscribe`                     | <a href='#websocket-server'>WebSocket服务调试</a>    |
+| `/debug/device/*/trace`                                      | <a href='#device-debug-trace'>设备诊断消息</a> |
+| `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>      |
+| `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a> |
+| `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>     |
+| `/virtual-property-debug`                                    | <a href='#virtual-property'>虚拟属性调试</a>   |
+| `/network/http/client/*/_send`<br>`/network/http/server/*/_subscribe` | <a href='#http'>HTTP调试</a>                   |
+| `/network/mqtt/client/*/_subscribe/*`<br>`/network/mqtt/client/*/_publish/*` | <a href='#mqtt-client'>MQTT客户端调试</a>      |
+| `/network/mqtt/server/*/_subscribe/*`                        | <a href='#mqtt-server'>MQTT服务调试</a>        |
+| `/notifications`                                             | <a href='#notifications'>通知推送</a>          |
+| `/rule-engine/**`                                            | <a href='#rule-engine'>规则引擎</a>            |
+| `/scene/*`                                                   | <a href='#scene'>场景联动事件</a>              |
+| `/network/simulator/**`                                      | <a href='#simulator'>模拟器消息订阅</a>         |
+| `/network/tcp/client/*/_send`<br>`/network/tcp/client/*/_subscribe` | <a href='#tcp-client'>TCP客户端调试</a>        |
+| `/network/tcp/server/*/_subscribe`                           | <a href='#tcp-server'>TCP服务调试</a>          |
+| `/network/udp/*/_send`<br>`/network/udp/*/_subscribe`        | <a href='#udp'>UDP调试</a>                     |
+| `/network/websocket/client/*/_subscribe/*`<br>`/network/websocket/client/*/_publish/*` | <a href='#websocket-client'>WebSocket客户端调试</a> |
+| `/network/websocket/server/*/_subscribe`                     | <a href='#websocket-server'>WebSocket服务调试</a> |
 
 <br>
 
-#### <font id='coap'>订阅CoAP调试相关消息</font>
+#### <font id='coap'>订阅CoAP调试消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -267,7 +267,7 @@ websocket发送消息，格式为：
 
 
 
-#### <font id='dashboard'>订阅仪表盘相关消息</font>
+#### <font id='dashboard'>订阅仪表盘消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -326,7 +326,7 @@ websocket发送消息，格式为：
 ![MQTT订阅dashboard数据](./images/mqtt-sub-dashboard.png)
 
 
-#### <font id='device-alarm'>订阅告警相关消息</font>
+#### <font id='device-alarm'>订阅告警消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -334,7 +334,7 @@ websocket发送消息，格式为：
     <span class='explanation-title font-weight'>说明</span>
   </p>
     <p>
-        告警相关消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
+        告警消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
     </p>
 </div>
 
@@ -946,7 +946,7 @@ websocket发送消息，格式为：
 
 
 
-#### <font id='rule-engine'>订阅规则引擎执行相关消息</font>
+#### <font id='rule-engine'>订阅规则引擎执行消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
