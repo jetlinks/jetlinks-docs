@@ -15,7 +15,7 @@ reactor `debug-agent` 会在reactor调用链中添加追踪信息,可能会影�
 
 ## 关闭最新数据存储
 
-在企业版中,开启了[设备最新数据存储](http://doc.jetlinks.cn/best-practices/start.html#%E8%AE%B0%E5%BD%95%E8%AE%BE%E5%A4%87%E6%9C%80%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93)时,会将设备数据写到关系型数据库.
+在企业版中,开启了<a href='http://doc.jetlinks.cn/best-practices/start.html#%E8%AE%B0%E5%BD%95%E8%AE%BE%E5%A4%87%E6%9C%80%E6%96%B0%E6%95%B0%E6%8D%AE%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93'>设备最新数据存储</a>时,会将设备数据写到关系型数据库.
 此功能使用场景: 通过最新数据来关联查询设备相关的数据比如: 查询温度大于40度的设备列表.
 如果没有场景使用最新数据,可以关闭此功能:`jetlinks.device.storage.enable-last-data-in-db=false`.
 
@@ -39,5 +39,5 @@ reactor `debug-agent` 会在reactor调用链中添加追踪信息,可能会影�
 在运行过程中,发生内存溢出,或者cpu过高时. 
 1. 查看日志是否有大量的日志输出,如果有,根据日志内容来分析.
 2. 使用`jps`命令查看进程`pid`,执行`jstack -l [pid]`.查看是否有被`BLOCKED`,或者调用栈比较长的线程,根据调用栈分析对应的代码.
-3. 使用`async profiler`或者[Arthas](https://arthas.aliyun.com/doc/profiler.html?highlight=profiler)来收集火焰图,分析调用栈耗时情况.
+3. 使用`async profiler`或者<a href='https://arthas.aliyun.com/doc/profiler.html?highlight=profiler'>Arthas</a>来收集火焰图,分析调用栈耗时情况.
    在本地可以使用`Idea`提供的`Profiler`来监控.

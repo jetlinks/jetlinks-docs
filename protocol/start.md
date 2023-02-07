@@ -17,10 +17,20 @@
 
 ## 调用流程
 
-::: tip 提示
-<b style='color:#3399cc'>蓝色背景</b>表示协议包在整个流程中的角色
-:::
+
 设备上报数据到平台流程
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+
+<b style='color:#3399cc'>蓝色背景</b>表示协议包在整个流程中的角色
+
+</div>
+
+
+
 
 ![设备上报数据流程](./img/decode-flow.svg)
 
