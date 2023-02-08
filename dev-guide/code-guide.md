@@ -38,10 +38,9 @@
 ### 平台开发
 - <a target="" href="/dev-guide/crud.html">关系型数据库增删改查</a>
 - 自定义SQL条件或使用源生SQL语句
-- 事件驱动及消息总线f
-- 规则引擎说明
-- 平台核心类及接口说明
-- 集群管理
+- <a href="/dev-guide/event-driver.html">事件驱动及消息总线</a>
+- <a href="/dev-guide/rule-engine.html">规则引擎说明</a>
+- <a href="/dev-guide/commons-api.html">平台核心类及接口说明</a>
 - 集群管理
 - <a target='_self' href='/dev-guide/custom-code-guide.html'>
    在JetLinks上构建自己的业务模块？</a>

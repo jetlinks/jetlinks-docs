@@ -2,6 +2,19 @@
 
 在JetLinks中大量使用到事件驱动来实现功能解耦。主要由`Spring Event`和`事件总线(EventBus)`组成。
 
+## 文档指引
+
+<table>
+  <tr>
+    <td><a href="/dev-guide/event-driver.html#spring-event">Spring Event</a></td>
+    <td><a href="/dev-guide/event-driver.html#eventbus">EventBus</a></td>
+  </tr>
+  <tr>
+    <td><a target="_blank" href="/dev-guide/event-driver.html#spring-event">使用Spring Event解耦逻辑</a></td>
+    <td><a target="_blank" href="/dev-guide/custom-use-eventbus.html">使用EventBus解耦逻辑</a></td>
+  </tr>
+</table>
+
 ## Spring Event
 
 直接使用`spring-framework`的事件模型，通过`ApplicationEventPublisher`来发送事件，在方法上注解`@EventListener`来监听事件。
@@ -168,24 +181,44 @@ public Mono<Void> saveUser(UserEntity entity){
 
 ```
 
-### 设备消息
+### 设备消息及平台其他消息
  
- 详情参照<a href='/function-description/device_message_description.html#设备消息对应事件总线topic'>设备消息对应事件总线topic</a>
+设备消息参照<a target="_blank" href='/function-description/device_message_description.html#设备消息对应事件总线topic'>设备消息对应事件总线topic</a>，
+其他消息参照<a target="_blank" href='/dev-guide/subs-platform-message.html#平台内部主题'>平台内部主题</a>。
+
+
 
 ### 设备告警
 
 在配置了设备告警规则，设备发生告警时，会发送消息到消息总线。
 
-```js
-`/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`
+topic格式：`/alarm/{targetType}/{targetId}/{alarmId}`
 
+示例：`/alarm/product/1614931310716686336/1614934749509095424`
+
+订阅正文格式:
+```json
 {
-  "productId":"",
-  "alarmId":"",
-  "alarmName":"",
-  "deviceId":"",
-  "deviceName":"",
-  "...":"其他从规则中获取到到信息"
+    "alarmConfigId": "1614934749509095424",//告警配置id
+    "alarmConfigName": "设备告警",//告警配置名
+    //告警具体信息
+    "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
+    "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
+    "alarmTime": 1674884438091,//告警发生时间
+    "bindings": [
+      {
+        "id": "1199596756811550720",
+        "type": "user"
+      }
+    ],
+    "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
+    "level": 1,//告警等级
+    "sourceId": "1614931520184422400",//设备id
+    "sourceName": "场景联动设备",//设备名
+    "sourceType": "device",//源类型，此处为设备
+    "targetId": "1614931310716686336",//目标id:产品id
+    "targetName": "场景联动产品",//产品名
+    "targetType": "product"//目标类型:产品
 }
 ```
 
@@ -193,20 +226,24 @@ public Mono<Void> saveUser(UserEntity entity){
 
 topic格式：`/logging/system/{logger名称,.替换为/}/{level}`。
 
-```js
-`/logging/system/org/jetlinks/pro/TestService/{level}`
+示例：`/logging/system/org/jetlinks/pro/TestService/{level}`
+
+订阅正文格式:
+```json
+
 
 {
-"name":"org.jetlinks.pro.TestService", //logger名称
-"threadName":"线程名称",
-"level":"日志级别",
-"className":"产生日志的类名",
-"methodName":"产生日志的方法名",
-"lineNumber"：32,//行号
-"message":"日志内容",
-"exceptionStack":"异常栈信息",
-"createTime":"日志时间",
-"context":{} //上下文信息
+  "name": "org.jetlinks.pro.TestService",
+  "threadName": "线程名称",  //logger名称
+  "level": "日志级别",
+  "className": "产生日志的类名",
+  "methodName": "产生日志的方法名",
+  "lineNumber": 32,         //行号
+  "message": "日志内容",
+  "exceptionStack": "异常栈信息",
+  "createTime": "日志时间",
+  "context": {}           //上下文信息
+
 }
 
 ```

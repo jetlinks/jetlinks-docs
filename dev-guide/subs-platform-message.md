@@ -1,4 +1,4 @@
-# 订阅平台相关消息
+# 订阅平台内部消息
 
 ## 应用场景
 
@@ -194,7 +194,7 @@ websocket发送消息，格式为：
 </div>
 
 
-#### 可订阅的相关主题
+#### 平台内部主题
 
 | 匹配Topic                                                    | 说明                                                 |
 | ------------------------------------------------------------ | ---------------------------------------------------- |
@@ -462,7 +462,7 @@ websocket发送消息，格式为：
 
 
 
-#### <font id='dashboard'>订阅仪表盘相关消息</font>
+#### <font id='dashboard'>订阅仪表盘消息</font>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -843,7 +843,6 @@ websocket发送消息，格式为：
     </p>
 </div>
 
-
 订阅HTTP服务
 
 使用websocket订阅
@@ -911,7 +910,6 @@ websocket发送消息，格式为：
         订阅此主题的消息分为订阅时的消息和推送时的消息两部分，当<code>{pubsub}</code>为<code>_subscribe</code>时是订阅该id对应的组件在订阅时产生的消息，否则为<code>{_publish}</code>发布时产生的消息。<code>{id}</code>为MQTT客户端组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
     </p>
 </div>
-
 
 订阅时的消息
 
@@ -989,7 +987,6 @@ websocket发送消息，格式为：
        <code>{id}</code>为MQTT服务组件的id，<code>{type}</code>类型可以选择为<code>JSON</code>、<code>BINARY</code>、<code>STRING</code>、<code>HEX</code>
     </p>
 </div>
-
 使用websocket订阅
 
 
@@ -1025,7 +1022,6 @@ websocket发送消息，格式为：
         订阅此主题的消息分为TCP发送和接收两个部分的消息，<code>{id}</code>为TCP客户端组件的id，<code>{type}</code>类型可以选择为<code>_send</code>或<code>_subscribe</code>
     </p>
 </div>
-
 
 ```json
 "topic": "/network/tcp/client/{id}/{type}"
@@ -1091,7 +1087,6 @@ websocket发送消息，格式为：
     </p>
 </div>
 
-
 ```json
 "topic": "/network/tcp/server/{id}/_subscribe"
 ```
@@ -1131,7 +1126,6 @@ websocket发送消息，格式为：
         订阅此主题的消息分为UDP发送和接收两个部分的消息，<code>{id}</code>为UDP组件的id，<code>{type}</code>类型可以选择为<code>_send</code>或<code>_subscribe</code>
     </p>
 </div>
-
 订阅接收到的消息
 
 使用websocket订阅
