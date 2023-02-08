@@ -2,14 +2,7 @@
 
 ## 概述
 
-<div class='explanation info'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-  <p>JetLinks平台在开发初期约定了以下的开发规范、数据库设计规范以及用户界面设计原则。</p>
-</div>
+JetLinks平台在开发初期约定了以下的开发规范、数据库设计规范以及用户界面设计原则。
 
    
 ## 平台规范
