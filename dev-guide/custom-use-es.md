@@ -1,4 +1,4 @@
-# 自定义模块如何使用elasticsearch
+# 自定义模块使用elasticsearch
 
 ## 指导介绍
 
