@@ -1,4 +1,4 @@
-# 自定义模块如何引入使用redis缓存
+# 自定义模块使用redis缓存
 
 ## 指导介绍
   <p>1. <a href="/dev-guide/custom-use-redis.html#在pom文件中引入redis相关依赖">在pom文件中引入redis相关依赖</a></p>

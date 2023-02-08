@@ -1,4 +1,4 @@
-# 自定义模块如何使用事件驱动
+# 自定义模块使用事件驱动
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
@@ -60,10 +60,6 @@ Spring事件监听，也叫事件驱动,是观察者模式的一种实现，主�
 @Setter
 @Builder
 @ToString
-public class CustomSpringEvent extends DefaultAsyncEvent {
-    private String eventName;
-    private String eventInfo;
-}
 public class CustomSpringEvent extends DefaultAsyncEvent {
     private String eventName;
     private String eventInfo;
