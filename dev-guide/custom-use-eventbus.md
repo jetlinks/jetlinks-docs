@@ -25,7 +25,7 @@
 
 ##  引入平台eventBus
 
-### 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
+ 在`web`的`org.example.mydemo.web.CustomController`中引入eventBus
 
 ```java
     //引入消息总线
@@ -35,7 +35,7 @@
 
 ##  使用平台eventBus
 
-### 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
+ 1.在`web`的`org.example.mydemo.web.CustomController`中新建方法,使用eventBus发布数据
 ```java
      /**
      * 新增数据，新增成功后通过事件总线发布事件消息，向es新增一条记录
@@ -57,7 +57,7 @@
 
 ```
 
-### 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
+ 2.在自定义的`mydemo`下，新建`org.example.mydemo.event.CustomEventHandler`类，在`consumeMessage()`方法中，使用`eventBus`实现订阅
 
 
 ```java
@@ -102,7 +102,7 @@ public class CustomEventHandler implements CommandLineRunner {
 
 ## <font id="3">常见问题</font>
 
-### 每次重启程序后，只能在首次发布并订阅，第二次不成功
+#### 每次重启程序后，只能在首次发布并订阅，第二次不成功
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>

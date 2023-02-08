@@ -25,7 +25,7 @@
 ```
 
 ##  在平台使用redis
-### 1.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
+ 1.在自定义模块`org.example.mydemo.web.CustomController`引入`redis`
 
 ```java
 以下redis二选一进行使用
@@ -35,9 +35,9 @@
     private final ReactiveRedisTemplate<Object,Object> redis;
 ```
 
-### 2.相关代码示例
+ 2.相关代码示例
 
-#### 1.将数据存入`redis`:自定义模块的web层：`org.example.mydemo.web.CustomController`
+ 1.将数据存入`redis`:自定义模块的web层：`org.example.mydemo.web.CustomController`
 
 ```java
  public Mono<CustomEntity> saveData(@RequestBody CustomEntity entity) {
@@ -55,7 +55,7 @@
     }
 ```
 
-#### 2.事件订阅：`org.example.mydemo.event.CustomEventHandler`
+ 2.事件订阅：`org.example.mydemo.event.CustomEventHandler`
 
 ```java
 @Getter
@@ -93,7 +93,7 @@ public class CustomEventHandler implements CommandLineRunner {
 }
 ```
 
-#### 3.获取redis中的数据，可以使用stream根据业务条件字段分组
+ 3.获取redis中的数据，可以使用stream根据业务条件字段分组
 
 ```java
 /**
@@ -118,7 +118,7 @@ public class CustomEventHandler implements CommandLineRunner {
 
 ## 常见问题
 
-### redis注入不成功？No qualifying bean?
+#### redis注入不成功？No qualifying bean?
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>

@@ -1,4 +1,4 @@
-# IoT设备身份认证
+# 设备身份认证
 
 ## 应用场景
 <div class='explanation primary'>
@@ -6,22 +6,24 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   <p>IoT设备身份认证，是一种物联网设备的可信身份标识，具备不可篡改、不可伪造的安全属性，是实现万物互联、服务流转的关键基础设施。</p>
+   <p>设备身份认证：是一种物联网设备的可信身份标识,在设备接入平台时,对用户名和密码进行认证</p>
 </div>
 
 ## 指导介绍
-   <p>1. <a href="/dev-guide/IoT_device_identity_authentication.html#新建" >新建</a></p>
+   <p>1. <a href="/dev-guide/IoT_device_identity_authentication.html#新建产品和设备" >新建产品和设备</a></p>
    <p>2. <a href="/dev-guide/IoT_device_identity_authentication.html#设备认证" >设备认证</a></p>
-   <p>2. <a href="/dev-guide/IoT_device_identity_authentication.html#一机一密和一型一密" >一机一密和一型一密</a></p>
+   <p>3. <a href="/dev-guide/IoT_device_identity_authentication.html#一型一密和一机一密" >一型一密和一机一密</a></p>
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   <p>MQTT认证配置,需要在协议包中进行配置,本文以官方协议的MQTT协议为例</p>
-  在<code>org.jetlinks.protocol.official.JetLinksProtocolSupportProvider</code>类中第一行添加如下代码
+   <p>1.MQTT认证配置,需要在协议包中进行配置,本文以官方协议的MQTT协议为例</p>
+  2.不存在如下配置的情况下，需要在官方协议的<code>org.jetlinks.protocol.official.JetLinksProtocolSupportProvider</code>类中第一行添加如下代码
 </div>
+
+ 获取官方协议地址：[获取官方协议](https://github.com/jetlinks/jetlinks-official-protocol)
 
 ```java
  private static final DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
@@ -35,24 +37,32 @@
             .add("secureKey", "secureKey", "密钥KEY", new PasswordType());
 ```
 
-## 新建
-### 创建产品
+## 新建产品和设备
+ 创建产品
  参考：[创建产品](/Device_access/Create_product3.1.html)
-### 点击产品，查看接入方式中的mqtt配置
+
+ 创建好产品之后，点击产品，点击设备接入
+ 
+ 查看接入方式中的mqtt配置
+ 
+图中的secureId和secureKey会和连接请求传入的Username、Password相匹配
 
 ![](./images/MQTT_authentication_configuration.png)
 
-### 创建设备
-参考：[创建设备](/Device_access/Create_Device3.2.html)
+ 创建设备
+ 参考：[创建设备](/Device_access/Create_Device3.2.html)
 
 ## 设备认证
 
-### 1.需要在`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`类中create方法内任意位置处添加如下代码添加如下代码
+1.需要在官方协议的`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`类中create()方法内任意位置处添加如下代码添加如下代码
 ```java
 CompositeProtocolSupport support = new CompositeProtocolSupport();
 support.addAuthenticator(DefaultTransport.MQTT, new JetLinksAuthenticator());
 ```
-### 2.JetLinksAuthenticator类中核心认证代码
+2.官方协议中的JetLinksAuthenticator类核心认证代码
+
+代码中的secureId和secureKey的值是下图中MQTT认证配置中secureId和secureKey的值
+![](./images/MQTT_authentication_configuration.png)
 
 ```java
 if (request instanceof MqttAuthenticationRequest) {
@@ -99,29 +109,30 @@ if (request instanceof MqttAuthenticationRequest) {
         return Mono.just(AuthenticationResponse.error(400, "不支持的授权类型:" + request));
     }
 ```
-## 一机一密和一型一密
-`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`中MQTT原配置
-![](./images/MQTT_authentication.png)
-### 一机一密
-#### 每一台设备都有自己的认证密码
-#### 在平台使用一机一密
-用如下代码代替：`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`中MQTT原配置
-```java
- private static final DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
-            "MQTT认证配置"
-            , "MQTT认证时需要的配置,mqtt用户名,密码算法:\n" +
-                    "username=secureId|timestamp\n" +
-                    "password=md5(secureId|timestamp|secureKey)\n" +
-                    "\n" +
-                    "timestamp为时间戳,与服务时间不能相差5分钟")
-            .add("secureId", "secureId", "密钥ID", new StringType())
-            .add("secureKey", "secureKey", "密钥KEY", new PasswordType())
-            .scope(DeviceConfigScope.device);
-```
+## 一型一密和一机一密
+获取官方协议地址：[获取官方协议](https://github.com/jetlinks/jetlinks-official-protocol)
+
+配置一机一密和一型一密前，需要在官方协议或者自定义协议中的
+`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`类中配置MQTT认证，如图1所示
+
+图1
+![图1](./images/MQTT_authentication.png)
+                
+
+
 ### 一型一密
-#### 每一台产品下的设备使用相同的认证密码
-#### 在平台使用一型一密
-用如下代码代替：`org.jetlinks.protocol.official.JetLinksProtocolSupportProvider`中MQTT原配置
+每一台产品下的设备使用相同的认证密码
+
+在平台使用一型一密
+使用以下配置代替上述图1配置
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   <p>一型一密关键参数：scope(DeviceConfigScope.product)</p>
+</div>
 
 ```java
  private static final DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
@@ -135,4 +146,32 @@ if (request instanceof MqttAuthenticationRequest) {
             .add("secureKey", "secureKey", "密钥KEY", new PasswordType())
             .scope(DeviceConfigScope.product);
 ```
+
+### 一机一密
+每一台设备都有自己的认证密码
+
+在平台使用一型一密
+使用以下配置代替上述图1配置
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   <p>一机一密关键参数：scope(DeviceConfigScope.device)</p>
+</div>
+
+```java
+ private static final DefaultConfigMetadata mqttConfig = new DefaultConfigMetadata(
+            "MQTT认证配置"
+            , "MQTT认证时需要的配置,mqtt用户名,密码算法:\n" +
+                    "username=secureId|timestamp\n" +
+                    "password=md5(secureId|timestamp|secureKey)\n" +
+                    "\n" +
+                    "timestamp为时间戳,与服务时间不能相差5分钟")
+            .add("secureId", "secureId", "密钥ID", new StringType())
+            .add("secureKey", "secureKey", "密钥KEY", new PasswordType())
+            .scope(DeviceConfigScope.device);
+```
+
 
