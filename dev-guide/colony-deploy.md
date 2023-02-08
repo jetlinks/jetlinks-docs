@@ -78,7 +78,7 @@
 
 ```shell
 
-java -jar jetlinks-standalone.jar --jetlinks.cluster.id=jetlinks:node1 --jetlinks.cluster.seeds=127.0.0.1:18844,127.0.0.1:18845
+java -jar jetlinks-standalone.jar --jetlinks.cluster.id=jetlinks:node1 --jetlinks.cluster.seeds=192.168.66.171:18844,192.168.66.177:18844,192.168.66.178:18844
 
 ```
 
@@ -106,8 +106,9 @@ services:
       ... # 此处省略的参数与jetlinks-pro单机版一致，详情参考单机版DC文件
       - "jetlinks.cluster.id=jetlinks-service:node1" # 后端应用的唯一id，请保持每个节点之间id不同
       - "jetlinks.cluster.external-host=192.168.66.171" # 集群节点通信对外暴露的host
-      - "jetlinks.cluster.seeds[0]=192.168.66.171:8844" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.177:8844" # 集群种子节点
+      - "jetlinks.cluster.seeds[0]=192.168.66.171:18844" # 集群种子节点1
+      - "jetlinks.cluster.seeds[1]=192.168.66.177:18844" # 集群种子节点2
+      - "jetlinks.cluster.seeds[1]=192.168.66.178:18844" # 集群种子节点3
 ```
 
 3. 在`DC文件`所在目录执行`docker-compose up -d`命令创建并启动容器，使用`docker ps -a`命令并查看`STATUS`为`UP`则表示启动成功。
@@ -129,21 +130,7 @@ f303fc2fbd67   registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalo
 4bdba77584ce   redis:5.0.4                                                                          "docker-entrypoint.s…"   2 months ago     Up 7 minutes  
                0.0.0.0:6379->6379/tcp                                                                                               jetlinks-redis
 ```
-3. 启动前端服务
 
-```shell
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
-```
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-`API_BASE_PATH`配置为后端服务的Ipv4地址和应用端口号，请根据具体部署的后端地址配置,请勿使用`127.0.0.1`及`localhost`，docker可能无法正确连接这两个特殊域名及ip。
-
-</div>
 
 #### 启动前端
 
@@ -157,8 +144,9 @@ events {
 http{
 
   upstream iotserver {
-      server 192.168.66.171:8844 weight=1; #轮询地址，请根据实际部署后端地址镜像替换
+      server 192.168.66.171:8844 weight=1; #轮询地址，请根据实际部署后端地址进行替换
       server 192.168.66.177:8844 weight=1;
+      server 192.168.66.178:8844 weight=1;
   }
 
    server {
@@ -170,8 +158,7 @@ http{
       gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml;
       gzip_vary on;
       gzip_disable "MSIE [1-6]\.";
-      root /usr/local/nginx/html/dist;  # 指定前端打包生成的dist文件的路径，请根据dist上传路径进行替换
-      include /usr/local/nginx/conf/mime.types; # 指定mime.types文件路径，请根据nginx安装路径进行替换
+      root /usr/local/nginx/html/dist;  # 替换为dist文件上传路径
       location / {
         index  index.html;
       }

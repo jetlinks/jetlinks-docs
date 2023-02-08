@@ -1,6 +1,29 @@
 # 中间件部署及常见问题
 本文档部署环境为Centos7，提供了两种部署中间件方法分别为离线包部署和docker部署，可根据实际情况选择对应的部署方式。
-#### 版本说明
+
+
+
+## 问题指引
+<table>
+   <tr>
+       <td><a href="/dev-guide/middleware-deploy.html#redis安装时make编译报错">redis安装时make编译报错</a></td>
+       <td><a href="/dev-guide/middleware-deploy.html#项目启动报错es权限不足">项目启动报错es权限不足</a></td>
+   </tr>
+   <tr>
+       <td><a href="/dev-guide/middleware-deploy.html#es最大同时打开文件数太少">es最大同时打开文件数太少</a></td>
+       <td><a href="/dev-guide/middleware-deploy.html#es最大线程个数太少">es最大线程个数太少</a></td>
+   </tr>
+</table>
+
+## 文档指引
+<table>
+   <tr>
+       <td><a href="/dev-guide/middleware-deploy.html#离线包部署">离线包部署</a></td>
+       <td><a href="/dev-guide/middleware-deploy.html#docker部署">docker部署</a></td>
+   </tr>
+</table>
+
+### 版本说明
 | 中间件 | 版本号 |  是否必装 | 下载地址 |
 |----------------|-----|-----|--------|---------------------------|
 | Redis |5.0.4   | 是   |<a href='http://www.redis.cn/download.html'>点击下载</a>  |
@@ -11,8 +34,8 @@
 
 
 
-#### 离线包方式部署
-##### 部署Redis
+### 离线包方式部署
+#### 部署Redis
 1. 上传离线包至服务器`/usr/local`目录下。
 
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf redis-5.0.4.tar.gz`命令进行解压，解压完成之后会生成`redis-5.0.4`文件夹。
@@ -83,16 +106,9 @@ firewall-cmd --zone=public --add-port=6379/tcp --permanent
 firewall-cmd --reload
 ```
 
-10. Redis部署常见问题
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
-  </p>
-Q：若redis版本为6.0以上会出现，gcc版本和redis版本不符合的问题,在使用make编译的时候会报错
-A：CentOS7默认安装的是4.8.5，而redis6.0只支持5.3以上版本，这里将gcc升级到9，安装指令如下
-</div>
+
+
 
 ```shell
 gcc -v                                              #查看gcc版本
@@ -103,7 +119,7 @@ gcc -v                                              #查看gcc版本
 ```
 
 
-##### 部署JDK
+#### 部署JDK
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
@@ -133,7 +149,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
 
 
 
-##### 部署ElasticSearch
+#### 部署ElasticSearch
 1. 上传离线包至服务器`/usr/local`目录下
 
 2. 进入该目录，使用`tar -xzvf elasticsearch-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`elasticsearch-6.8.11`文件夹
@@ -148,9 +164,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
 ```shell
 ## JVM configuration
 
-################################################################
+####################################################
 ## IMPORTANT: JVM heap size
-################################################################
+####################################################
 ##
 ## You should always set the min and max JVM heap
 ## size to the same value. For example, to set
@@ -162,7 +178,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.341-b10, mixed mode)
 ## See https://www.elastic.co/guide/en/elasticsearch/reference/current/heap-size.html
 ## for more information
 ##
-################################################################
+####################################################
 
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
@@ -213,99 +229,12 @@ firewall-cmd --reload
 ```
 
 
-11. ElasticSearch部署常见问题
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
-  </p>
 
 
 
-Q：启动项目源码报错,访问权限不够,报错内容如下：
-
-```shell
-Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elasticsearch-6.8.11/config/jvm.options
-	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84)
-	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
-	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
-	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
-	at java.nio.file.Files.newByteChannel(Files.java:361)
-	at java.nio.file.Files.newByteChannel(Files.java:407)
-	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
-	at java.nio.file.Files.newInputStream(Files.java:152)
-	at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:60)
-```
-
-A：使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
-
-</div>
 
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题2</span>
-  </p>
-
-
-Q：启动es报错，报错内容如下：
-
-
-```shell
-
-ERROR: [3] bootstrap checks failed
-[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
-[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-```
-
-A：有两个异常点，需要分别新增limits.conf和sysctl.conf中的参数(切换到root用户操作)具体配置如下
-
-</div>
-
-1. `vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
-
-```shell
-
-#*               soft    core            0
-#*               hard    rss             10000
-#@student        hard    nproc           20
-#@faculty        soft    nproc           20
-#@faculty        hard    nproc           50
-#ftp             hard    nproc           0
-#@student        -       maxlogins       4
-#下面两行为添加内容
-*            soft    nofile          65536
-*            hard    nofile          65536
-# End of file
-
-```
-
-2. `vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
-
-
-```shell
-
-# sysctl settings are defined through files in
-# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.
-#
-# Vendors settings live in /usr/lib/sysctl.d/.
-# To override a whole file, create a new file with the same in
-# /etc/sysctl.d/ and put new settings there. To override
-# only specific settings, add a file with a lexically later
-# name in /etc/sysctl.d/ and put new settings there.
-#
-# For more information, see sysctl.conf(5) and sysctl.d(5).
-
-vm.max_map_count=262144
-
-```
-
-3. 新增完成之后使用`sysctl -p`命令使配置生效
-
-
-##### 部署Kibana
+#### 部署Kibana
 1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`tar -xzvf kibana-6.8.11.tar.gz`命令进行解压，解压完成之后会生成`kibana-6.8.11-linux-x86_64`文件夹
 3. 给es用户授权
@@ -337,7 +266,7 @@ firewall-cmd --reload
 7. 验证是否配置成功，在浏览器输入`服务器ip地址：端口号`，例如192.168.166.134:5601，如果能够加载出kibanna页面即为配置成功
 
 
-##### 部署PostgreSQL
+#### 部署PostgreSQL
 1. 上传离线包至服务器`/usr/local`目录下
 2. 使用`cd /usr/local`命令进入该目录，使用`# tar -xzvf postgresql-11.12.tar.gz`命令进行解压，解压完成之后会生成`postgresql-11.12`文件夹
 3. 安装PostgreSQL <br/>
@@ -418,22 +347,7 @@ firewall-cmd --reload
     ![img.png](./images/pg-sucess.png)
 
 
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题</span>
-  </p>
 
-Q:初始化数据库报错
-```shell
-[root@localhost ~]# /usr/local/postgresql/bin/initdb -D /usr/local/postgresql/data/
-initdb: cannot be run as root
-Please log in (using, e.g., "su") as the (unprivileged) user that will
-own the server process.
-```
-A:不能在root用户下初始化数据库，要切换到postgres用户
-
-</div>
 
 #### docker部署
 
@@ -461,7 +375,7 @@ A:不能在root用户下初始化数据库，要切换到postgres用户
 
 
 
-##### 配置文件说明
+#### 配置文件说明
 
 ```shell
 version: '2'
@@ -530,7 +444,7 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
 ```
-##### 创建并运行容器
+#### 创建并运行容器
 
 1. 将`docker-compose.yml`文件上传到服务器`/usr/local`目录下，进入该目录`cd ./usr/local`
 
@@ -559,3 +473,112 @@ aeaf46fe55c0   elasticsearch:6.8.11          "/usr/local/bin/dock…"   35 secon
 6af987ad063d   postgres:11-alpine            "docker-entrypoint.s…"   35 seconds ago      Up 34 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp                                                                                                                              jetlinks-ce-postgres
 
 ```
+#### redis安装时make编译报错
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+Q：若redis版本为6.0以上会出现，gcc版本和redis版本不符合的问题,在使用make编译的时候会报错
+A：CentOS7默认安装的是4.8.5，而redis6.0只支持5.3以上版本，这里将gcc升级到9，安装指令如下
+</div>
+
+
+#### 项目启动报错es权限不足
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题2</span>
+  </p>
+Q：启动项目源码报错,访问权限不足,报错内容如下：
+
+```shell
+Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/elasticsearch-6.8.11/config/jvm.options
+	at sun.nio.fs.UnixException.translateToIOException(UnixException.java:84)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:102)
+	at sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:107)
+	at sun.nio.fs.UnixFileSystemProvider.newByteChannel(UnixFileSystemProvider.java:214)
+	at java.nio.file.Files.newByteChannel(Files.java:361)
+	at java.nio.file.Files.newByteChannel(Files.java:407)
+	at java.nio.file.spi.FileSystemProvider.newInputStream(FileSystemProvider.java:384)
+	at java.nio.file.Files.newInputStream(Files.java:152)
+	at org.elasticsearch.tools.launchers.JvmOptionsParser.main(JvmOptionsParser.java:60)
+```
+
+A：使用`chown \-R es:es /usr/local/elasticsearch\-6.8.11`命令进行赋权(切换到root用户操作)
+
+</div>
+
+
+#### es最大同时打开文件数太少 
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题3</span>
+  </p>
+
+Q：es最大同时打开文件数太少
+```shell
+[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65535]
+```
+
+
+A：`vi /etc/security/limits.conf`，在limits.conf文件中新增以下参数
+
+```shell
+
+#*               soft    core            0
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#@student        -       maxlogins       4
+#下面两行为添加内容
+*            soft    nofile          65536
+*            hard    nofile          65536
+# End of file
+
+```
+
+</div>
+
+#### es最大线程个数太少
+
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题3</span>
+  </p>
+Q：es最大线程个数太少
+
+```shell
+[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+
+
+A：`vi /etc/sysctl.conf`，在sysctl.con文件末尾新增`vm.max_map_count=262144`参数<br/>
+
+```shell
+
+# sysctl settings are defined through files in
+# /usr/lib/sysctl.d/, /run/sysctl.d/, and /etc/sysctl.d/.
+#
+# Vendors settings live in /usr/lib/sysctl.d/.
+# To override a whole file, create a new file with the same in
+# /etc/sysctl.d/ and put new settings there. To override
+# only specific settings, add a file with a lexically later
+# name in /etc/sysctl.d/ and put new settings there.
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+
+vm.max_map_count=262144
+
+```
+ 新增完成之后使用`sysctl -p`命令使配置生效
+
+ </div>
