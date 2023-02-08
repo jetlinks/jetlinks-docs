@@ -122,9 +122,9 @@ services:
       ... # 此处省略的参数与jetlinks-cloud单机版一致，详情参考单机版DC文件
       - "jetlinks.cluster.id=api-gateway-service:node1" # 后端应用的唯一id，请保持每个节点之间id不同
       - "jetlinks.cluster.external-host=192.168.66.171" # 集群节点通信对外暴露的host
-      - "jetlinks.cluster.seeds[0]=192.168.66.171:18800" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.177:18800" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.178:18800" # 集群种子节点
+      - "jetlinks.cluster.seeds[0]=192.168.66.171:18800" # 集群种子节点1
+      - "jetlinks.cluster.seeds[1]=192.168.66.177:18800" # 集群种子节点2
+      - "jetlinks.cluster.seeds[1]=192.168.66.178:18800" # 集群种子节点3
   authentication-service:
     image: registry.cn-hangzhou.aliyuncs.com/jetlinks-cloud/authentication-service:2.0.0-SNAPSHOT
     ports:
@@ -135,9 +135,9 @@ services:
       ... # 此处省略的参数与jetlinks-cloud单机版一致，详情参考单机版DC文件
       - "jetlinks.cluster.id=authentication-service:node1" # 后端应用的唯一id，请保持每个节点之间id不同
       - "jetlinks.cluster.external-host=192.168.66.171" # 集群节点通信对外暴露的host
-      - "jetlinks.cluster.seeds[0]=192.168.66.171:18100" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.177:18100" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.178:18100" # 集群种子节点
+      - "jetlinks.cluster.seeds[0]=192.168.66.171:18100" # 集群种子节点1
+      - "jetlinks.cluster.seeds[1]=192.168.66.177:18100" # 集群种子节点2
+      - "jetlinks.cluster.seeds[1]=192.168.66.178:18100" # 集群种子节点3
   file-service:
     image: registry.cn-hangzhou.aliyuncs.com/jetlinks-cloud/file-service:2.0.0-SNAPSHOT
     ports:
@@ -148,9 +148,9 @@ services:
       ... # 此处省略的参数与jetlinks-cloud单机版一致，详情参考单机版DC文件
       - "jetlinks.cluster.id=file-service:node1" # 后端应用的唯一id，请保持每个节点之间id不同
       - "jetlinks.cluster.external-host=192.168.66.171" # 集群节点通信对外暴露的host
-      - "jetlinks.cluster.seeds[0]=192.168.66.171:18300" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.177:18300" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.178:18300" # 集群种子节点
+      - "jetlinks.cluster.seeds[0]=192.168.66.171:18300" # 集群种子节点1
+      - "jetlinks.cluster.seeds[1]=192.168.66.177:18300" # 集群种子节点2
+      - "jetlinks.cluster.seeds[1]=192.168.66.178:18300" # 集群种子节点3
     volumes:
       - "./data/upload:/application/upload"
   iot-service:
@@ -163,9 +163,9 @@ services:
       ... # 此处省略的参数与jetlinks-cloud单机版一致，详情参考单机版DC文件
       - "jetlinks.cluster.id=iot-service:node1" # 后端应用的唯一id，请保持每个节点之间id不同
       - "jetlinks.cluster.external-host=192.168.66.171" # 集群节点通信对外暴露的host
-      - "jetlinks.cluster.seeds[0]=192.168.66.171:18200" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.177:18200" # 集群种子节点
-      - "jetlinks.cluster.seeds[1]=192.168.66.178:18200" # 集群种子节点
+      - "jetlinks.cluster.seeds[0]=192.168.66.171:18200" # 集群种子节点1
+      - "jetlinks.cluster.seeds[1]=192.168.66.177:18200" # 集群种子节点2
+      - "jetlinks.cluster.seeds[1]=192.168.66.178:18200" # 集群种子节点3
     volumes:
       - "./data/dumps:/dumps"
       
@@ -188,23 +188,6 @@ ccaefa0d4c72   registry.cn-hangzhou.aliyuncs.com/jetlinks-cloud/authentication-s
 ```
 
 
-
-3. 启动前端服务
-
-```shell
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://192.168.66.171:18800/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
-```
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-`API_BASE_PATH`配置为后端服务的Ipv4地址和应用端口号，请根据具体部署的后端地址配置,请勿使用`127.0.0.1`及`localhost`，docker可能无法正确连接这两个特殊域名及ip。
-
-</div>
-
 #### 启动前端
 
 1. 配置nginx.conf文件，示例如下
@@ -217,8 +200,9 @@ events {
 http{
 
   upstream iotserver {
-      server 192.168.66.171:18800 weight=1; #轮询地址，请根据实际部署后端地址镜像替换
+      server 192.168.66.171:18800 weight=1; #轮询地址，请根据实际部署后端地址进行替换
       server 192.168.66.177:18800 weight=1;
+      server 192.168.66.178:18800 weight=1;
   }
 
    server {
@@ -230,8 +214,7 @@ http{
       gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml;
       gzip_vary on;
       gzip_disable "MSIE [1-6]\.";
-      root /usr/local/nginx/html/dist;  # 指定前端打包生成的dist文件的路径，请根据dist上传路径进行替换
-      include /usr/local/nginx/conf/mime.types; # 指定mime.types文件路径，请根据nginx安装路径进行替换
+      root /usr/local/nginx/html/dist;  # 替换为dist文件上传路径
       location / {
         index  index.html;
       }
