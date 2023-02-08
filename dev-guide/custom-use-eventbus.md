@@ -1,4 +1,4 @@
-# 自定义模块如何引入消息总线
+# 自定义模块使用消息总线
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 

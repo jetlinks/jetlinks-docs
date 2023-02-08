@@ -754,13 +754,7 @@ $ ./run-cli.sh
 
 ![Jar包方式新增协议完成](../dev-guide/images/device-access-http/add-protocol-jar.png)
 
-<br>
 
-通过`Local`方式新增协议。
-
-![local方式新增协议](../dev-guide/images/device-access-http/add-protocal-local.png)
-
-![完成新增local协议配置](../dev-guide/images/device-access-http/add-protocol-local-complete.png)
 
 
 
@@ -963,7 +957,7 @@ $ ./run-cli.sh
 
 <p>2、填写连接参数</p>
 
-配置`url`。
+配置连接参数。
 
 | 参数     | 说明                                                         |
 | -------- | ------------------------------------------------------------ |
@@ -996,12 +990,17 @@ $ ./run-cli.sh
 
 ### 设备上报属性
 
-`上报属性`只需要修改`url`以及对应的消息体就可以了，注意消息体内的注释应该删除。
+上报属性的Topic为`/{产品id}/{设备id}/properties/report`
 
-| 参数   | 说明                                                         |
-| ------ | ------------------------------------------------------------ |
-| topic  | 具体的`Topic`信息，可以查看<a href="../dev-guide/jetlinks-protocol-support.html#topic列表" target='_blank'>官方协议Topic列表</a>。此处为设备属性上报消息`/{产品id}/{设备id}/properties/report` |
-| 消息体 | `actual_voltage`为产品物模型中配置的属性，如果配置有多个属性，则按照此规则键对应值写入`properties`内即可。此处的消息体为`{"deviceId":"1621406622872461312"//应修改为对应的设备id,"properties":{"actual_voltage":12.4}}` |
+```json
+//上报的消息体
+{
+	"deviceId": "1621406622872461312",//设备Id
+	"properties": {
+		"actual_voltage": 12.4 //上报数据
+	}
+}
+```
 
 ![Postman设备属性上报](../dev-guide/images/device-access-http/postman-params-04.png)
 
@@ -1013,18 +1012,133 @@ $ ./run-cli.sh
 
 ### 设备事件上报
 
-`事件上报`只需要修改`url`以及对应的消息体就可以了，注意消息体内的注释应该删除。
+上报事件的Topic为`/{产品id}/{设备id}/event/{事件id}`
 
-| 参数   | 说明                                                         |
-| ------ | ------------------------------------------------------------ |
-| topic  | 具体的`Topic`信息，可以查看<a href="../dev-guide/jetlinks-protocol-support.html#topic列表" target='_blank'>官方协议Topic列表</a>。此处为设备事件上报消息`/{产品id}/{设备id}/event/{事件id}`，`事件id`为物模型的事件定义中的事件标识 |
-| 消息体 | `actual_current`为产品物模型中事件定义内配置的输出参数，配置的结构体中如果有多个JSON对象，则按照此规则键对应值写入`data`内即可，此处的消息体为`{"timestamp":1675417805717,"messageId":"1621330658213723941","data":{"actual_current":23}}` |
+```json
+//上报的消息体
+{
+	"timestamp": 1675417805717, //毫秒时间戳
+	"messageId": "1621330658213723941", //随机消息Id
+	"data": {
+		"actual_current": 23 //上报数据,类型与物模型事件中定义的类型一致
+	}
+}
+```
 
 ![事件上报](../dev-guide/images/device-access-http/event-report.png)
 
 配置完成后点击`Send`按钮，发送本次请求，收到的消息`"success": true`，表示此次事件上报成功，可以在平台看到`设备`的`运行状态`内有事件上报的值。
 
 ![事件上报成功](../dev-guide/images/device-access-http/event-report-success.png)
+
+
+
+### 使用设备模拟器
+
+1、获取设备模拟器
+
+获取[JetLinks官方设备模拟器](https://github.com/jetlinks/device-simulator)。
+
+2、启动设备模拟器
+
+![启动设备模拟器](../dev-guide/images/device-access-http/open-simulator.png)
+
+![设备模拟器启动成功](../dev-guide/images/device-access-http/open-simulator-success.png)
+
+3、修改项目目录下的`benchmark/http/benchmark.js`内容
+
+```js
+/**
+ * JetLinks http 官方协议模拟器
+ *  benchmark http --url http://127.0.0.1:8801 report=true reportLimit=100 interval=1000
+ */
+
+//绑定内置参数,否则匿名函数无法使用。
+var $benchmark = benchmark;
+
+//在jetlinks平台的产品ID
+var productId = args.getOrDefault("productId", "1621404717110747136");
+//在jetlinks平台的设备ID
+var deviceIdPrefix = args.getOrDefault("deviceIdPrefix", "1621406622872461312");
+//配置的Token信息
+var secureKey = "My_Token";
+
+var $enableReport = "true" === args.getOrDefault("report", "true");
+//上报次数
+var $reportLimit = parseInt(args.getOrDefault("reportLimit", "100"));
+//上报间隔 毫秒
+var $reportInterval = parseInt(args.getOrDefault("interval", "1000"));
+
+
+//创建连接之前动态生成用户名密码
+function beforeConnect(index, options) {
+    var clientId = deviceIdPrefix;
+    options.setId(clientId);
+    $benchmark.print(toJson(clientId));
+}
+
+//全部连接完成后执行
+function onComplete() {
+    if (!$enableReport) {
+        return
+    }
+    //定时执行1s
+    $benchmark
+        .interval(function () {
+            $benchmark.print("批量上报属性..");
+            return $benchmark
+                .randomConnectionAsync($reportLimit, reportProperties);
+        }, $reportInterval)
+
+}
+
+function reportProperties(client) {
+    //创建随机数据
+    var data = {};
+    // $benchmark.print("上报[" + client.getId() + "]属性");
+        //jetlinks平台内属性上报配置的属性值
+        data["actual_voltage"] = randomFloat(10, 30);
+    var msg = {
+        "properties": data
+    }
+    $benchmark.print(toJson(msg));
+    //请求
+    return client.requestAsync({
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + secureKey
+        },
+        path: createTopic(client, "/properties/report"),
+        contentType: "application/json",
+        body: toJson(msg)
+    });
+
+}
+
+//根据jetlinks官方协议topic规则创建topic
+function createTopic(client, topic) {
+    return "/" + productId + "/" + client.getId() + topic;
+}
+
+
+//重点! 绑定函数到benchmark
+benchmark
+    .beforeConnect(beforeConnect)
+    // .onConnected(onConnected)
+    .onComplete(onComplete);
+```
+
+4、执行命令开始属性上报
+
+运行指令
+
+```bash
+//需要修改连接地址
+benchmark http --url http://192.168.66.203:8810 report=true reportLimit=1000 --size=1  --script=benchmark/http/benchmark.js
+```
+
+![属性上报成功](../dev-guide/images/device-access-http/simulator-report-success.png)
+
 
 
 ## UDP接入
@@ -1097,18 +1211,6 @@ $ ./run-cli.sh
 新增完成后平台显示新增的协议如下。
 
 ![Jar包方式新增协议完成](../dev-guide/images/device-access-http/add-protocol-jar.png)
-
-<br>
-
-通过`Local`方式新增协议。
-
-![local方式新增协议](../dev-guide/images/device-access-http/add-protocal-local.png)
-
-复制生成的`target`文件夹下的`classes`文件夹路径填入平台新增协议的`文件地址`内，点击确认。
-
-![复制路径](../dev-guide/images/device-access-http/copy-classes-path.png)
-
-![完成Local导入协议配置](../dev-guide/images/device-access-http/add-protocol-local-complete.png)
 
 
 
@@ -1454,6 +1556,146 @@ $ ./run-cli.sh
 5、获取完整报文
 
 `00000561646d696e05000001862bd8d7be0002000474657374010001000474656d700a404070a3d70a3d71`，使用工具发送即可，此处生成的报文表示读取属性回复。
+
+
+
+### 使用设备模拟器
+
+1、获取设备模拟器
+
+获取[JetLinks官方设备模拟器](https://github.com/jetlinks/device-simulator)。
+
+2、启动设备模拟器
+
+![启动设备模拟器](../dev-guide/images/device-access-http/start-simulator.png)
+
+3、修改项目目录下的`benchmark/udp/benchmark.js`内容
+
+```js
+/**
+ * JetLinks tcp 官方协议模拟器
+ *
+ *    benchmark tcp --host=127.0.0.1 --port=8801 --script=demo/tcp/benchmark.js report=true reportLimit=100 interval=1000
+ */
+
+var protocol = require("benchmark/jetlinks-binary-protocol.js");
+
+
+var $enableReport = "true" === args.getOrDefault("report", "true");
+//上报次数
+var $reportLimit = parseInt(args.getOrDefault("reportLimit", "100"));
+//发送时间间隔 单位毫秒
+var $reportInterval = parseInt(args.getOrDefault("interval", "1000"));
+
+//绑定内置参数,否则匿名函数无法使用。
+var $benchmark = benchmark;
+//平台配置的密钥
+var secureKey = args.getOrDefault("secureKey", "admin");
+
+
+//平台下发读取属性指令时
+protocol.doOnReadProperty(function (properties) {
+
+    $benchmark.print("读取属性:" + properties);
+
+    let data = new java.util.HashMap();
+
+    properties.forEach(function (property) {
+        data.put(property, randomFloat(20, 30))
+    });
+
+    return data;
+});
+
+//全部连接完成后执行
+function onComplete() {
+    if (!$enableReport) {
+        return;
+    }
+    // 定时执行1s
+    $benchmark
+        .interval(function () {
+            $benchmark.print("上报属性....");
+            //随机获取100个连接然后上报属性数据
+            return $benchmark.randomConnectionAsync($reportLimit, reportTcpProperty);
+        }, $reportInterval)
+
+}
+
+function sendTo(client, buffer) {
+    var token = secureKey;
+
+    var newBuf = newBuffer();
+    //认证类型
+    newBuf.writeByte(0);
+    //token
+    protocol.types.StringType.encode(token, newBuf);
+
+    //指令
+    newBuf.writeBytes(buffer);
+
+    client.send(newBuf)
+
+}
+
+//协议发往设备
+protocol.doOnSend(sendTo);
+
+
+//单个连接创建成功时执行
+function onConnected(client) {
+
+    //订阅读取属性
+    client
+        .handlePayload(function (buf) {
+
+            var buffer = buf.getByteBuf();
+
+            //todo 不同认证类型处理
+            var authType = buffer.readByte();
+
+            var token = protocol.types.StringType.decode(buffer);
+
+            var type = buffer.getByte(buffer.readerIndex());
+
+
+            if (token !== secureKey && type !== parseInt(2)) {
+                $benchmark.print("平台下发指令token错误:" + token);
+
+            }
+            //交给协议处理
+            protocol.handleFromServer(client, buffer);
+        });
+
+}
+
+//随机上报数据
+function reportTcpProperty(client) {
+    var data = new java.util.HashMap();
+
+    //在jetlinks平台对应产品内配置的物模型属性
+    data['consumption'] = randomFloat(1, 300);
+
+    sendTo(client, protocol.createReportProperty(client, data));
+}
+
+//重点! 绑定函数到benchmark
+benchmark
+    //.beforeConnect(beforeConnect)
+    .onConnected(onConnected)
+    .onComplete(onComplete);
+```
+
+4、执行命令开始属性上报
+
+运行指令
+
+```bash
+//需要修改host以及port，--id为设备id
+benchmark udp --host=192.168.66.203 --port=8806 report=true reportLimit=100 interval=1000 --script=benchmark/udp/benchmark.js --id=ele_dev_a_1_13
+```
+
+![属性上报成功](../dev-guide/images/device-access-http/simulator-udp-success.png)
 
 
 
