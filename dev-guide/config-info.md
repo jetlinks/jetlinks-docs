@@ -1,10 +1,18 @@
 # 配置文件说明
 
-## JetLinks-Pro
+## 文档指引
+<table>
+<tr>
+   <td><a href="/dev-guide/config-info.html#jetlinks-pro配置文件示例">JetLinks-Pro配置文件示例</a></td>
+    <td><a href="/dev-guide/config-info.html#jetlinks-cloud配置文件示例">JetLinks-Cloud配置文件示例</a></td>
+
+</tr>
+</table>
+
+
+## JetLinks-Pro配置文件示例
 
 配置文件地址:`jetlinks-standalone/src/main/resources/application.yml`
-
-### 配置文件示例
 ```yaml
 server:
   port: 8844
@@ -780,10 +788,12 @@ network:
 | network.resources                     | - 7000-7100                                                                          | 预留更多端口可在此处配置                     |
 
 
-## JetLinks-Cloud
+## JetLinks-Cloud配置文件示例
 
-### 配置文件示例
-api-gateway服务配置文件在该路径下:`jetlinks-cloud\micro-services\api-gateway-service\src\main\resources\application.yml`
+### api-gateway-service服务
+配置文件所在路径下:
+
+`jetlinks-cloud\micro-services\api-gateway-service\src\main\resources\application.yml`
 ```yaml
 server:
   port: 8800
@@ -925,8 +935,8 @@ hsweb:
 | jetlinks.cluster.external-host         | 192.168.66.171                                                               | 微服务部署服务器的ipv4地址                  |
 | jetlinks.cluster.seeds                 | 192.168.66.171:18800 </br>  192.168.66.177:18800 </br>  192.168.66.178:18800 | 每个微服务部署服务器的ipv4地址和集群节点端口         |
 
-## 配置文件示例
-authentication服务配置文件在该路径下:`jetlinks-cloud\micro-services\authentication-service\src\main\resources\application.yml`
+### authentication-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\authentication-service\src\main\resources\application.yml`
 ```yaml
 server:
   port: 8100
@@ -1132,8 +1142,8 @@ captcha:
 
 
 
-## 配置文件示例
-file服务配置文件在该路径下:`jetlinks-cloud\micro-services\file-service\src\main\resources\application.yml`
+## file-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\file-service\src\main\resources\application.yml`
 ```yaml
 # file-service目录下的application.yml配置文件
 server:
@@ -1246,8 +1256,8 @@ file:
 | jetlinks.cluster.external-host    | 192.168.66.171                                                                       | 与api服务参数保持一致             |
 | jetlinks.cluster.seeds            | 192.168.66.171:18800 </br>  192.168.66.177:18800 </br>  192.168.66.178:18800         | 与api服务参数保持一致             |
 
-## 配置文件示例
-iot服务配置文件在该路径下:`jetlinks-cloud\micro-services\iot-service\src\main\resources\application.yml`
+## iot-service服务
+配置文件在该路径下:`jetlinks-cloud\micro-services\iot-service\src\main\resources\application.yml`
 ```yaml
 server:
   port: 8200

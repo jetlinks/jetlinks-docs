@@ -87,7 +87,7 @@
 ### 使用PEM证书
  <p>1.将<code>create.sh</code>脚本生成的<code>ec_private.pem</code>文件重新复制一份出来,重命名为：<code>ec_private_copy.pem</code></p>
  <p>2.将<code>create.sh</code>脚本生成的<code>client.pem</code>文件中全部内容粘贴到<code>ec_private_copy.pem</code>文件后面</p>
- <p>3.在证书管理中以文件的形式上传<code>ec_private_copy.pem</code>作为证书文件和帧证书私钥</p>
+ <p>3.在证书管理中以文件的形式上传<code>ec_private_copy.pem</code>作为证书文件和证书私钥</p>
 
 <div class='explanation error'>
   <p class='explanation-title-warp'>

@@ -28,13 +28,13 @@
 ## 文档指引
 <table>
 <tr>
-   <td><a href="/dev-guide/java-deploy.html#单机版jar包部署">JetLinks-Pro Jar包部署</a></td>
-    <td><a href="/dev-guide/java-deploy.html#单机版docker部署">JetLinks-Pro Docker部署</a></td>
+   <td><a href="/dev-guide/java-deploy.html#jetlinks-pro-jar包部署">JetLinks-Pro Jar包部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#jetlinks-pro-docker部署">JetLinks-Pro Docker部署</a></td>
 
 </tr>
 <tr>
-    <td><a href="/dev-guide/java-deploy.html#微服务版jar包部署">JetLinks-Cloud Jar包部署</a></td>
-    <td><a href="/dev-guide/java-deploy.html#微服务版docker部署">JetLinks-Cloud Docker部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#jetlinks-cloud-jar包部署">JetLinks-Cloud Jar包部署</a></td>
+    <td><a href="/dev-guide/java-deploy.html#jetlinks-cloud-docker部署">JetLinks-Cloud Docker部署</a></td>
 </tr>
 </table>
 
@@ -314,7 +314,7 @@ java -jar jetlinks-applicatione.jar --spring.config.location=D:\code\jetlinks-cl
 ```
 
 
-### docker在线部署
+### JetLinks-Cloud Docker部署
 
 
 1. 修改打包脚本
