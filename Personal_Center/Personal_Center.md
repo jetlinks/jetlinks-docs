@@ -31,8 +31,35 @@
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-通知方式默认勾选站内通知，其他选项来自于配置文件。
+通知方式默认勾选站内通知，支持通过配置文件配置其他类型的通知方式。
 </div>
+
+<table class='table'>
+        <thead>
+            <tr>
+              <td>参数</td>
+              <td>说明</td>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>名称</td>
+            <td>为订阅命名，最多可输入64个字符。</td>
+          </tr>
+          <tr>
+            <td>类型</td>
+            <td>选择订阅的通知类型。</td>
+          </tr>
+          <tr>
+            <td>告警规则</td>
+            <td>选择需要订阅的告警规则。</td>
+          </tr>
+          <tr>
+            <td>通知方式</td>
+            <td>选择接收订阅通知的方式。</td>
+          </tr>
+          </tbody>
+</table>
 
 #### 编辑
 ##### 操作步骤

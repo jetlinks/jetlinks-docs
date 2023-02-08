@@ -13,7 +13,7 @@ module.exports = {
             {text: '1.0文档', link: 'https://doc.v1.jetlinks.cn/'},
             {text: '关于', link: 'http://jetlinks.cn/'},
             {text: 'GitHub', link: 'https://github.com/jetlinks'},
-             {text: 'gitee', link: 'https://gitee.com/jetlinks'},
+            {text: 'gitee', link: 'https://gitee.com/jetlinks'},
             {text: '提交问题', link: 'https://github.com/jetlinks/jetlinks-community/issues'},
             {text: '文档纠错', link: 'https://github.com/jetlinks/jetlinks-docs/issues'}
         ],
@@ -27,6 +27,7 @@ module.exports = {
                     ['/', '介绍'],
                     // ['/home/Version_upgrade.md', '版本升级说明'],
                     ['/home/update-log.md', '更新记录'],
+                    ['/home/product-migration.md', '产品迁移'],
                 ]
             },
             {
@@ -50,7 +51,8 @@ module.exports = {
                     // ['/install-deployment/ide-docker-start.md', '开发环境最佳实践'],
                     // ['/install-deployment/jetlinks-cloud.md', '启动jetlinks微服务版本'],
                     ['/install-deployment/deployment.md', '部署到服务器'],
-                    ['/install-deployment/cluster.md', '集群部署'],
+                    // ['/install-deployment/cluster.md', '集群部署'],
+                    ['/dev-guide/colony-deploy.md', '集群部署'],
                     ['/install-deployment/performance.md', '性能优化'],
                     ['/install-deployment/enterprise-version-start.md', '企业版源码启动'],
                     ['/install-deployment/enterprise-version-storehouse.md', '企业版代码仓库说明']
@@ -83,6 +85,8 @@ module.exports = {
                     ['/Northbound_output/Northbound_output8.md', '北向输出'],
                     ['/Rule_engine/Rule engine9.md', '规则引擎'],
                     ['/Video_Center/Video_equipment10.md', '视频中心'],
+                    ['/Data_Acquisition/Data_Acquisition.md', '数采管理'],
+                    ['/Iot_Card/Card.md', '物联卡'],
                     ['/System_settings/System_settings.md', '系统设置'],
                     ['/Personal_Center/Personal_Center.md', '个人中心'],
                 ]
@@ -106,12 +110,13 @@ module.exports = {
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children:[
                     ['/Best_practices/Device_access.md', '设备接入'],
+                    //['/Best_practices/data-parse.md', '数据解析'],
                     ['/Best_practices/Scene_linkage.md', '场景联动'],
                     ['/Best_practices/Alarm_Center.md', '告警中心'],
                     // ['/Best_practices/Rule_engine.md', '规则引擎'],
-                    ['/Best_practices/Northbound_output.md', '北向输出'],
+                    // ['/Best_practices/Northbound_output.md', '北向输出'],
                     ['/Best_practices/Notification_management.md', '通知管理'],
-                    ['/Best_practices/National_standard_cascade.md', '国标级联'],
+                    // ['/Best_practices/National_standard_cascade.md', '国标级联'],
                     ['/Best_practices/application_management.md', '应用管理'],
                 ]
             },
@@ -123,7 +128,7 @@ module.exports = {
                     ['/protocol/start.md', '介绍'],
                     ['/protocol/first.md', '快速开始'],
                     ['/protocol/mqtt.md', 'MQTT协议解析'],
-                    ['/protocol/api.md', '协议开发API'],
+                    // ['/protocol/api.md', '核心类API说明'],
                     ['/protocol/faq.md', '常见问题']
                 ]
             },
@@ -147,15 +152,15 @@ module.exports = {
                     ['/dev-guide/custom-message-protocol.md', '自定义消息协议'],
                    // ['/dev-guide/custom-notification-component.md', '自定义通知组件'],
                    // ['/dev-guide/send-message.md', '向设备发送消息'],
+                    // ['/dev-guide/subscribe-device-message', '从事件总线中订阅消息'],
+                    // ['/dev-guide/websocket-subs.md', '使用websocket订阅平台消息'],
+                    // ['/dev-guide/mqtt-subs.md', '使用mqtt订阅平台消息'],
                     ['/dev-guide/commons-api.md', '平台内部核心类及接口说明'],
                     ['/dev-guide/cluster.md', '集群管理'],
                     ['/dev-guide/assets.md', '数据权限控制'],
                     ['/dev-guide/sso.md', '单点登录'],
-                    //['/dev-guide/i18n-back.md', '国际化'],
                     ['/dev-guide/i18n.md', '国际化'],
                     ['/dev-guide/code-guide.md', '开发及使用指导'],
-
-                    // ['/dev-guide/code-guide.md', '平台开发指导手册'],
                     //['/dev-guide/micro-service', '微服务']
                 ]
             },

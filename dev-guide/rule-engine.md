@@ -1,17 +1,12 @@
 # 规则引擎
 
 ## 概述
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>规则引擎是使用预定义的语义模块编写业务决策。接受数据输入，解释业务规则，并根据业务规则做出业务决策，
+
+规则引擎是使用预定义的语义模块编写业务决策。接受数据输入，解释业务规则，并根据业务规则做出业务决策，
 对于处理复杂的事件具有灵活配置和高度定制化的。
 通过规则可以让项目下的设备相互联动，以设备上报数据或者定时器作为触发器并通过一些过滤及计算模块进行业务判断，最终控制其他设备进行联动操作。
 JetLinks平台在此基础上还扩展了一些网络节点，方便开发者使用这些节点订阅外部数据或转发平台内部数据。
-</p>
-</div>
+
 
 ## 名词说明
 

@@ -16,11 +16,14 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7
     <td><a target='_self' href='/dev-guide/custom-use-eventbus.
 html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8es'>
   自定义模块如何使用eventBus</a> </td>
-    <td><a target='_self' href='/dev-guide/custom-group-query-device.
-html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E4%BA%A7%E5%93%81%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF'>
-  自定义模块如何分组查询产品设备信息</a></td>
+    <td><a target='_self' href='/dev-guide/custom-use-springEvent.
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8spring%20event'>
+  自定义模块如何使用spring event</a> </td>
 </tr>
 <tr>
+   <td><a target='_self' href='/dev-guide/custom-group-query-device.
+html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E4%BA%A7%E5%93%81%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF'>
+  自定义模块如何分组查询产品设备信息</a></td>
    <td><a target='_self' href='/dev-guide/custom-use-sqlexecutor.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8sqlexecutor'>
   自定义模块如何使用sqlExecutor</a></td>
 </tr>
