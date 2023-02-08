@@ -1695,9 +1695,7 @@ benchmark
 benchmark udp --host=192.168.66.203 --port=8806 report=true reportLimit=100 interval=1000 --script=benchmark/udp/benchmark.js --id=ele_dev_a_1_13
 ```
 
-![属性上报成功](../dev-guide/images/device-access-http/simulator-report-success.png)
-
-
+![属性上报成功](../dev-guide/images/device-access-http/simulator-udp-success.png)
 
 
 
