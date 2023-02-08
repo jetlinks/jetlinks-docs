@@ -416,6 +416,21 @@ public void handleRequest(Request request){
 1. 通过打开全局 Operator 堆栈追踪
    设置reactor.trace.operatorStacktrace这个环境变量为 true，即启动参数中加入 -Dreactor.trace.operatorStacktrace=true，这样启动全局 Operator 堆栈追踪。
 
+### 响应式返回值类型不应该为Object、必须指出明确的返回类型
+<div class='explanation error'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>危险</span>
+  </p>
+  <p>响应式返回Mono&lt;Object&gt;或者Flux&lt;Object&gt;会报错，必须指出明确的返回类型。 </p>
+  <p>响应式使用@RequestBody注解的参数必须使用流包裹。</p>
+  <p>JetLinks从上至下使用全部使用响应式，基于JetLinks平台构建自己的业务代码时也请使用响应式。</p>
+  <p>如果不会写响应式，建议最好独立项目不要与JetLinks混合使用非响应式，可能会导致项目出现阻塞。</p>
+
+</div>
+
+### 响应式的返回值为空流时，会导致断流，后续的代码不会被执行
+
 ## 相关资料
 
 1. <a target='_blank' href='http://www.reactive-streams.org/'>reactive-streams</a>
