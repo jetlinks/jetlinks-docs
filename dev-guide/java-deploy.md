@@ -558,12 +558,12 @@ A: 执行打包命令之前，需要检查整个项目换行符，需将换行�
     <span class='explanation-title font-weight'>问题3</span>
   </p>
 
-Q: 非admin用户访问设备相关页面报错无权限
+Q: 非admin用户访问设备相关页面报错无权限。
 
 ![power-warn.png](./images/power-warn.png)
 
 
-A: 在device-manager目录和things-manager目录下的pom文件中添加以下内容
+A: 在device-manager目录和things-manager目录下的pom文件中添加以下内容。
 
 ```yaml
         <dependency>
@@ -581,6 +581,8 @@ A: 在device-manager目录和things-manager目录下的pom文件中添加以下�
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>问题4</span>
   </p>
-Q: 
-A: 检查每个节点、每个服务是否连接的同一个redis服务，redis服务是否持久化成功。
+Q: 点击登录按钮无法进入首页，跳转到登录页面
+
+A: 检查每个节点、每个服务是否连接同一个redis服务或redis集群服务，redis服务是否持久化成功。
+
 </div>
