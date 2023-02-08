@@ -64,17 +64,17 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7
 
 
 ## 创建自定义Maven项目
-### 1. 创建项目图示
+ 1. 创建项目图示
 
 ![创建新的Maven项目](./images/code-guide-1-1.png)
 
-### 2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
+ 2. 自定义的Maven项目与jetlinks-pro同级（低版本IDEA窗口下，新的Maven模块后显示root字样）
 
 ![项目未加入JetLinks平台内时](./images/code-guide-1-2.png)
 
 ## 将自定义模块加入JetLinks平台
 
-### 1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
+ 1. 在jetlinks-pro目录根路径下的`pom.xml`文件内声明自定义项目加入多模块管理
 
 ![在pom文件内声明模块信息](./images/code-guide-1-3.png)
 示例代码:
@@ -99,7 +99,7 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7
 </modules>
 ```
 
-### 2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
+ 2. 在jetlinks-standalone目录路径下的`pom.xml`文件内`profiles`节点中声明以下代码
 
 ![在pom文件内声明模块信息](./images/code-guide-1-4.png)
 
@@ -119,12 +119,12 @@ html#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E5%A6%82%E4%BD%95%E5%88%86%E7
 </profile>
 ```
 
-### 3. reimport项目
+ 3. reimport项目
 
 以上两步操作完成之后需要使用Maven窗口的`reimport`即 `Reload ALL Maven Project`按钮，重新引入模块依赖，此时模块被加入jetlinks-pro项目下
 ![在pom文件内声明模块信息](./images/code-guide-1-5.png)
 
-### 4. 加入子模块声明后，修改自定义项目pom文件内容
+ 4. 加入子模块声明后，修改自定义项目pom文件内容
 
 示例代码：
 
@@ -278,7 +278,7 @@ Process finished with exit code 0
 
 ## 常见问题
 
-### 自定义接口如何加入swagger
+#### 自定义接口如何加入swagger
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -322,7 +322,7 @@ springdoc:
 
 
 
-### 自定义的接口不想被平台鉴权拦截
+#### 自定义的接口不想被平台鉴权拦截
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
