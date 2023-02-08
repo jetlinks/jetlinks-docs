@@ -396,7 +396,9 @@
    本案例以Gitee举例
 </div>
 
-### 操作步骤
+操作步骤
+
+
 #### 1.登录Gitee-账号设置-第三方应用-点击创建应用
 
 <div class='explanation primary'>
@@ -420,7 +422,7 @@
   </p>
    下面两张图为同一个页面，client_id和client_secret为Gitee应用中的client ID和client Secret
 </div>
-  
+
   [Gitee文档相关资料](https://gitee.com/api/v5/swagger#/getV5User)
   可以获取oAuth文档：授权地址、token地址和API文档：获取授权用户的资料地址
   如果用户要使用自己的业务系统，可以参照自己的系统定义操作
@@ -442,7 +444,7 @@
   ![我的应用](./img/application-management-sso-07.png)
 #### 6.单点登录成功
   ![我的应用](./img/application-management-sso-08.png)
-  
+
 ### 流程图
   ### 创建Gitee应用
 ![我的应用](./img/application-management-sso-10.png)
@@ -489,10 +491,11 @@
 ![生成菜单menu](./img/page-api-create-menu.png)
 
 #### 5.选择集成菜单
-//todo  目前前端出现问题
-#### 6.选择集成菜单
-//todo  赋权
-#### 7.给当前账号分配新创建的菜单权限：角色管理-编辑-权限分配
+![添加集成菜单](./img/applicaiton-add-menu.png)
+
+![选择新增的集成菜单](./img/application-select-menu.png)
+
+#### 6.给当前账号分配新创建的菜单权限：角色管理-编辑-权限分配
 ![菜单权限分配](./img/page-menu-permission.png)
 
 ### 流程图
@@ -519,4 +522,3 @@
 <p>Q：<code>{"message":"Invalid character '；' for QUERY_PARAM in \"user_info；projects；pull_requests\"","status":400,
 "code":"illegal_argument","timestamp":1673317514494}</code></p>
 <p>A：单点登录的scope配置多个权限范围时，需要输入法在英文的状态前提下，输入分号</p></div>
-

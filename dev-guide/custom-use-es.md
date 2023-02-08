@@ -19,7 +19,7 @@
 
 ## 自定义项目引入平台elasticsearch模块
 
-### 1.`properties`
+ 1.`properties`
 
 ```
 <properties>
@@ -30,7 +30,7 @@
 </properties>
 ```
 
-### 2.引入依赖：
+ 2.引入依赖：
 
 ```java
   <dependency>
@@ -43,7 +43,7 @@
 
 ## 构建elasticsearch索引模板
 
-### 1.构建枚举类，定义索引模板名称
+ 1.构建枚举类，定义索引模板名称
 
 代码：
 
@@ -60,7 +60,7 @@ public enum CustomIndexEnum implements ElasticIndex {
 }
   ```
 
-### 2.创建配置类，程序启动时会根据以下配置创建索引模板
+ 2.创建配置类，程序启动时会根据以下配置创建索引模板
 
 代码：
 
@@ -91,7 +91,7 @@ public class Configurations implements CommandLineRunner {
 
 ## 使用平台elasticsearch
 
-### 1.在controller层引入`ElasticSearchService`服务
+ 1.在controller层引入`ElasticSearchService`服务
 
 在`org.example.mydemo.web.CustomController`中引入`elasticSearchService`
 
@@ -99,7 +99,7 @@ public class Configurations implements CommandLineRunner {
  private final ElasticSearchService elasticSearchService;
 ```
 
-### 2.es相关简单代码示例
+ 2.es相关简单代码示例
 
 ```java
 package org.example.mydemo.web;
@@ -203,7 +203,7 @@ public static CustomEntity of(Map<String, Object> map){
 
 ## 常见问题
 
-### 成功创建模板和索引，无法存入数据
+#### 成功创建模板和索引，无法存入数据
 
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
