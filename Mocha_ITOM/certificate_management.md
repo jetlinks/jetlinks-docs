@@ -15,7 +15,7 @@
   <p>2. <a href="/Mocha_ITOM/certificate_management.html#编辑">编辑</a></p>
   <p>3. <a href="/Mocha_ITOM/certificate_management.html#删除">删除</a></p>
   <p>4. <a href="/Mocha_ITOM/certificate_management.html#使用平台脚本生成证书">使用平台脚本生成证书</a></p>
-
+  <p>5. <a href="/Mocha_ITOM/certificate_management.html#使用第三方工具keymanger生成证书">使用第三方工具keyManger生成证书</a></p>
 
 ## 新增
 ### 操作步骤
@@ -65,8 +65,127 @@
 
 </div>
 
-```java
+```shell
 ./create.sh
+```
+shell 脚本说明
+```shell
+#!/usr/bin/env bash
+
+#秘钥文件
+KEY_STORE=keyStore.jks
+#秘钥密码
+KEY_STORE_PWD=endPass
+#信任库秘钥文件
+TRUST_STORE=trustStore.jks
+#信任库密码
+TRUST_STORE_PWD=rootPass
+
+# android support - PKCS12
+#P12证书信任库文件
+TRUST_STORE_P12=trustStore.p12
+#用于导出P12证书客户端秘钥文件
+CLIENT_KEY_STORE_P12=client.p12
+#用于导出P12证书服务端秘钥文件
+SERVER_KEY_STORE_P12=server.p12
+
+# PEM
+# 用于导出PEM证书信任库文件
+TRUST_STORE_PEM=trustStore.pem
+# 用于导出PEM证书客户端秘钥文件
+CLIENT_KEY_STORE_PEM=client.pem
+# 用于导出PEM证书服务端秘钥文件
+SERVER_KEY_STORE_PEM=server.pem
+
+VALIDITY=3650
+
+create_keys() {
+    # 生成根秘钥文件和证书
+    # -genkeypair 生成密钥对  -alias root 别名root
+    # -keyalg 指定使用EC算法 -dname 指定证书拥有者信息
+    # -ext BC=ca:true来标明这是一个CA证书
+    # -validity设置有效期 -keypass 指定别名条目的密码$TRUST_STORE_PWD=rootPass
+    # -keystore 指定密钥库的名称  -storepass 指定密钥库使用$TRUST_STORE_PWD密码
+   echo "creating root key and certificate..."
+   keytool -genkeypair -alias root -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=Iot Platform,CN=root' \
+        -ext BC=ca:true -validity $VALIDITY -keypass $TRUST_STORE_PWD -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD
+
+    # 生成CA秘钥文件和证书
+    # -genkeypair 生成密钥对  -alias ca 别名ca
+    # -keyalg 指定使用EC算法 -dname 指定证书拥有者信息
+    # -ext bc:ca来标明这是一个CA证书
+    # -validity设置有效期 -keypass 指定别名条目的密码$TRUST_STORE_PWD=rootPass
+    # -keystore 指定密钥库的名称$TRUST_STORE=trustStore.jks  -storepass 指定密钥库使用TRUST_STORE_PWD密码
+    # keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -certreq -alias ca 向CA发起签名请求别名ca
+    # keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -alias root -gencert -validity $VALIDITY -ext BC=0 -ext KU=keyCertSign,cRLSign -rfc 根据root证书生成3650天的root证书或者证书链
+    # CA响应将ca证书导入$TRUST_STORE=trustStore.jks文件内
+   echo "creating CA key and certificate..."
+   keytool -genkeypair -alias ca -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=JetLinks Iot Platform,CN=ca' \
+        -ext BC=ca:true -validity $VALIDITY -keypass $TRUST_STORE_PWD -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD
+   keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -certreq -alias ca | \
+      keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -alias root -gencert -validity $VALIDITY -ext BC=0 -ext KU=keyCertSign,cRLSign -rfc | \
+      keytool -alias ca -importcert -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD
+
+    # 生成服务端秘钥和证书
+    # -genkeypair 生成密钥对  -alias server 别名server
+    # ....
+    # -keypass 指定别名条目的密码$KEY_STORE_PWD=endPass -keystore 指定密钥库的名称$KEY_STORE=keyStore.jks -storepass 指定密钥库使用$KEY_STORE_PWD的密码
+    #  keytool -keystore $KEY_STORE -storepass $KEY_STORE_PWD -certreq -alias server 向CA发起签名请求别名server
+    # keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -alias ca -gencert -ext KU=dig,keyEnc,keyAgree -ext EKU=serverAuth -validity $VALIDITY -rfc > server.csr  根据ca证书生成服务端证书或证书链
+    # CA响应将server证书导入$KEY_STORE=keyStore.jks中
+   echo "creating server key and certificate..."
+   keytool -genkeypair -alias server -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=JetLinks Iot Platform,CN=server' \
+        -validity $VALIDITY -keypass $KEY_STORE_PWD -keystore $KEY_STORE -storepass $KEY_STORE_PWD
+   keytool -keystore $KEY_STORE -storepass $KEY_STORE_PWD -certreq -alias server | \
+      keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -alias ca -gencert -ext KU=dig,keyEnc,keyAgree -ext EKU=serverAuth -validity $VALIDITY -rfc > server.csr
+   keytool -alias server -importcert -keystore $KEY_STORE -storepass $KEY_STORE_PWD -trustcacerts -file server.csr
+
+     # 生成客户端秘钥和证书
+   echo "creating client key and certificate..."
+   keytool -genkeypair -alias client -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=JetLinks Iot Platform,CN=client' \
+        -validity $VALIDITY -keypass $KEY_STORE_PWD -keystore $KEY_STORE -storepass $KEY_STORE_PWD
+   keytool -keystore $KEY_STORE -storepass $KEY_STORE_PWD -certreq -alias client | \
+      keytool -keystore $TRUST_STORE -storepass $TRUST_STORE_PWD -alias ca -gencert -ext KU=dig,keyEnc,keyAgree -ext EKU=clientAuth -validity $VALIDITY -rfc > client.csr
+   keytool -alias client -importcert -keystore $KEY_STORE -storepass $KEY_STORE_PWD -trustcacerts -file client.csr
+
+    # 生成自签秘钥和证书
+   echo "creating self-signed key and certificate..."
+   keytool -genkeypair -alias self -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=JetLinks Iot Platform,CN=self' \
+        -ext BC=ca:true -ext KU=keyCertSign -ext KU=dig -validity $VALIDITY -keypass $KEY_STORE_PWD -keystore $KEY_STORE -storepass $KEY_STORE_PWD
+
+    #创建没有使用数字签名密钥的证书
+   echo "creating certificate with no digitalSignature keyusage..."
+   keytool -genkeypair -alias nosigning -keyalg EC -dname 'C=CN,L=ChongQing,O=JetLinks Pro,OU=JetLinks Iot Platform,CN=nosigning' \
+        -ext BC=ca:true -ext KU=keyEn -validity $VALIDITY -keypass $KEY_STORE_PWD -keystore $KEY_STORE -storepass $KEY_STORE_PWD
+}
+
+#导出P12证书
+export_p12() {
+   echo "exporting keys into PKCS#12"
+   keytool -v -importkeystore -srckeystore $KEY_STORE -srcstorepass $KEY_STORE_PWD -alias client \
+      -destkeystore $CLIENT_KEY_STORE_P12 -deststorepass $KEY_STORE_PWD -deststoretype PKCS12
+   keytool -v -importkeystore -srckeystore $KEY_STORE -srcstorepass $KEY_STORE_PWD -alias server \
+      -destkeystore $SERVER_KEY_STORE_P12 -deststorepass $KEY_STORE_PWD -deststoretype PKCS12
+   keytool -v -importkeystore -srckeystore $TRUST_STORE -srcstorepass $TRUST_STORE_PWD \
+      -destkeystore $TRUST_STORE_P12 -deststorepass $TRUST_STORE_PWD -deststoretype PKCS12
+}
+
+export_pem() {
+   openssl version
+
+   if [ $? -eq 0 ] ; then
+      echo "exporting keys into PEM format"
+      openssl pkcs12 -in $SERVER_KEY_STORE_P12 -passin pass:$KEY_STORE_PWD -nodes -out $SERVER_KEY_STORE_PEM
+      openssl pkcs12 -in $CLIENT_KEY_STORE_P12 -passin pass:$KEY_STORE_PWD -nodes -out $CLIENT_KEY_STORE_PEM
+      openssl pkcs12 -in $TRUST_STORE_P12 -passin pass:$TRUST_STORE_PWD -nokeys -out $TRUST_STORE_PEM
+      openssl ecparam -genkey -name prime256v1 -noout -out ec_private.pem
+      openssl ec -in ec_private.pem -pubout -out ec_public.pem
+   fi
+}
+
+create_keys
+export_p12
+export_pem
 ```
 会生成以下文件
 ```resource
@@ -99,6 +218,59 @@
 </div>
 
 ### MQTTX连接配置
-
 ![](./img/MQTTX_SSL_configuration.png)
 
+[//]: # (## 使用JKS证书)
+
+[//]: # (JKS秘钥库密码：endPass JKS信任库密码：rootPass)
+
+[//]: # ()
+[//]: # (上传秘钥库：keyStore.jks 上传信任库：trustStore.jks 以上两个密码可以在create.sh文件内修改 修改参数如下：)
+
+[//]: # (```sh)
+
+[//]: # (KEY_STORE=keyStore.jks)
+
+[//]: # (KEY_STORE_PWD=endPass)
+
+[//]: # (TRUST_STORE=trustStore.jks)
+
+[//]: # (TRUST_STORE_PWD=rootPass)
+
+[//]: # (```)
+
+[//]: # ()
+[//]: # (客户端配置)
+
+[//]: # ()
+[//]: # (CA证书使用client.pem)
+
+[//]: # ()
+[//]: # (## 使用P12证书)
+
+[//]: # ()
+[//]: # (PFX秘钥库密码：endPass PFX信任库密码：rootPass)
+
+[//]: # ()
+[//]: # (CA证书使用client.pem)
+
+
+
+## 使用第三方工具keyManger生成证书
+
+  导出生成的证书并解压，压缩包包含`*.cer`和`*_key.key`两个文件
+  ![第三方证书](./img/third_crt_file.png)
+
+打开两个文件，将`*_key.key`的内容复制并粘贴到`*.cer`文件内容后面
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+   平台上传证书要通过文件上传的方式
+</div>
+
+修改后的`*.cer`作为`Jetlinks`平台的证书文件，未被修改的的`*_key.key`作为`JetLinks`平台的证书私钥
+  ![](./img/upload_third_cer_file.png)
+ 通过mqtt连接
+![img.png](./img/third_cer_mqtt_config.png)

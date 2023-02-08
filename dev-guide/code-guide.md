@@ -37,11 +37,11 @@
 
 ### 平台开发
 - <a target="" href="/dev-guide/crud.html">关系型数据库增删改查</a>
-- 自定义SQL条件或使用源生SQL语句
-- 事件驱动及消息总线f
-- 规则引擎说明
-- 平台核心类及接口说明
-- 集群管理
+- <a target="" href="/dev-guide/CustomConditionsSqlOrUseSourceSql.html">
+  自定义SQL条件或使用原生SQL语句</a>
+- <a href="/dev-guide/event-driver.html">事件驱动及消息总线</a>
+- <a href="/dev-guide/rule-engine.html">规则引擎说明</a>
+- <a href="/dev-guide/commons-api.html">平台核心类及接口说明</a>
 - 集群管理
 - <a target='_self' href='/dev-guide/custom-code-guide.html'>
    在JetLinks上构建自己的业务模块？</a>
@@ -59,22 +59,29 @@
    调用API</a>
 - <a target='_self' href='/dev-guide/application-integration.html'>
    应用集成</a>
-- 单点登录
-- API列表
-- 透传协议
+- <a target='_self' href='/Best_practices/application_management.html#单点登录'>
+   单点登录</a>
+- <a target='_self' href='/System_settings/System_api_configuration.html'>
+   API列表</a>
+- <a target='_self' href='/dev-guide/jetlinks-transparent.html#透传协议'>
+   透传协议</a>
 - 自定义接入网关？
 - 数据权限控制？
 - 数据隔离如何操作？
 - 如何横向扩展集群节点？
-- 国际化
+- <a target='_self' href='/dev-guide/i18n.html#国际化'>
+   国际化</a>
 - 文件管理
-- 证书如何生成？
+  
+- <a target='_self' href='/Mocha_ITOM/certificate_management.html#证书管理'>
+  证书如何生成？</a>
 - 日志输出级别
 
 ### 协议开发
-
-- 单协议包支持多通信协议
-- 自定义Topic通信
+- <a target='_self' href='/protocol/first.html'>
+  单协议包支持多通信协议</a>
+- <a target='_self' href='/dev-guide/custom_topic_communication.html'>
+  自定义Topic通信</a>
 - <a target='_self' href='/dev-guide/protocol-redis.html'>
   如何在协议包里面使用Redis？</a>
 - <a target='_self' href='/dev-guide/jetlinks-protocol-use-business-method.html'>
