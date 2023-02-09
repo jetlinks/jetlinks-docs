@@ -1,4 +1,4 @@
-# 订阅平台相关消息
+# 订阅平台内部消息
 
 ## 应用场景
 
@@ -194,419 +194,32 @@ websocket发送消息，格式为：
 </div>
 
 
-#### 可订阅的相关主题
+#### 平台内部主题
 
 | 匹配Topic                                                    | 说明                                                 |
 | ------------------------------------------------------------ | ---------------------------------------------------- |
-| `/network/coap/client/*/_send`<br>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
-| `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
+| `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>           |
 | `/alarm/*/*/*`                                               | <a href='#device-alarm'>告警相关消息</a>             |
+| `/rule-engine/**`                                            | <a href='#rule-engine'>规则引擎</a>                  |
+| `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a>      |
+| `/dashboard/**`                                              | <a href='#dashboard'>仪表盘相关消息</a>              |
+| `/notifications`                                             | <a href='#notifications'>通知推送</a>                |
+| `/scene/*`                                                   | <a href='#scene'>场景联动事件</a>                    |
 | `/device-batch/*`                                            | <a href='#device-bash'>设备批量操作</a>              |
 | `/device-current-state`                                      | <a href='#device-current-state'>设备当前状态消息</a> |
 | `/debug/device/*/trace`                                      | <a href='#device-debug-trace'>设备诊断消息</a>       |
 | `/device-firmware/publish`                                   | <a href='#device-firm'>推送设备固件更新</a>          |
-| `/device-message-sender/*/*`                                 | <a href='#device-send-message'>设备消息发送</a>      |
-| `/device/*/*/**`                                             | <a href='#device-message'>订阅设备消息</a>           |
 | `/virtual-property-debug`                                    | <a href='#virtual-property'>虚拟属性调试</a>         |
+| `/network/simulator/**`                                      | <a href='#simulator'>模拟器消息订阅</a>              |
 | `/network/http/client/*/_send`<br>`/network/http/server/*/_subscribe` | <a href='#http'>HTTP调试</a>                         |
 | `/network/mqtt/client/*/_subscribe/*`<br>`/network/mqtt/client/*/_publish/*` | <a href='#mqtt-client'>MQTT客户端调试</a>            |
 | `/network/mqtt/server/*/_subscribe/*`                        | <a href='#mqtt-server'>MQTT服务调试</a>              |
-| `/notifications`                                             | <a href='#notifications'>通知推送</a>                |
-| `/rule-engine/**`                                            | <a href='#rule-engine'>规则引擎</a>                  |
-| `/scene/*`                                                   | <a href='#scene'>场景联动事件</a>                    |
-| `/network/simulator/**`                                      | <a href='#simulator'>模拟器消息订阅</a>              |
 | `/network/tcp/client/*/_send`<br>`/network/tcp/client/*/_subscribe` | <a href='#tcp-client'>TCP客户端调试</a>              |
 | `/network/tcp/server/*/_subscribe`                           | <a href='#tcp-server'>TCP服务调试</a>                |
 | `/network/udp/*/_send`<br>`/network/udp/*/_subscribe`        | <a href='#udp'>UDP调试</a>                           |
 | `/network/websocket/client/*/_subscribe/*`<br>`/network/websocket/client/*/_publish/*` | <a href='#websocket-client'>WebSocket客户端调试</a>  |
 | `/network/websocket/server/*/_subscribe`                     | <a href='#websocket-server'>WebSocket服务调试</a>    |
-
-<br>
-
-#### <font id='coap'>订阅CoAP调试相关消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        当订阅主题以<code>/network/coap/server</code>开头时订阅为CoAP服务，如果订阅CoAP客户端则不会返回任何消息
-    </p>
-</div>
-
-1、订阅CoAP服务调试消息
-
-| parameter | 参数说明                                                     |
-| --------- | ------------------------------------------------------------ |
-| `request` | CoAP协议通讯的相关参数类似于HTTP，如果未传入则默认使用`CREATE 2.02\nContent-Format: application/json\n\n{\"success\":true}`当作`request` |
-
-使用Websocket的方式
-
-```json
-	//平台网络组件中想要订阅的CoAP服务组件的id
-    //此id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
-    //也可以去数据库中的jetlinks数据库下的network_config表中查找
-	{
-        "type": "sub",
-        "topic": "/network/coap/server/{id}/_subscribe",
-        "parameter": {
-            "request":"request-params-string"
-        },
-        "id": "request-id"
-	}
-```
-
-使用MQTT的方式
-
-```kotlin
-/network/coap/server/{id}/_subscribe?request={request-params-string}
-```
-
-![MQTT订阅CoAP调试信息](./images/mqtt-sub-coap-debug.png)
-
-
-
-#### <font id='dashboard'>订阅仪表盘相关消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        <code>dashboard</code>仪表盘：一类监控数据的分类，例如: 系统监控，设备监控。<br><code>object</code>仪表盘对象，例如: CPU，内存，设备状态等。<br><code>measurement</code>监控指标，例如: CPU使用率，设备在线状态等。<br><code>dimension</code>指标维度，例如: 实时CPU使用率，设备历史状态等。
-    </p>
-</div>
-
-
-```json
-"topic": "/dashboard/{dashboard}/{object}/{measurement}/{dimension}"
-```
-
-<div class='explanation warning'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-jinggao explanation-icon'></span>
-    <span class='explanation-title font-weight'>警告</span>
-  </p>
-	<p>
-        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中一个且与前后位置相一致，例如<code>systemMonitor</code>这一行数据中，<code>stats</code>后只能选取<code>info</code>而不能选择<code>traffic</code>；如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
-    </p>
-</div>
-
-
-可以订阅的主题有
-
-
-| 仪表盘(dashboard) | 仪表盘对象(object)                 | 监控指标(measurement)                                        | 指标维度(dimension)                                          | 说明     |
-| ----------------- | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
-| `gatewayMonitor`  | `deviceGateway`                    | `connected`<br>`disconnected`<br>`sent_message`<br>`rejected`<br>`connection`<br>`received_message` | `agg`,`history`                                              | 网关消息 |
-| `alarm`           | `record`                           | `trend`<br>`rank`                                            | `agg`                                                        | 告警信息 |
-| `systemMonitor`   | `stats`<br>`network`               | `info`<br>`traffic`                                          | `realTime,history`<br>`agg`                                  | 系统信息 |
-| `device`          | `session`<br>`message`<br>`status` | `online`<br>`quantity`<br>`change,record`                    | `agg`<br>`realTime,agg`<br>`realTime,agg`<br>`current,aggOnline` | 设备信息 |
-| `collector`       | `pointData`                        | `quantity`                                                   | `realTime,agg`                                               | 点位信息 |
-
-使用Websocket订阅
-
-```json
-	{
-        "type": "sub",
-        "topic": "/dashboard/{dashboard}/{object}/{measurement}/{dimension}",
-        "parameter": {},
-        "id": "request-id"
-	}
-```
-
-使用MQTT订阅
-
-```kotlin
-/dashboard/{dashboard}/{object}/{measurement}/{dimension}
-```
-
-![MQTT订阅dashboard数据](./images/mqtt-sub-dashboard.png)
-
-
-#### <font id='device-alarm'>订阅告警相关消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        告警相关消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
-    </p>
-</div>
-
-| `targetType` | 说明                                                         |
-| :----------: | :----------------------------------------------------------- |
-|  `product`   | 当`targetType`为`product`时，则对应的`targetId`为产品id      |
-|   `device`   | <p>当`targetType`为`device`时，则对应的`targetId`为设备id</p> |
-|    `org`     | <p>当`targetType`为`org`时，则对应的`targetId`为组织id，此时平台回复的报文格式中`bingdings`会增加一个`{"id":"组织id","type":"org"}`的组织信息；如果当前用户存在多个组织，则每个组织均会订阅到该次告警信息，`bingdings`中则为对应组织的信息（组织<b>分配的资产中有当前产品及该产品下对应的设备</b>才能订阅到此次告警信息）</p> |
-|   `other`    | <p>当`targetType`为`other`时，平台回复的报文格式中则不会存在`sourceId`,`sourceName`,`sourceType`三个字段，此时的`targetId`则为想要订阅的告警配置的`id`</p> |
-
-使用websocket订阅
-
-
-```json
-	{
-        "type": "sub",
-        "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
-        "parameter": {},
-        "id": "request-id"
-	}
-```
-
-使用MQTT订阅
-
-```kotlin
-/alarm/{targetType}/{targetId}/{alarmId}
-```
-
-平台回复消息具体格式
-
-```json
-{
-    "payload": {
-        "alarmConfigId": "1614934749509095424",//告警配置id
-        "alarmConfigName": "设备告警",//告警配置名
-        //告警具体信息
-        "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
-        "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
-        "alarmTime": 1674884438091,//告警发生时间
-        "bindings": [
-            {
-                "id": "1199596756811550720",
-                "type": "user"
-            }
-        ],
-        "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
-        "level": 1,//告警等级
-        "sourceId": "1614931520184422400",//源id，此处为设备id
-        "sourceName": "场景联动设备",//源名字，此处为设备名
-        "sourceType": "device",//源类型，此处为设备
-        "targetId": "1614931310716686336",//目标id,此处为产品id
-        "targetName": "场景联动产品",//目标名，此处为产品名
-        "targetType": "product"//目标类型，此处为产品
-    },
-    "requestId": "request-id",//本次订阅的id
-    "topic": "/alarm/product/1614931310716686336/1614934749509095424",//订阅的topic
-    "type": "result"//结果类型
-}
-```
-
-![MQTT订阅设备告警信息](./images/mqtt-sub-alarm.png)
-
-
-
-#### <font id='device-bash'>订阅设备批量操作消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        <code>type</code>类型可以为<code>state-sync</code>(批量同步设备状态)或者<code>deploy</code>(批量发布设备)
-    </p>
-</div>
-
-
-| parameter | 参数说明     |
-| --------- | ------------ |
-| `query`   | 动态查询条件 |
-
-使用websocket订阅
-
-
-```json
-{
-    "type": "sub", //固定为sub
-    "topic": "/device-batch/{type}",
-    "parameter": {
-        "query":{"where":"productId is my-product"}//查询条件为动态查询条件
-    },
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/device-batch/{type}?query={"where":"productId is my-product"}
-```
-
-![MQTT订阅批量操作](./images/mqtt-sub-batch.png)
-
-
-
-#### <font id='device-current-state'>订阅设备当前状态消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-        订阅某一个设备的状态信息，无法使用通配符
-    </p>
-</div>
-
-
-| parameter  | 参数说明 |
-| ---------- | -------- |
-| `deviceId` | 设备id   |
-
-使用websocket订阅
-
-```json
-{
-    "type": "sub",
-    "topic": "/device-current-state",
-    "parameter": {
-        //必须指定设备id
-        "deviceId":"deviceId"
-    },
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/device-current-state?deviceId={deviceId}
-```
-
-![MQTT订阅设备当前状态](./images/mqtt-sub-device_current_state.png)
-
-
-
-#### <font id='device-debug-trace'>设备诊断消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       订阅某一个设备的诊断消息
-    </p>
-</div>
-
-使用websocket订阅
-
-```json
-{
-    "type": "sub",
-    "topic": "/debug/device/{deviceId}/trace",
-    "parameter": {
-     
-    },
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-
-
-
-
-#### <font id='device-firm'>订阅推送设备固件更新消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       <code>taskId</code>可以到数据库中的<code>jetlinks</code>数据库下的<code>dev_firmware_upgrade_task</code>表中找到
-    </p>
-</div>
-
-
-| parameter | 参数说明 |
-| --------- | -------- |
-| `taskId`  | 任务id   |
-
-使用websocket订阅
-
-
-```json
-{
-    "type": "sub",
-    "topic": "/device-current-state",
-    "parameter": {
-        //必须指定任务id
-        "taskId":"taskId"
-    },
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/device-current-state?taskId={taskId}
-```
-
-![MQTT订阅固件升级](./images/mqtt-sub-task.png)
-
-
-
-#### <font id='device-send-message'>订阅设备消息发送</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       <code>deviceId</code>可以传入多个例如device1,device2，也可以使用通配符*，如果设备id使用通配符则<code>productId</code>不能进行通配，<code>parameter</code>内的<code>messageType</code>可以为<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能)
-    </p>
-</div>
-
-
-| parameter     | 参数说明                                                     |
-| ------------- | ------------------------------------------------------------ |
-| `messageType` | 消息类型，可选参数有<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能) |
-| `properties`  | 产品或设备实际的属性                                         |
-| `headers`     | 头信息，通常为`async`，确定是否是异步                        |
-
-使用websocket订阅
-
-
-```json
-{
-    //固定为sub
-    "type": "sub", 
-    "topic": "/device-message-sender/{productId}/{deviceId}", 
-    //根据不同的消息,参数也不同. 具体见: 平台统一消息定义
-    "parameter": {
-        // 消息类型
-        "messageType":"READ_PROPERTY",
-        //想要设备回复的属性id标识，此处为读取设备温度，要求设备回复当前温度值
-        "properties":["temperature"],
-        //头信息
-        "headers":{
-    		// 是否异步,异步时,平台不等待设备返回指令结果
-            "async":false 
-        }
-    },
-	//请求id, 请求的标识,服务端在推送消息时,会将此标识一并返回
-    "id": "request-id" 
-}
-```
-
-<br>
-
-使用MQTT订阅
-
-```kotlin
-/device-message-sender/{productId}/{deviceId}?messageType={messageType}&properties[0]=temperature&headers={"async":false}
-```
-
-![MQTT订阅设备发送消息](./images/mqtt-sub-device_send_message.png)
+| `/network/coap/client/*/_send`<br/>`/network/coap/server/*/_subscribe` | <a href='#coap'>CoAP调试相关消息</a>                 |
 
 
 
@@ -621,6 +234,7 @@ websocket发送消息，格式为：
 与消息网关中的设备<code>topic</code>一致，具体想要订阅的<code>topic</code>可以参考<a href='http://doc.jetlinks.cn/function-description/device_message_description.html#设备消息对应事件总线topic' target='blank'>topic列表</a>。 消息负载(<code>payload</code>)与<a  href='http://doc.jetlinks.cn/function-description/device_message_description.html#平台统一设备消息定义' target='blank'>设备消息类型</a>一致。
     </p>
 </div>
+
 
 
 
@@ -679,16 +293,459 @@ websocket发送消息，格式为：
 
 
 
+#### <font id='device-alarm'>订阅告警相关消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        告警相关消息，<code>{targetType}</code>目标类型，<code>{targetId}</code>目标id，<code>{alarmId}</code>告警id。当设备告警第一次触发后如果后续未在告警记录中进行处理，则后续不会订阅到本次已经触发过的告警
+    </p>
+</div>
+
+使用websocket订阅
+
+
+```json
+	{
+        "type": "sub",
+        "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
+        "parameter": {},
+        "id": "request-id"
+	}
+```
+
+使用MQTT订阅
+
+```kotlin
+/alarm/{targetType}/{targetId}/{alarmId}
+```
+
+| `targetType` | 说明                                                         |
+| :----------: | :----------------------------------------------------------- |
+|  `product`   | 当`targetType`为`product`时，则对应的`targetId`为产品id      |
+|   `device`   | <p>当`targetType`为`device`时，则对应的`targetId`为设备id</p> |
+|    `org`     | <p>当`targetType`为`org`时，则对应的`targetId`为组织id，此时平台回复的报文格式中`bingdings`会增加一个`{"id":"组织id","type":"org"}`的组织信息；如果当前用户存在多个组织，则每个组织均会订阅到该次告警信息，`bingdings`中则为对应组织的信息（组织<b>分配的资产中有当前产品及该产品下对应的设备</b>才能订阅到此次告警信息）</p> |
+|   `other`    | <p>当`targetType`为`other`时，平台回复的报文格式中则不会存在`sourceId`,`sourceName`,`sourceType`三个字段，此时的`targetId`则为想要订阅的告警配置的`id`</p> |
+
+平台回复消息具体格式
+
+```json
+{
+    "payload": {
+        "alarmConfigId": "1614934749509095424",//告警配置id
+        "alarmConfigName": "设备告警",//告警配置名
+        //告警具体信息
+        "alarmInfo": "{\"code\":\"TIME_OUT\",\"branch_1_group_1_action_1\":{\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"functionId\":\"alarm\",\"code\":\"TIME_OUT\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"success\":false,\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"deviceId\":\"1614934616587407360\",\"timestamp\":1674884438088},\"deviceId\":\"1614934616587407360\",\"scene\":{\"sourceId\":\"1614931520184422400\",\"data\":{\"temperature\":48.1},\"data_temperature\":48.1,\"deviceId\":\"1614931520184422400\",\"deviceName\":\"场景联动设备\",\"productName\":\"场景联动产品\",\"timestamp\":1674884428063,\"productId\":\"1614931310716686336\",\"sourceType\":\"device\",\"traceparent\":\"00-84a84b8e2dcff1098906b8849ca74c19-bf77534ce630b8f8-01\",\"_now\":1674884428064,\"sourceName\":\"场景联动设备\",\"_uid\":\"b4X25DEfVXuZTyDq-k6RKnXMltNpf4Rh\"},\"functionId\":\"alarm\",\"messageType\":\"INVOKE_FUNCTION_REPLY\",\"timestamp\":1674884438088,\"headers\":{\"errorType\":\"org.jetlinks.core.exception.DeviceOperationException\",\"errorMessage\":\"error.code.time_out\"},\"messageId\":\"1619208766628511745\",\"message\":\"error.code.time_out\",\"success\":false}",
+        "alarmRecordId": "20f0c110fed8402e862cb7c15c992569",//告警记录id
+        "alarmTime": 1674884438091,//告警发生时间
+        "bindings": [
+            {
+                "id": "1199596756811550720",
+                "type": "user"
+            }
+        ],
+        "id": "b4X25FhTnJgqofbv0RxD4uLJcvvbS0v3",
+        "level": 1,//告警等级
+        "sourceId": "1614931520184422400",//源id，此处为设备id
+        "sourceName": "场景联动设备",//源名字，此处为设备名
+        "sourceType": "device",//源类型，此处为设备
+        "targetId": "1614931310716686336",//目标id,此处为产品id
+        "targetName": "场景联动产品",//目标名，此处为产品名
+        "targetType": "product"//目标类型，此处为产品
+    },
+    "requestId": "request-id",//本次订阅的id
+    "topic": "/alarm/product/1614931310716686336/1614934749509095424",//订阅的topic
+    "type": "result"//结果类型
+}
+```
+
+![MQTT订阅设备告警信息](./images/mqtt-sub-alarm.png)
+
+
+
+#### <font id='rule-engine'>订阅规则引擎执行相关消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       规则引擎相关
+    </p>
+</div>
+
+发送消息到websocket
+
+```json
+{
+    "type": "sub", //固定为sub
+    "topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
+    "parameter": {},
+    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
+}
+```
+
+使用mqtt订阅
+
+```kotlin
+/rule-engine/{instanceId}/{nodeId}/event/{event}
+```
+
+![mqtt订阅规则引擎消息](./images/mqtt-sub-rule-engine.png)
+
+| parameter  | 说明                                                         |
+| ---------- | ------------------------------------------------------------ |
+| instanceId | 规则编排内的某一实例id,可以在数据库表rule-instance内的id字段查看 |
+| nodeId     | 当对应的实例启动后会在rule_task_snapshot内生成一条记录，nodeId即为此表内的node_id字段 |
+| event      | state-->订阅该实例节点的状态（比如从启动到停止，从停止到启动）<br/>running-->订阅该实例节点启动时的信息<br/>shutdown-->订阅该实例节点停止时的信息<br/>result-->订阅该实例节点中编排的组件收发的数据信息 |
+
+
+
+#### <font id='device-send-message'>订阅设备消息发送</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       <code>deviceId</code>可以传入多个例如device1,device2，也可以使用通配符*，如果设备id使用通配符则<code>productId</code>不能进行通配，<code>parameter</code>内的<code>messageType</code>可以为<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能)
+    </p>
+</div>
+
+
+
+使用websocket订阅
+
+
+```json
+{
+    //固定为sub
+    "type": "sub", 
+    "topic": "/device-message-sender/{productId}/{deviceId}", 
+    //根据不同的消息,参数也不同. 具体见: 平台统一消息定义
+    "parameter": {
+        // 消息类型
+        "messageType":"READ_PROPERTY",
+        //想要设备回复的属性id标识，此处为读取设备温度，要求设备回复当前温度值
+        "properties":["temperature"],
+        //头信息
+        "headers":{
+    		// 是否异步,异步时,平台不等待设备返回指令结果
+            "async":false 
+        }
+    },
+	//请求id, 请求的标识,服务端在推送消息时,会将此标识一并返回
+    "id": "request-id" 
+}
+```
+
+<br>
+
+使用MQTT订阅
+
+```kotlin
+/device-message-sender/{productId}/{deviceId}?messageType={messageType}&properties[0]=temperature&headers={"async":false}
+```
+
+![MQTT订阅设备发送消息](./images/mqtt-sub-device_send_message.png)
+
+| parameter     | 参数说明                                                     |
+| ------------- | ------------------------------------------------------------ |
+| `messageType` | 消息类型，可选参数有<code>READ_PROPERTY</code>(读取属性)，<code>WRITE_PROPERTY</code>(修改属性)，<code>INVOKE_FUNCTION</code>(调用功能) |
+| `properties`  | 产品或设备实际的属性                                         |
+| `headers`     | 头信息，通常为`async`，确定是否是异步                        |
+
+
+
+#### <font id='dashboard'>订阅仪表盘消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        <code>dashboard</code>仪表盘：一类监控数据的分类，例如: 系统监控，设备监控。<br><code>object</code>仪表盘对象，例如: CPU，内存，设备状态等。<br><code>measurement</code>监控指标，例如: CPU使用率，设备在线状态等。<br><code>dimension</code>指标维度，例如: 实时CPU使用率，设备历史状态等。
+    </p>
+</div>
+
+
+
+使用Websocket订阅
+
+```json
+	{
+        "type": "sub",
+        "topic": "/dashboard/{dashboard}/{object}/{measurement}/{dimension}",
+        "parameter": {},
+        "id": "request-id"
+	}
+```
+
+使用MQTT订阅
+
+```kotlin
+/dashboard/{dashboard}/{object}/{measurement}/{dimension}
+```
+
+![MQTT订阅dashboard数据](./images/mqtt-sub-dashboard.png)
+
+```json
+"topic": "/dashboard/{dashboard}/{object}/{measurement}/{dimension}"
+```
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-jinggao explanation-icon'></span>
+    <span class='explanation-title font-weight'>警告</span>
+  </p>
+	<p>
+        选择订阅主题时确认表格中某一格内数据的展示顺序，如果是竖着表示只能选择其中一个且与前后位置相一致，例如<code>systemMonitor</code>这一行数据中，<code>stats</code>后只能选取<code>info</code>而不能选择<code>traffic</code>；如果是横着则表示前一个维度的值可以选取当前格内的任意一个。
+    </p>
+</div>
+
+
+
+可以订阅的主题有
+
+
+| 仪表盘(dashboard) | 仪表盘对象(object)                 | 监控指标(measurement)                                        | 指标维度(dimension)                                          | 说明     |
+| ----------------- | ---------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
+| `gatewayMonitor`  | `deviceGateway`                    | `connected`<br>`disconnected`<br>`sent_message`<br>`rejected`<br>`connection`<br>`received_message` | `agg`,`history`                                              | 网关消息 |
+| `alarm`           | `record`                           | `trend`<br>`rank`                                            | `agg`                                                        | 告警信息 |
+| `systemMonitor`   | `stats`<br>`network`               | `info`<br>`traffic`                                          | `realTime,history`<br>`agg`                                  | 系统信息 |
+| `device`          | `session`<br>`message`<br>`status` | `online`<br>`quantity`<br>`change,record`                    | `agg`<br>`realTime,agg`<br>`realTime,agg`<br>`current,aggOnline` | 设备信息 |
+| `collector`       | `pointData`                        | `quantity`                                                   | `realTime,agg`                                               | 点位信息 |
+
+
+
+#### <font id='notifications'>订阅通知消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       会根据当前连接到平台的<code>token</code>去订阅相应用户的通知消息
+    </p>
+</div>
+
+
+使用websocket订阅
+
+
+```json
+{
+    "type": "sub",
+    "topic": "/notifications",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/notifications
+```
+
+![MQTT订阅通知消息](./images/mqtt-sub-notifications.png)
+
+
+
+#### <font id='scene'>订阅场景联动消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       <code>{sceneId}</code>为场景联动id
+    </p>
+</div>
+
+
+使用websocket订阅
+
+
+```json
+{
+    "type": "sub",
+    "topic": "/scene/{sceneId}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/scene/{sceneId}
+```
+
+![mqtt订阅场景联动消息](./images/mqtt-sub-scene.png)
+
+
+
+#### <font id='device-bash'>订阅设备批量操作消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        <code>type</code>类型可以为<code>state-sync</code>(批量同步设备状态)或者<code>deploy</code>(批量发布设备)
+    </p>
+</div>
+
+
+
+使用websocket订阅
+
+
+```json
+{
+    "type": "sub", //固定为sub
+    "topic": "/device-batch/{type}",
+    "parameter": {
+        "query":{"where":"productId is my-product"}//查询条件为动态查询条件
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/device-batch/{type}?query={"where":"productId is my-product"}
+```
+
+![MQTT订阅批量操作](./images/mqtt-sub-batch.png)
+
+| parameter | 参数说明     |
+| --------- | ------------ |
+| `query`   | 动态查询条件 |
+
+
+
+#### <font id='device-current-state'>订阅设备当前状态消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        订阅某一个设备的状态信息，无法使用通配符
+    </p>
+</div>
+
+
+
+使用websocket订阅
+
+```json
+{
+    "type": "sub",
+    "topic": "/device-current-state",
+    "parameter": {
+        //必须指定设备id
+        "deviceId":"deviceId"
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/device-current-state?deviceId={deviceId}
+```
+
+![MQTT订阅设备当前状态](./images/mqtt-sub-device_current_state.png)
+
+
+
+#### <font id='device-debug-trace'>设备诊断消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       订阅某一个设备的诊断消息
+    </p>
+</div>
+
+
+使用websocket订阅
+
+```json
+{
+    "type": "sub",
+    "topic": "/debug/device/{deviceId}/trace",
+    "parameter": {
+     
+    },
+    "id": "request-id"
+}
+```
+
+
+
+#### <font id='device-firm'>订阅推送设备固件更新消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       <code>taskId</code>可以到数据库中的<code>jetlinks</code>数据库下的<code>dev_firmware_upgrade_task</code>表中找到
+    </p>
+</div>
+
+
+
+| parameter | 参数说明 |
+| --------- | -------- |
+| `taskId`  | 任务id   |
+
+使用websocket订阅
+
+
+```json
+{
+    "type": "sub",
+    "topic": "/device-current-state",
+    "parameter": {
+        //必须指定任务id
+        "taskId":"taskId"
+    },
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/device-current-state?taskId={taskId}
+```
+
+![MQTT订阅固件升级](./images/mqtt-sub-task.png)
+
+
+
 #### <font id='virtual-property'>订阅虚拟属性调试消息</font>
-
-
-
-| parameter     | 参数说明                                                    |
-| ------------- | ----------------------------------------------------------- |
-| `virtualId`   | 虚拟id，通常为`当前时间戳-virtual-property`，可以自定义命名 |
-| `property`    | 产品或设备物模型中定义的虚拟属性                            |
-| `virtualRule` | 定义计算出该虚拟属性的具体规则                              |
-| `properties`  | 计算出虚拟属性需要用的值                                    |
 
 使用websocket订阅
 
@@ -729,6 +786,48 @@ websocket发送消息，格式为：
 ```
 
 ![MQTT订阅虚拟属性调试](./images/mqtt-sub-virtual-property.png)
+
+| parameter     | 参数说明                                                    |
+| ------------- | ----------------------------------------------------------- |
+| `virtualId`   | 虚拟id，通常为`当前时间戳-virtual-property`，可以自定义命名 |
+| `property`    | 产品或设备物模型中定义的虚拟属性                            |
+| `virtualRule` | 定义计算出该虚拟属性的具体规则                              |
+| `properties`  | 计算出虚拟属性需要用的值                                    |
+
+
+
+#### <font id='simulator'>订阅模拟器消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+       <code>{id}</code>为创建的模拟器的id，<code>{sessionId}</code>指创建模拟器时填入的<code>clientId</code>，即设备id
+    </p>
+</div>
+
+
+使用websocket订阅
+
+
+```json
+{
+    "type": "sub",
+    "topic": "/network/simulator/{id}/{sessionId}",
+    "parameter": {},
+    "id": "request-id"
+}
+```
+
+使用MQTT订阅
+
+```kotlin
+/network/simulator/{id}/{sessionId}
+```
+
+![mqtt订阅模拟器消息](./images/mqtt-sub-simulator.png)
 
 
 
@@ -912,153 +1011,6 @@ websocket发送消息，格式为：
 
 
 
-#### <font id='notifications'>订阅通知消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       会根据当前连接到平台的<code>token</code>去订阅相应用户的通知消息
-    </p>
-</div>
-
-使用websocket订阅
-
-
-```json
-{
-    "type": "sub",
-    "topic": "/notifications",
-    "parameter": {},
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/notifications
-```
-
-![MQTT订阅通知消息](./images/mqtt-sub-notifications.png)
-
-
-
-#### <font id='rule-engine'>订阅规则引擎执行相关消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       规则引擎相关
-    </p>
-</div>
-发送消息到websocket
-
-```json
-{
-    "type": "sub", //固定为sub
-    "topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
-    "parameter": {},
-    "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
-}
-```
-
-平台推送:
-
-```json
-{
-	"payload": {   
-	 //规则数据,不同的节点和事件类型数据不同
-	},
-	"requestId": "request-id", //订阅请求的ID
-	"topic": "/rule-engine/{instanceId}/{nodeId}/event/{event}",
-	"type": "result" //为complete是则表示订阅结束.
-}
-```
-
-使用mqtt订阅
-
-```kotlin
-/rule-engine/**
-```
-
-![mqtt订阅规则引擎消息](./images/mqtt-sub-rule-engine.png)
-
-
-
-#### <font id='scene'>订阅场景联动消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       <code>{sceneId}</code>为场景联动id
-    </p>
-</div>
-
-使用websocket订阅
-
-
-```json
-{
-    "type": "sub",
-    "topic": "/scene/{sceneId}",
-    "parameter": {},
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/scene/{sceneId}
-```
-
-![mqtt订阅场景联动消息](./images/mqtt-sub-scene.png)
-
-
-
-#### <font id='simulator'>订阅模拟器消息</font>
-
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-    <p>
-       <code>{id}</code>为创建的模拟器的id，<code>{sessionId}</code>指创建模拟器时填入的<code>clientId</code>，即设备id
-    </p>
-</div>
-
-使用websocket订阅
-
-
-```json
-{
-    "type": "sub",
-    "topic": "/network/simulator/{id}/{sessionId}",
-    "parameter": {},
-    "id": "request-id"
-}
-```
-
-使用MQTT订阅
-
-```kotlin
-/network/simulator/{id}/{sessionId}
-```
-
-![mqtt订阅模拟器消息](./images/mqtt-sub-simulator.png)
-
-
-
 #### <font id='tcp-client'>订阅TCP客户端调试消息</font>
 
 <div class='explanation primary'>
@@ -1121,7 +1073,7 @@ websocket发送消息，格式为：
 /network/tcp/client/{id}/_send?request={data}
 ```
 
-<br>
+
 
 #### <font id='tcp-server'>订阅TCP服务调试消息</font>
 
@@ -1197,8 +1149,6 @@ websocket发送消息，格式为：
 
 
 
-<br>
-
 订阅发送的消息
 
 使用websocket订阅
@@ -1237,6 +1187,7 @@ websocket发送消息，格式为：
     </p>
 </div>
 
+
 订阅时的消息
 
 使用websocket订阅
@@ -1259,8 +1210,6 @@ websocket发送消息，格式为：
 ![mqtt新增websocket客户端订阅调试消息](./images/mqtt-sub-websocket_client_subscribe.png)
 
 
-
-<br>
 
 发送时的消息
 
@@ -1297,6 +1246,7 @@ websocket发送消息，格式为：
     </p>
 </div>
 
+
 使用websocket订阅
 
 ```json
@@ -1318,3 +1268,49 @@ websocket发送消息，格式为：
 ```
 
 ![mqtt订阅websocket服务调试消息](./images/mqtt-sub-websocket-server.png)
+
+
+
+#### <font id='coap'>订阅CoAP调试相关消息</font>
+
+<div class='explanation primary'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>说明</span>
+  </p>
+    <p>
+        当订阅主题以<code>/network/coap/server</code>开头时订阅为CoAP服务，如果订阅CoAP客户端则不会返回任何消息
+    </p>
+</div>
+
+1、订阅CoAP服务调试消息
+
+| parameter | 参数说明                                                     |
+| --------- | ------------------------------------------------------------ |
+| `request` | CoAP协议通讯的相关参数类似于HTTP，如果未传入则默认使用`CREATE 2.02\nContent-Format: application/json\n\n{\"success\":true}`当作`request` |
+
+使用Websocket的方式
+
+```json
+	//平台网络组件中想要订阅的CoAP服务组件的id
+    //此id可以在浏览器中打开控制台->network->Fetch/XHR,之后F5刷新页面在左侧找到_query/的请求中查看到
+    //也可以去数据库中的jetlinks数据库下的network_config表中查找
+	{
+        "type": "sub",
+        "topic": "/network/coap/server/{id}/_subscribe",
+        "parameter": {
+            "request":"request-params-string"
+        },
+        "id": "request-id"
+	}
+```
+
+使用MQTT的方式
+
+```kotlin
+/network/coap/server/{id}/_subscribe?request={request-params-string}
+```
+
+![MQTT订阅CoAP调试信息](./images/mqtt-sub-coap-debug.png)
+
+

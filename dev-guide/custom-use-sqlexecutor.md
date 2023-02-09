@@ -1,4 +1,4 @@
-# 自定义模块如何使用sqlexecutor
+# 自定义模块使用sqlexecutor
 
 ## 应用场景
 
