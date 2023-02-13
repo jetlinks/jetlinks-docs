@@ -1451,7 +1451,7 @@ benchmark http --url http://192.168.66.203:8810 report=true reportLimit=1000 --s
 
 ![连接成功](../dev-guide/images/device-access-http/socket-connect-success.png)
 
-<p>3、填写报文<code>00000561646d696e01000001862606b03e0077000e656c655f6465765f615f315f3133000561646d696e</code>（<a href='/Best_practices/Device_access.html#报文是如何计算的'>报文是如何计算的?</a>），之后点击发送数据，进行设备上线。</p>
+<p>3、填写报文<code>00000561646d696e01000001862606b03e0077000e656c655f6465765f615f315f3133000561646d696e</code>（<a href='/Best_practices/Device_access.html#获取报文'>报文是如何计算的?</a>），之后点击发送数据，进行设备上线。</p>
 
 ![socket工具发送数据](../dev-guide/images/device-access-http/socket-send-message.png)
 
@@ -1463,7 +1463,7 @@ benchmark http --url http://192.168.66.203:8810 report=true reportLimit=1000 --s
 
 ### 设备上报属性
 
-<p>填写报文<code>00000561646D696E03000001862666B12B0088000E656C655F6465765F615F315F31330001000B636F6E73756D7074696F6E0A40888A8F5C28F5C3</code>（<a href='/Best_practices/Device_access.html#报文是如何计算的'>报文是如何计算的?</a>），之后点击发送数据，可以在设备运行状态页面查看上报的属性。</p>
+<p>填写报文<code>00000561646D696E03000001862666B12B0088000E656C655F6465765F615F315F31330001000B636F6E73756D7074696F6E0A40888A8F5C28F5C3</code>（<a href='/Best_practices/Device_access.html#获取报文'>报文是如何计算的?</a>），之后点击发送数据，可以在设备运行状态页面查看上报的属性。</p>
 
 ![udp设备上报属性](../dev-guide/images/device-access-http/udp-report-property.png)
 
@@ -1471,7 +1471,11 @@ benchmark http --url http://192.168.66.203:8810 report=true reportLimit=1000 --s
 
 ### 设备事件上报
 
-<p>填写报文（注意去除每一段之间的换行符）<code>00000561646D696E0a000001862666B12B0088000E656C655F6465765F615F315F3133000d73746174655f7761726e696e6700<br>0300086c6f636174696f6e0B000c6a696e6b655f615f315f3133000974696d657374616d700500000186281cb583000a7374617<br>4655f636f64650B000e696c6c656167616c5f7374617465</code>（<a href='/Best_practices/Device_access.html#报文是如何计算的'>报文是如何计算的?</a>），之后点击发送数据，可以在设备运行状态页面查看上报的事件。</p>
+<p>填写报文（注意去除每一段之间的换行符）<code
+>00000561646D696E0a000001862666B12B0088000E656C655F6465765F615F315F3133000d73746174655f7761726e696e6700<br
+>0300086c6f636174696f6e0B000c6a696e6b655f615f315f3133000974696d657374616d700500000186281cb583000a7374617<br
+>4655f636f64650B000e696c6c656167616c5f7374617465</code>（<a href='/Best_practices/Device_access.html#获取报文'>报文是如何计算的?
+</a>），之后点击发送数据，可以在设备运行状态页面查看上报的事件。</p>
 
 ![设备事件上报](../dev-guide/images/device-access-http/udp-device-event.png)
 
@@ -1698,441 +1702,843 @@ benchmark udp --host=192.168.66.203 --port=8806 report=true reportLimit=100 inte
 ![属性上报成功](../dev-guide/images/device-access-http/simulator-udp-success.png)
 
 
+[//]: # ([comment]: <> &#40;## HTTP接入&#41;)
 
-[comment]: <> "## HTTP接入"
+[//]: # ()
+[//]: # ([comment]: <> &#40;### 系统配置&#41;)
 
-[comment]: <> "### 系统配置"
+[//]: # ([comment]: <> &#40;1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>&#41;)
 
-[comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/httpwl.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/httpwl.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;2.进入**协议管理**菜单，上传协议包。</br>&#41;)
 
-[comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/254.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/254.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;3.进入**设备接入网关**，创建HTTP推送接入类型的接入网关。</br>&#41;)
 
-[comment]: <> "3.进入**设备接入网关**，创建HTTP推送接入类型的接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/httpwg.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/httpwg.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为HTTP推送类型的设备接入网关。</br>&#41;)
 
-[comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为HTTP推送类型的设备接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/httpjr.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/httpjr.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择HTTP推送接入类型的产品。</br>&#41;)
 
-[comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择HTTP推送接入类型的产品。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;### 推送消息&#41;)
 
-[comment]: <> "### 推送消息"
+[//]: # ()
+[//]: # ([comment]: <> &#40;此处使用postman模拟设备请求。&#41;)
 
-[comment]: <> "此处使用postman模拟设备请求。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;#### 模拟设备上报属性&#41;)
 
-[comment]: <> "#### 模拟设备上报属性"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/276.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/276.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;<div class='explanation primary'>&#41;)
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  <p class='explanation-title-warp'>&#41;)
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='iconfont icon-bangzhu explanation-icon'></span>&#41;)
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='explanation-title font-weight'>说明</span>&#41;)
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  </p>&#41;)
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;请求时路径中带的/report-property相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。&#41;)
 
-[comment]: <> "请求时路径中带的/report-property相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;</div>&#41;)
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;上报后，在**设备-运行状态**中进行查看。&#41;)
 
-[comment]: <> "上报后，在**设备-运行状态**中进行查看。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;#### 模拟设备事件上报&#41;)
 
-[comment]: <> "#### 模拟设备事件上报"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/277.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/277.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;<div class='explanation primary'>&#41;)
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  <p class='explanation-title-warp'>&#41;)
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='iconfont icon-bangzhu explanation-icon'></span>&#41;)
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='explanation-title font-weight'>说明</span>&#41;)
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  </p>&#41;)
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;请求时路径中带的/fire-alarm相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。&#41;)
 
-[comment]: <> "请求时路径中带的/fire-alarm相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;</div>&#41;)
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;上报后，在**设备-运行状态**中，点击左侧菜单，切换至对应事件，进行查看。&#41;)
 
-[comment]: <> "上报后，在**设备-运行状态**中，点击左侧菜单，切换至对应事件，进行查看。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/265.png&#41;&#41;)
 
-[comment]: <> "![]&#40;./img/265.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;#### 指令下发&#41;)
 
-[comment]: <> "#### 指令下发"
+[//]: # ()
+[//]: # ([comment]: <> &#40;由于http是短链接,无法直接下发指令,可以在`消息拦截器中`或者`编码时`通过将消息设置到`device.setConfig`中,在收到 http请求拉取消息时，通过`device.getSelfConfig`获取配置,并返回。&#41;)
 
-[comment]: <> "由于http是短链接,无法直接下发指令,可以在`消息拦截器中`或者`编码时`通过将消息设置到`device.setConfig`中,在收到 http请求拉取消息时，通过`device.getSelfConfig`获取配置,并返回。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;## 使用CoAP服务接入&#41;)
 
-[comment]: <> "## 使用CoAP服务接入"
+[//]: # ()
+[//]: # ([comment]: <> &#40;本文档使用[coap-cli]&#40;https://www.npmjs.com/package/coap-cli&#41;模拟设备接入平台。&#41;)
 
-[comment]: <> "本文档使用[coap-cli]&#40;https://www.npmjs.com/package/coap-cli&#41;模拟设备接入平台。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;<div class='explanation info'>&#41;)
 
-[comment]: <> "<div class='explanation info'>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  <p class='explanation-title-warp'> &#41;)
 
-[comment]: <> "  <p class='explanation-title-warp'> "
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='iconfont icon-tishi explanation-icon'></span>&#41;)
 
-[comment]: <> "    <span class='iconfont icon-tishi explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;    <span class='explanation-title font-weight'>提示</span>&#41;)
 
-[comment]: <> "    <span class='explanation-title font-weight'>提示</span>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;  </p>&#41;)
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;本功能仅在企业版中提供。&#41;)
 
-[comment]: <> "本功能仅在企业版中提供。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;</div>&#41;)
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ()
+[//]: # ([comment]: <> &#40;### 系统配置&#41;)
 
+[//]: # ()
+[//]: # ([comment]: <> &#40;1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建CoAP服务网络组件。</br>&#41;)
 
-[comment]: <> "### 系统配置"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/coapwl.png&#41;&#41;)
 
-[comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建CoAP服务网络组件。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;2.进入**协议管理**菜单，上传协议包。</br>&#41;)
 
-[comment]: <> "![]&#40;./img/coapwl.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/254.png&#41;&#41;)
 
-[comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;3.进入**设备接入网关**，创建CoAP接入类型的接入网关。</br>&#41;)
 
-[comment]: <> "![]&#40;./img/254.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/coapwg.png&#41;&#41;)
 
-[comment]: <> "3.进入**设备接入网关**，创建CoAP接入类型的接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为CoAP接入类型的设备接入网关。</br>&#41;)
 
-[comment]: <> "![]&#40;./img/coapwg.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;![]&#40;./img/coapjr.png&#41;&#41;)
 
-[comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为CoAP接入类型的设备接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择CoAP接入类型的产品。</br>&#41;)
 
-[comment]: <> "![]&#40;./img/coapjr.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> &#40;### 使用coap-cli模拟客户端接入&#41;)
 
-[comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择CoAP接入类型的产品。</br>"
+[//]: # ()
+[//]: # ([comment]: <> &#40;1.下载并安装`coap-cli`。&#41;)
 
-[comment]: <> "### 使用coap-cli模拟客户端接入"
+[//]: # ()
+[//]: # ([comment]: <> &#40;```shell script&#41;)
 
-[comment]: <> "1.下载并安装`coap-cli`。"
+[//]: # ()
+[//]: # ([comment]: <> &#40;npm install coap-cli -g&#41;)
 
-[comment]: <> "```shell script"
+[//]: # ()
+[//]: # ([comment]: <> &#40;```&#41;)
 
-[comment]: <> "npm install coap-cli -g"
+[//]: # ()
+[//]: # ([comment]: <> &#40;2.模拟设备设备属性上报&#41;)
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> &#40;```shell script&#41;)
 
-[comment]: <> "2.模拟设备设备属性上报"
+[//]: # ()
+[//]: # ([comment]: <> "## HTTP接入")
 
-[comment]: <> "```shell script"
+[//]: # ()
+[//]: # ([comment]: <> "### 系统配置")
 
-[comment]: <> "echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap post coap://localhost:8009/report-property"
+[//]: # ()
+[//]: # ([comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建HTTP服务网络组件。</br>")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/httpwl.png&#41;")
 
-[comment]: <> "在**设备-运行状态**中可以看到温度属性已发生变化。  </br>"
+[//]: # ()
+[//]: # ([comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>")
 
-[comment]: <> "3.模拟设备上报事件"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/254.png&#41;")
 
-[comment]: <> "```shell script"
+[//]: # ()
+[//]: # ([comment]: <> "3.进入**设备接入网关**，创建HTTP推送接入类型的接入网关。</br>")
 
-[comment]: <> "echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"未来科技城","b_name":"C2 栋","l_name":"12-05-201","timestamp":"2019-11-06 16:28:50","alarm_type":1,"alarm_describe":"火灾报警","event_id":1,"event_count":1}' | coap post coap://localhost:8009/fire_alarm"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/httpwg.png&#41;")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为HTTP推送类型的设备接入网关。</br>")
 
-[comment]: <> "在**设备-运行状态**中点击左侧菜单，切换至对应事件，进行查看。"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/httpjr.png&#41;")
 
-[comment]: <> "![]&#40;./img/265.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择HTTP推送接入类型的产品。</br>")
 
-[comment]: <> "## 使用UDP接入"
+[//]: # ()
+[//]: # ([comment]: <> "### 推送消息")
 
+[//]: # ()
+[//]: # ([comment]: <> "此处使用postman模拟设备请求。")
 
-[comment]: <> "<div class='explanation info'>"
+[//]: # ()
+[//]: # ([comment]: <> "#### 模拟设备上报属性")
 
-[comment]: <> "  <p class='explanation-title-warp'> "
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/276.png&#41;")
 
-[comment]: <> "    <span class='iconfont icon-tishi explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
 
-[comment]: <> "    <span class='explanation-title font-weight'>提示</span>"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
 
-[comment]: <> "本功能仅在企业版中提供。"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
+[//]: # ()
+[//]: # ([comment]: <> "请求时路径中带的/report-property相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。")
 
-[comment]: <> "### 系统配置"
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建UDP网络组件。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "上报后，在**设备-运行状态**中进行查看。")
 
-[comment]: <> "![]&#40;./img/udpwl.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "#### 模拟设备事件上报")
 
-[comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/277.png&#41;")
 
-[comment]: <> "![]&#40;./img/254.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
 
-[comment]: <> "3.进入**设备接入网关**，创建UDP接入类型的接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
 
-[comment]: <> "![]&#40;./img/udpwg.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
 
-[comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为UDP接入类型的设备接入网关。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
 
-[comment]: <> "![]&#40;./img/udpjr.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
-[comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择UDP接入类型的产品。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "请求时路径中带的/fire-alarm相当于mqtt中的topic，在demo协议将中根据路径来判断消息类型。")
 
-[comment]: <> "### 使用UDP模拟工具接入"
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "1.下载并安装`SocketTool4`。"
+[//]: # ()
+[//]: # ([comment]: <> "上报后，在**设备-运行状态**中，点击左侧菜单，切换至对应事件，进行查看。")
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/265.png&#41;")
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> "#### 指令下发")
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> "由于http是短链接,无法直接下发指令,可以在`消息拦截器中`或者`编码时`通过将消息设置到`device.setConfig`中,在收到 http请求拉取消息时，通过`device.getSelfConfig`获取配置,并返回。")
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> "## 使用CoAP服务接入")
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> "本文档使用[coap-cli]&#40;https://www.npmjs.com/package/coap-cli&#41;模拟设备接入平台。")
 
-[comment]: <> "此处以json方式传输数据。"
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation info'>")
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'> ")
 
-[comment]: <> "2.创建udp客户端。  "
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-tishi explanation-icon'></span>")
 
-[comment]: <> "![]&#40;./img/278.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>提示</span>")
 
-[comment]: <> "3.模拟设备设备属性上报</br>"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
-[comment]: <> "在SocketTool4工具的**数据发送窗口**填写发送的报文。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "本功能仅在企业版中提供。")
 
-[comment]: <> "此处使用的报文为："
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "```json"
+[//]: # ()
+[//]: # ()
+[//]: # ([comment]: <> "### 系统配置")
 
-[comment]: <> "{"
+[//]: # ()
+[//]: # ([comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建CoAP服务网络组件。</br>")
 
-[comment]: <> "  "properties":{"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/coapwl.png&#41;")
 
-[comment]: <> "      "temperature":36.5 //温度属性"
+[//]: # ()
+[//]: # ([comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>")
 
-[comment]: <> "     },"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/254.png&#41;")
 
-[comment]: <> "  "messageType": "REPORT_PROPERTY",//org.jetlinks.core.message.MessageType"
+[//]: # ()
+[//]: # ([comment]: <> "3.进入**设备接入网关**，创建CoAP接入类型的接入网关。</br>")
 
-[comment]: <> "  "deviceId": "udp-test-001",//设备id"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/coapwg.png&#41;")
 
-[comment]: <> "  "key": "admin"//udp认证配置，udp_auth_key	"
+[//]: # ()
+[//]: # ([comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为CoAP接入类型的设备接入网关。</br>")
 
-[comment]: <> "}"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/coapjr.png&#41;")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择CoAP接入类型的产品。</br>")
 
-[comment]: <> "单击**发送数据**按钮发起发送数据。"
+[//]: # ()
+[//]: # ([comment]: <> "### 使用coap-cli模拟客户端接入")
 
-[comment]: <> "![]&#40;./img/279.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "1.下载并安装`coap-cli`。")
 
-[comment]: <> "收到上报的消息后平台中设备状态将变为上线,在**设备-运行状态**中可以看到温度属性已发生变化。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "```shell script")
 
-[comment]: <> "4.模拟设备上报事件</br>"
+[//]: # ()
+[//]: # ([comment]: <> "npm install coap-cli -g")
 
-[comment]: <> "在SocketTool4工具的**数据发送窗口**填写发送的报文。</br>"
+[//]: # ()
+[//]: # ([comment]: <> "```")
 
-[comment]: <> "此处使用的报文为：</br>"
+[//]: # ()
+[//]: # ([comment]: <> "2.模拟设备设备属性上报")
 
-[comment]: <> "```json"
+[//]: # ()
+[//]: # ([comment]: <> "```shell script")
 
-[comment]: <> "{"
+[//]: # ()
+[//]: # ([comment]: <> "echo -n '{"deviceId":"coap-test-001","properties":{"temperature":36.5}}' | coap post coap://localhost:8009/report-property")
 
-[comment]: <> "    "data": {"
+[//]: # ()
+[//]: # ([comment]: <> "```")
 
-[comment]: <> "          "pname":"智能温控","
+[//]: # ()
+[//]: # ([comment]: <> "在**设备-运行状态**中可以看到温度属性已发生变化。  </br>")
 
-[comment]: <> "          "aid":105,"
+[//]: # ()
+[//]: # ([comment]: <> "3.模拟设备上报事件")
 
-[comment]: <> "          "a_name":"未来科技城","
+[//]: # ()
+[//]: # ([comment]: <> "```shell script")
 
-[comment]: <> "          "b_name":"C2 栋","
+[//]: # ()
+[//]: # ([comment]: <> "echo -n '{"deviceId":"coap-test-001","pname":"智能温控","aid":105,"a_name":"未来科技城","b_name":"C2 栋","l_name":"12-05-201","timestamp":"2019-11-06 16:28:50","alarm_type":1,"alarm_describe":"火灾报警","event_id":1,"event_count":1}' | coap post coap://localhost:8009/fire_alarm")
 
-[comment]: <> "          "l_name":"12-05-201","
+[//]: # ()
+[//]: # ([comment]: <> "```")
 
-[comment]: <> "          "timestamp":"2019-11-06 16:28:50","
+[//]: # ()
+[//]: # ([comment]: <> "在**设备-运行状态**中点击左侧菜单，切换至对应事件，进行查看。")
 
-[comment]: <> "          "alarm_type":1,"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/265.png&#41;")
 
-[comment]: <> "          "alarm_describe":"火灾报警","
+[//]: # ()
+[//]: # ([comment]: <> "## 使用UDP接入")
 
-[comment]: <> "          "event_id":1,"
+[//]: # ()
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation info'>")
 
-[comment]: <> "          "event_count":1"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'> ")
 
-[comment]: <> "    },"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-tishi explanation-icon'></span>")
 
-[comment]: <> "    "event": "fire_alarm",//事件标识"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>提示</span>")
 
-[comment]: <> "    "messageType": "EVENT",//org.jetlinks.core.message.MessageType"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
-[comment]: <> "    "deviceId": "udp-test-001",//设备id"
+[//]: # ()
+[//]: # ([comment]: <> "本功能仅在企业版中提供。")
 
-[comment]: <> "    "key": "admin"//udp认证配置，udp_auth_key	"
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "}"
+[//]: # ()
+[//]: # ()
+[//]: # ([comment]: <> "### 系统配置")
 
-[comment]: <> "``` "
+[//]: # ()
+[//]: # ([comment]: <> "1.**登录**Jetlinks物联网平台，进入**网络组件**菜单，创建UDP网络组件。</br>")
 
-[comment]: <> "单击**发送数据**按钮发起发送数据。  "
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/udpwl.png&#41;")
 
-[comment]: <> "![]&#40;./img/280.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "2.进入**协议管理**菜单，上传协议包。</br>")
 
-[comment]: <> "在**设备-运行状态**中点击左侧菜单，切换至对应事件，进行查看。"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/254.png&#41;")
 
-[comment]: <> "![]&#40;./img/265.png&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "3.进入**设备接入网关**，创建UDP接入类型的接入网关。</br>")
 
-[comment]: <> "## TCP、MQTT短连接接入"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/udpwg.png&#41;")
 
-[comment]: <> "默认情况下,使用tcp和mqtt方式接入时,当连接断开时,则认为设备已离线。"
+[//]: # ()
+[//]: # ([comment]: <> "4.[创建产品]&#40;../Device_access/Create_product3.1.md&#41;，并选中接入方式为UDP接入类型的设备接入网关。</br>")
 
-[comment]: <> "但是在某些场景&#40;如:低功率设备&#41;下,无法使用长连接进行通信,可以通过指定特定配置使平台保持设备在线状态。"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/udpjr.png&#41;")
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> "5.[创建设备]&#40;../Device_access/Create_Device3.2.md&#41;，所属产品选择UDP接入类型的产品。</br>")
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> "### 使用UDP模拟工具接入")
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> "1.下载并安装`SocketTool4`。")
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
 
-[comment]: <> "以下功能及API在jetlinks 1.4.0 后提供。"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
 
-[comment]: <> "### 保持在线"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
-[comment]: <> "在自定义协议包解码出消息时，可通过在消息中添加头`keepOnline`来进行设置。如:"
+[//]: # ()
+[//]: # ([comment]: <> "此处以json方式传输数据。")
 
-[comment]: <> "```java"
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "message.addHeader&#40;Headers.keepOnline,true&#41;; //设置让会话强制在线"
+[//]: # ()
+[//]: # ([comment]: <> "2.创建udp客户端。  ")
 
-[comment]: <> "message.addHeader&#40;Headers.keepOnlineTimeoutSeconds,600&#41;;//设置超时时间（可选,默认10分钟），如果超过这个时间没有收到任何消息则认为离线。"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/278.png&#41;")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "3.模拟设备设备属性上报</br>")
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> "在SocketTool4工具的**数据发送窗口**填写发送的报文。</br>")
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> "此处使用的报文为：")
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> "```json")
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> "{")
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> "  "properties":{")
 
-[comment]: <> "MQTT接入时添加到任意消息即可。TCP接入时添加到DeviceOnlineMessage即可。"
+[//]: # ()
+[//]: # ([comment]: <> "      "temperature":36.5 //温度属性")
 
-[comment]: <> "如果服务重启，将不会保存在线状态！</p>"
+[//]: # ()
+[//]: # ([comment]: <> "     },")
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> "  "messageType": "REPORT_PROPERTY",//org.jetlinks.core.message.MessageType")
 
-[comment]: <> "### 缓存下发消息"
+[//]: # ()
+[//]: # ([comment]: <> "  "deviceId": "udp-test-001",//设备id")
 
-[comment]: <> "在进行消息下发时，因为会话是强制保持在线的，所以消息会直接通过session下发，但是此时设备可能已经断开了连接,"
+[//]: # ()
+[//]: # ([comment]: <> "  "key": "admin"//udp认证配置，udp_auth_key	")
 
-[comment]: <> "将会抛出异常`DeviceOperationException&#40;ErrorCode.CLIENT_OFFLINE&#41;`。这时候可以通过将消息缓存起来，等待下次设备"
+[//]: # ()
+[//]: # ([comment]: <> "}")
 
-[comment]: <> "连接上来后再下发指令。"
+[//]: # ()
+[//]: # ([comment]: <> "```")
 
-[comment]: <> "一、在自定义协议包中使用消息拦截器拦截异常"
+[//]: # ()
+[//]: # ([comment]: <> "单击**发送数据**按钮发起发送数据。")
 
-[comment]: <> "```java"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/279.png&#41;")
 
-[comment]: <> "support.addMessageSenderInterceptor&#40;new DeviceMessageSenderInterceptor&#40;&#41; {"
+[//]: # ()
+[//]: # ([comment]: <> "收到上报的消息后平台中设备状态将变为上线,在**设备-运行状态**中可以看到温度属性已发生变化。</br>")
 
-[comment]: <> "    @Override"
+[//]: # ()
+[//]: # ([comment]: <> "4.模拟设备上报事件</br>")
 
-[comment]: <> "    public <R extends DeviceMessage> Flux<R> afterSent&#40;DeviceOperator device, DeviceMessage message, Flux<R> reply&#41; {"
+[//]: # ()
+[//]: # ([comment]: <> "在SocketTool4工具的**数据发送窗口**填写发送的报文。</br>")
 
-[comment]: <> "        return reply.onErrorResume&#40;DeviceOperationException.class, err -> {"
+[//]: # ()
+[//]: # ([comment]: <> "此处使用的报文为：</br>")
 
-[comment]: <> "            if &#40;err.getCode&#40;&#41; == ErrorCode.CLIENT_OFFLINE&#41; {"
+[//]: # ()
+[//]: # ([comment]: <> "```json")
 
-[comment]: <> "                return device"
+[//]: # ()
+[//]: # ([comment]: <> "{")
 
-[comment]: <> "                    .setConfig&#40;"will-msg", message&#41; //设置到配置中"
+[//]: # ()
+[//]: # ([comment]: <> "    "data": {")
 
-[comment]: <> "                    .thenReturn&#40;&#40;&#40;RepayableDeviceMessage<?>&#41; message&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "pname":"智能温控",")
 
-[comment]: <> "                        .newReply&#40;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "aid":105,")
 
-[comment]: <> "                        .code&#40;ErrorCode.REQUEST_HANDLING.name&#40;&#41;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "a_name":"未来科技城",")
 
-[comment]: <> "                        .message&#40;"设备处理中..."&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "b_name":"C2 栋",")
 
-[comment]: <> "                        .success&#40;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "l_name":"12-05-201",")
 
-[comment]: <> "                    &#41;"
+[//]: # ()
+[//]: # ([comment]: <> "          "timestamp":"2019-11-06 16:28:50",")
 
-[comment]: <> "                    .map&#40;r -> &#40;R&#41; r&#41;;"
+[//]: # ()
+[//]: # ([comment]: <> "          "alarm_type":1,")
 
-[comment]: <> "            }"
+[//]: # ()
+[//]: # ([comment]: <> "          "alarm_describe":"火灾报警",")
 
-[comment]: <> "            return Mono.error&#40;err&#41;;"
+[//]: # ()
+[//]: # ([comment]: <> "          "event_id":1,")
 
-[comment]: <> "        }&#41;;"
+[//]: # ()
+[//]: # ([comment]: <> "          "event_count":1")
 
-[comment]: <> "    }"
+[//]: # ()
+[//]: # ([comment]: <> "    },")
 
-[comment]: <> "}&#41;;"
+[//]: # ()
+[//]: # ([comment]: <> "    "event": "fire_alarm",//事件标识")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "    "messageType": "EVENT",//org.jetlinks.core.message.MessageType")
 
-[comment]: <> "二、获取缓存的消息"
+[//]: # ()
+[//]: # ([comment]: <> "    "deviceId": "udp-test-001",//设备id")
 
-[comment]: <> "在收到设备指令后进行解码时,可以先获取是否有缓存到消息,然后发送到设备。"
+[//]: # ()
+[//]: # ([comment]: <> "    "key": "admin"//udp认证配置，udp_auth_key	")
 
-[comment]: <> "伪代码如下:"
+[//]: # ()
+[//]: # ([comment]: <> "}")
 
-[comment]: <> "```java"
+[//]: # ()
+[//]: # ([comment]: <> "``` ")
 
-[comment]: <> "@Override"
+[//]: # ()
+[//]: # ([comment]: <> "单击**发送数据**按钮发起发送数据。  ")
 
-[comment]: <> "public Mono<? extends Message> decode&#40;MessageDecodeContext context&#41; {"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/280.png&#41;")
 
-[comment]: <> "    return context.getDevice&#40;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "在**设备-运行状态**中点击左侧菜单，切换至对应事件，进行查看。")
 
-[comment]: <> "        .getAndRemoveConfig&#40;"will-msg"&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "![]&#40;./img/265.png&#41;")
 
-[comment]: <> "        .map&#40;val -> val.as&#40;DeviceMessage.class&#41;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "## TCP、MQTT短连接接入")
 
-[comment]: <> "        .flatMap&#40;&#40;msg&#41; -> {"
+[//]: # ()
+[//]: # ([comment]: <> "默认情况下,使用tcp和mqtt方式接入时,当连接断开时,则认为设备已离线。")
 
-[comment]: <> "            return &#40;&#40;FromDeviceMessageContext&#41; context&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "但是在某些场景&#40;如:低功率设备&#41;下,无法使用长连接进行通信,可以通过指定特定配置使平台保持设备在线状态。")
 
-[comment]: <> "                .getSession&#40;&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
 
-[comment]: <> "                .send&#40;doEncode&#40;msg&#41;&#41;; //编码并发送给设备"
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
 
-[comment]: <> "        }&#41;"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
 
-[comment]: <> "        .thenReturn&#40;doDecode&#40;context&#41;&#41;; //解码收到的消息"
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
 
-[comment]: <> "}"
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
 
-[comment]: <> "```"
+[//]: # ()
+[//]: # ([comment]: <> "以下功能及API在jetlinks 1.4.0 后提供。")
 
-[comment]: <> "<div class='explanation primary'>"
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
 
-[comment]: <> "  <p class='explanation-title-warp'>"
+[//]: # ()
+[//]: # ([comment]: <> "### 保持在线")
 
-[comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>"
+[//]: # ()
+[//]: # ([comment]: <> "在自定义协议包解码出消息时，可通过在消息中添加头`keepOnline`来进行设置。如:")
 
-[comment]: <> "    <span class='explanation-title font-weight'>说明</span>"
+[//]: # ()
+[//]: # ([comment]: <> "```java")
 
-[comment]: <> "  </p>"
+[//]: # ()
+[//]: # ([comment]: <> "message.addHeader&#40;Headers.keepOnline,true&#41;; //设置让会话强制在线")
 
-[comment]: <> "以上代码仅作为演示功能逻辑,请根据实际情况进行相应的处理。"
+[//]: # ()
+[//]: # ([comment]: <> "message.addHeader&#40;Headers.keepOnlineTimeoutSeconds,600&#41;;//设置超时时间（可选,默认10分钟），如果超过这个时间没有收到任何消息则认为离线。")
 
-[comment]: <> "</div>"
+[//]: # ()
+[//]: # ([comment]: <> "```")
 
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
+
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
+
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
+
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
+
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
+
+[//]: # ()
+[//]: # ([comment]: <> "MQTT接入时添加到任意消息即可。TCP接入时添加到DeviceOnlineMessage即可。")
+
+[//]: # ()
+[//]: # ([comment]: <> "如果服务重启，将不会保存在线状态！</p>")
+
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
+
+[//]: # ()
+[//]: # ([comment]: <> "### 缓存下发消息")
+
+[//]: # ()
+[//]: # ([comment]: <> "在进行消息下发时，因为会话是强制保持在线的，所以消息会直接通过session下发，但是此时设备可能已经断开了连接,")
+
+[//]: # ()
+[//]: # ([comment]: <> "将会抛出异常`DeviceOperationException&#40;ErrorCode.CLIENT_OFFLINE&#41;`。这时候可以通过将消息缓存起来，等待下次设备")
+
+[//]: # ()
+[//]: # ([comment]: <> "连接上来后再下发指令。")
+
+[//]: # ()
+[//]: # ([comment]: <> "一、在自定义协议包中使用消息拦截器拦截异常")
+
+[//]: # ()
+[//]: # ([comment]: <> "```java")
+
+[//]: # ()
+[//]: # ([comment]: <> "support.addMessageSenderInterceptor&#40;new DeviceMessageSenderInterceptor&#40;&#41; {")
+
+[//]: # ()
+[//]: # ([comment]: <> "    @Override")
+
+[//]: # ()
+[//]: # ([comment]: <> "    public <R extends DeviceMessage> Flux<R> afterSent&#40;DeviceOperator device, DeviceMessage message, Flux<R> reply&#41; {")
+
+[//]: # ()
+[//]: # ([comment]: <> "        return reply.onErrorResume&#40;DeviceOperationException.class, err -> {")
+
+[//]: # ()
+[//]: # ([comment]: <> "            if &#40;err.getCode&#40;&#41; == ErrorCode.CLIENT_OFFLINE&#41; {")
+
+[//]: # ()
+[//]: # ([comment]: <> "                return device")
+
+[//]: # ()
+[//]: # ([comment]: <> "                    .setConfig&#40;"will-msg", message&#41; //设置到配置中")
+
+[//]: # ()
+[//]: # ([comment]: <> "                    .thenReturn&#40;&#40;&#40;RepayableDeviceMessage<?>&#41; message&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                        .newReply&#40;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                        .code&#40;ErrorCode.REQUEST_HANDLING.name&#40;&#41;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                        .message&#40;"设备处理中..."&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                        .success&#40;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                    &#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                    .map&#40;r -> &#40;R&#41; r&#41;;")
+
+[//]: # ()
+[//]: # ([comment]: <> "            }")
+
+[//]: # ()
+[//]: # ([comment]: <> "            return Mono.error&#40;err&#41;;")
+
+[//]: # ()
+[//]: # ([comment]: <> "        }&#41;;")
+
+[//]: # ()
+[//]: # ([comment]: <> "    }")
+
+[//]: # ()
+[//]: # ([comment]: <> "}&#41;;")
+
+[//]: # ()
+[//]: # ([comment]: <> "```")
+
+[//]: # ()
+[//]: # ([comment]: <> "二、获取缓存的消息")
+
+[//]: # ()
+[//]: # ([comment]: <> "在收到设备指令后进行解码时,可以先获取是否有缓存到消息,然后发送到设备。")
+
+[//]: # ()
+[//]: # ([comment]: <> "伪代码如下:")
+
+[//]: # ()
+[//]: # ([comment]: <> "```java")
+
+[//]: # ()
+[//]: # ([comment]: <> "@Override")
+
+[//]: # ()
+[//]: # ([comment]: <> "public Mono<? extends Message> decode&#40;MessageDecodeContext context&#41; {")
+
+[//]: # ()
+[//]: # ([comment]: <> "    return context.getDevice&#40;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "        .getAndRemoveConfig&#40;"will-msg"&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "        .map&#40;val -> val.as&#40;DeviceMessage.class&#41;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "        .flatMap&#40;&#40;msg&#41; -> {")
+
+[//]: # ()
+[//]: # ([comment]: <> "            return &#40;&#40;FromDeviceMessageContext&#41; context&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                .getSession&#40;&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "                .send&#40;doEncode&#40;msg&#41;&#41;; //编码并发送给设备")
+
+[//]: # ()
+[//]: # ([comment]: <> "        }&#41;")
+
+[//]: # ()
+[//]: # ([comment]: <> "        .thenReturn&#40;doDecode&#40;context&#41;&#41;; //解码收到的消息")
+
+[//]: # ()
+[//]: # ([comment]: <> "}")
+
+[//]: # ()
+[//]: # ([comment]: <> "```")
+
+[//]: # ()
+[//]: # ([comment]: <> "<div class='explanation primary'>")
+
+[//]: # ()
+[//]: # ([comment]: <> "  <p class='explanation-title-warp'>")
+
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='iconfont icon-bangzhu explanation-icon'></span>")
+
+[//]: # ()
+[//]: # ([comment]: <> "    <span class='explanation-title font-weight'>说明</span>")
+
+[//]: # ()
+[//]: # ([comment]: <> "  </p>")
+
+[//]: # ()
+[//]: # ([comment]: <> "以上代码仅作为演示功能逻辑,请根据实际情况进行相应的处理。")
+
+[//]: # ()
+[//]: # ([comment]: <> "</div>")
+
+[//]: # ()
