@@ -21,7 +21,7 @@
 </tr>
 <tr>
     <td><a href="/dev-guide/java-deploy.html#权限管理中权限数据不完整">权限管理中权限数据不完整</a></td>
-    <td><a href="/dev-guide/java-deploy.html#点击登录按钮无法进入首页，跳转到登录页面">点击登录按钮无法进入首页</a></td>
+    <td><a href="/dev-guide/java-deploy.html#点击登录按钮无法进入首页-跳转到登录页面">点击登录按钮无法进入首页</a></td>
 </tr>
 </table>
 

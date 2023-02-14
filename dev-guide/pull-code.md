@@ -282,7 +282,7 @@ User git
 
   <p>Q：移除无权限（make sure you have the correct access rights）的子模块。</p>
   <p>A：git rm -f [submoduleName],</p>
-   <img src="images/submodule1.png">
+   <img src="./images/submodule1.png">
 </div>
 
 示例：
