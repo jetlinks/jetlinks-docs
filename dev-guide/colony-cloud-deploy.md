@@ -247,3 +247,39 @@ http{
 # 在nginx可执行程序所在目录下执行下方命令 -c 指定配置文件
 ./nginx -c /usr/local/nginx/conf/nginx.conf #启动nginx
 ```
+#### TCP均衡负载
+
+1. nginx.conf配置文件如下：
+```shell
+user  root;
+worker_processes  1;
+
+error_log  /usr/local/nginx/logs/error1.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+
+stream {
+   
+   upstream tcp-test {
+       hash $remote_addr consistent;
+       server 192.168.66.171:1883 weight=1;
+       server 192.168.66.177:1883 weight=1;
+       server 192.168.66.178:1883 weight=1;
+   }
+
+   server {
+       listen 1883;
+       proxy_pass tcp-test;
+   }
+}
+```
+2. 启动nginx
+
+```shell
+# 在nginx可执行程序所在目录下执行下方命令 -c 指定配置文件
+./nginx -c /usr/local/nginx/conf/nginx-tcp.conf #启动nginx
+```
