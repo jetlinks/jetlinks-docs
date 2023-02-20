@@ -1,4 +1,4 @@
-# 本地源码启动
+# 社区版安装部署
 
 ## 系统环境
 
@@ -63,16 +63,6 @@ $ git pull && git submodule init && git submodule update && git submodule foreac
 
 ## 启动后端
 
-<div class='explanation info'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-tishi explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-
-   <p>本文档以企业版源码启动做示例。社区版是企业版的体验版本，
-代码量有所精简但操作步骤一致，如图片上目录名称和社区版目录名称不一致，无需担心跟着操作文档下一步即可。</p>
-
-</div>
 
 ### 配置文件
 
@@ -128,7 +118,7 @@ java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar --spring.elastics
 
 </div>
 
-### 使用命令行启动
+### 使用jar包启动
 
 如果相关环境的ip不是本地,或者端口不是默认端口.请先修改配置文件.
 
@@ -177,65 +167,43 @@ Idea请先安装`lombok`插件.
 ![maven reimport](./images/code-guide-0-6.png)
 ![maven reimport](./images/code-guide-0-7.png)
 
-4. 扩展子模块加入Maven多模块项目
+
+4. 右键`jetlinks-standalone/src/main/java/org...../JetLinksApplication.java`,点击`run`启动main方法即可.
+
+1. 使用平台提供的镜像启动
+
+使用`jetlinks-pro/dist/docker-compose.yml`文件启动后端
+```shell
+cd jetlinks/dist
+docker-compose up -d
+```
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 
     <span class='iconfont icon-tishi explanation-icon'></span>
     <span class='explanation-title font-weight'>提示</span>
   </p>
-<p>如无扩展模块，该步骤可跳过。补充：社区版可跳过该步。</p>
+
+docker-compose中的jetlinks、jetlinks-ui-pro镜像持续更新中，启动docker之前请及时下载更新。
+
+更新命令
+
+```shell
+# 查询镜像REPOSITORY 
+docker images
+REPOSITORY                                                     TAG         IMAGE ID       CREATED        SIZE
+registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro     2.0.0       c4d539556f75   2 days ago     180MB
+
+# 将上一步查询的镜像仓库和tag号带入，执行更新命令。
+docker pull [REPOSITORY]:[TAG]
+
+```
+
 </div>
 
-- jetlinks-pro添加子模块依赖
+2. 使用自己构建的镜像启动
 
-在项目根目录下的`jetlinks-pro/pom.xml`中的modules节点中添加模块
-
-```xml
-
-<modules>
-    <module>expands-components/jetlinks-ctwing</module>
-</modules>
-```
-
-在启动模块`jetlinks-standalone/pom.xml`中引入依赖
-
-```xml
-
-<dependency>
-    <groupId>org.jetlinks.pro</groupId>
-    <artifactId>jetlinks-ctwing</artifactId>
-    <version>${project.version}</version>
-</dependency>
-
-```
-
-- jetlinks-cloud添加子模块依赖
-
-在项目根目录下的`jetlinks-cloud/pom.xml`中的modules节点中添加模块
-
-```xml
-
-<modules>
-    <module>expands-components/jetlinks-ctwing</module>
-</modules>
-```
-
-在启动模块`iot-service/pom.xml`中引入依赖
-
-```xml
-
-<dependency>
-    <groupId>org.jetlinks.pro</groupId>
-    <artifactId>jetlinks-ctwing</artifactId>
-    <version>${project.version}</version>
-</dependency>
-
-```
-
-其余模块同理。
-
-5. 右键`jetlinks-standalone/src/main/java/org...../JetLinksApplication.java`,点击`run`启动main方法即可.
+   具体镜像构建操作可参考 <a href="/dev-guide/deploy-pro.html#docker在线部署">构建docker镜像</a>
 
 ## 启动前端
 
@@ -261,8 +229,9 @@ http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改
 ### IDE启动前端
 准备环境:
 
-1. nodeJs v12.xx
-2. npm v6.xx
+1. nodeJs v16.18.1
+2. npm v8.19.2
+3. yarn v1.22.19
 
 下载前端代码:
 
@@ -470,6 +439,27 @@ $ mvnw.cmd clean package '-Dmaven.test.skip=true'
   <p>A：前端编译时使用yarn命令，npm命令下载依赖包时会存在资源无法下载问题。已编译过的需要删除node_modules和package-lock.json文件后再使用yarn命令编译启动</p>
 </div>
 
+
+#### 上传协议包报无法加载的错误
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题</span>
+  </p>
+
+  <p>Q：无法加载协议，如下图。</p>
+  <img src="./images/not-load-protocol.png">
+
+A：
+
+原因一：目录名称使用中文进行命名！使用中文命名目录，当系统查找协议包时在查找中文目录名称时转义失败，抛出无法加载协议的异常。
+
+原因二：协议内未找到主入口类<span class='explanation-title font-weight'>（implements ProtocolSupportProvider的类）</span>，确认类名是否正确。
+
+原因三：未配置系统管理-基础配置中`base-path`的值,格式为 `http://后端ip:前端端口/api` ,例如`http://192.168.66.177:9000/api`。
+
+</div>
 
 [//]: # (#### 上传协议包抛出无法加载协议异常)
 
