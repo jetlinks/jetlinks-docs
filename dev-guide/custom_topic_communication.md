@@ -141,8 +141,8 @@ public class TopicPayload {
                                 .builder()
                                 .clientId(deviceMessage.getDeviceId())
                                  //封装下行topic
-                                .topic("/".concat(productId).concat(convertResult.getTopic()))
-                                .payloadType(MessagePayloadType.JSON)
+`                                .topic("/".concat(productId).concat(convertResult.getTopic()))
+`                                .payloadType(MessagePayloadType.JSON)
                                 .payload(Unpooled.wrappedBuffer(convertResult.getPayload()))
                                 .build());
             }

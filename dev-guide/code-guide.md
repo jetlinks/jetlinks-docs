@@ -71,8 +71,8 @@
 - 如何横向扩展集群节点？
 - <a target='_self' href='/dev-guide/i18n.html#国际化'>
    国际化</a>
-- 文件管理
-  
+- <a target='_self' href='/dev-guide/file_manager.html'>
+  文件管理</a>
 - <a target='_self' href='/Mocha_ITOM/certificate_management.html#证书管理'>
   证书如何生成？</a>
 - 日志输出级别
@@ -92,7 +92,8 @@
    短连接、低功耗类设备接入平台 </a>
 - <a target='_self' href='/dev-guide/IoT_device_identity_authentication.html'>
    设备身份认证</a>
-- 设备真实状态检测
+- <a target='_self' href='/dev-guide/device_real_state_check.html'>
+   设备真实状态检测</a>
 
 ## 数据流转
 
