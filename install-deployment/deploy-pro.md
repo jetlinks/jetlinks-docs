@@ -22,19 +22,40 @@
 </div>
 
 ## 问题指引
-请参考<a href="/install-deployment/deploy-communityu.html#问题指引">问题指引</a>
+<table>
+<tr>
+    <td><a href="/install-deployment/deploy-question.html#下载完源码后maven编译失败">下载完源码后maven编译失败</a></td>
+    <td><a href="/install-deployment/deploy-question.html#项目打包时有test文件校验不通过">项目打包时有Test文件校验不通过</a></td>
+</tr>
+<tr>
+   <td><a href="/install-deployment/deploy-question.html#数据库不存在">更换为mysql数据库unknown database jetlinks</a></td>
+   <td><a href="/install-deployment/deploy-question.html#更换为mysql数据库启动失败">更换为mysql数据库启动失败</a></td>
+</tr>
+<tr>
+   <td><a href="/install-deployment/deploy-question.html#使用mysql后项目启动报sslhandshakeexception">使用mysql后项目启动报SSLHandshakeException</a></td>
+   <td><a href="/install-deployment/deploy-question.html#首次启动时抛出表已存在异常">首次启动时抛出表已存在异常</a></td>
+</tr>
+<tr>
+   <td><a href="/install-deployment/deploy-question.html#启动时抛出noauth-authentication-required">启动时抛出"NOAUTH Authentication required"</a></td>
+   <td><a href="/install-deployment/deploy-question.html#windows运行jar抛出win32exception">windows运行jar抛出win32exception</a></td>
+</tr>
+<tr>
+   <td><a href="/install-deployment/deploy-question.html#启动前端登录后无导航和菜单信息">启动前端登录后无导航和菜单信息</a></td>
+   <td><a href="/install-deployment/deploy-question.html#上传协议包报无法加载的错误">上传协议包无法加载</a></td>
+</tr>
+</table>
 
 ## 获取源码
 
 1. 进入<a href='https://github.com/jetlinks-v2/jetlinks-pro'>Github</a>
-2. 下载源代码,建议使用`git clone`下载源代码,注意代码分支,`2.0`为最新的开发分支.其他分支为对应的版本.
+2. 下载源代码,建议使用`git clone`下载源代码，注意代码分支,`2.0`为最新的稳定分支。
    ![git-pro.png](./images/git-pro.png)
 
 ```bash
-$ git clone -b 2.0 https://github.com/jetlinks-v2/jetlinks-pro
-$ cd jetlinks-pro
+git clone -b 2.0 https://github.com/jetlinks-v2/jetlinks-pro
+cd jetlinks-pro
 # 企业版子模块需要指定为2.0
-$ git pull && git submodule init && git submodule update && git submodule foreach git checkout 2.0 && git submodule foreach git pull origin 2.0
+git pull && git submodule init && git submodule update && git submodule foreach git checkout 2.0 && git submodule foreach git pull origin 2.0
 ```
 
 3. 扩展子模块加入Maven多模块项目
@@ -134,19 +155,19 @@ java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar --spring.elastics
 linux或者macOS环境下打包:
 
 ```bash
-$ ./mvnw clean package -Dmaven.test.skip=true
+./mvnw clean package -Dmaven.test.skip=true
 ```
 
 windows 环境下打包
 
 ```bash
-$ mvnw.cmd clean package '-Dmaven.test.skip=true'
+mvnw.cmd clean package '-Dmaven.test.skip=true'
 ```
 
 启动
 
 ```bash
-$ java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar
+java -jar ./jetlinks-standalone/target/jetlinks-standalone.jar
 ```
 
 ### 导入IDEA启动
@@ -247,8 +268,8 @@ http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改
 下载前端代码:
 
 ```bash
-$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
-$ cd jetlinks-ui-antd
+git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
+cd jetlinks-ui-antd
 ```
 
 修改后台接口地址：
@@ -296,9 +317,9 @@ export default {
 启动:
 
 ```bash
-$ cd jetlinks-ui-antd
-$ yarn
-$ yarn start:dev
+cd jetlinks-ui-antd
+yarn
+yarn start:dev
 ```
 
 启动成功后,访问: http://localhost:9000 即可.

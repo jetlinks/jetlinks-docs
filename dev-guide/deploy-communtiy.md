@@ -1,11 +1,11 @@
 # jetlinks-communtiy部署
 
-### Jetlinks-communtiy Jar包部署
+### jetlinks-communtiy Jar包部署
 
 #### 拉取源码
-1. 拉取`JetLinks `源码
+1. 拉取`jetlinks-communtiy`源码
 ```shell
- $ git clone -b 2.0 --recurse-submodules git@github.com:jetlinks/jetlinks-communtiy.git
+git clone -b master --recurse-submodules git@github.com:jetlinks/jetlinks-communtiy.git
 ```
 具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
 

@@ -1,11 +1,11 @@
 # jetlinks-pro部署
 
-### Jetlinks-Pro Jar包部署
+### jetlinks-pro Jar包部署
 
 #### 拉取源码
 1. 拉取`JetLinks pro`源码
 ```shell
- $ git clone -b master --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
+git clone -b 2.0 --recurse-submodules git@github.com:jetlinks-v2/jetlinks-pro.git
 ```
 具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
 
@@ -55,7 +55,7 @@ java -jar -Dspring.config.location=/data/application.yml jetlinks-standalone.jar
 ```
 
 
-### Jetlinks-Pro Docker部署
+### jetlinks-pro Docker部署
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>

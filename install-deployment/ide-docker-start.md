@@ -21,9 +21,7 @@ com/jetlinks/jetlinks-community)，可直接前往克隆或者下载。(记得st
 $ cd docker/dev-env
 $ docker-compose up
 ```
-## 源码启动项目
 
-[源码启动项目](http://doc.jetlinks.cn/install-deployment/start-with-source.html)
 
  
 
