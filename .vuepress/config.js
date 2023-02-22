@@ -46,15 +46,18 @@ module.exports = {
                 collapsable: false, // 可选的, 默认值是 true,
                 sidebarDepth: 2,    // 可选的, 默认值是 1
                 children: [
-                    ['/install-deployment/start-with-source.md', '本地源码启动'],
-                    ['/install-deployment/docker-start.md', '使用docker启动'],
+                    ['/install-deployment/deployment.md', '社区版（community）'],
+                    ['/install-deployment/deployment.md', '企业版（pro）'],
+                    ['/install-deployment/deployment.md', '微服务版（cloud）'],
+                    // ['/install-deployment/start-with-source.md', '本地源码启动'],
+                    // ['/install-deployment/docker-start.md', '使用docker启动'],
                     // ['/install-deployment/ide-docker-start.md', '开发环境最佳实践'],
                     // ['/install-deployment/jetlinks-cloud.md', '启动jetlinks微服务版本'],
                     ['/install-deployment/deployment.md', '部署到服务器'],
                     // ['/install-deployment/cluster.md', '集群部署'],
                     ['/dev-guide/colony-deploy.md', '集群部署'],
                     ['/install-deployment/performance.md', '性能优化'],
-                    ['/install-deployment/enterprise-version-start.md', '企业版源码启动'],
+                    // ['/install-deployment/enterprise-version-start.md', '企业版源码启动'],
                     ['/install-deployment/enterprise-version-storehouse.md', '企业版代码仓库说明']
                 ]
             },
