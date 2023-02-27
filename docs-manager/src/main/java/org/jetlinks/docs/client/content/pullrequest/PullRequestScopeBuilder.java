@@ -42,7 +42,7 @@ public class PullRequestScopeBuilder extends AbstractPullRequestBuilder {
                         .append("`").append(detail.getType()).append("` ")
                         .append("[#").append(detail.getNumber()).append("]")
                         .append("(").append(detail.getHtmlUrl()).append(") ")
-                        .append(detail.getDescription());
+                        .append(detail.getDescription()).append("\n");
             }
         });
         return markdown.toString();
