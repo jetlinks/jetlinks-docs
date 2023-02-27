@@ -1,0 +1,16 @@
+server:
+  port: 8880
+  max-http-header-size: 64KB
+  error:
+    include-message: always
+spring:
+  application:
+    name: jetlinks-docs
+  codec:
+    max-in-memory-size: 10MB
+jetlinks:
+  docs:
+    github:
+      webhook-token: jetlinks
+      api-token: jetlinks
+      api-version: 2022-11-28
