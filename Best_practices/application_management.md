@@ -399,22 +399,43 @@
 操作步骤
 
 
-#### 1.登录Gitee-账号设置-第三方应用-点击创建应用
+ 1.登录Gitee-账号设置-第三方应用-点击创建应用
 
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
     <span class='explanation-title font-weight'>说明</span>
   </p>
-   应用回调地址中的{appId}参数为平台应用的id，先随意填写，创建平台应用后需要进行更改
+   应用回调地址中的{appId}参数为JetLinks平台应用管理中某个应用卡片的id，先随意填写，创建平台应用后需要进行更改
 </div>
+  JetLinks平台应用卡片
 
+  ![第三方应用卡片](./img/application-management-sso-11.png)
+  <p>点击编辑，可以在浏览器地址栏看到对应的应用卡片Id</p>
+  <p>如<code>http://192.168.66.215:9000/#/system/Apply/Save?id=1625057706550464512</code></p>
+  <p>卡片ID即为：<code>1625057706550464512</code></p>
+
+  gitee平台的第三方应用
+
+  <div class='explanation primary'>
+    <p class='explanation-title-warp'>
+      <span class='iconfont icon-bangzhu explanation-icon'></span>
+      <span class='explanation-title font-weight'>说明</span>
+    </p>
+     前端代理地址用户可以在系统管理中的基础配置中自定义更改,本文档以<code>http://{ip}:9000/api</code>为例
+  </div>
+
+   ![前端代理地址](./img/application-management-sso-12.png)
+
+   创建第三方应用
    ![创建第三方应用](./img/application-management-sso-01.png)
-#### 2.创建好的gitee应用会提供Client ID和Client Serect
+
+
+   2.创建好的gitee应用会提供Client ID和Client Serect
 
    ![我的应用](./img/application-management-sso-02.png)
 
-#### 3.创建平台第三方应用的单点登陆
+   3.创建平台第三方应用的单点登陆
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -433,6 +454,10 @@
   </p>
   单点登录的scope配置多个gitee权限时，需要在输入法切换成英文的状态下，使用分号（;）进行分割
 </div>
+<p>gitee授权地址：<code>https://gitee.com/oauth/authorize</code></p>
+<p>gitee token地址：<code>https://gitee.com/oauth/token</code></p>
+<p>gitee 用户信息地址：<code>https://gitee.com/api/v5/user</code></p>
+
 
    ![我的应用](./img/application-management-sso-03.png)
    ![我的应用](./img/application-management-sso-04.png)
@@ -490,7 +515,7 @@
 
 ![生成菜单menu](./img/page-api-create-menu.png)
 
-#### 5.选择集成菜单
+#### 5.创建第三方应用，选择集成菜单
 ![添加集成菜单](./img/applicaiton-add-menu.png)
 
 ![选择新增的集成菜单](./img/application-select-menu.png)
@@ -499,6 +524,7 @@
 ![菜单权限分配](./img/page-menu-permission.png)
 
 ### 流程图
+
 ![页面集成和api服务配置流程](./img/application_management_page_api_flow_chart.png)
 
 ## 常见问题
@@ -517,8 +543,21 @@
 <div class='explanation warning'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>问题1</span>
+    <span class='explanation-title font-weight'>问题2</span>
   </p>
 <p>Q：<code>{"message":"Invalid character '；' for QUERY_PARAM in \"user_info；projects；pull_requests\"","status":400,
 "code":"illegal_argument","timestamp":1673317514494}</code></p>
 <p>A：单点登录的scope配置多个权限范围时，需要输入法在英文的状态前提下，输入分号</p></div>
+
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题3</span>
+  </p>
+<p>Q：404 Not Found,nginx/1.23.3</p>
+<p>A：查看jetlinks平台的<code>jetlinks-pro\jetlinks-standalone\src\main\resources\application.
+yml</code>配置文件中的sso中的base-url是否正确</p>
+
+![](./img/application-management-sso-13.png)
+
+</div>
