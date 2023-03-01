@@ -1,4 +1,4 @@
-#   后端部署
+#   部署到服务器
 <div class='explanation primary'>
   <p class='explanation-title-warp'>
     <span class='iconfont icon-bangzhu explanation-icon'></span>
@@ -53,7 +53,25 @@
 
 ## 常见问题
 
+### maven打包报错
+<div class='explanation warning'>
+  <p class='explanation-title-warp'>
+    <span class='iconfont icon-bangzhu explanation-icon'></span>
+    <span class='explanation-title font-weight'>问题1</span>
+  </p>
+Q:jdk和maven环境变量配置问题
 
+```shell
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile) on project common-component: Compilation failure
+[ERROR] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+```
+A:配置环境变量，示例如下
+```shell
+JAVA_HOME   C:\Program Files\Java\jdk1.8.0_333
+MAVEN_HOME  D:\work\apache-maven-3.6.3
+Path        %MAVEN_HOME%\bin,%JAVA_HOME%\bin
+```
+</div>
 
 ### 未指定maven版本导致打包出错
 <div class='explanation warning'>

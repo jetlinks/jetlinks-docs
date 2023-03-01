@@ -1,9 +1,17 @@
 # jetlinks-cloud 部署
-### JetLinks-Cloud Jar包部署
+### jetlinks-cloud Jar包部署
 
-1. 修改配置文件
+1. 拉取`jetlinks pro`源码
+```shell
+git clone -b 2.0 --recurse-submodules git@github.com:jetlinks-v2/jetlinks-cloud.git
+```
+具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
+
+2. 修改配置文件
 
 配置文件示例可参考<a href="/dev-guide/config-info.html#源码获取">配置文件</a>
+
+
 
 3. 修改打包脚本
 
@@ -65,7 +73,7 @@ java -jar -Dspring.config.location=/data/application.yml jetlinks-applicatione.j
 ```
 
 
-### JetLinks-Cloud Docker部署
+### jetlinks-cloud Docker部署
 
 
 1. 修改打包脚本

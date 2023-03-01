@@ -1,9 +1,9 @@
 # 前端部署说明
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
   <p>本文档部署环境为Centos7，提供了两种部署方式分别为源码部署和docker部署，可根据实际情况选择对应的部署方式。社区版、企业版和微服务版共用一个前端，部署方式统一参照本文档。</p>
 </div>
@@ -27,8 +27,9 @@
 
 ### 版本说明
 
-- nodeJs v12.18.1
-- yarn 1.22.19
+- nodeJs v16.18.1
+- npm v8.19.2
+- yarn v1.22.19
 
 ### 操作步骤
 #### 拉取源代码
@@ -38,10 +39,10 @@
 $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
   <p>前端源码是开源的且无额外的仓库，源码克隆下来之后，需要将分支从master切换到2.0分支。</p>
 </div>
@@ -53,6 +54,15 @@ $ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
 yarn install
 yarn build 
 ```
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
+  </p>
+<p>前端请使用yarn打包，已使用过npm打包的前端，需要删除node_modules、package-lock.json、yarn.lock文件后重新yarn及yarn打包</p>
+
+</div>
+
 #### 修改nginx文件
 3. 将打包的`dist`资源文件，上传至服务器上。
 
@@ -144,10 +154,10 @@ cd /usr/local/nginx/sbin
 docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0 ./docker
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
   <p>如需提交自己的仓库，请自行更换自己的仓库地址。</p>
 </div>
@@ -190,10 +200,10 @@ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2
 docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
+<div class='explanation info'>
+  <p class='explanation-title-warp'> 
+    <span class='iconfont icon-tishi explanation-icon'></span>
+    <span class='explanation-title font-weight'>提示</span>
   </p>
 <p>环境变量<span class='explanation-title font-weight'>API_BASE_PATH</span>为后台API根地址，由docker容器自行转发代理，请根据自己的系统配置，
 <span class='explanation-title font-weight'>API_BASE_PATH</span>请使用ipv4地址，使用locahost或者127.0.0.1会因docker地址解析错误而启动镜像失败。</p>

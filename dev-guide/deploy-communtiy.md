@@ -1,11 +1,11 @@
 # jetlinks-communtiy部署
 
-### Jetlinks-Pro Jar包部署
+### jetlinks-communtiy Jar包部署
 
 #### 拉取源码
-1. 拉取`JetLinks `源码
+1. 拉取`jetlinks-communtiy`源码
 ```shell
- $ git clone -b 2.0 --recurse-submodules git@github.com:jetlinks/jetlinks-communtiy.git
+git clone -b master --recurse-submodules git@github.com:jetlinks/jetlinks-communtiy.git
 ```
 具体操作可参考<a href="/dev-guide/pull-code.html#源码获取">源码获取</a>
 
@@ -72,24 +72,18 @@ java -jar -Dspring.config.location=/data/application.yml jetlinks-standalone.jar
 </div>
 
 #### docker在线部署
-1. 执行 `jetlinks-pro\build-and-push-docker.sh`路径下的脚本，脚本具体内容如下
+1. 执行 `jetlinks-communtiy\build-and-push-docker.sh`路径下的脚本，脚本具体内容如下
 
 ```shell
 #!/usr/bin/env bash
-# 这个的镜像仓库地址需要替换为自己的镜像仓库地址
-dockerImage="registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)"
-./mvnw -Dmaven.test.skip=true \
-#以下的子模块若不需要打包可自行删除
--Pmedia -Pedge -Pctwing -Ponenet -Pdueros -Paliyun-bridge -Popc-ua -Pmodbus \
--Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")" \
--Dgit-commit-id="$(git rev-parse HEAD)" \
--Pmedia -T 12 \
-clean package
+
+dockerImage=registry.cn-shenzhen.aliyuncs.com/jetlinks-demo/jetlinks-standalone:$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+mvn clean package '-Dmaven.test.skip=true' -Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
 if [ $? -ne 0 ];then
     echo "构建失败!"
 else
   cd ./jetlinks-standalone || exit
-  docker build -t "$dockerImage" . && docker push "$dockerImage"
+  docker build -t "$dockerImage" .  && docker push "$dockerImage"
 fi
 ```
 <div class='explanation info'>
@@ -123,28 +117,23 @@ fe342cfe5c83: Layer already exists
 
 #### docker离线部署
 
-1. 在根目录创建镜像打包脚本`build-docker.sh`，脚本内容如下:
+1. 执行 `jetlinks-communtiy/build-and-push-docker.sh`路径下的脚本，脚本具体内容如下
 ```shell
 #!/usr/bin/env bash
-#定义镜像名
-dockerImage="jetlinks-standalone:$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)"
-#下列组件若不需要打包可自行刪去
--Pmedia -Pedge -Pctwing -Ponenet -Pdueros -Paliyun-bridge -Popc-ua -Pmodbus \
-./mvnw -Dmaven.test.skip=true \
--Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")" \
--Dgit-commit-id="$(git rev-parse HEAD)" \
--Pmedia -T 12 \
-clean package
+
+dockerImage=registry.cn-shenzhen.aliyuncs.com/jetlinks-demo/jetlinks-standalone:$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+mvn clean package '-Dmaven.test.skip=true' -Dmaven.build.timestamp="$(date "+%Y-%m-%d %H:%M:%S")"
 if [ $? -ne 0 ];then
     echo "构建失败!"
 else
   cd ./jetlinks-standalone || exit
-  docker build -t "$dockerImage" . 
+  docker build -t "$dockerImage" .
+#  && docker push "$dockerImage"
 fi
 ```
-2. 在根目录执行脚本`./build-docker.sh`
 
-3. 导出镜像
+
+2. 导出镜像
    在本地导出，导出的镜像会到源码根目录下，命令格式如下:
 ```shell
 docker save -o [命名].tar [镜像名:版本号]
@@ -178,7 +167,7 @@ $ docker ps -a
 CONTAINER ID   IMAGE                                                                                COMMAND                  CREATED          STATUS        
                PORTS                                                                                                                NAMES
 f303fc2fbd67   registry.cn-hangzhou.aliyuncs.com/jetlinks-demo/jetlinks-standalone:2.0.0-SNAPSHOT   "./docker-entrypoint…"   23 seconds ago   Up 16 seconds 
-               0.0.0.0:1883->1883/tcp, 0.0.0.0:8100-8110->8100-8110/tcp, 0.0.0.0:8845->8845/tcp, 0.0.0.0:8200-8210->8200-8210/udp   jetlinks-pro
+               0.0.0.0:1883->1883/tcp, 0.0.0.0:8100-8110->8100-8110/tcp, 0.0.0.0:8845->8845/tcp, 0.0.0.0:8200-8210->8200-8210/udp   jetlinks-communtiy
 4e883fed1d0d   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0                     "/docker-entrypoint.…"   4 days ago       Up 7 minutes  
                0.0.0.0:9000->80/tcp                                                                                                 jetlinks-pro-ui
 84a9379e3944   kibana:7.17.3                                                                        "/bin/tini -- /usr/l…"   3 weeks ago      Up 8 minutes  
