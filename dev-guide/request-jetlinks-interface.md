@@ -124,7 +124,7 @@ X-Sign: 32a74e780bce7d3269cb09559687a278
 			"deviceId": "1627927152302305280",
 			"content": {
 				"headers": {
-					"serverId": "jetlinks-platform:8899",
+					"serverId": "jetlinks-platform:8844",
 					"deviceName": "网关子设备",
 					"productName": "网关子设备",
 					"connectTime": 1676966421807,
@@ -195,7 +195,7 @@ X-Sign: 892b66d9f9e29d44336dae86b8066057
 			"deviceId": "1627927152302305280",
 			"content": {
 				"headers": {
-					"serverId": "jetlinks-platform:8899",
+					"serverId": "jetlinks-platform:8844",
 					"deviceName": "网关子设备",
 					"productName": "网关子设备",
 					"connectTime": 1676966421807,
@@ -310,7 +310,7 @@ X-Access-Token: 0614f8b1fabe25ebfca8e0f08855726e //上一步骤中获取到的to
 			"deviceId": "1627927152302305280",
 			"content": {
 				"headers": {
-					"serverId": "jetlinks-platform:8899",
+					"serverId": "jetlinks-platform:8844",
 					"deviceName": "网关子设备",
 					"productName": "网关子设备",
 					"connectTime": 1676966421807,
@@ -358,7 +358,7 @@ X-Access-Token: 0614f8b1fabe25ebfca8e0f08855726e //上一步骤中获取到的to
 	@Test
     void getTest(){
         //通过后端访问接口
-//        String url = "http://192.168.66.203:8899/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;
+//        String url = "http://192.168.66.203:8844/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;
 
         //通过前端访问接口
         String url = "http://192.168.66.203:9000/api/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;

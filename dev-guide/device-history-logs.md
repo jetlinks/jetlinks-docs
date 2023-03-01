@@ -67,7 +67,7 @@
 
 ```json
 //请求接口
-GET http://192.168.66.203:8899/device/instance/1621406622872461312/logs?pageSize=1&pageIndex=1&sorts[0].name=timestamp&sorts[0].order=desc
+GET http://192.168.66.203:8844/device/instance/1621406622872461312/logs?pageSize=1&pageIndex=1&sorts[0].name=timestamp&sorts[0].order=desc
 
 //响应结果
 {
@@ -97,7 +97,7 @@ GET http://192.168.66.203:8899/device/instance/1621406622872461312/logs?pageSize
 
 ```json
 //请求接口
-POST http://192.168.66.203:8899/device-instance/mqtt-device/logs
+POST http://192.168.66.203:8844/device-instance/mqtt-device/logs
 
 //请求参数
 {
@@ -133,7 +133,7 @@ POST http://192.168.66.203:8899/device-instance/mqtt-device/logs
 
 ```json
 //请求接口
-http://192.168.66.203:8899/device/instance/1621406622872461312/agg/_query
+http://192.168.66.203:8844/device/instance/1621406622872461312/agg/_query
 
 //请求参数
 {
