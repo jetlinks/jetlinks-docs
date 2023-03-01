@@ -358,7 +358,7 @@ X-Access-Token: 0614f8b1fabe25ebfca8e0f08855726e //上一步骤中获取到的to
 	@Test
     void getTest(){
         //通过后端访问接口
-//        String url = "http://192.168.66.203:8844/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;
+        //String url = "http://192.168.66.203:8844/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;
 
         //通过前端访问接口
         String url = "http://192.168.66.203:9000/api/device/instance/1627927152302305280/logs?pageIndex=0&pageSize=1" ;
