@@ -75,7 +75,8 @@
   文件管理</a>
 - <a target='_self' href='/Mocha_ITOM/certificate_management.html#证书管理'>
   证书如何生成？</a>
-- 日志输出级别
+- <a target='_self' href='/dev-guide/log-level.html'>
+   日志输出级别</a>
 
 ### 协议开发
 - <a target='_self' href='/protocol/first.html'>
@@ -101,7 +102,8 @@
    设备数据推送到消息中间件</a>
 - <a target='_self' href='/dev-guide/subs-platform-message.html'>
    订阅平台相关消息</a>
-- 调用平台历史数据接口
+- <a target='_self' href='/dev-guide/device-history-logs.html'>
+   调用设备历史数据接口</a>
 
 
 
