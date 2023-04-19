@@ -8,7 +8,7 @@
 
 1. 获取源代码  
 ```shell script
-$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
+$ git clone -b https://gitee.com/jetlinks/jetlinks-ui-vue.git
 ```
 
 2. 使用npm打包,并将打包后的文件复制到项目的docker目录下（命令在项目根目录下执行）  
@@ -21,12 +21,12 @@ cp -r dist docker/
 ### 使用docker部署前端
 1. 构建docker镜像  
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0 ./docker
 ```
 
 2. 运行docker镜像  
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
 ```
 
 <div class='explanation info'>
@@ -168,7 +168,7 @@ services:
       POSTGRES_DB: jetlinks
       TZ: Asia/Shanghai
   ui:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
     container_name: jetlinks-ce-ui
     ports:
       - 9000:80

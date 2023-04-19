@@ -49,7 +49,7 @@ $ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-community.git && cd jetli
     <span class='explanation-title font-weight'>提示</span>
   </p>
 
-docker-compose中的jetlinks、jetlinks-ui-pro镜像持续更新中，启动docker之前请及时下载更新。
+docker-compose中的jetlinks、jetlinks-ui-vue镜像持续更新中，启动docker之前请及时下载更新。
 
 更新命令
 
@@ -57,7 +57,7 @@ docker-compose中的jetlinks、jetlinks-ui-pro镜像持续更新中，启动dock
 # 查询镜像REPOSITORY 
 docker images
 REPOSITORY                                                     TAG         IMAGE ID       CREATED        SIZE
-registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro     2.0.0       c4d539556f75   2 days ago     180MB
+registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue     1.0.0       c4d539556f75   2 days ago     180MB
 
 # 将上一步查询的镜像仓库和tag号带入，执行更新命令。
 docker pull [REPOSITORY]:[TAG]
@@ -130,7 +130,9 @@ sudo chmod 777 -R elasticsearch
 ```shell
 $ docker ps -a
 CONTAINER ID   IMAGE                                                              COMMAND                  CREATED        STATUS                      PORTS                                                                                                                                       NAMES
-312a03479d88   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0   "/docker-entrypoint.…"   25 hours ago   Up 25 hours                 0.0.0.0:9000->80/tcp                                                                                                                        jetlinks-pro-ui
+312a03479d88   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0   "/docker-entrypoint.…"   25 hours 
+ago   Up 25 hours                 0.0.0.0:9000->80/tcp                                                               
+                                                         jetlinks-ui-vue
 4c1dbee856a4   elasticsearch:6.8.10                                               "/usr/local/bin/dock…"   2 weeks ago    Up 25 hours                 0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp                                                                                              jetlinks-elasticsearch
 9cd18f5d05c1   emqx/emqx:5.0.9                                                    "/usr/bin/docker-ent…"   3 weeks ago    Exited (255) 25 hours ago   4370/tcp, 0.0.0.0:8083-8084->8083-8084/tcp, 5369/tcp, 0.0.0.0:8883->8883/tcp, 11883/tcp, 0.0.0.0:18083->18083/tcp, 0.0.0.0:1884->1883/tcp   emqx
 75537b2086ca   tdengine/tdengine:2.6.0.16                                         "/tini -- /usr/bin/e…"   3 weeks ago    Exited (255) 3 weeks ago    0.0.0.0:6030->6030/tcp, 0.0.0.0:6035->6035/tcp, 0.0.0.0:6041->6041/tcp, 0.0.0.0:6030-6040->6030-6040/udp                                    tdengine-component-tdengine-1

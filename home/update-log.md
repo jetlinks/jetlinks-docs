@@ -2,7 +2,7 @@
 
 企业版代码托管在[github](https://github.com/jetlinks-v2)上,购买企业版后可获取企业版代码以及后续更新。
 
-前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-antd)。
+前端代码统一托管在[github](https://github.com/jetlinks/jetlinks-ui-vue)。
 
 <div class='explanation info'>
   <p class='explanation-title-warp'> 

@@ -70,7 +70,7 @@
 | 父模块            | <a href="https://github.com/jetlinks-v2/jetlinks-pro/tree/master/jetlinks-parentr">jetlinks-parentr</a>      | 父模块,统一依赖管理                        |
 | 启动模块            | <a href="https://github.com/jetlinks-v2/jetlinks-pro/tree/master/jetlinks-standalone">jetlinks-standalone</a>      | 项目启动模块                        |
 | 测试报告模块            | <a href="https://github.com/jetlinks-v2/jetlinks-pro/tree/master/test-report">test-report</a>      | 可用于测试报告的生成                        |
-| 前端界面            | <a href="https://github.com/jetlinks/jetlinks-ui-antd">jetlinks-ui-antd</a>      | 前端界面仓库                        |
+| 前端界面            | <a href="https://github.com/jetlinks/jetlinks-ui-vue">jetlinks-ui-vue</a>      | 前端界面仓库                        |
 
 ### IOT平台微服务版模块说明
 

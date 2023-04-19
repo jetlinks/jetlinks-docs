@@ -136,7 +136,7 @@ JetLinks 是前后端分离的.启动完后端服务后,还需要启动前端.
 如果本地不需要修改前端代码,并且本地有docker环境,建议使用docker启动前端.
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
 ```
 http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改.
 
@@ -148,8 +148,8 @@ http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改
 
 下载前端代码:
 ```bash
-$ git clone -b 2.0 https://gitee.com/jetlinks/jetlinks-ui-antd.git
-$ cd jetlinks-ui-antd
+$ git clone -b git@github.com:jetlinks/jetlinks-ui-vue.git
+$ cd jetlinks-ui-vue
 ```
 
 修改后台接口地址：
@@ -196,9 +196,9 @@ export default {
 
 启动:
 ```bash
-$ cd jetlinks-ui-antd
+$ cd jetlinks-ui-vue
 $ yarn
-$ yarn start:dev
+$ yarn dev
 ```
 
 启动成功后,访问: http://localhost:9000 即可.
@@ -213,7 +213,7 @@ $ yarn start:dev
   如您不关注前端实现，建议使用docker镜像启动前端。【[docker安装](/install-deployment/docker-start.md#安装docker)参考】
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://{宿主机IP}:{后端应用端口}/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://{宿主机IP}:{后端应用端口}/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
 ```
 </div>
 

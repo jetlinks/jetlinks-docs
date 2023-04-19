@@ -35,16 +35,9 @@
 1. 拉取源代码
 
 ```shell
-$ git clone git@github.com:jetlinks/jetlinks-ui-antd.git
+$ git clone git@github.com:jetlinks/jetlinks-ui-vue.git
 ```
 
-<div class='explanation primary'>
-  <p class='explanation-title-warp'>
-    <span class='iconfont icon-bangzhu explanation-icon'></span>
-    <span class='explanation-title font-weight'>说明</span>
-  </p>
-  <p>前端源码是开源的且无额外的仓库，源码克隆下来之后，需要将分支从master切换到2.0分支。</p>
-</div>
 
 #### 打包前端镜像
 2. 使用yarn打包,并将打包后生成的dist文件复制到项目的docker目录下（命令在项目根目录下执行）
@@ -141,7 +134,7 @@ cd /usr/local/nginx/sbin
 2. 构建docker镜像
 
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:1.0.0 ./docker
 ```
 
 <div class='explanation primary'>
@@ -158,7 +151,8 @@ docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-p
 ```
 $ docker images
 REPOSITORY                                                            TAG                 IMAGE ID       CREATED          SIZE
-registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro    2.0.0               f76af6002bcd   13 seconds ago   176MB
+registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue    1.0.0               f76af6002bcd   13 seconds 
+ago   176MB
 ```
 
 4. 将镜像推送到远程仓库
@@ -167,9 +161,9 @@ registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro    2.0.0     
 #登录阿里云镜像仓库，此处会让你输密码，就是创建镜像服务时自己设置的密码
 docker login --username=[username] registry.cn-hangzhou.aliyuncs.com
 #设置tag
-docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0-SNAPSHOT
+docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:1.0.0
 #推送到阿里云镜像仓库
-docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0-SNAPSHOT
+docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:1.0.0
 ```
 
 <div class='explanation info'>
@@ -187,7 +181,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2
 6. 运行docker镜像
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:1.0.0
 ```
 
 <div class='explanation primary'>
@@ -240,7 +234,7 @@ docker load -i jetlinks-ui.tar
 ```shell
 [root@localhost ~]# docker images
 REPOSITORY                                                    TAG               IMAGE ID       CREATED        SIZE
-jetlinks-ui-antd                                              2.0.0             b5b3c833c060   4 weeks ago    187MB
+jetlinks-ui-vue                                              1.0.0             b5b3c833c060   4 weeks ago    187MB
 ```
 8.启动前端
 ```shell

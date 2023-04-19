@@ -88,7 +88,7 @@ $ java -jar jetlinks-standalone.jar
 执行前端运行命令
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://{宿主机IP}:{后端应用端口}/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-pro:2.0.0
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://{宿主机IP}:{后端应用端口}/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
 ```
 
 浏览器访问  `localhost:9000` ；输入账号：admin；密码:admin。
