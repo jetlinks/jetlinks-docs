@@ -148,7 +148,7 @@ http://host.docker.internal:8844/ 为后台服务的地址,请根据情况修改
 
 下载前端代码:
 ```bash
-$ git clone -b git@github.com:jetlinks/jetlinks-ui-vue.git
+$ git clone git@github.com:jetlinks/jetlinks-ui-vue.git
 $ cd jetlinks-ui-vue
 ```
 
