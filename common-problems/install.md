@@ -4,7 +4,7 @@
 
 可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。  
 ```shell script
-$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
+$ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8848/" registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:2.1
 ```
 需要将`API_BASE_PATH`修改为后台服务ip地址+端口。    
 
@@ -22,7 +22,7 @@ $ docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://host.docker.internal:8
 可能原因： docker启动UI时设置的`API_BASE_PATH`无法访问后台服务。
 ```yaml
   ui:
-    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:1.0.0
+    image: registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:2.1
     container_name: jetlinks-ce-ui
     ports:
       - 9000:80
