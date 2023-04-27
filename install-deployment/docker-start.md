@@ -130,7 +130,7 @@ sudo chmod 777 -R elasticsearch
 ```shell
 $ docker ps -a
 CONTAINER ID   IMAGE                                                              COMMAND                  CREATED        STATUS                      PORTS                                                                                                                                       NAMES
-312a03479d88   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:2.1   "/docker-entrypoint.…"   25 hours 
+312a03479d88   registry.cn-shenzhen.aliyuncs.com/jetlinks/jetlinks-ui-vue:2.1.0-SNAPSHOT   "/docker-entrypoint.…"   25 hours 
 ago   Up 25 hours                 0.0.0.0:9000->80/tcp                                                               
                                                          jetlinks-ui-vue
 4c1dbee856a4   elasticsearch:6.8.10                                               "/usr/local/bin/dock…"   2 weeks ago    Up 25 hours                 0.0.0.0:9200->9200/tcp, 0.0.0.0:9300->9300/tcp                                                                                              jetlinks-elasticsearch

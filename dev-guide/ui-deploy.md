@@ -134,7 +134,7 @@ cd /usr/local/nginx/sbin
 2. 构建docker镜像
 
 ```bash
-docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1 ./docker
+docker build -t registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1.0-SNAPSHOT ./docker
 ```
 
 <div class='explanation primary'>
@@ -161,9 +161,9 @@ ago   176MB
 #登录阿里云镜像仓库，此处会让你输密码，就是创建镜像服务时自己设置的密码
 docker login --username=[username] registry.cn-hangzhou.aliyuncs.com
 #设置tag
-docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1
+docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1.0-SNAPSHOT
 #推送到阿里云镜像仓库
-docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1
+docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1.0-SNAPSHOT
 ```
 
 <div class='explanation info'>
@@ -181,7 +181,7 @@ docker push registry.cn-hangzhou.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2
 6. 运行docker镜像
 
 ```bash
-docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1
+docker run -it --rm -p 9000:80 -e "API_BASE_PATH=http://xxx:8844/" registry.cn-shenzhen.aliyuncs.com/jetlinks-ui-test/jetlinks-ui-vue:2.1.0-SNAPSHOT
 ```
 
 <div class='explanation primary'>
