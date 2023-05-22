@@ -501,28 +501,47 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 ```js
 {
     "type": "sub", //固定为sub
-    "topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+    "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
     "parameter": {},
     "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
 }
 ```
+topic占位符说明
+
+| 占位符标识     | 名称       | 数据值说明         |
+| ---------------- | ---- | ------------ |
+| targetType     | 告警目标类型        | 支持`device（设备）`、`product（产品）`、`org（组织）`、`other（其它）`四种类型。   |
+| targetId     | 告警目标id       | 分别为告警目标类型的数据id。其中`其它` 类型的告警目标id为场景联动id |
+| alarmId     | 告警配置id       | 告警配置id |
+
 
 平台推送:
 
 ```js
 {
 	"payload": {   //告警相关数据
-		"deviceId": "设备ID",
-        "deviceName": "设备名称",
-        "alarmId": "告警ID",
-        "alarmName": "告警名称"
+		"targetType": "告警目标类型",
+        "targetName": "告警目标名称",
+        "targetId": "告警目标id",
+        "id": "告警ID",
+        "alarmConfigName": "告警名称",
+        "alarmRecordId": "告警记录ID",
+        "level": "告警级别"
         //...其他告警数据
 	},
 	"requestId": "request-id", //订阅请求的ID
-	"topic": "/rule-engine/device/alarm/{productId}/{deviceId}/{alarmId}",
+	"topic": "/alarm/{targetType}/{targetId}/{alarmId}",
 	"type": "result" //为comlete是则表示订阅结束.
 }
 ```
+topic占位符说明
+
+| 占位符标识     | 名称       | 数据值说明         |
+| ---------------- | ---- | ------------ |
+| targetType     | 告警目标类型        | 支持`device（设备）`、`product（产品）`、`org（组织）`、`other（其它）`四种类型。   |
+| targetId     | 告警目标id       | 分别为告警目标类型的数据id。其中`其它` 类型的告警目标id为场景联动id |
+| alarmId     | 告警配置id       | 告警配置id |
+
 
 ### 订阅场景联动
 发送消息到websocket

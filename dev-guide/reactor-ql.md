@@ -414,7 +414,7 @@ mqtt.client.publish(
    ,'JSON'  -- 第三个参数: 消息类型: JSON,STRING,BINARY,HEX
    ,this  -- 消息体,会根据消息类型转为不同格式的消息
    ) publishSuccess -- 返回推送结果 true false
-from "/rule-engine/device/alarm/sensor-1/**"
+from "/rule-engine/*/*/event/*"
 
 ```
 

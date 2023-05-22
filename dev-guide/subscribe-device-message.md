@@ -59,18 +59,34 @@ public Mono<Void> handleDeviceOnline(DeviceOnlineMessage message){
 
 在配置了设备告警规则,设备发生告警时,会发送消息到消息网关.
 
-```js
-`/rule-engine/device/alarm/{productId}/{deviceId}/{ruleId}`
+告警topic格式：`/alarm/{targetType}/{targetId}/{alarmId}/record`
 
-{
-  "productId":"",
-  "alarmId":"",
-  "alarmName":"",
-  "deviceId":"",
-  "deviceName":"",
-  "...":"其他从规则中获取到到信息"
-}
-```
+| 占位符标识     | 名称       | 数据值说明         |
+| ---------------- | ---- | ------------ |
+| targetType     | 告警目标类型        | 支持`device（设备）`、`product（产品）`、`org（组织）`、`other（其它）`四种类型。   |
+| targetId     | 告警目标id       | 分别为告警目标类型的数据id。其中`其它` 类型的告警目标id为场景联动id |
+| alarmId     | 告警配置id       | 告警配置id |
+
+
+**告警内容**
+
+| 字段     | 名称       | 类型         |
+| ---------------- | ---- | ------------ |
+| id     | string        |  告警数据ID  |
+| alarmConfigId     | string       | 告警配置id|
+| alarmConfigName     | string       | 告警配置名称 |
+| alarmRecordId     | string       | 告警记录ID |
+| level     | int       | 告警级别。支持 |
+| alarmTime     | long       | 告警时间 |
+| description     | string       | 说明 |
+| targetType     | string       | 告警目标类型 |
+| targetName     | string       | 告警目标名称 |
+| targetId     | string       | 告警目标id |
+| sourceType     | string       | 告警源类型。由场景触发的告警，则源类型为场景（scene） |
+| sourceId     | string       | 告警源Id。由场景触发的告警，则源ID为场景Id |
+| sourceName     | string       | 告警源名称。由场景触发的告警，则源名称为场景名称 |
+| bindings     | list       | 其他从规则中获取到到信息。如告警配置人的用户信息 |
+
 
 ## 日志
 
