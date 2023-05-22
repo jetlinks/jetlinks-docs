@@ -501,7 +501,7 @@ topic: `/dashboard/{dashboard}/{object}/{measurement}/{dimension}`
 ```js
 {
     "type": "sub", //固定为sub
-    "topic": "/alarm/{targetType}/{targetId}/{alarmId}",
+    "topic": "/alarm/{targetType}/{targetId}/{alarmId}/record",
     "parameter": {},
     "id": "request-id" //请求ID, 请求的标识,服务端在推送消息时,会将此标识一并返回.
 }
@@ -530,7 +530,7 @@ topic占位符说明
         //...其他告警数据
 	},
 	"requestId": "request-id", //订阅请求的ID
-	"topic": "/alarm/{targetType}/{targetId}/{alarmId}",
+	"topic": "/alarm/{targetType}/{targetId}/{alarmId}/record",
 	"type": "result" //为comlete是则表示订阅结束.
 }
 ```
