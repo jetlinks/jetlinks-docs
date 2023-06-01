@@ -109,11 +109,11 @@
           <tr>
             <td rowspan="7">网关</td>
             <td>子设备上线消息</td>
-            <td>/{productId}/{deviceId}/child/{childDeviceId}/connected</td>
+            <td>/{productId}/{deviceId}/child/{childDeviceId}/online</td>
           </tr>
           <tr>
             <td>子设备下线消息</td>
-            <td>/{productId}/{deviceId}/child/{childDeviceId}/disconnect</td>
+            <td>/{productId}/{deviceId}/child/{childDeviceId}/offline</td>
           </tr>
           <tr>
             <td>读取子设备属性回复</td>
