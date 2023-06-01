@@ -3,7 +3,7 @@
   "license": "apache 2.0",
   "scripts": {
     "docs:dev": "vuepress dev .",
-    "docs:build": "vuepress build .",
+    "docs:build": "export NODE_OPTIONS=--openssl-legacy-provider && vuepress build .",
     "build": "node --max_old_space_size=10240 build/build.js"
   },
   "devDependencies": {
