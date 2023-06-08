@@ -9,7 +9,7 @@ JetLinks 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发,
 [![QQ③群647954464](https://img.shields.io/badge/QQ③群-647954464-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=K5m27CkhDn3B_Owr-g6rfiTBC5DKEY59&jump_from=webapi)
 [![QQ④群780133058](https://img.shields.io/badge/QQ④群-780133058-brightgreen)](https://qm.qq.com/cgi-bin/qm/qr?k=Gj47w9kg7TlV5ceD5Bqew_M_O0PIjh_l&jump_from=webapi)
 
-在线演示地址: [http://demo.jetlinks.cn](http://demo.jetlinks.cn) 用户名:`test` 密码: `test123456`.
+在线演示地址: [http://v1.jetlinks.cn](http://v1.jetlinks.cn) 用户名:`test` 密码: `test123456`.
 测试用户未开放全部权限,建议本地运行社区版体验或者联系商务试用企业版.
 
 :::warning 特此声明
