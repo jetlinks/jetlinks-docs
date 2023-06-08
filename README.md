@@ -1,8 +1,17 @@
-<div class='text-color font-size-14'>
+
+<script async src="./redirect.js">
+
+</script>
+
+
+
+
+<div class='text-color font-size-14' >
 
 # JetLinks 开源物联网平台
 
 <div class='divider'></div>
+
 
 **JetLinks物联网平台** 基于Java8,Spring Boot 2.x,WebFlux,Netty,Vert.x,Reactor等开发, 是一个开源的企业级物联网基础开发平台，实现了物联网相关以及相关业务开发的众多基础功能, 能帮助你快速建立物联网相关业务系统。
 
@@ -138,3 +147,5 @@ JetLinks使用模块化(`git submodule`+`maven`)管理,部分核心模块是单�
 </div>
 
 </div>
+
+
